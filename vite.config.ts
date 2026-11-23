@@ -1,12 +1,18 @@
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { readFileSync } from 'node:fs';
+
+const { version } = JSON.parse(readFileSync('./package.json', 'utf8')) as { version: string };
 
 // GitHub Pages serves the site under /<repo>/; CI passes that path in BASE_PATH.
 const base = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
   base,
+  define: {
+    __APP_VERSION__: JSON.stringify(version),
+  },
   plugins: [
     preact(),
     VitePWA({
@@ -40,8 +46,10 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // App shell only. Content packs are cached per activation later (SPEC 5.3).
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
+        // App shell plus the generated content (index and verified packs, about
+        // 26 KB today). Content updates therefore apply on next launch, like app
+        // updates. M5 narrows this to the user's active packs (SPEC 5.3).
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}', 'content/**/*.json'],
         // Large install-time icons are fetched by the OS, not needed offline.
         globIgnores: ['icons/icon-512.png', 'icons/icon-maskable-512.png'],
         navigateFallback: 'index.html',

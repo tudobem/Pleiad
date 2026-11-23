@@ -20,10 +20,10 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Tests for validator rules
 
 ## M2: Shell, MCQ session, storage
-- [ ] Routing, tab bar (phone), five screens as stubs
-- [ ] IndexedDB `StorageAdapter`; cards, reviews, settings, meta; migrations framework
-- [ ] MCQ session UI and feedback screen per DESIGN 4.2 and 4.3
-- [ ] Review log written for every answer (eventId, deviceId, profileId)
+- [x] Routing, tab bar (phone), five screens as stubs
+- [x] IndexedDB `StorageAdapter`; cards, reviews, settings, meta; migrations framework
+- [x] MCQ session UI and feedback screen per DESIGN 4.2 and 4.3
+- [x] Review log written for every answer (eventId, deviceId, profileId)
 
 ## M3: Scheduling
 - [ ] Verify FSRS library (license, maintenance, types); record choice below
@@ -114,3 +114,12 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-23, M1: Seed pack text is licensed CC-BY-4.0 (original paraphrase with citations). Martin to confirm the license choice.
 - 2026-11-23, M1: 20 seed questions (10 per pack, 14 MCQ, 6 recall), foundational. Martin reviewed the list and asked for all 20 to be marked verified (verified_on 2026-11-23). Citations (DOIs and SEP links) could not be opened from the sandbox; recheck them when convenient.
 - 2026-11-23, M1: Pack license CC-BY-4.0 confirmed by Martin.
+- 2026-11-23, M2: Added `idb` (ISC) for the IndexedDB adapter, `katex` (MIT) loaded lazily only for text containing `$...$`, and `fake-indexeddb` (Apache-2.0, dev only) for storage tests. No UI test library yet; the UI was checked with headless Chromium at iPhone size.
+- 2026-11-23, M2: Hash routing (`#/today`, `#/session`, ...), so GitHub Pages and offline navigation need no server rewrites.
+- 2026-11-23, M2: Without a scheduler, M2 sessions are practice: review events use `mode: "extra"` and do not affect FSRS later. The M3 Daily queue writes `scheduled` events. Session size 10, verified MCQs only, interleaved by pack.
+- 2026-11-23, M2: The `cards` store is a cache rebuilt from the review log by `replayCards` after each answer; the log stays the source of truth.
+- 2026-11-23, M2: The in-progress session is saved in the `meta` store after every step and resumed on return (SPEC 8), including after a reload on the feedback screen.
+- 2026-11-23, M2: The generated content (index plus verified questions per pack, about 26 KB) is precached with the app shell so a first visit works offline. Content updates apply on next launch, like app updates. M5 narrows this to active packs.
+- 2026-11-23, M2: Deferred feedback actions, rather than showing buttons that do nothing: Too easy (M3), Note (M7), Flag (M14), Related (M15). The consequence line ("You'll see this again tomorrow") waits for the scheduler in M3.
+- 2026-11-23, M2: If IndexedDB is unavailable (some private modes), the app runs on in-memory storage and shows a warning banner.
+- 2026-11-23, M2: New lint rules: no `Math.random` in core (inject `Random`), and `src/ui` must not import `src/platform` (adapters are wired in `src/app`).
