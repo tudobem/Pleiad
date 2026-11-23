@@ -1,0 +1,58 @@
+{
+  "$schema": "../../../schema/taxonomy.schema.json",
+  "nodes": [
+    {
+      "id": "philosophy",
+      "label": "Philosophy",
+      "kind": "domain"
+    },
+    {
+      "id": "philosophy-of-mind",
+      "label": "Philosophy of mind",
+      "kind": "subject",
+      "parent": "philosophy"
+    },
+    {
+      "id": "pom-consciousness",
+      "label": "Consciousness",
+      "kind": "branch",
+      "parent": "philosophy-of-mind"
+    },
+    {
+      "id": "hard-problem",
+      "label": "The hard problem",
+      "kind": "topic",
+      "parent": "pom-consciousness"
+    },
+    {
+      "id": "knowledge-argument",
+      "label": "Mary and the knowledge argument",
+      "kind": "topic",
+      "parent": "pom-consciousness"
+    },
+    {
+      "id": "zombies",
+      "label": "Philosophical zombies",
+      "kind": "topic",
+      "parent": "pom-consciousness"
+    },
+    {
+      "id": "pom-theories",
+      "label": "Theories of mind",
+      "kind": "branch",
+      "parent": "philosophy-of-mind"
+    },
+    {
+      "id": "functionalism",
+      "label": "Functionalism",
+      "kind": "topic",
+      "parent": "pom-theories"
+    },
+    {
+      "id": "chinese-room",
+      "label": "The Chinese room",
+      "kind": "topic",
+      "parent": "pom-theories"
+    }
+  ]
+}

@@ -14,10 +14,10 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Placeholder icon; README with install instructions for iPhone/iPad
 
 ## M1: Content model
-- [ ] Types and JSON schemas: pack, taxonomy, question (mcq, recall to start)
-- [ ] `validate-content.ts` and `build-content-index.ts`; `npm run validate:content` in CI
-- [ ] Two seed packs (Consciousness science, Philosophy of mind) with about 10 placeholder foundational questions, clearly marked `draft` or sample
-- [ ] Tests for validator rules
+- [x] Types and JSON schemas: pack, taxonomy, question (mcq, recall to start)
+- [x] `validate-content.ts` and `build-content-index.ts`; `npm run validate:content` in CI
+- [x] Two seed packs (Consciousness science, Philosophy of mind) with about 10 placeholder foundational questions, clearly marked `draft` or sample
+- [x] Tests for validator rules
 
 ## M2: Shell, MCQ session, storage
 - [ ] Routing, tab bar (phone), five screens as stubs
@@ -105,3 +105,12 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-23, M0: Placeholder icon is a hand-written SVG; PNGs were rendered once with the preinstalled headless browser and committed (no image-tool dependency).
 - 2026-11-23, M0: Markdown files are excluded from Prettier so hand-written docs are not reformatted.
 - 2026-11-23, M0: `npm audit` reports 4 moderate advisories in glob/minimatch via `vite-plugin-pwa` > `workbox-build`. Build-time only, not shipped to the app; the suggested fix downgrades the PWA plugin, so it is accepted for now. Recheck at M8.
+- 2026-11-23, M1: JSON Schemas in `/schema` define the file shapes; `ajv` (dev dependency only) checks them in the scripts. Semantic rules are pure functions in `src/core/content`. The app will trust the CI-validated content index instead of shipping a schema validator.
+- 2026-11-23, M1: Question files are objects `{ $schema, questions: [...] }` (not bare arrays) so editors can autocomplete from the schema.
+- 2026-11-23, M1: "Retired IDs are never deleted or reused" is enforced with a ledger, `content/ids.json`, updated by `npm run content:register`. The validator fails on IDs missing from content or from the ledger.
+- 2026-11-23, M1: Taxonomy node IDs are global; packs may redeclare shared nodes only if identical. Topics may sit under a subject or a branch.
+- 2026-11-23, M1: `content-index.json` is generated into `public/content/` (gitignored) by `npm run content:index`, also run as `prebuild`. Serving question files and caching active packs is M5.
+- 2026-11-23, M1: Seed packs use accent tokens `gold` (consciousness science) and `link` (philosophy of mind) until dedicated subject accent tokens exist.
+- 2026-11-23, M1: Seed pack text is licensed CC-BY-4.0 (original paraphrase with citations). Martin to confirm the license choice.
+- 2026-11-23, M1: 20 seed questions (10 per pack, 14 MCQ, 6 recall), foundational. Martin reviewed the list and asked for all 20 to be marked verified (verified_on 2026-11-23). Citations (DOIs and SEP links) could not be opened from the sandbox; recheck them when convenient.
+- 2026-11-23, M1: Pack license CC-BY-4.0 confirmed by Martin.

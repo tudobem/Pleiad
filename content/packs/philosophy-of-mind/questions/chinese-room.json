@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-chin-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "chinese-room",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["chinese-room", "ai"],
+      "prompt": "What is John Searle's Chinese room argument meant to show?",
+      "options": [
+        {
+          "text": "That running the right program is not, by itself, sufficient for understanding"
+        },
+        {
+          "text": "That computers can never pass the Turing test",
+          "why_wrong": "In the thought experiment the room is imagined to pass for a Chinese speaker."
+        },
+        {
+          "text": "That Chinese is harder to understand than English",
+          "why_wrong": "The language is incidental; any language the person does not know would do."
+        },
+        {
+          "text": "That the brain is not a physical system",
+          "why_wrong": "Searle holds that brains cause minds through their physical, biological powers."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Searle imagines himself following a rulebook to answer Chinese questions without understanding Chinese. He argues that a computer running a program is in the same position: syntax alone does not give meaning.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences, 3(3), 417-457.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        },
+        {
+          "citation": "Cole, D. The Chinese room argument. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/chinese-room/"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    }
+  ]
+}

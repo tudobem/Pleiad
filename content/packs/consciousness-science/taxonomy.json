@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../schema/taxonomy.schema.json",
+  "nodes": [
+    {
+      "id": "science",
+      "label": "Science",
+      "kind": "domain"
+    },
+    {
+      "id": "consciousness-science",
+      "label": "Consciousness science",
+      "kind": "subject",
+      "parent": "science"
+    },
+    {
+      "id": "cons-theories",
+      "label": "Theories",
+      "kind": "branch",
+      "parent": "consciousness-science"
+    },
+    {
+      "id": "iit",
+      "label": "Integrated information theory",
+      "kind": "topic",
+      "parent": "cons-theories"
+    },
+    {
+      "id": "global-workspace",
+      "label": "Global workspace theory",
+      "kind": "topic",
+      "parent": "cons-theories"
+    },
+    {
+      "id": "higher-order-theories",
+      "label": "Higher-order theories",
+      "kind": "topic",
+      "parent": "cons-theories"
+    },
+    {
+      "id": "cons-methods",
+      "label": "Methods",
+      "kind": "branch",
+      "parent": "consciousness-science"
+    },
+    {
+      "id": "neural-correlates",
+      "label": "Neural correlates and contrastive methods",
+      "kind": "topic",
+      "parent": "cons-methods"
+    }
+  ]
+}

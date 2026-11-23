@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-func-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["functionalism"],
+      "prompt": "According to functionalism, what makes a mental state the kind of state it is, for example a pain?",
+      "options": [
+        {
+          "text": "Its causal role: what typically causes it, and how it affects other mental states and behavior"
+        },
+        {
+          "text": "Being a specific type of brain state, such as C-fiber firing",
+          "why_wrong": "That is the type identity theory, which functionalism was partly a reaction to."
+        },
+        {
+          "text": "Being a state of a non-physical mind",
+          "why_wrong": "That is substance dualism."
+        },
+        {
+          "text": "Its qualitative feel, independent of any causes or effects",
+          "why_wrong": "Functionalism defines states by their roles, not by an intrinsic feel."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Functionalism identifies mental states by what they do. Pain is whatever state is typically caused by damage and causes distress and avoidance, whatever it is made of.",
+      "sources": [
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan & D. D. Merrill (Eds.), Art, Mind, and Religion. University of Pittsburgh Press."
+        },
+        {
+          "citation": "Levin, J. Functionalism. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/functionalism/"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    },
+    {
+      "id": "pom-func-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["functionalism", "multiple-realizability"],
+      "prompt": "What is \"multiple realizability\", an idea often used to support functionalism?",
+      "answer_text": "The same mental state can be realized by physically different systems, for example human brains, octopus brains, or in principle silicon.",
+      "explanation": "Putnam argued that if pain can occur in creatures with very different nervous systems, pain cannot be identical to one type of brain state. This favors defining it by its functional role.",
+      "sources": [
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan & D. D. Merrill (Eds.), Art, Mind, and Religion. University of Pittsburgh Press."
+        },
+        {
+          "citation": "Bickle, J. Multiple realizability. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/multiple-realizability/"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    }
+  ]
+}

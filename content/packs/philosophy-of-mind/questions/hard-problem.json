@@ -1,0 +1,97 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-hard-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["hard-problem", "people"],
+      "prompt": "Who introduced the phrase \"the hard problem of consciousness\"?",
+      "options": [
+        {
+          "text": "David Chalmers"
+        },
+        {
+          "text": "Daniel Dennett",
+          "why_wrong": "Dennett is a prominent critic who argues that the hard problem is misconceived."
+        },
+        {
+          "text": "Thomas Nagel",
+          "why_wrong": "Nagel's 1974 bat paper anticipated the worry but did not coin the phrase."
+        },
+        {
+          "text": "John Searle",
+          "why_wrong": "Searle is best known here for the Chinese room argument."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Chalmers named the hard problem in a 1995 paper and a 1994 talk, separating it from the \"easy problems\" of explaining cognitive functions.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    },
+    {
+      "id": "pom-hard-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["hard-problem", "contrast"],
+      "prompt": "In Chalmers's terms, which of these is the hard problem rather than one of the \"easy problems\"?",
+      "options": [
+        {
+          "text": "Explaining why physical processing is accompanied by experience at all"
+        },
+        {
+          "text": "Explaining how the brain discriminates and categorizes stimuli",
+          "why_wrong": "Chalmers lists discrimination among the easy problems: it can be explained by a mechanism."
+        },
+        {
+          "text": "Explaining how we can report our mental states",
+          "why_wrong": "Reportability is an easy problem in Chalmers's sense."
+        },
+        {
+          "text": "Explaining how attention is deliberately controlled",
+          "why_wrong": "Control of behavior and attention are easy problems."
+        }
+      ],
+      "answer": 0,
+      "explanation": "For Chalmers, the easy problems concern functions that can be explained by specifying a mechanism. The hard problem is why performing those functions is accompanied by experience.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    },
+    {
+      "id": "pom-hard-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["hard-problem", "people"],
+      "prompt": "Thomas Nagel's famous 1974 paper asks what question about an animal?",
+      "answer_text": "\"What is it like to be a bat?\"",
+      "explanation": "Nagel argued that an organism is conscious if there is something it is like to be it, and that this subjective character seems to escape objective, physical description.",
+      "sources": [
+        {
+          "citation": "Nagel, T. (1974). What is it like to be a bat? The Philosophical Review, 83(4), 435-450.",
+          "url": "https://doi.org/10.2307/2183914"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    }
+  ]
+}

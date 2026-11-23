@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-hot-0001",
+      "pack": "consciousness-science",
+      "topic": "higher-order-theories",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["higher-order"],
+      "prompt": "According to higher-order theories, what makes a mental state conscious?",
+      "options": [
+        {
+          "text": "Being the object of a suitable higher-order representation, such as a thought that one is in that state"
+        },
+        {
+          "text": "Being broadcast to many processes across the brain",
+          "why_wrong": "Broadcast is the condition proposed by global workspace theory."
+        },
+        {
+          "text": "Generating a large amount of integrated information",
+          "why_wrong": "That is the proposal of integrated information theory."
+        },
+        {
+          "text": "Being caused directly by a stimulus in the environment",
+          "why_wrong": "Many unconscious states are also caused by stimuli; higher-order theories add a condition about representation."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Higher-order theories hold that a state is conscious when the subject is aware of being in it, in virtue of a higher-order thought or perception about that state. Rosenthal's higher-order thought theory is a leading version.",
+      "sources": [
+        {
+          "citation": "Rosenthal, D. M. (2005). Consciousness and Mind. Oxford University Press."
+        },
+        {
+          "citation": "Brown, R., Lau, H., & LeDoux, J. E. (2019). Understanding the higher-order approach to consciousness. Trends in Cognitive Sciences, 23(9), 754-768.",
+          "url": "https://doi.org/10.1016/j.tics.2019.06.009"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "confusable_with": ["cons-gwt-0003"],
+      "verified_on": "2026-11-23"
+    }
+  ]
+}

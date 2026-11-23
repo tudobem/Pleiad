@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Taxonomy nodes added or extended by a pack (taxonomy.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["nodes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "$ref": "defs.schema.json#/$defs/id" },
+          "label": { "$ref": "defs.schema.json#/$defs/nonEmptyText" },
+          "kind": { "enum": ["domain", "subject", "branch", "topic"] },
+          "parent": { "$ref": "defs.schema.json#/$defs/id" }
+        }
+      }
+    }
+  }
+}

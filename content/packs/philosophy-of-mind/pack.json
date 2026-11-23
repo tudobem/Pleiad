@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../schema/pack.schema.json",
+  "id": "philosophy-of-mind",
+  "title": "Philosophy of mind",
+  "description": "Classic arguments and positions about the mind, consciousness and their place in the physical world.",
+  "version": "0.1.0",
+  "language": "en",
+  "author": "Pleiad",
+  "license": "CC-BY-4.0",
+  "provenance": "Claude-drafted seed questions, paraphrased from the cited sources. Unverified until reviewed by Martin.",
+  "created": "2026-11-23",
+  "domainPath": ["philosophy", "philosophy-of-mind"],
+  "accent": "link"
+}

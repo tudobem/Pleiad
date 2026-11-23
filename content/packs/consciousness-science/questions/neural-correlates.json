@@ -1,0 +1,106 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-ncc-0001",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["ncc", "definition"],
+      "prompt": "How do Koch and colleagues define a neural correlate of consciousness (NCC) for a specific experience?",
+      "options": [
+        {
+          "text": "The minimal set of neural events and mechanisms jointly sufficient for that specific conscious experience"
+        },
+        {
+          "text": "Any brain activity recorded while the person is awake",
+          "why_wrong": "Much waking activity is unconscious; the NCC is the minimal sufficient part."
+        },
+        {
+          "text": "The single brain region where all experiences are stored",
+          "why_wrong": "The definition concerns sufficient mechanisms, not a storage site."
+        },
+        {
+          "text": "Brain activity that occurs only during dreaming",
+          "why_wrong": "NCCs are sought for experiences in general, awake or dreaming."
+        }
+      ],
+      "answer": 0,
+      "explanation": "The definition picks out the minimal neural mechanisms that together suffice for a particular experience, which separates the correlates from mere background conditions such as blood flow or arousal.",
+      "sources": [
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M., & Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience, 17, 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    },
+    {
+      "id": "cons-ncc-0002",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["ncc", "methods"],
+      "prompt": "In the contrastive method for studying consciousness, what two kinds of conditions are compared?",
+      "answer_text": "Conditions where the stimulus stays the same but conscious perception differs (seen versus unseen), for example in masking or binocular rivalry.",
+      "explanation": "Holding the input constant while experience changes lets researchers separate neural activity linked to consciousness from activity linked to the stimulus itself. Baars called this contrastive analysis.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M., & Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience, 17, 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    },
+    {
+      "id": "cons-ncc-0003",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["ncc", "methods", "rivalry"],
+      "prompt": "In binocular rivalry, each eye is shown a different image. What changes over time while the stimulus stays the same?",
+      "options": [
+        {
+          "text": "Which of the two images the person consciously sees"
+        },
+        {
+          "text": "The images presented to each eye",
+          "why_wrong": "The images are held constant; that is what makes rivalry useful."
+        },
+        {
+          "text": "Which eye is open",
+          "why_wrong": "Both eyes stay open throughout."
+        },
+        {
+          "text": "The brightness of both images",
+          "why_wrong": "The physical stimulus does not change."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Perception alternates between the two images even though the input is constant, so rivalry dissociates conscious perception from the stimulus.",
+      "sources": [
+        {
+          "citation": "Blake, R., & Logothetis, N. K. (2002). Visual competition. Nature Reviews Neuroscience, 3, 13-21.",
+          "url": "https://doi.org/10.1038/nrn701"
+        },
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M., & Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience, 17, 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
+    }
+  ]
+}

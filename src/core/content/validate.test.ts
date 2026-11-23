@@ -1,0 +1,207 @@
+import { describe, expect, it } from 'vitest';
+import { validateContent, type ValidateInput } from './validate.ts';
+import { NODES, ledgerFor, mcq, meta, pack, recall } from './fixtures.test-util.ts';
+import type { LoadedPack } from './types.ts';
+
+const TOKENS = new Set(['gold', 'link']);
+
+function codes(input: Partial<ValidateInput> & { packs: LoadedPack[] }): string[] {
+  const full: ValidateInput = { accentTokens: TOKENS, ledger: ledgerFor(...input.packs), ...input };
+  return validateContent(full).issues.map((i) => `${i.level}:${i.code}`);
+}
+
+describe('validateContent', () => {
+  it('accepts a valid pack with no issues', () => {
+    expect(codes({ packs: [pack([mcq(), recall()])] })).toEqual([]);
+  });
+
+  describe('pack metadata', () => {
+    it('requires id to match the folder', () => {
+      const p = { ...pack([mcq()]), meta: meta({ id: 'other' }) };
+      expect(codes({ packs: [p], ledger: { 'q-mcq-0001': 'other' } })).toContain(
+        'error:pack.id-mismatch',
+      );
+    });
+
+    it('requires domainPath to be an existing root-down path', () => {
+      const missing = { ...pack([]), meta: meta({ domainPath: ['science', 'nope'] }) };
+      expect(codes({ packs: [missing] })).toContain('error:pack.domain-path');
+      const skipped = { ...pack([]), meta: meta({ domainPath: ['cons'] }) };
+      expect(codes({ packs: [skipped] })).toContain('error:pack.domain-path');
+    });
+
+    it('requires the accent to be a known token', () => {
+      const p = { ...pack([]), meta: meta({ accent: 'purple' }) };
+      expect(codes({ packs: [p] })).toContain('error:pack.accent');
+    });
+  });
+
+  describe('questions', () => {
+    it('rejects duplicate IDs across packs', () => {
+      const a = pack([mcq()]);
+      const b = pack([mcq({ pack: 'b-pack' })], {
+        folder: 'b-pack',
+        meta: meta({ id: 'b-pack' }),
+      });
+      expect(codes({ packs: [a, b], ledger: ledgerFor(a) })).toContain(
+        'error:question.duplicate-id',
+      );
+    });
+
+    it('checks pack and topic consistency', () => {
+      expect(codes({ packs: [pack([mcq({ pack: 'elsewhere' })])] })).toContain(
+        'error:question.pack',
+      );
+      const wrongFile = pack([mcq()]);
+      const moved: LoadedPack = {
+        ...wrongFile,
+        questionFiles: [
+          { path: 'cons-pack/questions/gwt.json', topicFromName: 'gwt', questions: [mcq()] },
+        ],
+      };
+      expect(codes({ packs: [moved] })).toContain('error:question.topic-file');
+    });
+
+    it('rejects unknown topics and non-topic nodes', () => {
+      expect(codes({ packs: [pack([mcq({ topic: 'ghost' })])] })).toContain('error:question.topic');
+      expect(codes({ packs: [pack([mcq({ topic: 'theories' })])] })).toContain(
+        'error:question.topic',
+      );
+    });
+
+    it('ties verified_on to status verified', () => {
+      expect(codes({ packs: [pack([mcq({ status: 'verified' })])] })).toContain(
+        'error:question.verified-on',
+      );
+      expect(codes({ packs: [pack([mcq({ verified_on: '2026-02-01' })])] })).toContain(
+        'error:question.verified-on',
+      );
+      expect(
+        codes({ packs: [pack([mcq({ status: 'verified', verified_on: '2025-12-31' })])] }),
+      ).toContain('error:question.verified-on');
+      expect(
+        codes({ packs: [pack([mcq({ status: 'verified', verified_on: '2026-02-01' })])] }),
+      ).toEqual([]);
+    });
+
+    it('requires media files to exist', () => {
+      const q = mcq({ media: [{ src: 'media/a.png', alt: 'A diagram', license: 'CC-BY-4.0' }] });
+      expect(codes({ packs: [pack([q])] })).toContain('error:media.missing');
+      expect(codes({ packs: [pack([q], { mediaFiles: ['media/a.png'] })] })).toEqual([]);
+    });
+  });
+
+  describe('mcq rules', () => {
+    const opts = (texts: string[]) => texts.map((text) => ({ text }));
+
+    it('rejects an out-of-range answer', () => {
+      expect(codes({ packs: [pack([mcq({ answer: 4 })])] })).toContain('error:mcq.answer-range');
+    });
+
+    it.each(['All of the above', 'None of these', 'none of the above.', 'Both of the above'])(
+      'rejects catch-all option "%s"',
+      (text) => {
+        const q = mcq({ options: opts(['A real answer', 'Another', 'Third', text]) });
+        expect(codes({ packs: [pack([q])] })).toContain('error:mcq.catch-all');
+      },
+    );
+
+    it('rejects options that are the same after normalization', () => {
+      const q = mcq({
+        options: opts(['Global broadcast', 'global  broadcast!', 'Third', 'Fourth']),
+      });
+      expect(codes({ packs: [pack([q])] })).toContain('error:mcq.duplicate-option');
+    });
+
+    it('rejects why_wrong on the correct option', () => {
+      const q = mcq({
+        options: [{ text: 'Right', why_wrong: 'oops' }, ...opts(['B', 'C', 'D'])],
+      });
+      expect(codes({ packs: [pack([q])] })).toContain('error:mcq.why-wrong-on-answer');
+    });
+  });
+
+  describe('references', () => {
+    it('checks confusable_with', () => {
+      expect(codes({ packs: [pack([mcq({ confusable_with: ['ghost'] })])] })).toContain(
+        'error:ref.confusable',
+      );
+      expect(codes({ packs: [pack([mcq({ confusable_with: ['q-mcq-0001'] })])] })).toContain(
+        'error:ref.confusable',
+      );
+      const ok = pack([mcq({ confusable_with: ['q-recall-0001'] }), recall()]);
+      expect(codes({ packs: [ok] })).toEqual([]);
+    });
+
+    it('warns when confusable_with points at a retired item', () => {
+      const p = pack([mcq({ confusable_with: ['q-recall-0001'] }), recall({ status: 'retired' })]);
+      expect(codes({ packs: [p] })).toContain('warning:ref.retired');
+    });
+
+    it('checks prerequisites against questions and concepts', () => {
+      expect(codes({ packs: [pack([mcq({ prerequisites: ['ghost'] })])] })).toContain(
+        'error:ref.prerequisite',
+      );
+      const concepts = { nodes: [{ id: 'phi', label: 'Phi' }], edges: [] };
+      const ok = pack([mcq({ prerequisites: ['phi', 'q-recall-0001'] }), recall()], { concepts });
+      expect(codes({ packs: [ok] })).toEqual([]);
+    });
+
+    it('checks concepts and concept edges, and warns on orphans', () => {
+      expect(codes({ packs: [pack([mcq({ concepts: ['phi'] })])] })).toContain('error:ref.concept');
+      const concepts = {
+        nodes: [
+          { id: 'phi', label: 'Phi', topic: 'iit' },
+          { id: 'unused', label: 'Unused' },
+        ],
+        edges: [{ from: 'phi', to: 'ghost', relation: 'related' as const }],
+      };
+      const result = codes({ packs: [pack([mcq({ concepts: ['phi'] })], { concepts })] });
+      expect(result).toContain('error:concept.edge');
+      expect(result).toContain('warning:concept.orphan');
+      const badTopic = { nodes: [{ id: 'phi', label: 'Phi', topic: 'theories' }], edges: [] };
+      expect(
+        codes({ packs: [pack([mcq({ concepts: ['phi'] })], { concepts: badTopic })] }),
+      ).toContain('error:concept.topic');
+    });
+  });
+
+  it('warns about near-duplicate prompts but not retired ones', () => {
+    const a = mcq();
+    const b = mcq({
+      id: 'q-mcq-0002',
+      prompt: 'What does phi measure, in integrated information theory?',
+    });
+    expect(codes({ packs: [pack([a, b])] })).toContain('warning:question.near-duplicate');
+    const retired = { ...b, status: 'retired' as const };
+    expect(codes({ packs: [pack([a, retired])] })).toEqual([]);
+  });
+
+  describe('id ledger', () => {
+    it('flags deleted, moved and unregistered IDs', () => {
+      const p = pack([mcq()]);
+      expect(codes({ packs: [p], ledger: { ...ledgerFor(p), 'old-0001': 'cons-pack' } })).toContain(
+        'error:ledger.deleted',
+      );
+      expect(codes({ packs: [p], ledger: { 'q-mcq-0001': 'other-pack' } })).toContain(
+        'error:ledger.moved',
+      );
+      expect(codes({ packs: [p], ledger: {} })).toContain('error:ledger.unregistered');
+    });
+
+    it('keeps retired items valid', () => {
+      const p = pack([mcq({ status: 'retired' })]);
+      expect(codes({ packs: [p] })).toEqual([]);
+    });
+  });
+
+  it('merges shared taxonomy nodes across packs', () => {
+    const a = pack([mcq()]);
+    const b = pack([recall({ pack: 'b-pack' })], {
+      folder: 'b-pack',
+      meta: meta({ id: 'b-pack' }),
+    });
+    expect(codes({ packs: [a, b] })).toEqual([]);
+    expect(NODES.length).toBe(5);
+  });
+});
