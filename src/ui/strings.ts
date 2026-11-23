@@ -1,16 +1,74 @@
 /**
  * All user-facing UI strings, keyed by ID (SPEC 3.4). Components never inline
  * copy. English only in v1. Tone: short, warm, plain (DESIGN.md 6).
+ * Placeholders use {name} and are filled by t(id, { name: value }).
  */
 export const strings = {
   'app.name': 'Pleiad',
-  'shell.overline': 'Coming together',
-  'shell.tagline': 'A calm place to remember what matters to you.',
-  'shell.status': 'This is an early version. Questions arrive in a later update.',
+
+  'tab.today': 'Today',
+  'tab.practice': 'Practice',
+  'tab.stats': 'Stats',
+  'tab.library': 'Library',
+  'tab.settings': 'Settings',
+  'tab.label': 'Main',
+
+  'common.loading': 'Loading',
+  'common.comingSoon': 'Coming soon.',
+  'common.retry': 'Try again',
+  'common.loadError': 'Could not load your questions. Check your connection and try again.',
+  'common.saveError': 'Your last answer could not be saved.',
+  'common.storageUnavailable':
+    'This browser is not saving data, so progress will be lost when you close the app.',
+
+  'today.overline': 'Today',
+  'today.title': 'Ready when you are',
+  'today.start': 'Start a session',
+  'today.ready': '{n} questions ready',
+  'today.readyOne': '1 question ready',
+  'today.emptyTitle': 'Nothing to practice yet',
+  'today.emptyBody': 'Questions appear here once they have been checked and verified.',
+  'today.resumeTitle': 'Pick up where you left off',
+  'today.resumeBody': 'Question {current} of {total}',
+  'today.resume': 'Resume session',
+  'today.startNew': 'Start a new session',
+
+  'practice.title': 'Practice',
+  'practice.body': 'Topic drills and weak-spot practice arrive in a later update.',
+  'stats.title': 'Stats',
+  'stats.body': 'Retention, coverage and weak spots arrive in a later update.',
+  'library.title': 'Library',
+  'library.body': 'Browse subjects and topics here in a later update.',
+  'settings.title': 'Settings',
+  'settings.body': 'Daily goal, new items per day and backups arrive in later updates.',
+  'settings.version': 'Version {version}',
+
+  'session.close': 'Close session',
+  'session.progress': '{current} / {total}',
+  'session.progressLabel': 'Question {current} of {total}',
+  'session.optionsLabel': 'Answer options',
+  'session.check': 'Check',
+  'session.continue': 'Continue',
+  'session.finish': 'See results',
+  'session.correct': 'Correct',
+  'session.notQuite': 'Not quite',
+  'session.labelCorrect': 'Correct',
+  'session.labelYours': 'Yours',
+  'session.why': 'Why',
+  'session.source': 'Source',
+  'session.goDeeper': 'Go deeper',
+  'session.showLess': 'Show less',
+  'session.furtherReading': 'Further reading',
+  'session.doneTitle': 'Done for now',
+  'session.doneScore': '{correct} of {total} correct',
+  'session.doneBody': 'Each answer is saved. Come back any time.',
+  'session.backToToday': 'Back to Today',
 } as const;
 
 export type StringId = keyof typeof strings;
 
-export function t(id: StringId): string {
-  return strings[id];
+export function t(id: StringId, vars: Readonly<Record<string, string | number>> = {}): string {
+  return strings[id].replace(/\{(\w+)\}/g, (match, name: string) =>
+    name in vars ? String(vars[name]) : match,
+  );
 }

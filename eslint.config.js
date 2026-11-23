@@ -46,6 +46,10 @@ export const coreRestrictedSyntax = [
     selector: "NewExpression[callee.name='Date'][arguments.length=0]",
     message: 'No argument-less new Date() in src/core: use the injected Clock.',
   },
+  {
+    selector: "CallExpression[callee.object.name='Math'][callee.property.name='random']",
+    message: 'No Math.random() in src/core: use the injected Random.',
+  },
 ];
 
 export default tseslint.config(
@@ -100,6 +104,10 @@ export default tseslint.config(
             {
               group: ['idb', 'idb/**'],
               message: 'UI never touches IndexedDB directly; go through StorageAdapter.',
+            },
+            {
+              group: ['**/platform', '**/platform/**'],
+              message: 'src/ui talks to core interfaces; adapters are wired in src/app.',
             },
           ],
         },

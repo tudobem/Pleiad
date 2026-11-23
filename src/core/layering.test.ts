@@ -31,6 +31,10 @@ describe('core layering rules', () => {
     },
   );
 
+  it('rejects Math.random()', async () => {
+    expect(await ruleIdsFor('export const r = Math.random();')).toContain('no-restricted-syntax');
+  });
+
   it('rejects Date.now() and argument-less new Date()', async () => {
     expect(await ruleIdsFor('export const t = Date.now();')).toContain('no-restricted-syntax');
     expect(await ruleIdsFor('export const d = new Date();')).toContain('no-restricted-syntax');
@@ -55,5 +59,17 @@ describe('platform layering rules', () => {
     expect(await ruleIdsFor(code, 'src/platform/storage/__fixture__.ts')).toContain(
       'no-restricted-imports',
     );
+  });
+});
+
+describe('ui layering rules', () => {
+  it('rejects imports from platform', async () => {
+    const code = "import { uuidIds } from '../platform/ids.ts';\nexport { uuidIds };";
+    expect(await ruleIdsFor(code, 'src/ui/__fixture__.ts')).toContain('no-restricted-imports');
+  });
+
+  it('allows imports from core', async () => {
+    const code = "import type { Clock } from '../core/clock.ts';\nexport type C = Clock;";
+    expect(await ruleIdsFor(code, 'src/ui/__fixture__.ts')).toEqual([]);
   });
 });
