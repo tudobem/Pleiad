@@ -1,0 +1,19 @@
+{
+  // Build config, scripts and tests run in Node.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
+  },
+  "include": [
+    "vite.config.ts",
+    "vitest.config.ts",
+    "eslint.config.js",
+    "scripts/**/*.ts",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ]
+}

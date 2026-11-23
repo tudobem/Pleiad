@@ -1,0 +1,37 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: calc(100dvh - 2 * var(--screen-padding));
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.shell__overline {
+  margin: 0;
+  color: var(--gold);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+
+.shell__title {
+  font-size: var(--text-h1);
+}
+
+.shell__tagline {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.shell__card {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
