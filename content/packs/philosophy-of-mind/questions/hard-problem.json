@@ -33,8 +33,9 @@
           "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "pom-hard-0002",
@@ -68,8 +69,9 @@
           "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "pom-hard-0003",
@@ -87,8 +89,9 @@
           "url": "https://doi.org/10.2307/2183914"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     }
   ]
 }

@@ -112,4 +112,5 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-23, M1: `content-index.json` is generated into `public/content/` (gitignored) by `npm run content:index`, also run as `prebuild`. Serving question files and caching active packs is M5.
 - 2026-11-23, M1: Seed packs use accent tokens `gold` (consciousness science) and `link` (philosophy of mind) until dedicated subject accent tokens exist.
 - 2026-11-23, M1: Seed pack text is licensed CC-BY-4.0 (original paraphrase with citations). Martin to confirm the license choice.
-- 2026-11-23, M1: 20 seed questions (10 per pack, 14 MCQ, 6 recall), all `draft`, `foundational`, awaiting Martin's review.
+- 2026-11-23, M1: 20 seed questions (10 per pack, 14 MCQ, 6 recall), foundational. Martin reviewed the list and asked for all 20 to be marked verified (verified_on 2026-11-23). Citations (DOIs and SEP links) could not be opened from the sandbox; recheck them when convenient.
+- 2026-11-23, M1: Pack license CC-BY-4.0 confirmed by Martin.

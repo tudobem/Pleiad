@@ -38,8 +38,9 @@
           "url": "https://plato.stanford.edu/entries/chinese-room/"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     }
   ]
 }

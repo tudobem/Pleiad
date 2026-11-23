@@ -34,8 +34,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "cons-ncc-0002",
@@ -56,8 +57,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "cons-ncc-0003",
@@ -96,8 +98,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     }
   ]
 }

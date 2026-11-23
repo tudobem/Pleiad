@@ -37,8 +37,9 @@
           "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "cons-gwt-0002",
@@ -58,8 +59,9 @@
           "citation": "Baars, B. J. (1997). In the Theater of Consciousness: The Workspace of the Mind. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "cons-gwt-0003",
@@ -102,9 +104,10 @@
           "url": "https://doi.org/10.1016/j.tics.2019.06.009"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-23",
-      "confusable_with": ["cons-iit-0001", "cons-hot-0001"]
+      "confusable_with": ["cons-iit-0001", "cons-hot-0001"],
+      "verified_on": "2026-11-23"
     }
   ]
 }

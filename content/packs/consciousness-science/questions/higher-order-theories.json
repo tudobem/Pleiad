@@ -37,9 +37,10 @@
           "url": "https://doi.org/10.1016/j.tics.2019.06.009"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-23",
-      "confusable_with": ["cons-gwt-0003"]
+      "confusable_with": ["cons-gwt-0003"],
+      "verified_on": "2026-11-23"
     }
   ]
 }

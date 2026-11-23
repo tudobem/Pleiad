@@ -37,8 +37,9 @@
           "url": "https://plato.stanford.edu/entries/zombies/"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "pom-zomb-0002",
@@ -76,9 +77,10 @@
           "url": "https://doi.org/10.2307/2960077"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-23",
-      "confusable_with": ["pom-zomb-0001", "pom-know-0001"]
+      "confusable_with": ["pom-zomb-0001", "pom-know-0001"],
+      "verified_on": "2026-11-23"
     }
   ]
 }

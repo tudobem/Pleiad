@@ -38,8 +38,9 @@
           "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     },
     {
       "id": "pom-know-0002",
@@ -60,8 +61,9 @@
           "citation": "Jackson, F. (1998). Postscript on qualia. In Mind, Method and Conditionals: Selected Essays. Routledge."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-23"
+      "status": "verified",
+      "created": "2026-11-23",
+      "verified_on": "2026-11-23"
     }
   ]
 }
