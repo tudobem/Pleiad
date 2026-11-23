@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Questions for one topic (questions/<topic-id>.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["questions"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "questions": { "type": "array", "items": { "$ref": "question.schema.json" } }
+  }
+}

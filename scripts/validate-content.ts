@@ -1,28 +1,26 @@
 /**
- * Content validator entry point (`npm run validate:content`).
- *
- * M0 stub: confirms the packs directory exists and reports what is there.
- * Schema and rule checks (SPEC 5.5) are implemented in M1.
+ * `npm run validate:content`: schema checks, semantic rules (SPEC 5.5) and a
+ * count report (SPEC 5.6). Exits 1 on any error.
  */
-import { existsSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { loadContent, formatIssues } from './lib/content.ts';
+import { validateContent } from '../src/core/content/validate.ts';
+import { countContent, formatReport } from '../src/core/content/report.ts';
 
-const packsDir = fileURLToPath(new URL('../content/packs', import.meta.url));
-
-if (!existsSync(packsDir)) {
-  console.error(`validate:content: missing directory ${packsDir}`);
-  process.exit(1);
+const loaded = loadContent();
+const issues = [...loaded.issues];
+if (issues.length === 0) {
+  const result = validateContent({
+    packs: loaded.packs,
+    ...(loaded.ledger ? { ledger: loaded.ledger } : {}),
+    accentTokens: loaded.accentTokens,
+  });
+  issues.push(...result.issues);
 }
 
-const packs = readdirSync(packsDir, { withFileTypes: true }).filter((e) => e.isDirectory());
-const withoutManifest = packs.filter((p) => !existsSync(join(packsDir, p.name, 'pack.json')));
+console.log(formatReport(countContent(loaded.packs)));
 
-console.log(`validate:content: ${packs.length} pack(s) found.`);
-if (withoutManifest.length > 0) {
-  console.error(
-    `validate:content: pack folder(s) without pack.json: ${withoutManifest.map((p) => p.name).join(', ')}`,
-  );
-  process.exit(1);
-}
-console.log('validate:content: OK (full schema validation arrives in M1).');
+const errors = issues.filter((i) => i.level === 'error').length;
+const warnings = issues.length - errors;
+if (issues.length > 0) console.log(`\nIssues\n${formatIssues(issues)}`);
+console.log(`\nvalidate:content: ${errors} error(s), ${warnings} warning(s).`);
+process.exit(errors > 0 ? 1 : 0);

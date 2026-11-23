@@ -1,0 +1,110 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-gwt-0001",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["global-workspace", "broadcast"],
+      "prompt": "According to global workspace theory, a mental content becomes conscious when it...",
+      "options": [
+        {
+          "text": "is broadcast widely, so that many specialized processes in the brain can use it"
+        },
+        {
+          "text": "reaches a high enough value of integrated information ($\\Phi$)",
+          "why_wrong": "$\\Phi$ belongs to integrated information theory."
+        },
+        {
+          "text": "becomes the target of a suitable higher-order representation",
+          "why_wrong": "That is the condition proposed by higher-order theories."
+        },
+        {
+          "text": "is processed in primary sensory cortex alone",
+          "why_wrong": "Workspace theories link consciousness to global availability, not to local sensory processing."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Global workspace theory holds that many unconscious specialist processes compete, and the winning content is broadcast through a global workspace. According to the theory, that global availability is what makes it conscious.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Dehaene, S., & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. Cognition, 79(1-2), 1-37.",
+          "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23"
+    },
+    {
+      "id": "cons-gwt-0002",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["global-workspace", "people"],
+      "prompt": "Who first proposed global workspace theory, often illustrated with the image of a spotlight on a theatre stage?",
+      "answer_text": "Bernard Baars",
+      "explanation": "Baars set out the theory in 1988 and later popularized the theatre metaphor: the spotlight of attention picks out what is broadcast to the audience of unconscious processes.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Baars, B. J. (1997). In the Theater of Consciousness: The Workspace of the Mind. Oxford University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23"
+    },
+    {
+      "id": "cons-gwt-0003",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "global-workspace", "iit", "higher-order"],
+      "prompt": "Which pairing of theory and core claim is correct?",
+      "options": [
+        {
+          "text": "Global workspace theory: consciousness is the global availability of information"
+        },
+        {
+          "text": "Integrated information theory: a state is conscious when a higher-order thought represents it",
+          "why_wrong": "Higher-order representation is the claim of higher-order theories."
+        },
+        {
+          "text": "Higher-order theories: consciousness is identical to integrated information",
+          "why_wrong": "Integrated information ($\\Phi$) is the central notion of IIT."
+        },
+        {
+          "text": "Global workspace theory: consciousness requires integrated information above a threshold",
+          "why_wrong": "Workspace theories appeal to broadcast, not to $\\Phi$."
+        }
+      ],
+      "answer": 0,
+      "explanation": "The three theories locate consciousness differently: global availability (workspace), integrated information (IIT), or being represented by a higher-order state (higher-order theories).",
+      "sources": [
+        {
+          "citation": "Dehaene, S., & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. Cognition, 79(1-2), 1-37.",
+          "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
+        },
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience, 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        },
+        {
+          "citation": "Brown, R., Lau, H., & LeDoux, J. E. (2019). Understanding the higher-order approach to consciousness. Trends in Cognitive Sciences, 23(9), 754-768.",
+          "url": "https://doi.org/10.1016/j.tics.2019.06.009"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23",
+      "confusable_with": ["cons-iit-0001", "cons-hot-0001"]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-zomb-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["zombies", "physicalism"],
+      "prompt": "In the zombie argument against physicalism, a philosophical zombie is...",
+      "options": [
+        {
+          "text": "a being physically identical to a conscious human, but with no conscious experience at all"
+        },
+        {
+          "text": "a person in a persistent vegetative state",
+          "why_wrong": "Such a patient differs physically and behaviorally from a typical conscious person."
+        },
+        {
+          "text": "a robot that behaves like a human but is built from different parts",
+          "why_wrong": "A zombie is a physical duplicate, not merely a behavioral one."
+        },
+        {
+          "text": "a person who acts out of habit without thinking",
+          "why_wrong": "Zombies lack experience entirely, not just reflection."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Chalmers argues that zombies are conceivable and therefore possible, and that if they are possible, facts about consciousness are not fixed by the physical facts.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        },
+        {
+          "citation": "Kirk, R. Zombies. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/zombies/"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23"
+    },
+    {
+      "id": "pom-zomb-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "zombies", "knowledge-argument"],
+      "prompt": "The zombie argument and the knowledge argument both target physicalism. How do they mainly differ?",
+      "options": [
+        {
+          "text": "The zombie argument appeals to what is conceivable; the knowledge argument appeals to what can be learned"
+        },
+        {
+          "text": "The zombie argument is about memory; the knowledge argument is about free will",
+          "why_wrong": "Both are about conscious experience."
+        },
+        {
+          "text": "Only the knowledge argument is about consciousness",
+          "why_wrong": "Both concern conscious experience and its relation to the physical."
+        },
+        {
+          "text": "Only the zombie argument was offered against physicalism",
+          "why_wrong": "Jackson originally offered the knowledge argument against physicalism too."
+        }
+      ],
+      "answer": 0,
+      "explanation": "The zombie argument moves from the conceivability of a physical duplicate without experience to its possibility. The knowledge argument moves from Mary learning something new to the existence of non-physical facts.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        },
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23",
+      "confusable_with": ["pom-zomb-0001", "pom-know-0001"]
+    }
+  ]
+}

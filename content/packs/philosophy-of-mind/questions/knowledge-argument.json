@@ -1,0 +1,67 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-know-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["knowledge-argument", "mary"],
+      "prompt": "In Frank Jackson's \"Mary's room\" thought experiment, what does Mary know before she leaves her black-and-white room?",
+      "options": [
+        {
+          "text": "All the physical facts about color and color vision, although she has never seen color"
+        },
+        {
+          "text": "Nothing about color science",
+          "why_wrong": "The setup requires that she knows all the physical facts."
+        },
+        {
+          "text": "Only what other people say about their color experiences",
+          "why_wrong": "She has complete physical knowledge, not just testimony."
+        },
+        {
+          "text": "How to see colors by imagining them",
+          "why_wrong": "She has never had color experiences to draw on."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Mary is a brilliant scientist who knows every physical fact about color vision but has only ever seen black and white. The question is whether she learns something new when she first sees red.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Nida-Rümelin, M., & O Conaill, D. Qualia: The knowledge argument. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23"
+    },
+    {
+      "id": "pom-know-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["knowledge-argument", "physicalism"],
+      "prompt": "What conclusion did Jackson originally draw from the Mary case?",
+      "answer_text": "That physicalism is false: when Mary first sees color she learns a fact about experience that is not a physical fact.",
+      "explanation": "Jackson argued that complete physical knowledge leaves out something, the qualia of experience. He later rejected the argument and came to defend physicalism.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Jackson, F. (1998). Postscript on qualia. In Mind, Method and Conditionals: Selected Essays. Routledge."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-23"
+    }
+  ]
+}

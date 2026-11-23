@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Question (SPEC 5.4 and 6)",
+  "type": "object",
+  "required": [
+    "id",
+    "pack",
+    "topic",
+    "type",
+    "tier",
+    "tags",
+    "prompt",
+    "explanation",
+    "sources",
+    "status",
+    "created"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "defs.schema.json#/$defs/id"
+    },
+    "pack": {
+      "$ref": "defs.schema.json#/$defs/id"
+    },
+    "topic": {
+      "$ref": "defs.schema.json#/$defs/id"
+    },
+    "type": {
+      "enum": ["mcq", "recall"]
+    },
+    "tier": {
+      "enum": ["foundational", "advanced", "expert"]
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "defs.schema.json#/$defs/id"
+      }
+    },
+    "prompt": {
+      "$ref": "defs.schema.json#/$defs/nonEmptyText"
+    },
+    "explanation": {
+      "$ref": "defs.schema.json#/$defs/nonEmptyText"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["citation"],
+        "properties": {
+          "citation": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "url": {
+            "$ref": "defs.schema.json#/$defs/url"
+          }
+        }
+      }
+    },
+    "status": {
+      "enum": ["draft", "verified", "retired"]
+    },
+    "created": {
+      "$ref": "defs.schema.json#/$defs/isoDate"
+    },
+    "verified_on": {
+      "$ref": "defs.schema.json#/$defs/isoDate"
+    },
+    "deeper": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "text": {
+          "$ref": "defs.schema.json#/$defs/nonEmptyText"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "url"],
+            "properties": {
+              "label": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "url": {
+                "$ref": "defs.schema.json#/$defs/url"
+              }
+            }
+          }
+        },
+        "furtherReading": {
+          "type": "array",
+          "items": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          }
+        }
+      }
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["src", "alt", "license"],
+        "properties": {
+          "src": {
+            "type": "string",
+            "pattern": "^media/[A-Za-z0-9._/-]+$",
+            "description": "Path relative to the pack folder."
+          },
+          "alt": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "credit": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "license": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText",
+            "description": "Use the pack license for self-authored images."
+          }
+        }
+      }
+    },
+    "confusable_with": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "defs.schema.json#/$defs/id"
+      }
+    },
+    "concepts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "defs.schema.json#/$defs/id"
+      }
+    },
+    "prerequisites": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "defs.schema.json#/$defs/id"
+      }
+    },
+    "lang": {
+      "$ref": "defs.schema.json#/$defs/lang"
+    },
+    "options": true,
+    "answer": true,
+    "answer_text": true
+  },
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "title": "mcq",
+      "properties": {
+        "type": {
+          "const": "mcq"
+        },
+        "options": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text"],
+            "properties": {
+              "text": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "why_wrong": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              }
+            }
+          }
+        },
+        "answer": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "answer_text": false
+      },
+      "required": ["options", "answer"]
+    },
+    {
+      "title": "recall",
+      "properties": {
+        "type": {
+          "const": "recall"
+        },
+        "answer_text": {
+          "$ref": "defs.schema.json#/$defs/nonEmptyText"
+        },
+        "options": false,
+        "answer": false
+      },
+      "required": ["answer_text"]
+    }
+  ]
+}

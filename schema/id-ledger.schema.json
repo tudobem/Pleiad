@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ledger of every question ID ever registered (content/ids.json)",
+  "description": "IDs are never removed. Retire a question instead of deleting it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ids"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "ids": {
+      "type": "object",
+      "propertyNames": { "$ref": "defs.schema.json#/$defs/id" },
+      "additionalProperties": { "$ref": "defs.schema.json#/$defs/id" },
+      "description": "Question ID to pack ID."
+    }
+  }
+}

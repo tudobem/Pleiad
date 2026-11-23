@@ -1,0 +1,25 @@
+{
+  "$schema": "../schema/id-ledger.schema.json",
+  "ids": {
+    "cons-gwt-0001": "consciousness-science",
+    "cons-gwt-0002": "consciousness-science",
+    "cons-gwt-0003": "consciousness-science",
+    "cons-hot-0001": "consciousness-science",
+    "cons-iit-0001": "consciousness-science",
+    "cons-iit-0002": "consciousness-science",
+    "cons-iit-0003": "consciousness-science",
+    "cons-ncc-0001": "consciousness-science",
+    "cons-ncc-0002": "consciousness-science",
+    "cons-ncc-0003": "consciousness-science",
+    "pom-chin-0001": "philosophy-of-mind",
+    "pom-func-0001": "philosophy-of-mind",
+    "pom-func-0002": "philosophy-of-mind",
+    "pom-hard-0001": "philosophy-of-mind",
+    "pom-hard-0002": "philosophy-of-mind",
+    "pom-hard-0003": "philosophy-of-mind",
+    "pom-know-0001": "philosophy-of-mind",
+    "pom-know-0002": "philosophy-of-mind",
+    "pom-zomb-0001": "philosophy-of-mind",
+    "pom-zomb-0002": "philosophy-of-mind"
+  }
+}

@@ -9,3 +9,4 @@ coverage/
 .env.*
 # Never commit source material (see CLAUDE.md)
 *.pdf
+public/content/

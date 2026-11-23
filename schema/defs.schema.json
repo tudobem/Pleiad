@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Shared definitions",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 80,
+      "description": "Lowercase kebab-case identifier, e.g. cons-iit-0001."
+    },
+    "isoDate": {
+      "type": "string",
+      "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$",
+      "description": "ISO calendar date, YYYY-MM-DD."
+    },
+    "url": { "type": "string", "pattern": "^https?://\\S+$" },
+    "nonEmptyText": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "lang": { "type": "string", "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$" }
+  }
+}

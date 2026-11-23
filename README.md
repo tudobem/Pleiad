@@ -27,12 +27,14 @@ npm run dev               # local dev server
 npm test                  # unit tests (Vitest)
 npm run lint              # ESLint, including layering rules
 npm run typecheck         # TypeScript (core is checked without DOM types)
-npm run validate:content  # content validator
+npm run validate:content  # content validator and count report
+npm run content:register  # register new question IDs in content/ids.json
+npm run content:index     # regenerate public/content/content-index.json
 npm run build             # production build into dist/
 npm run preview           # serve the build locally
 ```
 
-Layout (SPEC 3.2): `src/core` is pure TypeScript with no DOM or browser APIs; `src/platform` holds adapters (storage, clock, ...); `src/ui` holds Preact components and design tokens; `src/app` is the composition root. Content lives in `content/packs/`.
+Layout (SPEC 3.2): `src/core` is pure TypeScript with no DOM or browser APIs; `src/platform` holds adapters (storage, clock, ...); `src/ui` holds Preact components and design tokens; `src/app` is the composition root. Content lives in `content/packs/`; see [content/packs/README.md](content/packs/README.md) for the format and workflow.
 
 ### Deployment
 
