@@ -5,13 +5,13 @@ Status legend: [ ] open, [x] done. One milestone per Claude Code session. At the
 Definition of done for every milestone: `npm ci && npm test && npm run build` pass locally and in CI; new logic has unit tests; layering rules pass; no new third-party runtime requests; PLAN.md updated.
 
 ## M0: Scaffolding
-- [ ] Vite + TypeScript strict + Preact + Vitest + ESLint + Prettier
-- [ ] Directory layout from SPEC section 3.2 with import-restriction lint rules for `core`
-- [ ] Injectable clock; `StorageAdapter` interface (no implementation yet)
-- [ ] `src/ui/tokens.css` from DESIGN.md; self-hosted Fraunces and Inter
-- [ ] PWA manifest + service worker shell; installable
-- [ ] GitHub Actions: typecheck, lint, test, build; deploy to Pages from `main`
-- [ ] Placeholder icon; README with install instructions for iPhone/iPad
+- [x] Vite + TypeScript strict + Preact + Vitest + ESLint + Prettier
+- [x] Directory layout from SPEC section 3.2 with import-restriction lint rules for `core`
+- [x] Injectable clock; `StorageAdapter` interface (no implementation yet)
+- [x] `src/ui/tokens.css` from DESIGN.md; self-hosted Fraunces and Inter
+- [x] PWA manifest + service worker shell; installable
+- [x] GitHub Actions: typecheck, lint, test, build; deploy to Pages from `main`
+- [x] Placeholder icon; README with install instructions for iPhone/iPad
 
 ## M1: Content model
 - [ ] Types and JSON schemas: pack, taxonomy, question (mcq, recall to start)
@@ -94,3 +94,14 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 
 ## Decisions log
 (Claude Code appends here: date, decision, reason.)
+
+- 2026-11-23, M0: Kept Preact (SPEC default); no alternative proposed.
+- 2026-11-23, M0: TypeScript pinned to 6.0.x, not 7.x. Reason: typescript-eslint 8.x supports `typescript <6.1`. Revisit when it supports 7.
+- 2026-11-23, M0: Layering enforced with ESLint (`no-restricted-imports`, `no-restricted-globals`, and a `no-restricted-syntax` rule against `Date.now()` / `new Date()`) plus a DOM-free `tsconfig.core.json`, instead of dependency-cruiser. Reason: no extra dependency, and the TypeScript check also catches indirect DOM use. `src/core/layering.test.ts` proves the rules fire.
+- 2026-11-23, M0: Raw colors outside `src/ui/tokens.css` are caught by `src/ui/tokens.test.ts` (no stylelint dependency).
+- 2026-11-23, M0: `StorageAdapter` and `ReviewEvent` are provisional interfaces; M2 may refine them with the IndexedDB implementation.
+- 2026-11-23, M0: `npm run validate:content` is a stub (checks `content/packs/` and that each pack folder has `pack.json`) until M1. Scripts run with Node's built-in type stripping (Node >= 22.18), so no tsx dependency.
+- 2026-11-23, M0: Service worker uses `registerType: 'prompt'` with no prompt UI yet: a new version waits until the app is closed, so updates apply on next launch, never mid-session (SPEC 18). Update prompt in M8. Precache is the app shell only (about 183 KiB); the 512 px icons are left out.
+- 2026-11-23, M0: Placeholder icon is a hand-written SVG; PNGs were rendered once with the preinstalled headless browser and committed (no image-tool dependency).
+- 2026-11-23, M0: Markdown files are excluded from Prettier so hand-written docs are not reformatted.
+- 2026-11-23, M0: `npm audit` reports 4 moderate advisories in glob/minimatch via `vite-plugin-pwa` > `workbox-build`. Build-time only, not shipped to the app; the suggested fix downgrades the PWA plugin, so it is accepted for now. Recheck at M8.
