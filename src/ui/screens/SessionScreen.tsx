@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { McqQuestion } from '../../core/content/types.ts';
+import { daysBetween } from '../../core/scheduler/day.ts';
 import type { SessionState } from '../../core/session/reducer.ts';
 import { sessionScore } from '../../core/session/reducer.ts';
 import { Button } from '../components/Button.tsx';
@@ -8,37 +9,36 @@ import { Icon } from '../components/Icon.tsx';
 import { MathText } from '../components/MathText.tsx';
 import { OptionButton, type OptionState } from '../components/OptionButton.tsx';
 import { ProgressBar } from '../components/ProgressBar.tsx';
+import type { LearningData } from '../learning.ts';
 import { navigate } from '../router.ts';
 import { useServices } from '../services.ts';
-import { discardSession } from '../sessionStore.ts';
 import { t } from '../strings.ts';
-import { useEligibleQuestions } from '../useContent.ts';
-import { openSession, useSession } from '../useSession.ts';
+import { useLearning } from '../useLearning.ts';
+import { useSession } from '../useSession.ts';
 import './screens.css';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
 export function SessionScreen() {
-  const services = useServices();
-  const questions = useEligibleQuestions();
-  const [initial, setInitial] = useState<SessionState | null>(null);
+  const learning = useLearning();
+  const missing = learning.status === 'ready' && !learning.value.saved;
 
   useEffect(() => {
-    if (questions.status !== 'ready' || initial) return;
-    openSession(services, questions.value).then(setInitial, () => setInitial(null));
-  }, [questions, initial, services]);
+    // Sessions are started from Today; without a saved one there is nothing to show.
+    if (missing) navigate('today');
+  }, [missing]);
 
-  if (questions.status === 'error') {
+  if (learning.status === 'error') {
     return (
       <main class="screen">
         <p class="screen__muted">{t('common.loadError')}</p>
-        <Button variant="secondary" onClick={questions.retry}>
+        <Button variant="secondary" onClick={learning.retry}>
           {t('common.retry')}
         </Button>
       </main>
     );
   }
-  if (questions.status !== 'ready' || !initial) {
+  if (learning.status !== 'ready' || !learning.value.saved) {
     return (
       <main class="screen">
         <p class="screen__muted" aria-live="polite">
@@ -47,36 +47,28 @@ export function SessionScreen() {
       </main>
     );
   }
-  return <Session initial={initial} questions={questions.value} />;
+  return <Session initial={learning.value.saved} data={learning.value.data} />;
 }
 
-function Session({
-  initial,
-  questions,
-}: {
-  initial: SessionState;
-  questions: ReadonlyMap<string, McqQuestion>;
-}) {
-  const { storage } = useServices();
-  const session = useSession(initial, questions);
+function Session({ initial, data }: { initial: SessionState; data: LearningData }) {
+  const { clock } = useServices();
+  const session = useSession(initial, data);
   const { state, question } = session;
   const total = state.items.length;
 
   if (state.phase === 'done' || !question) {
     const score = sessionScore(state);
-    const finish = async () => {
-      await discardSession(storage);
-      navigate('today');
-    };
     return (
       <main class="screen session-done">
-        <h1 class="screen__title">{t('session.doneTitle')}</h1>
+        <h1 class="screen__title">
+          {state.mode === 'scheduled' ? t('session.doneTitleToday') : t('session.doneTitle')}
+        </h1>
         <p class="session-done__score">
           {t('session.doneScore', { correct: score.correct, total: score.answered })}
         </p>
         <p class="screen__muted">{t('session.doneBody')}</p>
         <div class="session__footer">
-          <Button onClick={finish}>{t('session.backToToday')}</Button>
+          <Button onClick={() => navigate('today')}>{t('session.backToToday')}</Button>
         </div>
       </main>
     );
@@ -86,6 +78,20 @@ function Session({
   const position = state.index + 1;
   const feedback = state.phase === 'feedback';
   const chosen = feedback ? state.answers[state.answers.length - 1]?.chosenDisplayIndex : undefined;
+  const answeredAt = feedback ? state.answers[state.answers.length - 1]?.answeredAt : undefined;
+
+  let consequence: string | null = null;
+  if (feedback && state.mode === 'extra') {
+    consequence = t('session.practiceOnly');
+  } else if (feedback && session.nextDue !== null && answeredAt !== undefined) {
+    const n = daysBetween(answeredAt, session.nextDue, clock.utcOffsetMinutes(answeredAt));
+    consequence =
+      n <= 0
+        ? t('session.nextToday')
+        : n === 1
+          ? t('session.nextTomorrow')
+          : t('session.nextDays', { n });
+  }
 
   return (
     <main class="session">
@@ -107,7 +113,9 @@ function Session({
         </span>
       </header>
 
-      {feedback ? <ResultHeader correct={session.lastAnswerCorrect === true} /> : null}
+      {feedback ? (
+        <ResultHeader correct={session.lastAnswerCorrect === true} consequence={consequence} />
+      ) : null}
 
       <h1 class="session__prompt">
         <MathText text={question.prompt} />
@@ -157,9 +165,18 @@ function Session({
 
       <div class="session__footer">
         {feedback ? (
-          <Button onClick={session.next}>
-            {position === total ? t('session.finish') : t('session.continue')}
-          </Button>
+          <>
+            <Button onClick={() => session.next()} disabled={session.busy}>
+              {position === total ? t('session.finish') : t('session.continue')}
+            </Button>
+            {state.mode === 'scheduled' && session.lastAnswerCorrect ? (
+              <div class="session__secondary">
+                <Button variant="text" onClick={() => session.next(true)} disabled={session.busy}>
+                  {t('session.tooEasy')}
+                </Button>
+              </div>
+            ) : null}
+          </>
         ) : (
           <Button onClick={session.check} disabled={state.selected === null}>
             {t('session.check')}
@@ -170,7 +187,7 @@ function Session({
   );
 }
 
-function ResultHeader({ correct }: { correct: boolean }) {
+function ResultHeader({ correct, consequence }: { correct: boolean; consequence: string | null }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => ref.current?.focus(), []);
   return (
@@ -183,7 +200,10 @@ function ResultHeader({ correct }: { correct: boolean }) {
       <span class="result__badge" aria-hidden="true">
         {correct ? <Icon name="check" /> : null}
       </span>
-      <span class="result__title">{correct ? t('session.correct') : t('session.notQuite')}</span>
+      <span class="result__text">
+        <span class="result__title">{correct ? t('session.correct') : t('session.notQuite')}</span>
+        {consequence ? <span class="result__consequence">{consequence}</span> : null}
+      </span>
     </div>
   );
 }

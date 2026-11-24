@@ -1,45 +1,39 @@
-import { useEffect, useState } from 'preact/hooks';
-import type { SessionState } from '../../core/session/reducer.ts';
+import { useMemo, useState } from 'preact/hooks';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
+import {
+  closeSession,
+  startPracticeSession,
+  startScheduledSession,
+  todayQueue,
+  type LearningData,
+} from '../learning.ts';
 import { navigate } from '../router.ts';
 import { useServices } from '../services.ts';
-import { discardSession, loadSavedSession } from '../sessionStore.ts';
 import { t } from '../strings.ts';
-import { useEligibleQuestions } from '../useContent.ts';
+import { useLearning, type Learning } from '../useLearning.ts';
 import './screens.css';
 
 export function TodayScreen() {
-  const { storage } = useServices();
-  const questions = useEligibleQuestions();
-  const [saved, setSaved] = useState<SessionState | undefined | null>(null);
-
-  useEffect(() => {
-    loadSavedSession(storage).then(setSaved, () => setSaved(undefined));
-  }, [storage]);
-
-  const startNew = async () => {
-    await discardSession(storage);
-    navigate('session');
-  };
+  const learning = useLearning();
 
   let body;
-  if (questions.status === 'loading' || saved === null) {
+  if (learning.status === 'loading') {
     body = (
       <p class="screen__muted" aria-live="polite">
         {t('common.loading')}
       </p>
     );
-  } else if (questions.status === 'error') {
+  } else if (learning.status === 'error') {
     body = (
       <Card>
         <p class="screen__muted">{t('common.loadError')}</p>
-        <Button variant="secondary" onClick={questions.retry}>
+        <Button variant="secondary" onClick={learning.retry}>
           {t('common.retry')}
         </Button>
       </Card>
     );
-  } else if (questions.value.size === 0) {
+  } else if (learning.value.data.questions.size === 0) {
     body = (
       <Card>
         <h2 class="screen__subtitle">{t('today.emptyTitle')}</h2>
@@ -47,27 +41,7 @@ export function TodayScreen() {
       </Card>
     );
   } else {
-    const n = questions.value.size;
-    body = (
-      <div class="today__actions">
-        {saved ? (
-          <Card class="today__resume">
-            <h2 class="screen__subtitle">{t('today.resumeTitle')}</h2>
-            <p class="screen__muted">
-              {t('today.resumeBody', {
-                current: Math.min(saved.index + 1, saved.items.length),
-                total: saved.items.length,
-              })}
-            </p>
-            <Button onClick={() => navigate('session')}>{t('today.resume')}</Button>
-          </Card>
-        ) : null}
-        <Button variant={saved ? 'secondary' : 'primary'} onClick={startNew}>
-          {saved ? t('today.startNew') : t('today.start')}
-        </Button>
-        <p class="today__caption">{n === 1 ? t('today.readyOne') : t('today.ready', { n })}</p>
-      </div>
-    );
+    body = <TodayActions learning={learning.value} />;
   }
 
   return (
@@ -83,5 +57,77 @@ export function TodayScreen() {
       </svg>
       {body}
     </main>
+  );
+}
+
+function TodayActions({ learning }: { learning: Learning }) {
+  const services = useServices();
+  const { data, saved } = learning;
+  const queue = useMemo(() => todayQueue(services, data), [services, data]);
+  const [busy, setBusy] = useState(false);
+
+  const go = (start: (data: LearningData) => Promise<unknown>) => async () => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      await start(data);
+      navigate('session');
+    } finally {
+      setBusy(false);
+    }
+  };
+  const startScheduled = go((d) => startScheduledSession(services, d));
+  const startPractice = go((d) => startPracticeSession(services, d));
+  const startOver = go(async (d) => {
+    if (saved) await closeSession(services, d, saved);
+    return saved?.mode === 'extra'
+      ? startPracticeSession(services, d)
+      : startScheduledSession(services, d);
+  });
+
+  const due = queue.due.length;
+  const fresh = queue.fresh.length;
+
+  if (saved) {
+    return (
+      <div class="today__actions">
+        <Card class="today__resume">
+          <h2 class="screen__subtitle">{t('today.resumeTitle')}</h2>
+          <p class="screen__muted">
+            {t('today.resumeBody', {
+              current: Math.min(saved.index + 1, saved.items.length),
+              total: saved.items.length,
+            })}
+          </p>
+          <Button onClick={() => navigate('session')}>{t('today.resume')}</Button>
+        </Card>
+        <Button variant="secondary" onClick={startOver} disabled={busy}>
+          {t('today.startOver')}
+        </Button>
+      </div>
+    );
+  }
+
+  if (due + fresh === 0) {
+    return (
+      <div class="today__actions">
+        <Card>
+          <h2 class="screen__subtitle">{t('today.doneTitle')}</h2>
+          <p class="screen__muted">{t('today.doneBody')}</p>
+        </Card>
+        <Button variant="secondary" onClick={startPractice} disabled={busy}>
+          {t('today.practiceAnyway')}
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div class="today__actions">
+      <Button onClick={startScheduled} disabled={busy}>
+        {t('today.startToday')}
+      </Button>
+      <p class="today__caption">{t('today.counts', { due, fresh })}</p>
+    </div>
   );
 }

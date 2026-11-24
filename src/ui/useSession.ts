@@ -1,113 +1,100 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import type { McqQuestion } from '../core/content/types.ts';
-import { ratingFor } from '../core/session/rating.ts';
+import { previewDue } from '../core/session/commit.ts';
 import {
   currentItem,
+  pendingAnswer,
   sessionReducer,
-  startSession,
   type SessionAction,
   type SessionState,
 } from '../core/session/reducer.ts';
-import { buildSession, gradeMcq } from '../core/session/session.ts';
-import { createReviewEvent } from '../core/sync/events.ts';
-import { replayCards } from '../core/sync/replay.ts';
-import { useServices, type Services } from './services.ts';
-import { loadSavedSession, saveSession } from './sessionStore.ts';
-
-export const SESSION_SIZE = 10;
+import { gradeMcq } from '../core/session/session.ts';
+import { commitPending, saveSession, type LearningData } from './learning.ts';
+import { useServices } from './services.ts';
 
 export interface SessionController {
   readonly state: SessionState;
   readonly question: McqQuestion | undefined;
   readonly lastAnswerCorrect: boolean | undefined;
-  select(displayIndex: number): void;
-  check(): void;
-  next(): void;
+  /** For scheduled sessions on the feedback screen: when the card will be due next. */
+  readonly nextDue: number | null;
+  readonly busy: boolean;
   /** Set when a review could not be saved. */
   readonly saveFailed: boolean;
+  select(displayIndex: number): void;
+  check(): void;
+  /** Leave the feedback screen; `tooEasy` rates a correct answer Easy (SPEC 7.3). */
+  next(tooEasy?: boolean): void;
 }
 
-/** Resume the saved session if it still matches the content, else start a new one. */
-export async function openSession(
-  services: Services,
-  questions: ReadonlyMap<string, McqQuestion>,
-): Promise<SessionState> {
-  const { storage, clock, random, ids } = services;
-  const saved = await loadSavedSession(storage);
-  if (saved && saved.items.every((item) => questions.has(item.questionId))) {
-    return sessionReducer(saved, { type: 'resume', now: clock.now() });
-  }
-  const items = buildSession([...questions.values()], { size: SESSION_SIZE, random });
-  return startSession(ids.newId(), items, clock.now());
-}
-
-/** Append the review event (source of truth), then refresh the card cache by replay. */
-async function recordReview(
-  services: Services,
-  question: McqQuestion,
-  correct: boolean,
-  responseMs: number,
-): Promise<void> {
-  const { storage, clock, ids, identity, appVersion } = services;
-  const event = createReviewEvent(
-    { clock, ids, appVersion, ...identity },
-    {
-      cardId: question.id,
-      // No scheduler yet (M3): practice answers do not change scheduling state.
-      mode: 'extra',
-      type: question.type,
-      correct,
-      rating: ratingFor({ correct }),
-      responseMs,
-    },
-  );
-  await storage.appendReview(event);
-  const forCard = (await storage.listReviews()).filter((e) => e.cardId === question.id);
-  const card = replayCards(forCard).get(question.id);
-  if (card) await storage.put('cards', question.id, card);
-}
-
-export function useSession(
-  initial: SessionState,
-  questions: ReadonlyMap<string, McqQuestion>,
-): SessionController {
+export function useSession(initial: SessionState, data: LearningData): SessionController {
   const services = useServices();
   const [state, setState] = useState(initial);
   const [saveFailed, setSaveFailed] = useState(false);
+  const [busy, setBusy] = useState(false);
   const stateRef = useRef(state);
   stateRef.current = state;
+  const busyRef = useRef(false);
 
   const dispatch = useCallback((action: SessionAction) => {
     setState((s) => sessionReducer(s, action));
   }, []);
 
   useEffect(() => {
-    saveSession(services.storage, state).catch(() => setSaveFailed(true));
-  }, [services.storage, state]);
+    saveSession(services, state).catch(() => setSaveFailed(true));
+  }, [services, state]);
 
   const item = currentItem(state);
-  const question = item ? questions.get(item.questionId) : undefined;
-  const lastAnswer =
-    state.phase === 'feedback' ? state.answers[state.answers.length - 1] : undefined;
+  const question = item ? data.questions.get(item.questionId) : undefined;
+  const pending = pendingAnswer(state);
 
   const check = useCallback(() => {
     const s = stateRef.current;
     const it = currentItem(s);
-    const q = it ? questions.get(it.questionId) : undefined;
+    const q = it ? data.questions.get(it.questionId) : undefined;
     if (s.phase !== 'question' || s.selected === null || !it || !q) return;
-    const now = services.clock.now();
     const { correct } = gradeMcq(q, it, s.selected);
-    dispatch({ type: 'answer', correct, now });
-    recordReview(services, q, correct, now - s.shownAt).catch(() => setSaveFailed(true));
-  }, [dispatch, questions, services]);
+    dispatch({ type: 'answer', correct, now: services.clock.now() });
+  }, [data, dispatch, services]);
+
+  const next = useCallback(
+    (tooEasy = false) => {
+      if (busyRef.current) return;
+      busyRef.current = true;
+      setBusy(true);
+      // The review event is written before moving on (append-only log first).
+      commitPending(services, data, stateRef.current, tooEasy)
+        .catch(() => setSaveFailed(true))
+        .finally(() => {
+          dispatch({ type: 'continue', now: services.clock.now(), tooEasy });
+          busyRef.current = false;
+          setBusy(false);
+        });
+    },
+    [data, dispatch, services],
+  );
+
+  const nextDue =
+    pending && question
+      ? previewDue({
+          question,
+          answer: pending,
+          mode: state.mode,
+          card: data.cards.get(question.id),
+          scheduler: data.scheduler,
+          thresholds: data.thresholds,
+        })
+      : null;
 
   return {
     state,
     question,
-    lastAnswerCorrect: lastAnswer?.correct,
+    lastAnswerCorrect: pending?.correct,
+    nextDue,
+    busy,
+    saveFailed,
     select: (displayIndex) => dispatch({ type: 'select', displayIndex }),
     check,
-    next: () => dispatch({ type: 'continue', now: services.clock.now() }),
-    saveFailed,
+    next,
   };
 }
