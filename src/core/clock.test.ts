@@ -31,3 +31,13 @@ describe('manualClock', () => {
     expect(clock.now()).toBe(T0);
   });
 });
+
+describe('utc offset', () => {
+  it('is configurable on test clocks', () => {
+    expect(fixedClock(T0).utcOffsetMinutes(T0)).toBe(0);
+    expect(fixedClock(T0, 60).utcOffsetMinutes(T0)).toBe(60);
+    const clock = manualClock(T0, 60);
+    clock.setOffset(-300);
+    expect(clock.utcOffsetMinutes(T0)).toBe(-300);
+  });
+});

@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'preact/hooks';
 import type { ContentSource } from '../core/content/source.ts';
 import type { McqQuestion } from '../core/content/types.ts';
 import { sessionEligible } from '../core/session/session.ts';
-import { useServices } from './services.ts';
 
 export type Loadable<T> =
   | { readonly status: 'loading' }
@@ -24,22 +22,4 @@ export function loadEligibleQuestions(content: ContentSource): Promise<Map<strin
     cache.set(content, pending);
   }
   return pending;
-}
-
-export function useEligibleQuestions(): Loadable<Map<string, McqQuestion>> {
-  const { content } = useServices();
-  const [attempt, setAttempt] = useState(0);
-  const [state, setState] = useState<Loadable<Map<string, McqQuestion>>>({ status: 'loading' });
-  useEffect(() => {
-    let alive = true;
-    setState({ status: 'loading' });
-    loadEligibleQuestions(content).then(
-      (value) => alive && setState({ status: 'ready', value }),
-      () => alive && setState({ status: 'error', retry: () => setAttempt((n) => n + 1) }),
-    );
-    return () => {
-      alive = false;
-    };
-  }, [content, attempt]);
-  return state;
 }

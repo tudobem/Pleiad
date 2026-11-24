@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createReviewEvent } from './events.ts';
 import { replayCards } from './replay.ts';
+import { fsrsScheduler } from '../scheduler/fsrsScheduler.ts';
 import { fixedClock } from '../clock.ts';
 import { sequentialIds } from '../ids.ts';
 import { seededRandom, shuffle } from '../random.ts';
@@ -43,12 +44,14 @@ describe('createReviewEvent', () => {
 });
 
 describe('replayCards', () => {
+  const scheduler = fsrsScheduler();
+  const DAY = 86_400_000;
   const events = [
-    reviewEvent({ eventId: 'e1', cardId: 'a', ts: 10, mode: 'scheduled', rating: 'good' }),
+    reviewEvent({ eventId: 'e1', cardId: 'a', ts: 10 * DAY, mode: 'scheduled', rating: 'good' }),
     reviewEvent({
       eventId: 'e2',
       cardId: 'a',
-      ts: 20,
+      ts: 20 * DAY,
       mode: 'scheduled',
       rating: 'again',
       correct: false,
@@ -56,35 +59,39 @@ describe('replayCards', () => {
     reviewEvent({
       eventId: 'e3',
       cardId: 'a',
-      ts: 30,
+      ts: 21 * DAY,
       mode: 'extra',
       rating: 'again',
       correct: false,
     }),
-    reviewEvent({ eventId: 'e4', cardId: 'b', ts: 15, mode: 'extra', rating: 'good' }),
+    reviewEvent({ eventId: 'e4', cardId: 'b', ts: 15 * DAY, mode: 'extra', rating: 'good' }),
   ];
 
-  it('derives card state from the log', () => {
-    const cards = replayCards(events);
-    expect(cards.get('a')).toEqual({
+  it('derives card state, stepping FSRS only for scheduled reviews', () => {
+    const cards = replayCards(events, scheduler);
+    const a = cards.get('a');
+    const expected = scheduler.review(scheduler.review(null, 'good', 10 * DAY), 'again', 20 * DAY);
+    expect(a).toEqual({
       cardId: 'a',
-      introducedTs: 10,
-      lastReviewTs: 30,
+      firstSeenTs: 10 * DAY,
+      introducedTs: 10 * DAY,
+      lastReviewTs: 21 * DAY,
       lastRating: 'again',
-      reps: 2,
-      lapses: 1,
+      scheduler: expected,
       attempts: 3,
       misses: 2,
     });
-    expect(cards.get('b')?.reps).toBe(0);
-    expect(cards.get('b')?.attempts).toBe(1);
+    expect(a?.scheduler?.lapses).toBe(1);
+    // Extra practice never introduces a card or touches FSRS (SPEC 7.6).
+    expect(cards.get('b')?.scheduler).toBeNull();
+    expect(cards.get('b')?.introducedTs).toBeNull();
   });
 
   it('is independent of input order and counts duplicate events once', () => {
-    const expected = replayCards(events);
+    const expected = replayCards(events, scheduler);
     for (const seed of [1, 2, 3]) {
       const shuffled = shuffle([...events, ...events], seededRandom(seed));
-      expect(replayCards(shuffled)).toEqual(expected);
+      expect(replayCards(shuffled, scheduler)).toEqual(expected);
     }
   });
 
@@ -93,7 +100,7 @@ describe('replayCards', () => {
       reviewEvent({ eventId: 'z', cardId: 'a', ts: 1, rating: 'hard' }),
       reviewEvent({ eventId: 'y', cardId: 'a', ts: 1, rating: 'easy' }),
     ];
-    expect(replayCards(tied).get('a')?.lastRating).toBe('hard');
-    expect(replayCards([...tied].reverse()).get('a')?.lastRating).toBe('hard');
+    expect(replayCards(tied, scheduler).get('a')?.lastRating).toBe('hard');
+    expect(replayCards([...tied].reverse(), scheduler).get('a')?.lastRating).toBe('hard');
   });
 });

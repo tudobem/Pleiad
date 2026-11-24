@@ -37,6 +37,28 @@ export function buildSession(
   }));
 }
 
+/** Session items for question IDs in the given order, with freshly shuffled options. */
+export function toSessionItems(
+  ids: readonly string[],
+  questions: ReadonlyMap<string, McqQuestion>,
+  random: Random,
+): SessionItem[] {
+  return ids.flatMap((id) => {
+    const q = questions.get(id);
+    return q
+      ? [
+          {
+            questionId: id,
+            displayOrder: shuffle(
+              q.options.map((_, i) => i),
+              random,
+            ),
+          },
+        ]
+      : [];
+  });
+}
+
 /** Round-robin across groups, keeping each group's order. */
 export function interleaveBy<T>(items: readonly T[], key: (item: T) => string): T[] {
   const groups = new Map<string, T[]>();

@@ -26,10 +26,10 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Review log written for every answer (eventId, deviceId, profileId)
 
 ## M3: Scheduling
-- [ ] Verify FSRS library (license, maintenance, types); record choice below
-- [ ] `Scheduler` interface and adapter; fixed-clock tests
-- [ ] Daily queue: due first, new up to limit, 04:00 day boundary, interleaving, tier mix and auto-unlock
-- [ ] Today screen with Start button and counts
+- [x] Verify FSRS library (license, maintenance, types); record choice below
+- [x] `Scheduler` interface and adapter; fixed-clock tests
+- [x] Daily queue: due first, new up to limit, 04:00 day boundary, interleaving, tier mix and auto-unlock
+- [x] Today screen with Start button and counts
 
 ## M4: More question types
 - [ ] recall, short (with normalization and overrides), cloze, match, order
@@ -123,3 +123,11 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-23, M2: Deferred feedback actions, rather than showing buttons that do nothing: Too easy (M3), Note (M7), Flag (M14), Related (M15). The consequence line ("You'll see this again tomorrow") waits for the scheduler in M3.
 - 2026-11-23, M2: If IndexedDB is unavailable (some private modes), the app runs on in-memory storage and shows a warning banner.
 - 2026-11-23, M2: New lint rules: no `Math.random` in core (inject `Random`), and `src/ui` must not import `src/platform` (adapters are wired in `src/app`).
+- 2026-11-24, M3: FSRS library: `ts-fsrs` 5.4.2 (MIT, open-spaced-repetition, no runtime dependencies, Node >= 18). Not 6.x yet: 6.0.0 was 4 weeks old and 6.0.1 two days old at the time, and 6.x requires Node >= 24 and adds a dependency. 5.x adds four deprecated helpers to `Date.prototype` on import; harmless, removed when we move to 6.x together with Node 24.
+- 2026-11-24, M3: FSRS runs with default parameters (SPEC 7.7), fuzz off (exact, deterministic replay) and short-term steps off: no minute-level relearning inside a session; a missed item returns on a later day. Revisit after real use.
+- 2026-11-24, M3: `src/core/scheduler/fsrsScheduler.ts` is the only module importing ts-fsrs; everything else uses our `Scheduler` interface and a JSON `SchedulerState` with UTC ms timestamps.
+- 2026-11-24, M3: The 04:00 day boundary uses the local UTC offset at query time only (`Clock.utcOffsetMinutes`); stored times stay UTC, so a time-zone change never rewrites due dates.
+- 2026-11-24, M3: Replay recomputes FSRS from each scheduled event's rating and timestamp; `schedulerStateBefore/After` in events are kept for audit but not trusted. Extra practice never changes FSRS state.
+- 2026-11-24, M3: A review event is now committed when leaving the feedback screen (Continue or Too easy), with `ts` = the time the answer was checked, so "Too easy" can rate Easy without editing the append-only log. A pending answer in a saved session is committed on resume, or when an earlier day's session is closed. Saved M2 sessions are discarded.
+- 2026-11-24, M3: The whole Daily queue is one session (due reviews, then new items), resumable the same day. New items are shuffled with a seed from the learning day, so the queue is stable within a day. "Practice anyway" starts a 10-item extra session when nothing is due.
+- 2026-11-24, M3: Slow answers (rated Hard when correct) use 3x the per-tier median of scheduled response times, only once a tier has 10 samples. Settings (new per day 10, review cap 150, retention 0.90, tier mix 60/30/10, auto-unlock on) have defaults and clamping in core; the Settings screen comes later.

@@ -20,6 +20,8 @@ export interface ReviewInput {
   readonly confidence?: Confidence;
   readonly schedulerStateBefore?: unknown;
   readonly schedulerStateAfter?: unknown;
+  /** When the answer was given; defaults to now. */
+  readonly ts?: number;
 }
 
 /** Build one append-only review event (SPEC 14.4). */
@@ -29,7 +31,7 @@ export function createReviewEvent(ctx: EventContext, input: ReviewInput): Review
     profileId: ctx.profileId,
     deviceId: ctx.deviceId,
     cardId: input.cardId,
-    ts: ctx.clock.now(),
+    ts: input.ts ?? ctx.clock.now(),
     mode: input.mode,
     type: input.type,
     correct: input.correct,
