@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
-import type { McqQuestion } from '../../core/content/types.ts';
+import type { Question } from '../../core/content/types.ts';
+import type { Rating } from '../../core/sync/reviewEvent.ts';
 import { daysBetween } from '../../core/scheduler/day.ts';
 import type { SessionState } from '../../core/session/reducer.ts';
 import { sessionScore } from '../../core/session/reducer.ts';
@@ -7,17 +8,15 @@ import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { Icon } from '../components/Icon.tsx';
 import { MathText } from '../components/MathText.tsx';
-import { OptionButton, type OptionState } from '../components/OptionButton.tsx';
+import { AnswerArea } from '../components/answers/AnswerArea.tsx';
 import { ProgressBar } from '../components/ProgressBar.tsx';
 import type { LearningData } from '../learning.ts';
 import { navigate } from '../router.ts';
 import { useServices } from '../services.ts';
-import { t } from '../strings.ts';
+import { t, type StringId } from '../strings.ts';
 import { useLearning } from '../useLearning.ts';
 import { useSession } from '../useSession.ts';
 import './screens.css';
-
-const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
 export function SessionScreen() {
   const learning = useLearning();
@@ -53,10 +52,10 @@ export function SessionScreen() {
 function Session({ initial, data }: { initial: SessionState; data: LearningData }) {
   const { clock } = useServices();
   const session = useSession(initial, data);
-  const { state, question } = session;
+  const { state, question, item, response, pending } = session;
   const total = state.items.length;
 
-  if (state.phase === 'done' || !question) {
+  if (state.phase === 'done' || !question || !item || !response) {
     const score = sessionScore(state);
     return (
       <main class="screen session-done">
@@ -74,23 +73,30 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
     );
   }
 
-  const item = state.items[state.index];
   const position = state.index + 1;
-  const feedback = state.phase === 'feedback';
-  const chosen = feedback ? state.answers[state.answers.length - 1]?.chosenDisplayIndex : undefined;
-  const answeredAt = feedback ? state.answers[state.answers.length - 1]?.answeredAt : undefined;
+  const feedback = state.phase === 'feedback' && !!pending;
+  const recall = question.type === 'recall';
+  const offset = (at: number) => clock.utcOffsetMinutes(at);
+  const daysUntil = (due: number | null): number | null =>
+    pending && due !== null
+      ? daysBetween(pending.answeredAt, due, offset(pending.answeredAt))
+      : null;
 
   let consequence: string | null = null;
-  if (feedback && state.mode === 'extra') {
-    consequence = t('session.practiceOnly');
-  } else if (feedback && session.nextDue !== null && answeredAt !== undefined) {
-    const n = daysBetween(answeredAt, session.nextDue, clock.utcOffsetMinutes(answeredAt));
-    consequence =
-      n <= 0
-        ? t('session.nextToday')
-        : n === 1
-          ? t('session.nextTomorrow')
-          : t('session.nextDays', { n });
+  if (feedback && !recall) {
+    if (state.mode === 'extra') {
+      consequence = t('session.practiceOnly');
+    } else {
+      const n = daysUntil(session.nextDue());
+      if (n !== null) {
+        consequence =
+          n <= 0
+            ? t('session.nextToday')
+            : n === 1
+              ? t('session.nextTomorrow')
+              : t('session.nextDays', { n });
+      }
+    }
   }
 
   return (
@@ -113,48 +119,25 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
         </span>
       </header>
 
-      {feedback ? (
-        <ResultHeader correct={session.lastAnswerCorrect === true} consequence={consequence} />
+      {feedback && !recall ? (
+        <ResultHeader correct={pending.correct} consequence={consequence} />
       ) : null}
 
       <h1 class="session__prompt">
         <MathText text={question.prompt} />
       </h1>
 
-      <div class="session__answers" role="group" aria-label={t('session.optionsLabel')}>
-        {item?.displayOrder.map((original, displayIndex) => {
-          const option = question.options[original];
-          if (!option) return null;
-          const isAnswer = original === question.answer;
-          let optionState: OptionState = 'default';
-          let tag: string | undefined;
-          if (!feedback) {
-            if (state.selected === displayIndex) optionState = 'selected';
-          } else if (isAnswer) {
-            optionState = 'correct';
-            tag = t('session.labelCorrect');
-          } else if (displayIndex === chosen) {
-            optionState = 'wrong';
-            tag = t('session.labelYours');
-          } else {
-            optionState = 'dimmed';
-          }
-          return (
-            <OptionButton
-              key={original}
-              letter={LETTERS[displayIndex] ?? ''}
-              text={option.text}
-              state={optionState}
-              {...(tag ? { tag } : {})}
-              {...(feedback && displayIndex === chosen && option.why_wrong
-                ? { note: option.why_wrong }
-                : {})}
-              locked={feedback}
-              onSelect={() => session.select(displayIndex)}
-            />
-          );
-        })}
-      </div>
+      <AnswerArea
+        question={question}
+        layout={item.layout}
+        response={feedback ? pending.response : response}
+        feedback={feedback}
+        pending={pending}
+        grade={session.grade}
+        onRespond={session.respond}
+        onSubmit={session.check}
+        onOverride={session.override}
+      />
 
       {feedback ? <WhyCard question={question} /> : null}
       {session.saveFailed ? (
@@ -164,26 +147,81 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
       ) : null}
 
       <div class="session__footer">
-        {feedback ? (
+        {!feedback ? (
+          <Button onClick={session.check} disabled={!session.canCheck}>
+            {recall ? t('session.showAnswer') : t('session.check')}
+          </Button>
+        ) : recall ? (
+          <RatingButtons
+            onRate={(rating) => session.next({ rating })}
+            busy={session.busy}
+            daysFor={(rating) =>
+              state.mode === 'scheduled' ? daysUntil(session.nextDue({ rating })) : null
+            }
+          />
+        ) : (
           <>
             <Button onClick={() => session.next()} disabled={session.busy}>
               {position === total ? t('session.finish') : t('session.continue')}
             </Button>
-            {state.mode === 'scheduled' && session.lastAnswerCorrect ? (
+            {state.mode === 'scheduled' && pending.correct ? (
               <div class="session__secondary">
-                <Button variant="text" onClick={() => session.next(true)} disabled={session.busy}>
+                <Button
+                  variant="text"
+                  onClick={() => session.next({ tooEasy: true })}
+                  disabled={session.busy}
+                >
                   {t('session.tooEasy')}
                 </Button>
               </div>
             ) : null}
           </>
-        ) : (
-          <Button onClick={session.check} disabled={state.selected === null}>
-            {t('session.check')}
-          </Button>
         )}
       </div>
     </main>
+  );
+}
+
+const RATINGS: readonly { rating: Rating; label: StringId }[] = [
+  { rating: 'again', label: 'session.rateAgain' },
+  { rating: 'hard', label: 'session.rateHard' },
+  { rating: 'good', label: 'session.rateGood' },
+  { rating: 'easy', label: 'session.rateEasy' },
+];
+
+/** Recall self-rating (SPEC 7.3), with the resulting interval in scheduled sessions. */
+function RatingButtons({
+  onRate,
+  busy,
+  daysFor,
+}: {
+  onRate: (rating: Rating) => void;
+  busy: boolean;
+  daysFor: (rating: Rating) => number | null;
+}) {
+  return (
+    <div>
+      <p class="rating__title">{t('session.rateTitle')}</p>
+      <div class="rating">
+        {RATINGS.map(({ rating, label }) => {
+          const days = daysFor(rating);
+          return (
+            <button
+              key={rating}
+              type="button"
+              class={`rating__button rating__button--${rating}`}
+              disabled={busy}
+              onClick={() => onRate(rating)}
+            >
+              {t(label)}
+              {days !== null ? (
+                <span class="rating__when">{t('session.inDays', { n: Math.max(days, 1) })}</span>
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -208,7 +246,7 @@ function ResultHeader({ correct, consequence }: { correct: boolean; consequence:
   );
 }
 
-function WhyCard({ question }: { question: McqQuestion }) {
+function WhyCard({ question }: { question: Question }) {
   const [open, setOpen] = useState(false);
   const deeper = question.deeper;
   return (

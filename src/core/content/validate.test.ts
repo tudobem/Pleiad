@@ -1,6 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { validateContent, type ValidateInput } from './validate.ts';
-import { NODES, ledgerFor, mcq, meta, pack, recall } from './fixtures.test-util.ts';
+import {
+  NODES,
+  cloze,
+  ledgerFor,
+  match,
+  mcq,
+  meta,
+  order,
+  pack,
+  recall,
+  short,
+} from './fixtures.test-util.ts';
 import type { LoadedPack } from './types.ts';
 
 const TOKENS = new Set(['gold', 'link']);
@@ -118,6 +129,50 @@ describe('validateContent', () => {
         options: [{ text: 'Right', why_wrong: 'oops' }, ...opts(['B', 'C', 'D'])],
       });
       expect(codes({ packs: [pack([q])] })).toContain('error:mcq.why-wrong-on-answer');
+    });
+  });
+
+  describe('new question types', () => {
+    it('accepts valid short, cloze, match and order items', () => {
+      expect(codes({ packs: [pack([short(), cloze(), match(), order()])] })).toEqual([]);
+    });
+
+    it('checks short answers', () => {
+      expect(codes({ packs: [pack([short({ answers: ['Tononi', 'tononi!'] })])] })).toContain(
+        'error:short.duplicate',
+      );
+      expect(codes({ packs: [pack([short({ answers: ['?!'] })])] })).toContain('error:short.empty');
+      const numeric = short({ answers: ['86 billion'], numeric: { value: 86e9, tolerance: 1e9 } });
+      expect(codes({ packs: [pack([numeric])] })).toContain('error:short.numeric');
+      const ok = short({ answers: ['86000000000'], numeric: { value: 86e9, tolerance: 1e9 } });
+      expect(codes({ packs: [pack([ok])] })).toEqual([]);
+    });
+
+    it('checks cloze blanks and distractors', () => {
+      expect(codes({ packs: [pack([cloze({ text: 'No blanks here.' })])] })).toContain(
+        'error:cloze.no-blank',
+      );
+      expect(codes({ packs: [pack([cloze({ text: 'An {{ }} blank.' })])] })).toContain(
+        'error:cloze.empty-blank',
+      );
+      expect(codes({ packs: [pack([cloze({ bank: ['tononi'] })])] })).toContain('error:cloze.bank');
+      expect(codes({ packs: [pack([cloze({ bank: ['Baars', 'baars'] })])] })).toContain(
+        'error:cloze.bank',
+      );
+    });
+
+    it('checks match and order items are distinct', () => {
+      const dupLeft = match({
+        pairs: [
+          { left: 'IIT', right: 'Tononi' },
+          { left: 'iit', right: 'Baars' },
+          { left: 'HOT', right: 'Rosenthal' },
+        ],
+      });
+      expect(codes({ packs: [pack([dupLeft])] })).toContain('error:match.duplicate');
+      expect(codes({ packs: [pack([order({ items: ['A', 'B', 'a'] })])] })).toContain(
+        'error:order.duplicate',
+      );
     });
   });
 

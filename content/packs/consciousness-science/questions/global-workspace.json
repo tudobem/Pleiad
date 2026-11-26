@@ -108,6 +108,104 @@
       "created": "2026-11-23",
       "confusable_with": ["cons-iit-0001", "cons-hot-0001"],
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "cons-gwt-0004",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "short",
+      "tier": "foundational",
+      "tags": ["global-workspace", "metaphor"],
+      "prompt": "Baars compared consciousness to a spotlight on the stage of what kind of building?",
+      "answers": ["theater", "theatre"],
+      "explanation": "Baars describes a theater: attention is the spotlight, and what it lights up on stage is broadcast to the audience of unconscious specialist processes.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1997). In the Theater of Consciousness: The Workspace of the Mind. Oxford University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "cons-gwt-0005",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "match",
+      "tier": "foundational",
+      "tags": ["contrast", "people"],
+      "prompt": "Match each theory to a researcher closely associated with it.",
+      "pairs": [
+        {
+          "left": "Integrated information theory",
+          "right": "Giulio Tononi"
+        },
+        {
+          "left": "Global workspace theory",
+          "right": "Bernard Baars"
+        },
+        {
+          "left": "Higher-order thought theory",
+          "right": "David Rosenthal"
+        },
+        {
+          "left": "Global neuronal workspace",
+          "right": "Stanislas Dehaene"
+        }
+      ],
+      "explanation": "Each of these theories is linked to the researchers who proposed or developed it; the global neuronal workspace is Dehaene and colleagues' neural version of Baars's theory.",
+      "sources": [
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience, 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        },
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Rosenthal, D. M. (2005). Consciousness and Mind. Oxford University Press."
+        },
+        {
+          "citation": "Dehaene, S., & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. Cognition, 79(1-2), 1-37.",
+          "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "cons-gwt-0006",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "order",
+      "tier": "foundational",
+      "tags": ["history"],
+      "prompt": "Put these contributions to consciousness science in chronological order, earliest first.",
+      "items": [
+        "Baars's global workspace theory",
+        "Crick and Koch's call to search for the neural correlates of consciousness",
+        "Dehaene and Naccache's workspace framework",
+        "Tononi's information integration theory"
+      ],
+      "explanation": "Baars proposed the global workspace in 1988, Crick and Koch called for a search for neural correlates in 1990, Dehaene and Naccache set out the workspace framework in 2001, and Tononi published the information integration theory in 2004.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Crick, F., & Koch, C. (1990). Towards a neurobiological theory of consciousness. Seminars in the Neurosciences, 2, 263-275."
+        },
+        {
+          "citation": "Dehaene, S., & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. Cognition, 79(1-2), 1-37.",
+          "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
+        },
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience, 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
     }
   ]
 }

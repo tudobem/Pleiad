@@ -1,4 +1,4 @@
-import type { McqQuestion, Question, Tier } from '../content/types.ts';
+import type { Question, Tier } from '../content/types.ts';
 import { TIERS } from '../content/types.ts';
 import { seededRandom, shuffle } from '../random.ts';
 import { dayStartMs, learningDay, nextDayStartMs } from '../scheduler/day.ts';
@@ -11,8 +11,8 @@ import { interleaveBy } from './session.ts';
 export const UNLOCK_RATIO = 0.8;
 
 export interface QueueInput {
-  /** Verified questions of types the session supports. */
-  readonly questions: readonly McqQuestion[];
+  /** Verified questions of supported types. */
+  readonly questions: readonly Question[];
   readonly cards: ReadonlyMap<string, CardState>;
   readonly events: readonly ReviewEvent[];
   readonly settings: Settings;
@@ -58,7 +58,7 @@ export function buildDailyQueue(input: QueueInput): DailyQueue {
   // Due reviews: most overdue first, soft cap per day.
   const dueCards = questions
     .map((q) => ({ q, s: cards.get(q.id)?.scheduler }))
-    .filter((x): x is { q: McqQuestion; s: NonNullable<typeof x.s> } => !!x.s && x.s.due < end)
+    .filter((x): x is { q: Question; s: NonNullable<typeof x.s> } => !!x.s && x.s.due < end)
     .sort((a, b) => a.s.due - b.s.due || (a.q.id < b.q.id ? -1 : 1))
     .slice(0, Math.max(0, settings.reviewCap - reviewsToday))
     .map((x) => x.q);
@@ -72,7 +72,7 @@ export function buildDailyQueue(input: QueueInput): DailyQueue {
       prerequisitesMet(q, byId, cards),
   );
   const random = seededRandom(day);
-  const byTier = new Map<Tier, McqQuestion[]>(
+  const byTier = new Map<Tier, Question[]>(
     TIERS.map((t) => [
       t,
       shuffle(
@@ -85,9 +85,17 @@ export function buildDailyQueue(input: QueueInput): DailyQueue {
 
   return {
     day,
-    due: interleaveBy(dueCards, (q) => q.pack).map((q) => q.id),
-    fresh: interleaveBy(fresh, (q) => q.pack).map((q) => q.id),
+    due: mix(dueCards).map((q) => q.id),
+    fresh: mix(fresh).map((q) => q.id),
   };
+}
+
+/** Interleave subjects and question types rather than blocking (SPEC 7.5). */
+function mix(items: readonly Question[]): Question[] {
+  return interleaveBy(
+    interleaveBy(items, (q) => q.type),
+    (q) => q.pack,
+  );
 }
 
 /** Auto-unlock per topic (SPEC 7.2). Foundational is always available. */

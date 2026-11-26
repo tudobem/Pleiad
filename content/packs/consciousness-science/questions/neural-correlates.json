@@ -101,6 +101,96 @@
       "status": "verified",
       "created": "2026-11-23",
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "cons-ncc-0004",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "cloze",
+      "tier": "foundational",
+      "tags": ["ncc", "rivalry"],
+      "prompt": "Fill in the blanks about binocular rivalry.",
+      "text": "In binocular rivalry, each {{eye}} receives a different image, and conscious perception {{alternates}} between the two while the stimulus stays the same.",
+      "bank": ["ear", "blends"],
+      "explanation": "Because the input is constant while perception changes, rivalry separates brain activity linked to conscious perception from activity linked to the stimulus.",
+      "sources": [
+        {
+          "citation": "Blake, R., & Logothetis, N. K. (2002). Visual competition. Nature Reviews Neuroscience, 3, 13-21.",
+          "url": "https://doi.org/10.1038/nrn701"
+        },
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M., & Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience, 17, 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "cons-ncc-0005",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "match",
+      "tier": "foundational",
+      "tags": ["ncc", "methods"],
+      "prompt": "Match each method to how it makes a stimulus go unseen or change in awareness.",
+      "pairs": [
+        {
+          "left": "Backward masking",
+          "right": "A second stimulus shown right after the first stops it from being seen"
+        },
+        {
+          "left": "Binocular rivalry",
+          "right": "Each eye gets a different image and perception switches between them"
+        },
+        {
+          "left": "Inattentional blindness",
+          "right": "An unexpected stimulus goes unseen while attention is busy elsewhere"
+        }
+      ],
+      "explanation": "All three keep the physical stimulus largely fixed while awareness of it changes, which is what contrastive studies of consciousness need.",
+      "sources": [
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M., & Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience, 17, 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        },
+        {
+          "citation": "Blake, R., & Logothetis, N. K. (2002). Visual competition. Nature Reviews Neuroscience, 3, 13-21.",
+          "url": "https://doi.org/10.1038/nrn701"
+        },
+        {
+          "citation": "Mack, A., & Rock, I. (1998). Inattentional Blindness. MIT Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "cons-ncc-0006",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "order",
+      "tier": "foundational",
+      "tags": ["ncc", "methods"],
+      "prompt": "Put the steps of a contrastive study of consciousness in order.",
+      "items": [
+        "Choose a stimulus that is sometimes seen and sometimes not",
+        "Present it many times while recording brain activity",
+        "Sort the trials by whether the person reports seeing it",
+        "Compare brain activity between seen and unseen trials"
+      ],
+      "explanation": "Contrastive analysis holds the stimulus fixed and compares trials where it was consciously seen with trials where it was not.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M., & Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience, 17, 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
     }
   ]
 }

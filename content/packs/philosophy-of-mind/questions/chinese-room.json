@@ -41,6 +41,26 @@
       "status": "verified",
       "created": "2026-11-23",
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "pom-chin-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "chinese-room",
+      "type": "cloze",
+      "tier": "foundational",
+      "tags": ["chinese-room", "ai"],
+      "prompt": "Fill in the blanks about the Chinese room.",
+      "text": "In Searle's Chinese room, a person who does not understand Chinese follows a {{rulebook}} to manipulate symbols. Searle concludes that {{syntax}} alone is not enough for meaning.",
+      "bank": ["dictionary", "grammar"],
+      "explanation": "Searle argues that following symbol-manipulation rules, as a program does, does not by itself produce understanding.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences, 3(3), 417-457.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
     }
   ]
 }

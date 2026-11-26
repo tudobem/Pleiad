@@ -1,10 +1,14 @@
 /** In-memory content fixtures for unit tests. Not shipped. */
 import type {
+  ClozeQuestion,
   LoadedPack,
+  MatchQuestion,
   McqQuestion,
+  OrderQuestion,
   PackMeta,
   Question,
   RecallQuestion,
+  ShortQuestion,
   TaxonomyNode,
 } from './types.ts';
 
@@ -71,6 +75,66 @@ export function recall(overrides: Partial<RecallQuestion> = {}): RecallQuestion 
     sources: [{ citation: 'Baars 1988' }],
     status: 'draft',
     created: '2026-01-01',
+    ...overrides,
+  };
+}
+
+const base = {
+  pack: 'cons-pack',
+  topic: 'iit',
+  tier: 'foundational' as const,
+  tags: [],
+  explanation: 'Because.',
+  sources: [{ citation: 'Source 2020' }],
+  status: 'draft' as const,
+  created: '2026-01-01',
+};
+
+export function short(overrides: Partial<ShortQuestion> = {}): ShortQuestion {
+  return {
+    ...base,
+    id: 'q-short-0001',
+    type: 'short',
+    prompt: 'Who proposed integrated information theory?',
+    answers: ['Tononi', 'Giulio Tononi'],
+    ...overrides,
+  };
+}
+
+export function cloze(overrides: Partial<ClozeQuestion> = {}): ClozeQuestion {
+  return {
+    ...base,
+    id: 'q-cloze-0001',
+    type: 'cloze',
+    prompt: 'Fill in the blanks.',
+    text: 'IIT was proposed by {{Tononi}} in {{2004}}.',
+    bank: ['Baars', '1988'],
+    ...overrides,
+  };
+}
+
+export function match(overrides: Partial<MatchQuestion> = {}): MatchQuestion {
+  return {
+    ...base,
+    id: 'q-match-0001',
+    type: 'match',
+    prompt: 'Match each theory to its proponent.',
+    pairs: [
+      { left: 'IIT', right: 'Tononi' },
+      { left: 'Global workspace', right: 'Baars' },
+      { left: 'Higher-order thought', right: 'Rosenthal' },
+    ],
+    ...overrides,
+  };
+}
+
+export function order(overrides: Partial<OrderQuestion> = {}): OrderQuestion {
+  return {
+    ...base,
+    id: 'q-order-0001',
+    type: 'order',
+    prompt: 'Order these by year.',
+    items: ['Nagel 1974', 'Jackson 1982', 'Chalmers 1995'],
     ...overrides,
   };
 }

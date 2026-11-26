@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { previewDue, reviewForAnswer, type AnswerContext } from './commit.ts';
-import { mcq } from '../content/fixtures.test-util.ts';
+import { mcq, recall } from '../content/fixtures.test-util.ts';
 import { fixedClock } from '../clock.ts';
 import { sequentialIds } from '../ids.ts';
 import { fsrsScheduler } from '../scheduler/fsrsScheduler.ts';
@@ -19,7 +19,7 @@ const events = {
 const question = mcq({ status: 'verified', verified_on: '2026-01-02' });
 const answer = (o: Partial<AnswerRecord> = {}): AnswerRecord => ({
   questionId: question.id,
-  chosenDisplayIndex: 0,
+  response: { type: 'mcq', choice: 0 },
   correct: true,
   responseMs: 3000,
   answeredAt: T,
@@ -68,6 +68,26 @@ describe('reviewForAnswer', () => {
     expect(event.schedulerStateAfter).toBeNull();
     expect(card.scheduler).toEqual(prior.scheduler);
     expect(card.attempts).toBe(2);
+  });
+});
+
+describe('recall ratings', () => {
+  it('logs the self-rating and previews each rating button', () => {
+    const q = recall({ status: 'verified', verified_on: '2026-01-02' });
+    const a = answer({
+      questionId: q.id,
+      response: { type: 'recall' },
+      selfRating: 'hard',
+      correct: true,
+    });
+    expect(reviewForAnswer(events, ctx({ question: q, answer: a })).event.rating).toBe('hard');
+    const base = ctx({
+      question: q,
+      answer: answer({ questionId: q.id, response: { type: 'recall' } }),
+    });
+    const again = previewDue(base, { rating: 'again' }) ?? 0;
+    const easy = previewDue(base, { rating: 'easy' }) ?? 0;
+    expect(easy).toBeGreaterThan(again);
   });
 });
 

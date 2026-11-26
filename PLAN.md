@@ -32,8 +32,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Today screen with Start button and counts
 
 ## M4: More question types
-- [ ] recall, short (with normalization and overrides), cloze, match, order
-- [ ] Rating mapping and tests per type
+- [x] recall, short (with normalization and overrides), cloze, match, order
+- [x] Rating mapping and tests per type
 
 ## M5: Library
 - [ ] Taxonomy-driven Library, shelves, subject page, tree rows, search
@@ -131,3 +131,9 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-24, M3: A review event is now committed when leaving the feedback screen (Continue or Too easy), with `ts` = the time the answer was checked, so "Too easy" can rate Easy without editing the append-only log. A pending answer in a saved session is committed on resume, or when an earlier day's session is closed. Saved M2 sessions are discarded.
 - 2026-11-24, M3: The whole Daily queue is one session (due reviews, then new items), resumable the same day. New items are shuffled with a seed from the learning day, so the queue is stable within a day. "Practice anyway" starts a 10-item extra session when nothing is due.
 - 2026-11-24, M3: Slow answers (rated Hard when correct) use 3x the per-tier median of scheduled response times, only once a tier has 10 samples. Settings (new per day 10, review cap 150, retention 0.90, tier mix 60/30/10, auto-unlock on) have defaults and clamping in core; the Settings screen comes later.
+- 2026-11-26, M4: New content fields: `short.answers` (first canonical, rest accepted variants) and optional `numeric {value, tolerance}`; `cloze.text` with blanks written as `{{answer}}` plus `bank` of distractor chips; `match.pairs [{left, right}]` (3 to 6); `order.items` in correct order (3 to 6). Content index version 2.
+- 2026-11-26, M4: Short answers ignore case, whitespace, punctuation and accents; plurals match word by word (`zombies` = `zombie`, `theories` = `theory`) rather than by stemming; numbers accept `1,000`, `1 000`, `1.5` and `1,5` within the stated tolerance. "I was right / I was wrong" overrides the auto-grade before the review is saved.
+- 2026-11-26, M4: Recall: "Show answer", then four rating buttons that show the resulting interval in scheduled sessions; the chosen rating is logged as is (SPEC 7.3). A recall answer that was shown but never rated is not logged.
+- 2026-11-26, M4: Match and order count as correct only when every pair or position is right; feedback marks each part and shows the right answer. Order questions are never shown already in the correct order.
+- 2026-11-26, M4: Session items store a generic `layout` (the shuffled display order per type) and a typed `response`; sessions saved by M3 are migrated rather than discarded. The Daily queue now interleaves question types as well as subjects.
+- 2026-11-26, M4: 16 new draft questions (2 per new type per pack) added for Martin's review; until verified they do not appear in sessions. All six types were exercised end to end on a local test build where the drafts were marked verified (not committed).

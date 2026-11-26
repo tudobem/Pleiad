@@ -1,12 +1,14 @@
-import type { McqQuestion } from '../core/content/types.ts';
+import type { Question } from '../core/content/types.ts';
 import { fsrsScheduler } from '../core/scheduler/fsrsScheduler.ts';
 import { learningDay } from '../core/scheduler/day.ts';
 import type { Scheduler } from '../core/scheduler/scheduler.ts';
 import { reviewForAnswer } from '../core/session/commit.ts';
 import { buildDailyQueue, type DailyQueue } from '../core/session/dailyQueue.ts';
 import {
-  isCurrentSessionShape,
+  finalizeAnswer,
+  migrateSession,
   pendingAnswer,
+  type LeaveOptions,
   sessionReducer,
   startSession,
   type SessionState,
@@ -25,7 +27,7 @@ const SETTINGS_KEY = 'learning';
 
 /** Everything derived from the log that sessions and Today need. */
 export interface LearningData {
-  readonly questions: ReadonlyMap<string, McqQuestion>;
+  readonly questions: ReadonlyMap<string, Question>;
   readonly settings: Settings;
   readonly scheduler: Scheduler;
   /** Mutable so answers committed during a session update it in place. */
@@ -36,7 +38,7 @@ export interface LearningData {
 
 export async function loadLearningData(
   services: Services,
-  questions: ReadonlyMap<string, McqQuestion>,
+  questions: ReadonlyMap<string, Question>,
 ): Promise<LearningData> {
   const settings = normalizeSettings(await services.storage.get('settings', SETTINGS_KEY));
   const scheduler = fsrsScheduler(settings.desiredRetention);
@@ -73,17 +75,20 @@ export async function commitPending(
   services: Services,
   data: LearningData,
   session: SessionState,
-  tooEasy = false,
+  options: LeaveOptions = {},
 ): Promise<void> {
-  const pending = pendingAnswer(session);
-  const question = pending ? data.questions.get(pending.questionId) : undefined;
-  if (!pending || !question) return;
+  const raw = pendingAnswer(session);
+  const question = raw ? data.questions.get(raw.questionId) : undefined;
+  if (!raw || !question) return;
+  const answer = finalizeAnswer(raw, options);
+  // A recall answer that was shown but never rated carries no information.
+  if (answer.response.type === 'recall' && !answer.selfRating) return;
   const { clock, ids, identity, appVersion } = services;
   const { event, card } = reviewForAnswer(
     { clock, ids, appVersion, ...identity },
     {
       question,
-      answer: { ...pending, tooEasy: tooEasy && pending.correct },
+      answer,
       mode: session.mode,
       card: data.cards.get(question.id),
       scheduler: data.scheduler,
@@ -105,9 +110,10 @@ export async function loadResumableSession(
   services: Services,
   data: LearningData,
 ): Promise<SessionState | undefined> {
-  const saved: unknown = await services.storage.get('meta', SESSION_KEY);
-  if (!saved) return undefined;
-  if (!isCurrentSessionShape(saved)) {
+  const raw: unknown = await services.storage.get('meta', SESSION_KEY);
+  if (!raw) return undefined;
+  const saved = migrateSession(raw);
+  if (!saved) {
     await discardSession(services);
     return undefined;
   }

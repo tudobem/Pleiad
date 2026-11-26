@@ -64,6 +64,57 @@
       "status": "verified",
       "created": "2026-11-23",
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "pom-know-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "short",
+      "tier": "foundational",
+      "tags": ["knowledge-argument", "mary"],
+      "prompt": "In Frank Jackson's thought experiment, what is the name of the color scientist who has never seen color?",
+      "answers": ["Mary"],
+      "explanation": "Jackson's Mary knows every physical fact about color vision but has lived in a black-and-white room; the question is whether she learns something new on first seeing red.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Nida-Rümelin, M., & O Conaill, D. Qualia: The knowledge argument. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "pom-know-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "order",
+      "tier": "foundational",
+      "tags": ["knowledge-argument", "argument"],
+      "prompt": "Put the steps of Jackson's knowledge argument in order.",
+      "items": [
+        "Mary knows all the physical facts about color vision",
+        "Mary leaves the room and sees red for the first time",
+        "She learns something new: what it is like to see red",
+        "So not all facts are physical facts"
+      ],
+      "explanation": "Jackson's original argument moves from complete physical knowledge, through Mary's new experience, to the conclusion that some facts are not physical. He later rejected the argument.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Nida-Rümelin, M., & O Conaill, D. Qualia: The knowledge argument. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-26"
     }
   ]
 }

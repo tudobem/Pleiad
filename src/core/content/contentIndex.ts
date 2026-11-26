@@ -4,7 +4,7 @@ import { addToCounts, emptyCounts, type Counts } from './report.ts';
 import type { LoadedPack, NodeKind } from './types.ts';
 
 /** Bump when the shape of content-index.json changes. */
-export const CONTENT_INDEX_VERSION = 1;
+export const CONTENT_INDEX_VERSION = 2;
 
 export interface IndexTreeNode {
   readonly id: string;
