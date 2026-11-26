@@ -1,6 +1,16 @@
 /** Line icons: 24 px grid, 2 px stroke, round caps (DESIGN 2). Decorative by default. */
 export type IconName =
-  'today' | 'practice' | 'stats' | 'library' | 'settings' | 'close' | 'check' | 'cross';
+  | 'today'
+  | 'practice'
+  | 'stats'
+  | 'library'
+  | 'settings'
+  | 'close'
+  | 'check'
+  | 'cross'
+  | 'back'
+  | 'chevron'
+  | 'search';
 
 const PATHS: Record<IconName, string> = {
   today: 'M12 3l2.2 5.6L20 9.3l-4.4 3.9 1.3 5.8L12 16l-4.9 3 1.3-5.8L4 9.3l5.8-.7z',
@@ -12,6 +22,9 @@ const PATHS: Record<IconName, string> = {
   close: 'M6 6l12 12M18 6L6 18',
   check: 'M5 12.5l4.5 4.5L19 7.5',
   cross: 'M7 7l10 10M17 7L7 17',
+  back: 'M15 5l-7 7 7 7',
+  chevron: 'M9 5l7 7-7 7',
+  search: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4',
 };
 
 export function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

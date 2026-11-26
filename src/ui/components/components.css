@@ -21,6 +21,10 @@
     opacity var(--duration-fast) var(--ease-out);
 }
 
+a.button {
+  text-decoration: none;
+}
+
 .button:disabled {
   cursor: default;
   opacity: 0.4;
@@ -161,7 +165,7 @@
 .progress__fill {
   height: 100%;
   border-radius: 2px;
-  background: var(--gold);
+  background: var(--progress-fill, var(--gold));
   transition: width var(--duration-slow) var(--ease-out);
 }
 

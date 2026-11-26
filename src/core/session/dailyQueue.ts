@@ -18,6 +18,11 @@ export interface QueueInput {
   readonly settings: Settings;
   readonly now: number;
   readonly offsetMinutes: number;
+  /**
+   * Restrict the picked items to these question IDs (Practice <Subject>).
+   * Daily limits and tier unlock still count every question.
+   */
+  readonly scope?: ReadonlySet<string>;
 }
 
 export interface DailyQueue {
@@ -28,7 +33,7 @@ export interface DailyQueue {
   readonly fresh: readonly string[];
 }
 
-const introduced = (cards: ReadonlyMap<string, CardState>, id: string): boolean =>
+export const introduced = (cards: ReadonlyMap<string, CardState>, id: string): boolean =>
   cards.get(id)?.scheduler != null;
 
 /**
@@ -36,7 +41,8 @@ const introduced = (cards: ReadonlyMap<string, CardState>, id: string): boolean 
  * daily limit, interleaving subjects. Pure and deterministic for a given day.
  */
 export function buildDailyQueue(input: QueueInput): DailyQueue {
-  const { questions, cards, events, settings, now, offsetMinutes } = input;
+  const { questions, cards, events, settings, now, offsetMinutes, scope } = input;
+  const inScope = (q: Question): boolean => !scope || scope.has(q.id);
   const day = learningDay(now, offsetMinutes);
   const start = dayStartMs(day, offsetMinutes);
   const end = nextDayStartMs(now, offsetMinutes);
@@ -57,6 +63,7 @@ export function buildDailyQueue(input: QueueInput): DailyQueue {
 
   // Due reviews: most overdue first, soft cap per day.
   const dueCards = questions
+    .filter(inScope)
     .map((q) => ({ q, s: cards.get(q.id)?.scheduler }))
     .filter((x): x is { q: Question; s: NonNullable<typeof x.s> } => !!x.s && x.s.due < end)
     .sort((a, b) => a.s.due - b.s.due || (a.q.id < b.q.id ? -1 : 1))
@@ -67,6 +74,7 @@ export function buildDailyQueue(input: QueueInput): DailyQueue {
   const limit = Math.max(0, settings.newPerDay - introducedToday);
   const candidates = questions.filter(
     (q) =>
+      inScope(q) &&
       !introduced(cards, q.id) &&
       tierUnlocked(q, questions, cards, settings.autoUnlock) &&
       prerequisitesMet(q, byId, cards),

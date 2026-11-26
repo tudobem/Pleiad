@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_SETTINGS, normalizeSettings } from './settings.ts';
+import {
+  DEFAULT_SETTINGS,
+  normalizeSettings,
+  resolveActivePacks,
+  withPacksActive,
+} from './settings.ts';
 
 describe('normalizeSettings', () => {
   it('fills defaults', () => {
@@ -18,5 +23,36 @@ describe('normalizeSettings', () => {
     expect(s.reviewCap).toBe(0);
     expect(s.desiredRetention).toBe(0.95);
     expect(s.tierMix).toEqual(DEFAULT_SETTINGS.tierMix);
+  });
+});
+
+describe('active packs', () => {
+  const packs = ['a', 'b', 'c'];
+
+  it('keeps only a string list, deduplicated', () => {
+    expect(normalizeSettings({})).not.toHaveProperty('activePacks');
+    const bad = { activePacks: 'a' } as unknown as Parameters<typeof normalizeSettings>[0];
+    expect(normalizeSettings(bad)).not.toHaveProperty('activePacks');
+    const mixed = { activePacks: ['a', 3, 'a', 'b'] } as unknown as Parameters<
+      typeof normalizeSettings
+    >[0];
+    expect(normalizeSettings(mixed).activePacks).toEqual(['a', 'b']);
+  });
+
+  it('treats unset as all packs and ignores unknown ones', () => {
+    expect(resolveActivePacks(DEFAULT_SETTINGS, packs)).toEqual(packs);
+    expect(resolveActivePacks({ ...DEFAULT_SETTINGS, activePacks: ['c', 'gone'] }, packs)).toEqual([
+      'c',
+    ]);
+    expect(resolveActivePacks({ ...DEFAULT_SETTINGS, activePacks: [] }, packs)).toEqual([]);
+  });
+
+  it('turns packs on and off, storing the full list', () => {
+    const off = withPacksActive(DEFAULT_SETTINGS, packs, ['b'], false);
+    expect(off.activePacks).toEqual(['a', 'c']);
+    expect(withPacksActive(off, packs, ['b'], true).activePacks).toEqual(packs);
+    expect(
+      withPacksActive({ ...DEFAULT_SETTINGS, activePacks: [] }, packs, ['c'], true).activePacks,
+    ).toEqual(['c']);
   });
 });

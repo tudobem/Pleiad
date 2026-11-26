@@ -46,13 +46,25 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // App shell plus the generated content (index and verified packs, about
-        // 26 KB today). Content updates therefore apply on next launch, like app
-        // updates. M5 narrows this to the user's active packs (SPEC 5.3).
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}', 'content/**/*.json'],
+        // App shell plus the content index (SPEC 5.3). Pack files are not
+        // precached: the app keeps only the active ones in the pleiad-packs
+        // cache (fetchContent.ts keepOffline) and the rule below serves them.
+        globPatterns: [
+          '**/*.{js,css,html,svg,png,woff2,webmanifest}',
+          'content/content-index.json',
+        ],
         // Large install-time icons are fetched by the OS, not needed offline.
         globIgnores: ['icons/icon-512.png', 'icons/icon-maskable-512.png'],
         navigateFallback: 'index.html',
+        runtimeCaching: [
+          {
+            // Pack files carry a content hash in their name, so a cached copy
+            // never goes stale; a new version is a new file.
+            urlPattern: /\/content\/packs\/[^/]+\.json$/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'pleiad-packs' },
+          },
+        ],
         cleanupOutdatedCaches: true,
       },
     }),

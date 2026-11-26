@@ -1,10 +1,13 @@
 /**
  * `npm run content:index`: writes public/content/content-index.json (SPEC 5.3)
- * and public/content/packs/<pack-id>.json with each pack's verified questions
- * (the only ones that enter reviews). Refuses to write if the content has errors.
+ * and public/content/packs/<pack-id>.<hash>.json with each pack's verified
+ * questions (the only ones that enter reviews). The content hash in the name
+ * lets the service worker cache packs forever: a new version is a new file.
+ * Refuses to write if the content has errors.
  */
+import { createHash } from 'node:crypto';
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { formatIssues, loadContent, ROOT } from './lib/content.ts';
 import { validateContent } from '../src/core/content/validate.ts';
 import { buildContentIndex } from '../src/core/content/contentIndex.ts';
@@ -30,13 +33,8 @@ if (!result || errors.length > 0) {
   process.exit(1);
 }
 
-const index = buildContentIndex(loaded.packs, result.taxonomy);
-rmSync(outDir, { recursive: true, force: true });
-mkdirSync(dirname(outFile), { recursive: true });
-writeFileSync(outFile, `${JSON.stringify(index, null, 2)}\n`);
-
-const packsDir = join(outDir, 'packs');
-mkdirSync(packsDir, { recursive: true });
+const packFiles: Record<string, string> = {};
+const packJson = new Map<string, string>();
 let verified = 0;
 for (const pack of loaded.packs) {
   const questions = pack.questionFiles
@@ -44,8 +42,18 @@ for (const pack of loaded.packs) {
     .filter((q) => q.status === 'verified');
   verified += questions.length;
   const content: PackContent = { meta: pack.meta, questions };
-  writeFileSync(join(packsDir, `${pack.meta.id}.json`), `${JSON.stringify(content)}\n`);
+  const json = `${JSON.stringify(content)}\n`;
+  const hash = createHash('sha256').update(json).digest('hex').slice(0, 10);
+  const file = `packs/${pack.meta.id}.${hash}.json`;
+  packFiles[pack.meta.id] = file;
+  packJson.set(file, json);
 }
+
+const index = buildContentIndex(loaded.packs, result.taxonomy, packFiles);
+rmSync(outDir, { recursive: true, force: true });
+mkdirSync(join(outDir, 'packs'), { recursive: true });
+writeFileSync(outFile, `${JSON.stringify(index, null, 2)}\n`);
+for (const [file, json] of packJson) writeFileSync(join(outDir, file), json);
 console.log(
   `content:index: wrote the index and ${index.packs.length} pack file(s) with ${verified} verified question(s) to public/content/`,
 );

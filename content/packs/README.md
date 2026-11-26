@@ -41,4 +41,4 @@ Siblings are listed alphabetically by label (ignoring case) unless they have an 
 4. Martin reviews drafts and names the IDs to verify. Only then is `status` set to `verified` with `verified_on`.
 5. To remove a question, set `status: "retired"`. Never delete it or reuse its ID. If an answer changes materially, retire the item and create a new ID.
 
-`npm run content:index` (also run before every build) writes `public/content/content-index.json`, the small index the app loads at startup.
+`npm run content:index` (also run before every build) writes `public/content/content-index.json`, the small index the app loads at startup, and one `public/content/packs/<pack-id>.<hash>.json` per pack with its verified questions. The app fetches a pack only when it is active (chosen in the Library) and keeps active packs offline.

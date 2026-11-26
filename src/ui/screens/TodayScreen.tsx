@@ -8,7 +8,7 @@ import {
   todayQueue,
   type LearningData,
 } from '../learning.ts';
-import { navigate } from '../router.ts';
+import { href, navigate } from '../router.ts';
 import { useServices } from '../services.ts';
 import { t } from '../strings.ts';
 import { useLearning, type Learning } from '../useLearning.ts';
@@ -29,6 +29,31 @@ export function TodayScreen() {
       <Card>
         <p class="screen__muted">{t('common.loadError')}</p>
         <Button variant="secondary" onClick={learning.retry}>
+          {t('common.retry')}
+        </Button>
+      </Card>
+    );
+  } else if (
+    learning.value.data.activePacks.length === 0 &&
+    learning.value.data.index.packs.length > 0
+  ) {
+    body = (
+      <Card>
+        <h2 class="screen__subtitle">{t('today.pickTitle')}</h2>
+        <p class="screen__muted">{t('today.pickBody')}</p>
+        <a class="button button--primary" href={href('library')}>
+          {t('today.openLibrary')}
+        </a>
+      </Card>
+    );
+  } else if (
+    learning.value.data.questions.size === 0 &&
+    learning.value.data.unavailable.length > 0
+  ) {
+    body = (
+      <Card>
+        <p class="screen__muted">{t('today.unavailable')}</p>
+        <Button variant="secondary" onClick={learning.reload}>
           {t('common.retry')}
         </Button>
       </Card>
@@ -128,6 +153,7 @@ function TodayActions({ learning }: { learning: Learning }) {
         {t('today.startToday')}
       </Button>
       <p class="today__caption">{t('today.counts', { due, fresh })}</p>
+      {data.unavailable.length > 0 ? <p class="today__caption">{t('today.unavailable')}</p> : null}
     </div>
   );
 }
