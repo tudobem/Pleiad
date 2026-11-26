@@ -1,0 +1,201 @@
+/* Library components (DESIGN 4.4, 4.5). Tokens only. */
+
+.chip {
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-button);
+  background: var(--transparent);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.chip--pressed {
+  border-color: var(--gold);
+  background: var(--gold-tint);
+  color: var(--gold-text);
+}
+
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.shelf__title {
+  margin: 0;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+
+.shelf__row {
+  display: flex;
+  gap: var(--space-3);
+  margin: 0 calc(-1 * var(--screen-padding));
+  padding: 0 var(--screen-padding) var(--space-2);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--screen-padding);
+  list-style: none;
+}
+
+.shelf__item {
+  /* About 2.5 cards per row hint at scrolling (DESIGN 4.4). */
+  flex: 0 0 min(40%, 15rem);
+  min-width: 9.5rem;
+  scroll-snap-align: start;
+}
+
+.subject-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.subject-card:focus-visible,
+.tree-row__toggle:focus-visible,
+.search-result:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.subject-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-heading);
+}
+
+.subject-card__meta,
+.subject-card__inactive {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+}
+
+.subject-card__inactive {
+  color: var(--text-dim);
+}
+
+.subject-card__due {
+  color: var(--gold-text);
+  font-size: var(--text-caption);
+}
+
+.subject-card .progress,
+.tree-row .progress {
+  flex: none;
+}
+
+/* Tree rows */
+.tree {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tree-row {
+  border-bottom: 1px solid var(--border);
+}
+
+.tree-row__toggle,
+.tree-row__static {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: var(--space-3) 0;
+  border: none;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+}
+
+.tree-row__toggle {
+  cursor: pointer;
+}
+
+.tree-row__static {
+  padding-left: calc(18px + var(--space-2));
+}
+
+.tree-row__chevron {
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.tree-row__chevron--open {
+  transform: rotate(90deg);
+}
+
+.tree-row__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.tree-row__line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.tree-row__label {
+  flex: 1;
+}
+
+.tree-row__new {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-option);
+  background: var(--gold-tint);
+  color: var(--gold-text);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+
+.tree-row__count {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tree-row__topics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  /* Indented gold guide line (DESIGN 4.5). */
+  margin: 0 0 var(--space-3) var(--space-2);
+  padding: var(--space-1) 0 var(--space-1) calc(var(--space-2) + 18px);
+  border-left: 2px solid var(--gold);
+  list-style: none;
+  font-size: var(--text-small);
+}
+
+.tree-row--empty .tree-row__label,
+.tree-row--empty .tree-row__count {
+  color: var(--text-dim);
+}

@@ -1,3 +1,4 @@
+import type { ContentIndex } from '../core/content/contentIndex.ts';
 import type { Question } from '../core/content/types.ts';
 import { fsrsScheduler } from '../core/scheduler/fsrsScheduler.ts';
 import { learningDay } from '../core/scheduler/day.ts';
@@ -15,18 +16,40 @@ import {
 } from '../core/session/reducer.ts';
 import { buildSession, toSessionItems } from '../core/session/session.ts';
 import { slowThresholds, type SlowThresholds } from '../core/session/slow.ts';
-import { normalizeSettings, type Settings } from '../core/settings.ts';
+import {
+  normalizeSettings,
+  resolveActivePacks,
+  type Settings,
+  withPacksActive,
+} from '../core/settings.ts';
 import { replayCards, type CardState } from '../core/sync/replay.ts';
 import type { ReviewEvent } from '../core/sync/reviewEvent.ts';
 import type { Services } from './services.ts';
+import { activeFiles, loadIndex, loadQuestions } from './useContent.ts';
 
 /** Size of a "Practice anyway" session (extra practice, SPEC 7.6). */
 export const PRACTICE_SIZE = 10;
 const SESSION_KEY = 'activeSession';
 const SETTINGS_KEY = 'learning';
 
+/** What content the profile is working with (SPEC 5.3). */
+export interface ContentState {
+  readonly index: ContentIndex;
+  /** Active pack IDs (the Daily queue draws only from these). */
+  readonly activePacks: readonly string[];
+  /** Active packs that could not be loaded (offline and not cached). */
+  readonly unavailable: readonly string[];
+}
+
+export const EMPTY_CONTENT: ContentState = {
+  index: { version: 3, packs: [], tree: [] },
+  activePacks: [],
+  unavailable: [],
+};
+
 /** Everything derived from the log that sessions and Today need. */
-export interface LearningData {
+export interface LearningData extends ContentState {
+  /** Questions of the active packs. */
   readonly questions: ReadonlyMap<string, Question>;
   readonly settings: Settings;
   readonly scheduler: Scheduler;
@@ -36,14 +59,20 @@ export interface LearningData {
   readonly thresholds: SlowThresholds;
 }
 
+export async function loadSettings(services: Services): Promise<Settings> {
+  return normalizeSettings(await services.storage.get('settings', SETTINGS_KEY));
+}
+
 export async function loadLearningData(
   services: Services,
   questions: ReadonlyMap<string, Question>,
+  content: ContentState = EMPTY_CONTENT,
 ): Promise<LearningData> {
-  const settings = normalizeSettings(await services.storage.get('settings', SETTINGS_KEY));
+  const settings = await loadSettings(services);
   const scheduler = fsrsScheduler(settings.desiredRetention);
   const events = await services.storage.listReviews();
   return {
+    ...content,
     questions,
     settings,
     scheduler,
@@ -53,12 +82,51 @@ export async function loadLearningData(
   };
 }
 
+/**
+ * Index, settings, the active packs' questions (lazily fetched) and the
+ * replayed log. Active pack files are kept offline; others are dropped.
+ */
+export async function loadActiveLearning(services: Services): Promise<LearningData> {
+  const index = await loadIndex(services.content);
+  const settings = await loadSettings(services);
+  const activePacks = resolveActivePacks(
+    settings,
+    index.packs.map((p) => p.id),
+  );
+  const { questions, unavailable } = await loadQuestions(services.content, index, activePacks);
+  void services.content.keepOffline(activeFiles(index, activePacks));
+  return loadLearningData(services, questions, { index, activePacks, unavailable });
+}
+
+/** Turn packs on or off for the Daily queue (SPEC 5.3). */
+export async function setPacksActive(
+  services: Services,
+  index: ContentIndex,
+  packIds: readonly string[],
+  on: boolean,
+): Promise<void> {
+  const settings = await loadSettings(services);
+  const next = withPacksActive(
+    settings,
+    index.packs.map((p) => p.id),
+    packIds,
+    on,
+  );
+  await services.storage.put('settings', SETTINGS_KEY, next);
+  const active = next.activePacks ?? [];
+  void services.content.keepOffline(activeFiles(index, active));
+}
+
 export function today(services: Services): number {
   const now = services.clock.now();
   return learningDay(now, services.clock.utcOffsetMinutes(now));
 }
 
-export function todayQueue(services: Services, data: LearningData): DailyQueue {
+export function todayQueue(
+  services: Services,
+  data: LearningData,
+  scope?: ReadonlySet<string>,
+): DailyQueue {
   const now = services.clock.now();
   return buildDailyQueue({
     questions: [...data.questions.values()],
@@ -67,6 +135,7 @@ export function todayQueue(services: Services, data: LearningData): DailyQueue {
     settings: data.settings,
     now,
     offsetMinutes: services.clock.utcOffsetMinutes(now),
+    ...(scope ? { scope } : {}),
   });
 }
 
@@ -183,5 +252,48 @@ export function startPracticeSession(
       mode: 'extra',
       day: today(services),
     }),
+  );
+}
+
+/** What a subject's questions look like for Practice <Subject>. */
+export interface SubjectTarget {
+  readonly packs: readonly string[];
+  readonly questionIds: readonly string[];
+}
+
+/**
+ * Practice <Subject> (DESIGN 4.5): activates the subject's packs if needed,
+ * then starts its part of the Daily queue, or extra practice when nothing of
+ * it is due or new. Throws, changing nothing, if a pack cannot be fetched.
+ */
+export async function startSubjectSession(
+  services: Services,
+  data: LearningData,
+  subject: SubjectTarget,
+): Promise<SessionState> {
+  const inactive = subject.packs.filter((id) => !data.activePacks.includes(id));
+  let questions = data.questions;
+  if (inactive.length > 0) {
+    const loaded = await loadQuestions(services.content, data.index, inactive);
+    if (loaded.unavailable.length > 0) throw new Error('Pack unavailable offline');
+    questions = new Map([...data.questions, ...loaded.questions]);
+    await setPacksActive(services, data.index, inactive, true);
+  }
+  const withSubject: LearningData = { ...data, questions };
+  const scope = new Set(subject.questionIds);
+  const queue = todayQueue(services, withSubject, scope);
+  const day = queue.day;
+  if (queue.due.length + queue.fresh.length > 0) {
+    const items = toSessionItems([...queue.due, ...queue.fresh], questions, services.random);
+    return begin(
+      services,
+      startSession(services.ids.newId(), items, services.clock.now(), { mode: 'scheduled', day }),
+    );
+  }
+  const pool = [...questions.values()].filter((q) => scope.has(q.id));
+  const items = buildSession(pool, { size: PRACTICE_SIZE, random: services.random });
+  return begin(
+    services,
+    startSession(services.ids.newId(), items, services.clock.now(), { mode: 'extra', day }),
   );
 }

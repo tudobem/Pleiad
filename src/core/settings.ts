@@ -14,6 +14,11 @@ export interface Settings {
   readonly tierMix: Readonly<Record<Tier, number>>;
   /** Unlock advanced/expert items per topic automatically (SPEC 7.2). */
   readonly autoUnlock: boolean;
+  /**
+   * Packs the Daily queue draws from (SPEC 5.3). Unset means every pack is
+   * active; the first explicit change stores the full list.
+   */
+  readonly activePacks?: readonly string[];
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -45,5 +50,34 @@ export function normalizeSettings(stored: Partial<Settings> | undefined): Settin
     desiredRetention: clampRetention(s.desiredRetention ?? DEFAULT_SETTINGS.desiredRetention),
     tierMix: mixTotal > 0 ? tierMix : DEFAULT_SETTINGS.tierMix,
     autoUnlock: typeof s.autoUnlock === 'boolean' ? s.autoUnlock : DEFAULT_SETTINGS.autoUnlock,
+    ...(Array.isArray(s.activePacks)
+      ? {
+          activePacks: [
+            ...new Set(s.activePacks.filter((id): id is string => typeof id === 'string')),
+          ],
+        }
+      : {}),
   };
+}
+
+/** Active pack IDs among the packs that exist (all of them while unset). */
+export function resolveActivePacks(settings: Settings, packIds: readonly string[]): string[] {
+  if (!settings.activePacks) return [...packIds];
+  const active = new Set(settings.activePacks);
+  return packIds.filter((id) => active.has(id));
+}
+
+/** Settings with the given packs turned on or off; the result always lists its packs. */
+export function withPacksActive(
+  settings: Settings,
+  packIds: readonly string[],
+  changed: readonly string[],
+  on: boolean,
+): Settings {
+  const active = new Set(resolveActivePacks(settings, packIds));
+  for (const id of changed) {
+    if (on) active.add(id);
+    else active.delete(id);
+  }
+  return { ...settings, activePacks: packIds.filter((id) => active.has(id)) };
 }

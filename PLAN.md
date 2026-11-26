@@ -36,9 +36,9 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Rating mapping and tests per type
 
 ## M5: Library
-- [ ] Taxonomy-driven Library, shelves, subject page, tree rows, search
-- [ ] Pack activation; lazy loading of question files; service worker caching of active packs
-- [ ] Practice-this-subject entry point
+- [x] Taxonomy-driven Library, shelves, subject page, tree rows, search
+- [x] Pack activation; lazy loading of question files; service worker caching of active packs
+- [x] Practice-this-subject entry point
 
 ## M6: Stats
 - [ ] Retention, coverage, per-topic bars, weak-spot list, heatmap, streak
@@ -142,4 +142,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-26, review of PRs #7 and #8: Taxonomy nodes get an optional integer `order` (schema, types, content index). Siblings sort by `order` ascending, then unordered nodes by label ignoring case (so "meta-d'" no longer sorts after "Z"), then ID. Duplicate sibling orders are a validator warning, not an error, because label order breaks the tie; shared nodes must agree on `order`. The index only includes `order` when set, so its format version is unchanged.
 - 2026-11-26, after merging PRs #7 and #8: Set `order` on every branch and topic of both taxonomies to its existing position in the taxonomy file, which is the authored (chapter or chronological) order, so the index lists History as Antiquity, experimental psychology, cognitive revolution, 1988 to 1996, 2004 to 2025. Only `order` was added; no labels, IDs or questions changed. Domains and subjects keep alphabetical order.
 - 2026-11-26: Martin verified the Chapter 3 questions; the 25 items in `phenomenology-method` (14), `heterophenomenology` (3) and `introspection-reliability` (8) were marked verified (verified_on 2026-11-26). The 5 new-format extras for Chapters 1 and 2 (`cons-hist-testing-0007`, `cons-hist-early-0007`, `pom-hard-problem-0004`, `pom-hard-problem-0005`, `pom-zombies-0005`) are not Chapter 3 and stay draft until Martin names them.
-
+- 2026-11-26, M5: Pack activation lives in the learning settings as `activePacks`. Unset means every pack is active, so existing profiles keep their queue; the first toggle stores the full list. An empty list is allowed and Today then shows "Pick your first subject". Turning a subject off keeps its cards; its due reviews leave the Daily queue until it is turned on again. The log is untouched, so replay stays exact.
+- 2026-11-26, M5: Content index version 3. Topics list their verified question IDs and tags, so Library progress and search need no pack. Packs are written as `packs/<id>.<hash>.json` (sha256, 10 hex) and the index names the file. The service worker precaches only the shell and the index; pack files are served cache-first from `pleiad-packs`, and the app itself keeps exactly the active pack files in that cache (adds missing ones, drops old hashes and inactive packs). That also makes a first visit work offline before the worker controls the page.
+- 2026-11-26, M5: Progress in the Library is coverage (verified items introduced, labelled "started", SPEC 14.1) counted from verified questions only; retention and "mastered" come with Stats in M6. Branches and topics without verified questions are shown dimmed as "No questions yet", not hidden.
+- 2026-11-26, M5: Practice <Subject> activates the subject if needed, then runs the subject's part of the Daily queue as a scheduled session; the daily new limit, review cap and tier unlock still count all questions, so it never exceeds the daily budget. With nothing due or new it becomes extra practice (no FSRS change). If a pack cannot be fetched offline it shows a message and changes nothing. Subject level only for now; the scope mechanism can serve branch and topic drills later (SPEC 8.2).
+- 2026-11-26, M5: Search matches subject, branch and topic labels and topic tags by word prefix, ignoring case and accents ("epoche" finds "epoché"). Label matches rank before tag matches; a result opens its subject page with the branch expanded.

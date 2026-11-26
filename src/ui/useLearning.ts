@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'preact/hooks';
 import type { SessionState } from '../core/session/reducer.ts';
-import { loadLearningData, loadResumableSession, type LearningData } from './learning.ts';
+import { loadActiveLearning, loadResumableSession, type LearningData } from './learning.ts';
 import { useServices } from './services.ts';
-import { loadEligibleQuestions, type Loadable } from './useContent.ts';
+import type { Loadable } from './useContent.ts';
 
 export interface Learning {
   readonly data: LearningData;
@@ -21,8 +21,7 @@ export function useLearning(): Loadable<Learning> & { reload: () => void } {
     let alive = true;
     setState({ status: 'loading' });
     (async () => {
-      const questions = await loadEligibleQuestions(services.content);
-      const data = await loadLearningData(services, questions);
+      const data = await loadActiveLearning(services);
       const saved = await loadResumableSession(services, data);
       return { data, saved };
     })().then(

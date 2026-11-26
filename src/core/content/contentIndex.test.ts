@@ -25,6 +25,24 @@ describe('buildContentIndex', () => {
     expect(iit?.counts.byTier).toEqual({ foundational: 1, advanced: 1, expert: 0 });
   });
 
+  it('lists verified question IDs and tags on topics, and pack files', () => {
+    const v = { status: 'verified' as const, verified_on: '2026-02-01' };
+    const c = pack([
+      mcq({ id: 'cons-0002', tags: ['Tononi'], ...v }),
+      mcq({ id: 'cons-0001', tags: ['phi', 'Tononi'], ...v }),
+      mcq({ id: 'cons-0003', tags: ['draft-only'] }),
+    ]);
+    const index = buildContentIndex([c], mergeTaxonomy([c]).taxonomy, {
+      'cons-pack': 'packs/cons-pack.abc.json',
+    });
+    expect(index.version).toBe(3);
+    expect(index.packs[0]?.file).toBe('packs/cons-pack.abc.json');
+    const iit = index.tree[0]?.children[0]?.children[0]?.children.find((n) => n.id === 'iit');
+    expect(iit?.questionIds).toEqual(['cons-0001', 'cons-0002']);
+    expect(iit?.tags).toEqual(['Tononi', 'phi']);
+    expect(index.tree[0]).not.toHaveProperty('questionIds');
+  });
+
   it('is deterministic regardless of input order', () => {
     const one = buildContentIndex([a, b], mergeTaxonomy([a, b]).taxonomy);
     const two = buildContentIndex([b, a], mergeTaxonomy([b, a]).taxonomy);

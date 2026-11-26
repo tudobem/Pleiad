@@ -1,4 +1,4 @@
-import type { ContentIndex } from './contentIndex.ts';
+import type { ContentIndex, IndexPack } from './contentIndex.ts';
 import type { PackMeta, Question } from './types.ts';
 
 /**
@@ -13,5 +13,11 @@ export interface PackContent {
 /** Where the app gets content from. Platform implements it (fetch on web). */
 export interface ContentSource {
   loadIndex(): Promise<ContentIndex>;
-  loadPack(packId: string): Promise<PackContent>;
+  /** Fetch a pack's verified questions (lazy, SPEC 5.3). */
+  loadPack(pack: IndexPack): Promise<PackContent>;
+  /**
+   * Keep exactly these pack files available offline: add missing ones and drop
+   * the rest (older versions, inactive packs). Best effort; never throws.
+   */
+  keepOffline(files: readonly string[]): Promise<void>;
 }

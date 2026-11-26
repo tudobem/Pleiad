@@ -33,6 +33,7 @@ function queue(
   events: ReviewEvent[] = [],
   settings: Partial<Settings> = {},
   now = NOW,
+  scope?: ReadonlySet<string>,
 ) {
   return buildDailyQueue({
     questions,
@@ -41,8 +42,28 @@ function queue(
     settings: { ...DEFAULT_SETTINGS, ...settings },
     now,
     offsetMinutes: CET,
+    ...(scope ? { scope } : {}),
   });
 }
+
+describe('buildDailyQueue with a scope', () => {
+  const inside = Array.from({ length: 8 }, (_, i) => q(`s${i}`, { pack: 'p' }));
+  const outside = Array.from({ length: 8 }, (_, i) => q(`o${i}`, { pack: 'other' }));
+  const scope = new Set(inside.map((x) => x.id));
+
+  it('picks only scoped items but counts the daily limit over everything', () => {
+    const earlier = ['o0', 'o1', 'o2', 'o3', 'o4', 'o5'].map((id) => ev(id, NOW - 3_600_000));
+    const result = queue([...inside, ...outside], earlier, {}, NOW, scope);
+    expect(result.fresh).toHaveLength(4);
+    expect(result.fresh.every((id) => scope.has(id))).toBe(true);
+  });
+
+  it('keeps due items outside the scope out', () => {
+    const old = [ev('s0', NOW - 20 * DAY_MS), ev('o0', NOW - 20 * DAY_MS)];
+    const result = queue([...inside, ...outside], old, { newPerDay: 0 }, NOW, scope);
+    expect(result.due).toEqual(['s0']);
+  });
+});
 
 describe('buildDailyQueue', () => {
   const pool = Array.from({ length: 15 }, (_, i) => q(`n${String(i).padStart(2, '0')}`));

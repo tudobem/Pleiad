@@ -4,7 +4,7 @@ import { addToCounts, emptyCounts, type Counts } from './report.ts';
 import type { LoadedPack, NodeKind } from './types.ts';
 
 /** Bump when the shape of content-index.json changes. */
-export const CONTENT_INDEX_VERSION = 2;
+export const CONTENT_INDEX_VERSION = 3;
 
 export interface IndexTreeNode {
   readonly id: string;
@@ -14,6 +14,10 @@ export interface IndexTreeNode {
   readonly order?: number;
   readonly packs: readonly string[];
   readonly counts: Counts;
+  /** Topics only: IDs of verified questions, sorted (progress without loading packs). */
+  readonly questionIds?: readonly string[];
+  /** Topics only: tags of the topic's verified questions, sorted (search). */
+  readonly tags?: readonly string[];
   readonly children: readonly IndexTreeNode[];
 }
 
@@ -27,6 +31,8 @@ export interface IndexPack {
   readonly accent: string;
   readonly domainPath: readonly string[];
   readonly bytes: number;
+  /** Path of the pack's verified-questions file, relative to `content/`. */
+  readonly file: string;
   readonly topics: readonly string[];
   readonly counts: Counts;
 }
@@ -45,8 +51,11 @@ export interface ContentIndex {
 export function buildContentIndex(
   packs: readonly LoadedPack[],
   taxonomy: MergedTaxonomy,
+  files: Readonly<Record<string, string>> = {},
 ): ContentIndex {
   const countsByNode = new Map<string, Counts>();
+  const idsByTopic = new Map<string, string[]>();
+  const tagsByTopic = new Map<string, Set<string>>();
   for (const id of taxonomy.nodes.keys()) countsByNode.set(id, emptyCounts());
 
   const indexPacks: IndexPack[] = [];
@@ -57,6 +66,12 @@ export function buildContentIndex(
       for (const q of qf.questions) {
         addToCounts(counts, q);
         topics.add(q.topic);
+        if (q.status === 'verified') {
+          idsByTopic.set(q.topic, [...(idsByTopic.get(q.topic) ?? []), q.id]);
+          const tags = tagsByTopic.get(q.topic) ?? new Set<string>();
+          for (const tag of q.tags) tags.add(tag);
+          tagsByTopic.set(q.topic, tags);
+        }
         // Roll the question up to the topic and every ancestor.
         for (const nodeId of pathTo(taxonomy.nodes, q.topic)) {
           const c = countsByNode.get(nodeId);
@@ -75,6 +90,7 @@ export function buildContentIndex(
       accent: meta.accent,
       domainPath: meta.domainPath,
       bytes: pack.bytes,
+      file: files[meta.id] ?? `packs/${meta.id}.json`,
       topics: [...topics].sort(),
       counts,
     });
@@ -97,6 +113,12 @@ export function buildContentIndex(
       ...(node.order !== undefined ? { order: node.order } : {}),
       packs: [...(taxonomy.declaredBy.get(id) ?? [])].sort(),
       counts: countsByNode.get(id) ?? emptyCounts(),
+      ...(node.kind === 'topic'
+        ? {
+            questionIds: [...(idsByTopic.get(id) ?? [])].sort(compareStrings),
+            tags: [...(tagsByTopic.get(id) ?? [])].sort(compareStrings),
+          }
+        : {}),
       children: (children.get(id) ?? []).sort(bySiblingOrder(taxonomy)).map(build),
     };
   };

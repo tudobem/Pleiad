@@ -8,7 +8,19 @@ import { seededRandom } from '../core/random.ts';
 import { DAY_MS, learningDay } from '../core/scheduler/day.ts';
 import { startSession, sessionReducer, type SessionState } from '../core/session/reducer.ts';
 import { replayCards } from '../core/sync/replay.ts';
-import { closeSession, commitPending, loadLearningData, loadResumableSession } from './learning.ts';
+import type { ContentIndex, IndexPack } from '../core/content/contentIndex.ts';
+import { emptyCounts } from '../core/content/report.ts';
+import type { ContentSource, PackContent } from '../core/content/source.ts';
+import {
+  closeSession,
+  commitPending,
+  loadActiveLearning,
+  loadLearningData,
+  loadResumableSession,
+  loadSettings,
+  setPacksActive,
+  startSubjectSession,
+} from './learning.ts';
 import type { Services } from './services.ts';
 
 const NOW = Date.UTC(2026, 10, 26, 12);
@@ -22,6 +34,7 @@ function setup(now = NOW) {
     content: {
       loadIndex: () => Promise.reject(new Error('unused')),
       loadPack: () => Promise.reject(new Error('unused')),
+      keepOffline: () => Promise.resolve(),
     },
     clock: fixedClock(now),
     random: seededRandom(1),
@@ -147,5 +160,107 @@ describe('loadResumableSession', () => {
     });
     await closeSession(services, data, fresh);
     expect(await storage.listReviews()).toEqual([]);
+  });
+});
+
+describe('active packs and Practice <Subject>', () => {
+  const v = { status: 'verified' as const, verified_on: '2026-02-01' };
+  const aQs = Array.from({ length: 4 }, (_, i) => mcq({ id: `a-${i}`, pack: 'a', ...v }));
+  const bQs = Array.from({ length: 4 }, (_, i) => mcq({ id: `b-${i}`, pack: 'b', ...v }));
+  const indexPack = (id: string): IndexPack => ({
+    id,
+    title: id,
+    description: '',
+    version: '1',
+    language: 'en',
+    license: 'CC-BY-4.0',
+    accent: 'gold',
+    domainPath: ['d', id],
+    bytes: 1,
+    file: `packs/${id}.h.json`,
+    topics: [],
+    counts: emptyCounts(),
+  });
+  const index: ContentIndex = { version: 3, packs: [indexPack('a'), indexPack('b')], tree: [] };
+
+  function contentSetup(online = true) {
+    const { storage, services } = setup();
+    const fetched: string[] = [];
+    const kept: string[][] = [];
+    const content: ContentSource = {
+      loadIndex: () => Promise.resolve(index),
+      loadPack: (p) => {
+        fetched.push(p.id);
+        if (!online && p.id === 'b') return Promise.reject(new Error('offline'));
+        return Promise.resolve({
+          meta: {} as PackContent['meta'],
+          questions: p.id === 'a' ? aQs : bQs,
+        });
+      },
+      keepOffline: (files) => {
+        kept.push([...files]);
+        return Promise.resolve();
+      },
+    };
+    return { storage, services: { ...services, content }, fetched, kept };
+  }
+
+  it('loads every pack while activation is unset, and only active ones after', async () => {
+    const all = contentSetup();
+    const data = await loadActiveLearning(all.services);
+    expect(data.activePacks).toEqual(['a', 'b']);
+    expect(data.questions.size).toBe(8);
+
+    const one = contentSetup();
+    await one.storage.put('settings', 'learning', { activePacks: ['a'] });
+    const onlyA = await loadActiveLearning(one.services);
+    expect(one.fetched).toEqual(['a']);
+    expect([...onlyA.questions.keys()].every((id) => id.startsWith('a-'))).toBe(true);
+    expect(one.kept).toEqual([['packs/a.h.json']]);
+  });
+
+  it('starts a scheduled session of the subject only, activating its pack', async () => {
+    const { storage, services } = contentSetup();
+    await storage.put('settings', 'learning', { activePacks: ['a'] });
+    const data = await loadActiveLearning(services);
+    const session = await startSubjectSession(services, data, {
+      packs: ['b'],
+      questionIds: bQs.map((q) => q.id),
+    });
+    expect(session.mode).toBe('scheduled');
+    expect(session.items.map((i) => i.questionId).sort()).toEqual(bQs.map((q) => q.id));
+    expect(await loadSettings(services)).toMatchObject({ activePacks: ['a', 'b'] });
+    expect(await storage.get('meta', 'activeSession')).toEqual(session);
+  });
+
+  it('falls back to extra practice when nothing of the subject is due or new', async () => {
+    const { storage, services } = contentSetup();
+    await storage.put('settings', 'learning', { newPerDay: 0 });
+    const data = await loadActiveLearning(services);
+    const session = await startSubjectSession(services, data, {
+      packs: ['a'],
+      questionIds: aQs.map((q) => q.id),
+    });
+    expect(session.mode).toBe('extra');
+    expect(session.items.every((i) => i.questionId.startsWith('a-'))).toBe(true);
+  });
+
+  it('changes nothing when the pack cannot be fetched', async () => {
+    const { storage, services } = contentSetup(false);
+    await storage.put('settings', 'learning', { activePacks: ['a'] });
+    const data = await loadActiveLearning(services);
+    await expect(
+      startSubjectSession(services, data, { packs: ['b'], questionIds: ['b-0'] }),
+    ).rejects.toThrow();
+    expect((await loadSettings(services)).activePacks).toEqual(['a']);
+    expect(await storage.get('meta', 'activeSession')).toBeUndefined();
+  });
+
+  it('turns a subject off and on', async () => {
+    const { services } = contentSetup();
+    await setPacksActive(services, index, ['a'], false);
+    expect((await loadSettings(services)).activePacks).toEqual(['b']);
+    await setPacksActive(services, index, ['a'], true);
+    expect((await loadSettings(services)).activePacks).toEqual(['a', 'b']);
   });
 });
