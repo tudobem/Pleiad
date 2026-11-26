@@ -124,8 +124,9 @@
           "url": "https://doi.org/10.1186/1471-2202-5-42"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

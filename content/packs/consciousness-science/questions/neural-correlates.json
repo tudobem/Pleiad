@@ -123,8 +123,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "cons-ncc-0005",
@@ -162,8 +163,9 @@
           "citation": "Mack, A., & Rock, I. (1998). Inattentional Blindness. MIT Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "cons-ncc-0006",
@@ -189,8 +191,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

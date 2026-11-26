@@ -130,8 +130,9 @@
           "url": "https://plato.stanford.edu/entries/zombies/"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

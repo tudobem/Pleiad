@@ -124,8 +124,9 @@
           "citation": "Baars, B. J. (1997). In the Theater of Consciousness: The Workspace of the Mind. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "cons-gwt-0005",
@@ -170,8 +171,9 @@
           "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "cons-gwt-0006",
@@ -204,8 +206,9 @@
           "url": "https://doi.org/10.1186/1471-2202-5-42"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

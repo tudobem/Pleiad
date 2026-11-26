@@ -85,8 +85,9 @@
           "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-know-0004",
@@ -113,8 +114,9 @@
           "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-26"
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }
