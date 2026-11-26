@@ -34,8 +34,9 @@
           "url": "https://doi.org/10.1186/1471-2202-5-42"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-testing-0002",
@@ -74,8 +75,9 @@
           "url": "https://doi.org/10.1126/science.1135284"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-testing-0003",
@@ -114,8 +116,9 @@
           "url": "https://doi.org/10.1126/scitranslmed.3006294"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-testing-0004",
@@ -150,8 +153,9 @@
           "url": "https://doi.org/10.1111/1467-9280.00350"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-testing-0005",
@@ -190,9 +194,10 @@
           "url": "https://doi.org/10.1126/science.abj3259"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["cons-hist-testing-0006"]
+      "confusable_with": ["cons-hist-testing-0006"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-testing-0006",
@@ -231,9 +236,10 @@
           "url": "https://doi.org/10.1038/s41593-025-01881-x"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["cons-hist-testing-0005"]
+      "confusable_with": ["cons-hist-testing-0005"],
+      "verified_on": "2026-11-25"
     }
   ]
 }

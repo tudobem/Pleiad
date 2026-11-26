@@ -33,9 +33,10 @@
           "citation": "Descartes, R. (1641). Meditationes de Prima Philosophia (Meditations on First Philosophy). Paris: Michel Soly."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["cons-hist-early-0002"]
+      "confusable_with": ["cons-hist-early-0002"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-early-0002",
@@ -69,9 +70,10 @@
           "citation": "Aristotle (c. 350 BCE). De Anima (On the Soul), Book II.1."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["cons-hist-early-0001"]
+      "confusable_with": ["cons-hist-early-0001"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-early-0003",
@@ -105,8 +107,9 @@
           "citation": "Shapiro, L. (ed. and trans.) (2007). The Correspondence between Princess Elisabeth of Bohemia and René Descartes. University of Chicago Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-early-0004",
@@ -127,8 +130,9 @@
           "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-early-0005",
@@ -165,8 +169,9 @@
           "citation": "Kant, I. (1781). Kritik der reinen Vernunft (Critique of Pure Reason), Transcendental Deduction. Riga: Hartknoch."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-early-0006",
@@ -200,8 +205,9 @@
           "citation": "Locke, J. (1694). An Essay Concerning Human Understanding, 2nd edn, Book II, Chapter xxvii. London: Thomas Basset."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

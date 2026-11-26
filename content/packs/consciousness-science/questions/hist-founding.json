@@ -20,8 +20,9 @@
           "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-founding-0002",
@@ -59,8 +60,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-founding-0003",
@@ -98,8 +100,9 @@
           "url": "https://doi.org/10.1017/S0140525X00038188"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-founding-0004",
@@ -120,8 +123,9 @@
           "url": "https://doi.org/10.1038/nrn.2016.22"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

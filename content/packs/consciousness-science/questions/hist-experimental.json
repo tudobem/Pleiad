@@ -36,8 +36,9 @@
           "citation": "Boring, E. G. (1950). A History of Experimental Psychology, 2nd edn. New York: Appleton-Century-Crofts."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0002",
@@ -75,9 +76,10 @@
           "url": "https://doi.org/10.2307/2177110"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["cons-hist-experimental-0006"]
+      "confusable_with": ["cons-hist-experimental-0006"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0003",
@@ -111,8 +113,9 @@
           "citation": "Fechner, G. T. (1860). Elemente der Psychophysik. Leipzig: Breitkopf und Härtel."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0004",
@@ -130,8 +133,9 @@
           "url": "https://doi.org/10.1016/0001-6918(69)90065-1"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0005",
@@ -165,8 +169,9 @@
           "citation": "Helmholtz, H. von (1867). Handbuch der physiologischen Optik. Leipzig: Voss."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0006",
@@ -203,9 +208,10 @@
           "citation": "Humphrey, G. (1951). Thinking: An Introduction to Its Experimental Psychology. London: Methuen."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["cons-hist-experimental-0002"]
+      "confusable_with": ["cons-hist-experimental-0002"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0007",
@@ -240,8 +246,9 @@
           "url": "https://doi.org/10.1037/h0074428"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-experimental-0008",
@@ -258,8 +265,9 @@
           "citation": "Ryle, G. (1949). The Concept of Mind. London: Hutchinson."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

@@ -38,8 +38,9 @@
           "url": "https://doi.org/10.1017/S0140525X07002786"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-cognitive-clinic-0002",
@@ -77,8 +78,9 @@
           "citation": "Green, D. M. and Swets, J. A. (1966). Signal Detection Theory and Psychophysics. New York: Wiley."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-cognitive-clinic-0003",
@@ -113,8 +115,9 @@
           "url": "https://doi.org/10.2307/2183914"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-cognitive-clinic-0004",
@@ -149,8 +152,9 @@
           "url": "https://doi.org/10.1016/0013-4694(49)90219-9"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-cognitive-clinic-0005",
@@ -185,8 +189,9 @@
           "url": "https://doi.org/10.1073/pnas.48.10.1765"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-cognitive-clinic-0006",
@@ -225,8 +230,9 @@
           "url": "https://doi.org/10.1093/brain/97.1.709"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "cons-hist-cognitive-clinic-0007",
@@ -265,8 +271,9 @@
           "url": "https://doi.org/10.1073/pnas.1210467109"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }
