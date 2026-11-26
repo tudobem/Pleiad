@@ -16,133 +16,155 @@
       "id": "pom-consciousness",
       "label": "The problem of consciousness",
       "kind": "branch",
-      "parent": "philosophy-of-mind"
+      "parent": "philosophy-of-mind",
+      "order": 1
     },
     {
       "id": "access-phenomenal",
       "label": "Access and phenomenal consciousness",
       "kind": "topic",
-      "parent": "pom-consciousness"
+      "parent": "pom-consciousness",
+      "order": 1
     },
     {
       "id": "hard-problem",
       "label": "The hard problem and the explanatory gap",
       "kind": "topic",
-      "parent": "pom-consciousness"
+      "parent": "pom-consciousness",
+      "order": 2
     },
     {
       "id": "knowledge-argument",
       "label": "Mary and the knowledge argument",
       "kind": "topic",
-      "parent": "pom-consciousness"
+      "parent": "pom-consciousness",
+      "order": 3
     },
     {
       "id": "zombies",
       "label": "Philosophical zombies and inverted spectra",
       "kind": "topic",
-      "parent": "pom-consciousness"
+      "parent": "pom-consciousness",
+      "order": 4
     },
     {
       "id": "type-a-b",
       "label": "Type-A and Type-B physicalism, phenomenal concepts",
       "kind": "topic",
-      "parent": "pom-consciousness"
+      "parent": "pom-consciousness",
+      "order": 5
     },
     {
       "id": "meta-problem",
       "label": "The meta-problem of consciousness",
       "kind": "topic",
-      "parent": "pom-consciousness"
+      "parent": "pom-consciousness",
+      "order": 6
     },
     {
       "id": "pom-theories",
       "label": "Physicalist positions",
       "kind": "branch",
-      "parent": "philosophy-of-mind"
+      "parent": "philosophy-of-mind",
+      "order": 2
     },
     {
       "id": "identity-theory",
       "label": "Behaviourism and identity theory",
       "kind": "topic",
-      "parent": "pom-theories"
+      "parent": "pom-theories",
+      "order": 1
     },
     {
       "id": "functionalism",
       "label": "Functionalism",
       "kind": "topic",
-      "parent": "pom-theories"
+      "parent": "pom-theories",
+      "order": 2
     },
     {
       "id": "chinese-room",
       "label": "The Chinese room",
       "kind": "topic",
-      "parent": "pom-theories"
+      "parent": "pom-theories",
+      "order": 3
     },
     {
       "id": "representationalism-hot",
       "label": "Representationalism and higher-order theories",
       "kind": "topic",
-      "parent": "pom-theories"
+      "parent": "pom-theories",
+      "order": 4
     },
     {
       "id": "biological-naturalism",
       "label": "Biological naturalism",
       "kind": "topic",
-      "parent": "pom-theories"
+      "parent": "pom-theories",
+      "order": 5
     },
     {
       "id": "illusionism",
       "label": "Illusionism and eliminativism",
       "kind": "topic",
-      "parent": "pom-theories"
+      "parent": "pom-theories",
+      "order": 6
     },
     {
       "id": "pom-nonphysicalism",
       "label": "Non-physicalist positions",
       "kind": "branch",
-      "parent": "philosophy-of-mind"
+      "parent": "philosophy-of-mind",
+      "order": 3
     },
     {
       "id": "dualism",
       "label": "Substance and property dualism",
       "kind": "topic",
-      "parent": "pom-nonphysicalism"
+      "parent": "pom-nonphysicalism",
+      "order": 1
     },
     {
       "id": "panpsychism",
       "label": "Panpsychism and Russellian monism",
       "kind": "topic",
-      "parent": "pom-nonphysicalism"
+      "parent": "pom-nonphysicalism",
+      "order": 2
     },
     {
       "id": "mysterianism",
       "label": "Mysterianism, idealism and neutral monism",
       "kind": "topic",
-      "parent": "pom-nonphysicalism"
+      "parent": "pom-nonphysicalism",
+      "order": 3
     },
     {
       "id": "pom-method",
       "label": "Phenomenology and first-person method",
       "kind": "branch",
-      "parent": "philosophy-of-mind"
+      "parent": "philosophy-of-mind",
+      "order": 4
     },
     {
       "id": "phenomenology-method",
       "label": "Husserl, Merleau-Ponty and neurophenomenology",
       "kind": "topic",
-      "parent": "pom-method"
+      "parent": "pom-method",
+      "order": 1
     },
     {
       "id": "heterophenomenology",
       "label": "Heterophenomenology",
       "kind": "topic",
-      "parent": "pom-method"
+      "parent": "pom-method",
+      "order": 2
     },
     {
       "id": "introspection-reliability",
       "label": "Reliability of introspection",
       "kind": "topic",
-      "parent": "pom-method"
+      "parent": "pom-method",
+      "order": 3
     }
   ]
 }

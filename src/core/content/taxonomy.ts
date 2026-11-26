@@ -1,5 +1,6 @@
 import type { LoadedPack, NodeKind, TaxonomyNode } from './types.ts';
 import { issue, type Issue } from './issues.ts';
+import { compareLabels, compareStrings } from './normalize.ts';
 
 /** Allowed parent kinds per node kind (SPEC 5.1). Domains are roots. */
 const ALLOWED_PARENTS: Record<NodeKind, readonly NodeKind[]> = {
@@ -16,7 +17,24 @@ export interface MergedTaxonomy {
 }
 
 export function sameNode(a: TaxonomyNode, b: TaxonomyNode): boolean {
-  return a.id === b.id && a.label === b.label && a.kind === b.kind && a.parent === b.parent;
+  return (
+    a.id === b.id &&
+    a.label === b.label &&
+    a.kind === b.kind &&
+    a.parent === b.parent &&
+    a.order === b.order
+  );
+}
+
+/**
+ * Sibling order: by `order` ascending, nodes without one after those with
+ * one, then by label (ignoring case), then by ID so the result is stable.
+ */
+export function compareNodes(a: TaxonomyNode, b: TaxonomyNode): number {
+  if (a.order !== undefined && b.order !== undefined && a.order !== b.order)
+    return a.order - b.order;
+  if ((a.order === undefined) !== (b.order === undefined)) return a.order === undefined ? 1 : -1;
+  return compareLabels(a.label, b.label) || compareStrings(a.id, b.id);
 }
 
 /**
@@ -96,6 +114,33 @@ export function mergeTaxonomy(packs: readonly LoadedPack[]): {
           node.id,
         ),
       );
+    }
+  }
+
+  // Two siblings with the same order are ambiguous (label order breaks the tie).
+  const byParent = new Map<string, TaxonomyNode[]>();
+  for (const node of nodes.values()) {
+    if (node.order === undefined) continue;
+    const key = node.parent ?? '';
+    byParent.set(key, [...(byParent.get(key) ?? []), node]);
+  }
+  for (const siblings of byParent.values()) {
+    const firstWith = new Map<number, TaxonomyNode>();
+    for (const node of siblings) {
+      const other = node.order === undefined ? undefined : firstWith.get(node.order);
+      if (other && node.order !== undefined) {
+        issues.push(
+          issue(
+            'warning',
+            'taxonomy.order-duplicate',
+            `${declaredBy.get(node.id)?.[0] ?? '?'}/taxonomy.json`,
+            `"${node.id}" and "${other.id}" share order ${node.order}; label order breaks the tie.`,
+            node.id,
+          ),
+        );
+      } else if (node.order !== undefined) {
+        firstWith.set(node.order, node);
+      }
     }
   }
 

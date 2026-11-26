@@ -1,5 +1,5 @@
 import { compareStrings } from './normalize.ts';
-import { pathTo, type MergedTaxonomy } from './taxonomy.ts';
+import { compareNodes, pathTo, type MergedTaxonomy } from './taxonomy.ts';
 import { addToCounts, emptyCounts, type Counts } from './report.ts';
 import type { LoadedPack, NodeKind } from './types.ts';
 
@@ -10,6 +10,8 @@ export interface IndexTreeNode {
   readonly id: string;
   readonly label: string;
   readonly kind: NodeKind;
+  /** The node's `order` from the taxonomy, if it has one. Children are already sorted by it. */
+  readonly order?: number;
   readonly packs: readonly string[];
   readonly counts: Counts;
   readonly children: readonly IndexTreeNode[];
@@ -92,21 +94,24 @@ export function buildContentIndex(
       id: node.id,
       label: node.label,
       kind: node.kind,
+      ...(node.order !== undefined ? { order: node.order } : {}),
       packs: [...(taxonomy.declaredBy.get(id) ?? [])].sort(),
       counts: countsByNode.get(id) ?? emptyCounts(),
-      children: (children.get(id) ?? []).sort(byLabel(taxonomy)).map(build),
+      children: (children.get(id) ?? []).sort(bySiblingOrder(taxonomy)).map(build),
     };
   };
 
   return {
     version: CONTENT_INDEX_VERSION,
     packs: indexPacks,
-    tree: (children.get(undefined) ?? []).sort(byLabel(taxonomy)).map(build),
+    tree: (children.get(undefined) ?? []).sort(bySiblingOrder(taxonomy)).map(build),
   };
 }
 
-function byLabel(taxonomy: MergedTaxonomy) {
-  return (a: string, b: string): number =>
-    compareStrings(taxonomy.nodes.get(a)?.label ?? a, taxonomy.nodes.get(b)?.label ?? b) ||
-    compareStrings(a, b);
+function bySiblingOrder(taxonomy: MergedTaxonomy) {
+  return (a: string, b: string): number => {
+    const na = taxonomy.nodes.get(a);
+    const nb = taxonomy.nodes.get(b);
+    return na && nb ? compareNodes(na, nb) : compareStrings(a, b);
+  };
 }

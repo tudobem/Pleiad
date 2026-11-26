@@ -19,6 +19,8 @@ Each file starts with a `$schema` entry, so editors such as VS Code autocomplete
 
 Four levels: `domain > subject > branch > topic`. A topic may also sit directly under a subject. Questions attach to topics only. Node IDs are global: two packs can both declare a shared node (for example the `philosophy` domain) as long as the declarations are identical.
 
+Siblings are listed alphabetically by label (ignoring case) unless they have an optional integer `order` (ascending), which puts them first, in that order. Use it where alphabetical is wrong, such as chronological history topics or the order of a book's chapters. Nodes without `order` follow the ordered ones. Two siblings with the same `order` produce a validator warning. A node declared by several packs must carry the same `order` in each.
+
 `pack.json` `domainPath` lists node IDs from the root down to where the pack attaches, for example `["philosophy", "philosophy-of-mind"]`. `accent` names a color token in `src/ui/tokens.css` (for example `gold`).
 
 ## Questions

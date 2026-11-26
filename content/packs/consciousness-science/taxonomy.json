@@ -16,145 +16,169 @@
       "id": "cons-history",
       "label": "History",
       "kind": "branch",
-      "parent": "consciousness-science"
+      "parent": "consciousness-science",
+      "order": 1
     },
     {
       "id": "hist-early",
       "label": "Antiquity to Kant: the mind-body split",
       "kind": "topic",
-      "parent": "cons-history"
+      "parent": "cons-history",
+      "order": 1
     },
     {
       "id": "hist-experimental",
       "label": "Experimental psychology, introspection and behaviourism",
       "kind": "topic",
-      "parent": "cons-history"
+      "parent": "cons-history",
+      "order": 2
     },
     {
       "id": "hist-cognitive-clinic",
       "label": "The cognitive revolution and clinical dissociations",
       "kind": "topic",
-      "parent": "cons-history"
+      "parent": "cons-history",
+      "order": 3
     },
     {
       "id": "hist-founding",
       "label": "1988 to 1996: the modern science is born",
       "kind": "topic",
-      "parent": "cons-history"
+      "parent": "cons-history",
+      "order": 4
     },
     {
       "id": "hist-testing",
       "label": "2004 to 2025: measures, theories and adversarial tests",
       "kind": "topic",
-      "parent": "cons-history"
+      "parent": "cons-history",
+      "order": 5
     },
     {
       "id": "cons-measurement",
       "label": "Measurement",
       "kind": "branch",
-      "parent": "consciousness-science"
+      "parent": "consciousness-science",
+      "order": 2
     },
     {
       "id": "report-measures",
       "label": "Subjective report measures",
       "kind": "topic",
-      "parent": "cons-measurement"
+      "parent": "cons-measurement",
+      "order": 1
     },
     {
       "id": "metacognition",
       "label": "meta-d' and metacognitive efficiency",
       "kind": "topic",
-      "parent": "cons-measurement"
+      "parent": "cons-measurement",
+      "order": 2
     },
     {
       "id": "rivalry-suppression",
       "label": "Binocular rivalry and flash suppression",
       "kind": "topic",
-      "parent": "cons-measurement"
+      "parent": "cons-measurement",
+      "order": 3
     },
     {
       "id": "masking-blink",
       "label": "Masking and the attentional blink",
       "kind": "topic",
-      "parent": "cons-measurement"
+      "parent": "cons-measurement",
+      "order": 4
     },
     {
       "id": "no-report",
       "label": "No-report paradigms",
       "kind": "topic",
-      "parent": "cons-measurement"
+      "parent": "cons-measurement",
+      "order": 5
     },
     {
       "id": "pci",
       "label": "Perturbational Complexity Index",
       "kind": "topic",
-      "parent": "cons-measurement"
+      "parent": "cons-measurement",
+      "order": 6
     },
     {
       "id": "cons-theories",
       "label": "Theories",
       "kind": "branch",
-      "parent": "consciousness-science"
+      "parent": "consciousness-science",
+      "order": 3
     },
     {
       "id": "global-workspace",
       "label": "Global workspace theory",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 1
     },
     {
       "id": "recurrent-processing",
       "label": "Recurrent processing theory",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 2
     },
     {
       "id": "higher-order-theories",
       "label": "Higher-order theories",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 3
     },
     {
       "id": "attention-schema",
       "label": "Attention schema theory",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 4
     },
     {
       "id": "iit",
       "label": "Integrated information theory",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 5
     },
     {
       "id": "predictive-processing",
       "label": "Predictive processing and active inference",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 6
     },
     {
       "id": "quantum-theories",
       "label": "Quantum theories",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 7
     },
     {
       "id": "affective-subcortical",
       "label": "Affective and subcortical consciousness",
       "kind": "topic",
-      "parent": "cons-theories"
+      "parent": "cons-theories",
+      "order": 8
     },
     {
       "id": "cons-correlates",
       "label": "Neural correlates and disorders",
       "kind": "branch",
-      "parent": "consciousness-science"
+      "parent": "consciousness-science",
+      "order": 4
     },
     {
       "id": "neural-correlates",
       "label": "Neural correlates and contrastive methods",
       "kind": "topic",
-      "parent": "cons-correlates"
+      "parent": "cons-correlates",
+      "order": 1
     }
   ]
 }

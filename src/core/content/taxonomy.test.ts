@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mergeTaxonomy, pathTo } from './taxonomy.ts';
+import { compareNodes, mergeTaxonomy, pathTo } from './taxonomy.ts';
 import { NODES, pack } from './fixtures.test-util.ts';
 import type { TaxonomyNode } from './types.ts';
 
@@ -54,5 +54,43 @@ describe('mergeTaxonomy', () => {
   it('computes root-down paths', () => {
     const { taxonomy } = mergeTaxonomy([withNodes(NODES)]);
     expect(pathTo(taxonomy.nodes, 'iit')).toEqual(['science', 'cons', 'theories', 'iit']);
+  });
+});
+
+describe('taxonomy order', () => {
+  const node = (id: string, label: string, order?: number): TaxonomyNode => ({
+    id,
+    label,
+    kind: 'topic',
+    parent: 'cons',
+    ...(order !== undefined ? { order } : {}),
+  });
+
+  it('sorts by order, then unordered nodes by label ignoring case, then id', () => {
+    const nodes = [
+      node('z', 'Zeta'),
+      node('m', "meta-d' and metacognition"),
+      node('b', 'Beta', 2),
+      node('a', 'Alpha', 10),
+      node('c', 'Gamma', 1),
+      node('b2', 'beta'),
+    ];
+    expect(nodes.sort(compareNodes).map((n) => n.id)).toEqual(['c', 'b', 'a', 'b2', 'm', 'z']);
+  });
+
+  it('requires shared nodes to agree on order', () => {
+    const ordered = NODES.map((n) => (n.id === 'iit' ? { ...n, order: 2 } : n));
+    expect(codes(withNodes(NODES), withNodes(ordered, 'b'))).toContain('taxonomy.conflict');
+    expect(codes(withNodes(ordered), withNodes(ordered, 'b'))).toEqual([]);
+  });
+
+  it('warns when siblings share an order, but not across different parents', () => {
+    const dup = NODES.map((n) => (n.id === 'iit' || n.id === 'gwt' ? { ...n, order: 1 } : n));
+    const result = mergeTaxonomy([withNodes(dup)]).issues;
+    expect(result.map((i) => `${i.level}:${i.code}`)).toEqual(['warning:taxonomy.order-duplicate']);
+    const apart = NODES.map((n) =>
+      n.id === 'iit' ? { ...n, order: 1 } : n.id === 'theories' ? { ...n, order: 1 } : n,
+    );
+    expect(mergeTaxonomy([withNodes(apart)]).issues).toEqual([]);
   });
 });
