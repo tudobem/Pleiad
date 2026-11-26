@@ -1,0 +1,318 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-introspection-reliability-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["nisbett-wilson", "confabulation"],
+      "prompt": "What did Nisbett and Wilson (1977) conclude about people's reports of why they acted?",
+      "options": [
+        {
+          "text": "They are accurate when people are confident",
+          "why_wrong": "Confidence was high even when the reasons were wrong."
+        },
+        {
+          "text": "They are random and uninformative",
+          "why_wrong": "They were systematic, matching common-sense theories."
+        },
+        {
+          "text": "They often draw on common-sense theories rather than inner observation"
+        },
+        {
+          "text": "They are reliable for choices but not for perception",
+          "why_wrong": "The studies concerned reasons for behaviour generally."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Subjects confidently gave reasons that demonstrably were not the causes, and outside observers guessing the reasons gave the same answers. That suggests the reports were inferences from folk theory, not observations.",
+      "sources": [
+        {
+          "citation": "Nisbett, R. E. and Wilson, T. D. (1977). Telling more than we can know: verbal reports on mental processes. Psychological Review 84(3), 231-259.",
+          "url": "https://doi.org/10.1037/0033-295X.84.3.231"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-introspection-reliability-0003"]
+    },
+    {
+      "id": "pom-introspection-reliability-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["choice-blindness", "johansson"],
+      "prompt": "What happened in the choice blindness experiment of Johansson et al. (2005)?",
+      "options": [
+        {
+          "text": "Participants could not choose between faces at all",
+          "why_wrong": "They chose readily."
+        },
+        {
+          "text": "Participants handed the face they had rejected often failed to notice and gave reasons for a choice they had not made"
+        },
+        {
+          "text": "Participants detected nearly every switch immediately",
+          "why_wrong": "Most switches went undetected."
+        },
+        {
+          "text": "Participants refused to explain their choices",
+          "why_wrong": "They gave fluent explanations, even for rejected faces."
+        }
+      ],
+      "answer": 1,
+      "explanation": "By sleight of hand the experimenter sometimes handed over the non-chosen photograph. Participants usually accepted it and justified the 'choice', sometimes citing features only the rejected face had.",
+      "sources": [
+        {
+          "citation": "Johansson, P., Hall, L., Sikström, S. and Olsson, A. (2005). Failure to detect mismatches between intention and outcome in a simple decision task. Science 310(5745), 116-119.",
+          "url": "https://doi.org/10.1126/science.1111709"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-introspection-reliability-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "choice-blindness", "micro-phenomenology"],
+      "prompt": "What did Petitmengin et al. (2013) find when they repeated the choice blindness procedure with guided interviews?",
+      "options": [
+        {
+          "text": "Detection of the switch stayed as rare as in the original study",
+          "why_wrong": "Detection rose sharply."
+        },
+        {
+          "text": "Participants became more confident but no more accurate",
+          "why_wrong": "Detection itself improved."
+        },
+        {
+          "text": "Interviews made participants confabulate more",
+          "why_wrong": "The opposite was found."
+        },
+        {
+          "text": "Participants guided to describe how they had made a choice detected the switch in most cases"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Guided description of the decision process largely reversed the headline result. This suggests some access to one's own decision process can be recovered with method, although it has not settled the wider debate.",
+      "sources": [
+        {
+          "citation": "Petitmengin, C., Remillieux, A., Cahour, B. and Carter-Thomas, S. (2013). A gap in Nisbett and Wilson's findings? A first-person access to our cognitive processes. Consciousness and Cognition 22(2), 654-669.",
+          "url": "https://doi.org/10.1016/j.concog.2013.02.004"
+        },
+        {
+          "citation": "Johansson, P., Hall, L., Sikström, S. and Olsson, A. (2005). Failure to detect mismatches between intention and outcome in a simple decision task. Science 310(5745), 116-119.",
+          "url": "https://doi.org/10.1126/science.1111709"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-introspection-reliability-0001"]
+    },
+    {
+      "id": "pom-introspection-reliability-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["schwitzgebel", "introspection"],
+      "prompt": "What does Schwitzgebel (2008) argue about introspection?",
+      "options": [
+        {
+          "text": "It is reliable for current experience but not for causes of behaviour",
+          "why_wrong": "Schwitzgebel argues that even current experience is often misjudged."
+        },
+        {
+          "text": "People make large, confident errors even about features of their current conscious experience"
+        },
+        {
+          "text": "It can be made fully reliable by meditation training",
+          "why_wrong": "This is not his claim."
+        },
+        {
+          "text": "It is infallible, but people describe it badly",
+          "why_wrong": "He argues against reliability, not for infallibility."
+        }
+      ],
+      "answer": 1,
+      "explanation": "His examples include how much of the visual field is clear at a moment, what emotional experience is like, and how vivid imagery is. He treats persistent disagreement about such features as evidence of unreliability rather than of individual differences.",
+      "sources": [
+        {
+          "citation": "Schwitzgebel, E. (2008). The unreliability of naive introspection. The Philosophical Review 117(2), 245-273.",
+          "url": "https://doi.org/10.1215/00318108-2007-037"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-introspection-reliability-0005",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["meditation", "introspective-accuracy"],
+      "prompt": "What did Fox et al. (2012) find about meditators' introspection?",
+      "options": [
+        {
+          "text": "Meditators' ratings of body-region sensitivity matched objective tactile sensitivity better than novices', improving with practice"
+        },
+        {
+          "text": "Meditators reported less vivid experience than novices",
+          "why_wrong": "The study measured accuracy, not vividness."
+        },
+        {
+          "text": "Meditation impaired accuracy because of doctrinal expectations",
+          "why_wrong": "Accuracy improved with experience."
+        },
+        {
+          "text": "Novices and meditators did not differ",
+          "why_wrong": "Experience predicted accuracy."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Long-term meditators rated the sensitivity of twenty body regions, and their ratings tracked objective sensitivity more closely, with accuracy rising with hours of practice. The worry that training also shapes what is reported remains.",
+      "sources": [
+        {
+          "citation": "Fox, K. C. R., Zakarauskas, P., Dixon, M., Ellamil, M., Thompson, E. and Christoff, K. (2012). Meditation experience predicts introspective accuracy. PLoS ONE 7(9), e45370.",
+          "url": "https://doi.org/10.1371/journal.pone.0045370"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-introspection-reliability-0006",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["metacognition", "training"],
+      "prompt": "What did Carpenter et al. (2019) show about metacognitive training?",
+      "options": [
+        {
+          "text": "Training improved perceptual accuracy but not confidence",
+          "why_wrong": "The target was the calibration of confidence."
+        },
+        {
+          "text": "Training effects were specific to the trained stimuli",
+          "why_wrong": "They transferred."
+        },
+        {
+          "text": "Feedback on confidence judgements improved metacognitive ability, and the gain transferred to untrained stimuli and a memory task"
+        },
+        {
+          "text": "Metacognition cannot be trained",
+          "why_wrong": "It improved with eight sessions."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Eight sessions of feedback on confidence improved how well confidence tracked accuracy. The transfer suggests a domain-general metacognitive capacity.",
+      "sources": [
+        {
+          "citation": "Carpenter, J., Sherman, M. T., Kievit, R. A., Seth, A. K., Lau, H. and Fleming, S. M. (2019). Domain-general enhancements of metacognitive ability through adaptive training. Journal of Experimental Psychology: General 148(1), 51-64.",
+          "url": "https://doi.org/10.1037/xge0000505"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-introspection-reliability-0007",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "match",
+      "tier": "advanced",
+      "tags": ["introspection", "studies"],
+      "prompt": "Match each study to its finding.",
+      "pairs": [
+        {
+          "left": "Nisbett and Wilson (1977)",
+          "right": "Stated reasons matched outside observers' guesses"
+        },
+        {
+          "left": "Johansson et al. (2005)",
+          "right": "People justified choices they had not made"
+        },
+        {
+          "left": "Fox et al. (2012)",
+          "right": "Meditation experience predicted accuracy of body-sensitivity ratings"
+        },
+        {
+          "left": "Carpenter et al. (2019)",
+          "right": "Confidence training transferred to untrained tasks"
+        },
+        {
+          "left": "Sandberg et al. (2010)",
+          "right": "Ratings on a scale designed with subjects tracked accuracy closely"
+        }
+      ],
+      "explanation": "Together these studies suggest reliability is local: reports about the causes of behaviour are often reconstructed, while reports about simple current perception, collected well, can be validated, and training improves accuracy.",
+      "sources": [
+        {
+          "citation": "Nisbett, R. E. and Wilson, T. D. (1977). Telling more than we can know: verbal reports on mental processes. Psychological Review 84(3), 231-259.",
+          "url": "https://doi.org/10.1037/0033-295X.84.3.231"
+        },
+        {
+          "citation": "Johansson, P., Hall, L., Sikström, S. and Olsson, A. (2005). Failure to detect mismatches between intention and outcome in a simple decision task. Science 310(5745), 116-119.",
+          "url": "https://doi.org/10.1126/science.1111709"
+        },
+        {
+          "citation": "Fox, K. C. R., Zakarauskas, P., Dixon, M., Ellamil, M., Thompson, E. and Christoff, K. (2012). Meditation experience predicts introspective accuracy. PLoS ONE 7(9), e45370.",
+          "url": "https://doi.org/10.1371/journal.pone.0045370"
+        },
+        {
+          "citation": "Carpenter, J., Sherman, M. T., Kievit, R. A., Seth, A. K., Lau, H. and Fleming, S. M. (2019). Domain-general enhancements of metacognitive ability through adaptive training. Journal of Experimental Psychology: General 148(1), 51-64.",
+          "url": "https://doi.org/10.1037/xge0000505"
+        },
+        {
+          "citation": "Sandberg, K., Timmermans, B., Overgaard, M. and Cleeremans, A. (2010). Measuring consciousness: is one measure better than the other? Consciousness and Cognition 19(4), 1069-1078.",
+          "url": "https://doi.org/10.1016/j.concog.2009.12.013"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-introspection-reliability-0008",
+      "pack": "philosophy-of-mind",
+      "topic": "introspection-reliability",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "meditation", "focused-attention", "open-monitoring"],
+      "prompt": "How do Lutz, Dunne and Davidson (2007) distinguish focused-attention from open-monitoring meditation?",
+      "options": [
+        {
+          "text": "Focused attention: monitoring whatever arises without selecting; open monitoring: sustaining attention on one object",
+          "why_wrong": "This swaps the two."
+        },
+        {
+          "text": "Focused attention is for beginners only; open monitoring for experts only",
+          "why_wrong": "The distinction is by attentional style, not by level."
+        },
+        {
+          "text": "Focused attention: sustaining attention on a chosen object; open monitoring: non-reactive awareness of whatever arises"
+        },
+        {
+          "text": "They differ only in posture",
+          "why_wrong": "They train different attentional capacities."
+        }
+      ],
+      "answer": 2,
+      "explanation": "They argue meditation trains specific, separable capacities, which is why trained practitioners might give more stable and fine-grained reports. The risk is that training also supplies expectations about what will be found.",
+      "sources": [
+        {
+          "citation": "Lutz, A., Dunne, J. D. and Davidson, R. J. (2007). Meditation and the neuroscience of consciousness: an introduction. In P. D. Zelazo, M. Moscovitch and E. Thompson (eds.), The Cambridge Handbook of Consciousness. Cambridge University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-heterophenomenology-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "heterophenomenology",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["dennett", "heterophenomenology"],
+      "prompt": "What is the core claim of Dennett's heterophenomenology?",
+      "options": [
+        {
+          "text": "Reports are treated as third-person data, and the scientist stays neutral on whether they are true"
+        },
+        {
+          "text": "Trained introspectors give privileged access to experience",
+          "why_wrong": "Dennett denies any special first-person science."
+        },
+        {
+          "text": "First-person and neural data constrain each other",
+          "why_wrong": "That is Varela's neurophenomenology."
+        },
+        {
+          "text": "Reports should be ignored in favour of brain data",
+          "why_wrong": "Reports are the central data, only not taken at face value."
+        }
+      ],
+      "answer": 0,
+      "explanation": "The scientist records what subjects say and believe about their experience, as an anthropologist records a culture's beliefs without endorsing them. On Dennett's view the reports are the data, not reports of the data.",
+      "sources": [
+        {
+          "citation": "Dennett, D. C. (2003). Who's on first? Heterophenomenology explained. Journal of Consciousness Studies 10(9-10), 19-30."
+        },
+        {
+          "citation": "Dennett, D. C. (2007). Heterophenomenology reconsidered. Phenomenology and the Cognitive Sciences 6(1-2), 247-270.",
+          "url": "https://doi.org/10.1007/s11097-006-9044-9"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-heterophenomenology-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "heterophenomenology",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "dennett", "multiple-drafts"],
+      "prompt": "What does Dennett's multiple drafts model replace the Cartesian theatre with?",
+      "options": [
+        {
+          "text": "A single global workspace where content is broadcast",
+          "why_wrong": "That is Baars's theory, which retains a central stage."
+        },
+        {
+          "text": "Many parallel interpretation processes, with no privileged final version; what is reported is the draft that gets probed"
+        },
+        {
+          "text": "An inner observer who watches several screens at once",
+          "why_wrong": "That keeps the inner observer Dennett rejects."
+        },
+        {
+          "text": "A non-physical self that selects among brain states",
+          "why_wrong": "Dennett is a thoroughgoing physicalist."
+        }
+      ],
+      "answer": 1,
+      "explanation": "The Cartesian theatre assumes a place or moment where everything comes together for an inner observer. Without it, there is often no fact about exactly when something became conscious beyond what the subject would say if probed.",
+      "sources": [
+        {
+          "citation": "Dennett, D. C. (1991). Consciousness Explained. Boston: Little, Brown."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-heterophenomenology-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "heterophenomenology",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "heterophenomenology", "neurophenomenology"],
+      "prompt": "When a subject's report is corrected, what is the corrected report on each view?",
+      "options": [
+        {
+          "text": "For both: a more accurate brain measurement",
+          "why_wrong": "Neither view treats the report as a brain measurement."
+        },
+        {
+          "text": "Neurophenomenology: a revised belief; heterophenomenology: a better description of real experience",
+          "why_wrong": "This swaps the two views."
+        },
+        {
+          "text": "Neurophenomenology: a better description of an experience that was there; heterophenomenology: a revised belief, with no further fact about the experience"
+        },
+        {
+          "text": "For both: evidence that introspection is useless",
+          "why_wrong": "Both expect reports to be improvable and checkable."
+        }
+      ],
+      "answer": 2,
+      "explanation": "In practice both collect reports carefully and check them against behaviour and brain data. They differ on whether there is an experience over and above the subject's beliefs for the report to be right or wrong about.",
+      "sources": [
+        {
+          "citation": "Dennett, D. C. (2007). Heterophenomenology reconsidered. Phenomenology and the Cognitive Sciences 6(1-2), 247-270.",
+          "url": "https://doi.org/10.1007/s11097-006-9044-9"
+        },
+        {
+          "citation": "Lutz, A. and Thompson, E. (2003). Neurophenomenology: integrating subjective experience and brain dynamics in the neuroscience of consciousness. Journal of Consciousness Studies 10(9-10), 31-52."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

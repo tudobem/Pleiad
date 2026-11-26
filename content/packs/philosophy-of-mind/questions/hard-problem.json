@@ -275,6 +275,129 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-hard-problem-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "match",
+      "tier": "advanced",
+      "tags": ["positions", "objections"],
+      "prompt": "Match each position to its standard objection.",
+      "pairs": [
+        {
+          "left": "Type identity theory",
+          "right": "Multiple realisability"
+        },
+        {
+          "left": "Functionalism",
+          "right": "Absent or inverted qualia"
+        },
+        {
+          "left": "Property dualism",
+          "right": "Mental causation"
+        },
+        {
+          "left": "Panpsychism",
+          "right": "The combination problem"
+        },
+        {
+          "left": "Illusionism",
+          "right": "An illusion of experience is itself experienced"
+        },
+        {
+          "left": "Mysterianism",
+          "right": "Hard to test or establish from the inside"
+        }
+      ],
+      "explanation": "Each objection targets the position's central move: tying mind to one substrate, defining it by role, adding non-physical properties, making experience fundamental, denying experience as it seems, or declaring the answer beyond reach.",
+      "sources": [
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan and D. D. Merrill (eds.), Art, Mind, and Religion. University of Pittsburgh Press."
+        },
+        {
+          "citation": "Shoemaker, S. (1982). The inverted spectrum. The Journal of Philosophy 79(7), 357-381.",
+          "url": "https://doi.org/10.2307/2026213"
+        },
+        {
+          "citation": "Kim, J. (1998). Mind in a Physical World: An Essay on the Mind-Body Problem and Mental Causation. Cambridge, MA: MIT Press."
+        },
+        {
+          "citation": "Chalmers, D. J. (2016). The combination problem for panpsychism. In G. Brüntrup and L. Jaskolla (eds.), Panpsychism: Contemporary Perspectives. Oxford University Press."
+        },
+        {
+          "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
+        },
+        {
+          "citation": "McGinn, C. (1989). Can we solve the mind-body problem? Mind 98(391), 349-366.",
+          "url": "https://doi.org/10.1093/mind/XCVIII.391.349"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-hard-problem-0005",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "match",
+      "tier": "foundational",
+      "tags": ["people", "arguments"],
+      "prompt": "Match each argument or idea to its author.",
+      "pairs": [
+        {
+          "left": "What is it like to be a bat?",
+          "right": "Thomas Nagel"
+        },
+        {
+          "left": "Mary the colour scientist",
+          "right": "Frank Jackson"
+        },
+        {
+          "left": "Philosophical zombies",
+          "right": "David Chalmers"
+        },
+        {
+          "left": "The Chinese room",
+          "right": "John Searle"
+        },
+        {
+          "left": "The explanatory gap",
+          "right": "Joseph Levine"
+        },
+        {
+          "left": "Cognitive closure",
+          "right": "Colin McGinn"
+        }
+      ],
+      "explanation": "These six are the classic reference points for the problem of consciousness in philosophy of mind; most are anti-physicalist arguments or responses to the gap they describe.",
+      "sources": [
+        {
+          "citation": "Nagel, T. (1974). What is it like to be a bat? The Philosophical Review 83(4), 435-450.",
+          "url": "https://doi.org/10.2307/2183914"
+        },
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        },
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences 3(3), 417-424.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        },
+        {
+          "citation": "Levine, J. (1983). Materialism and qualia: the explanatory gap. Pacific Philosophical Quarterly 64(4), 354-361.",
+          "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
+        },
+        {
+          "citation": "McGinn, C. (1989). Can we solve the mind-body problem? Mind 98(391), 349-366.",
+          "url": "https://doi.org/10.1093/mind/XCVIII.391.349"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
     }
   ]
 }
