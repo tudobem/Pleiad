@@ -11,7 +11,14 @@ export type QuestionType = Question['type'];
 
 export const TIERS: readonly Tier[] = ['foundational', 'advanced', 'expert'];
 export const STATUSES: readonly QuestionStatus[] = ['draft', 'verified', 'retired'];
-export const QUESTION_TYPES: readonly QuestionType[] = ['mcq', 'recall'];
+export const QUESTION_TYPES: readonly QuestionType[] = [
+  'mcq',
+  'recall',
+  'short',
+  'cloze',
+  'match',
+  'order',
+];
 
 export interface PackMeta {
   readonly id: string;
@@ -90,7 +97,36 @@ export interface RecallQuestion extends QuestionBase {
   readonly answer_text: string;
 }
 
-export type Question = McqQuestion | RecallQuestion;
+/** One word, term or number typed (or dictated); normalized comparison (SPEC 6). */
+export interface ShortQuestion extends QuestionBase {
+  readonly type: 'short';
+  /** First is canonical; the rest are accepted variants. */
+  readonly answers: readonly string[];
+  readonly numeric?: { readonly value: number; readonly tolerance: number };
+}
+
+/** Sentence with blanks written as {{answer}}; filled by tapping chips. */
+export interface ClozeQuestion extends QuestionBase {
+  readonly type: 'cloze';
+  readonly text: string;
+  /** Distractor chips shown together with the answers. */
+  readonly bank?: readonly string[];
+}
+
+/** Tap pairs; every pair must be right. */
+export interface MatchQuestion extends QuestionBase {
+  readonly type: 'match';
+  readonly pairs: readonly { readonly left: string; readonly right: string }[];
+}
+
+/** Tap items into sequence; `items` is the correct order. */
+export interface OrderQuestion extends QuestionBase {
+  readonly type: 'order';
+  readonly items: readonly string[];
+}
+
+export type Question =
+  McqQuestion | RecallQuestion | ShortQuestion | ClozeQuestion | MatchQuestion | OrderQuestion;
 
 export interface ConceptNode {
   readonly id: string;

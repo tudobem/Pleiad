@@ -1,5 +1,7 @@
 import { issue, type Issue } from './issues.ts';
 import { isCatchAllOption, jaccard, normalizeText } from './normalize.ts';
+import { clozeAnswers } from './cloze.ts';
+import { normalizeAnswer, parseNumber } from '../session/normalizeAnswer.ts';
 import { mergeTaxonomy, type MergedTaxonomy } from './taxonomy.ts';
 import type { IdLedger, LoadedPack, Question } from './types.ts';
 
@@ -286,6 +288,105 @@ function checkQuestion(
   }
 
   if (q.type === 'mcq') checkMcq(q, file, issues);
+  if (q.type === 'short') checkShort(q, file, issues);
+  if (q.type === 'cloze') checkCloze(q, file, issues);
+  if (q.type === 'match') {
+    checkDistinct(
+      q.pairs.map((p) => p.left),
+      'match.duplicate',
+      'left items',
+      q,
+      file,
+      issues,
+    );
+    checkDistinct(
+      q.pairs.map((p) => p.right),
+      'match.duplicate',
+      'right items',
+      q,
+      file,
+      issues,
+    );
+  }
+  if (q.type === 'order') checkDistinct(q.items, 'order.duplicate', 'items', q, file, issues);
+}
+
+function checkDistinct(
+  values: readonly string[],
+  code: string,
+  what: string,
+  q: Question,
+  file: string,
+  issues: Issue[],
+): void {
+  const seen = new Set<string>();
+  for (const v of values) {
+    const key = normalizeText(v);
+    if (seen.has(key)) {
+      issues.push(issue('error', code, file, `Two ${what} are the same: "${v}".`, q.id));
+    }
+    seen.add(key);
+  }
+}
+
+function checkShort(q: Extract<Question, { type: 'short' }>, file: string, issues: Issue[]): void {
+  const seen = new Set<string>();
+  for (const a of q.answers) {
+    const key = normalizeAnswer(a);
+    if (key === '') {
+      issues.push(
+        issue('error', 'short.empty', file, `Answer "${a}" is empty after normalization.`, q.id),
+      );
+    } else if (seen.has(key)) {
+      issues.push(
+        issue(
+          'error',
+          'short.duplicate',
+          file,
+          `Answers repeat after normalization: "${a}".`,
+          q.id,
+        ),
+      );
+    }
+    seen.add(key);
+  }
+  if (q.numeric) {
+    const canonical = parseNumber(q.answers[0] ?? '');
+    if (canonical === null || Math.abs(canonical - q.numeric.value) > q.numeric.tolerance) {
+      issues.push(
+        issue(
+          'error',
+          'short.numeric',
+          file,
+          'The first answer must be a number within the numeric tolerance.',
+          q.id,
+        ),
+      );
+    }
+  }
+}
+
+function checkCloze(q: Extract<Question, { type: 'cloze' }>, file: string, issues: Issue[]): void {
+  const answers = clozeAnswers(q.text);
+  if (answers.length === 0) {
+    issues.push(
+      issue('error', 'cloze.no-blank', file, 'The text needs at least one {{blank}}.', q.id),
+    );
+  }
+  if (answers.some((a) => normalizeText(a) === '')) {
+    issues.push(issue('error', 'cloze.empty-blank', file, 'A blank has no answer.', q.id));
+  }
+  const answerKeys = new Set(answers.map(normalizeText));
+  const seen = new Set<string>();
+  for (const d of q.bank ?? []) {
+    const key = normalizeText(d);
+    if (answerKeys.has(key)) {
+      issues.push(issue('error', 'cloze.bank', file, `Distractor "${d}" is also an answer.`, q.id));
+    } else if (seen.has(key)) {
+      issues.push(issue('error', 'cloze.bank', file, `Distractor "${d}" appears twice.`, q.id));
+    }
+    seen.add(key);
+  }
 }
 
 function checkMcq(q: Extract<Question, { type: 'mcq' }>, file: string, issues: Issue[]): void {

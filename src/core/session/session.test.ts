@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { seededRandom } from '../random.ts';
-import { buildSession, gradeMcq, interleaveBy, sessionEligible } from './session.ts';
+import { buildSession, interleaveBy, layoutFor, sessionEligible } from './session.ts';
 import { ratingFor } from './rating.ts';
-import { mcq, recall } from '../content/fixtures.test-util.ts';
+import { cloze, match, mcq, order, recall, short } from '../content/fixtures.test-util.ts';
 import type { McqQuestion } from '../content/types.ts';
 
 const verified = (q: McqQuestion) => ({
@@ -15,13 +15,10 @@ const pool: McqQuestion[] = Array.from({ length: 12 }, (_, i) =>
 );
 
 describe('sessionEligible', () => {
-  it('keeps verified MCQs only', () => {
-    const items = [
-      mcq(),
-      verified(mcq({ id: 'v' })),
-      recall({ status: 'verified', verified_on: '2026-02-01' }),
-    ];
-    expect(sessionEligible(items).map((q) => q.id)).toEqual(['v']);
+  it('keeps verified items of every supported type', () => {
+    const v = { status: 'verified' as const, verified_on: '2026-02-01' };
+    const items = [mcq(), verified(mcq({ id: 'v' })), recall(v), short(v), cloze()];
+    expect(sessionEligible(items).map((q) => q.id)).toEqual(['v', 'q-recall-0001', 'q-short-0001']);
   });
 });
 
@@ -30,7 +27,7 @@ describe('buildSession', () => {
     const items = buildSession(pool, { size: 10, random: seededRandom(7) });
     expect(items).toHaveLength(10);
     expect(new Set(items.map((i) => i.questionId)).size).toBe(10);
-    for (const item of items) expect([...item.displayOrder].sort()).toEqual([0, 1, 2, 3]);
+    for (const item of items) expect([...item.layout].sort()).toEqual([0, 1, 2, 3]);
   });
 
   it('is deterministic for a seed and handles small pools', () => {
@@ -49,13 +46,20 @@ describe('interleaveBy', () => {
   });
 });
 
-describe('gradeMcq', () => {
-  it('maps the display position back to the original option', () => {
-    const q = verified(mcq({ answer: 2 }));
-    const item = { questionId: q.id, displayOrder: [3, 2, 0, 1] };
-    expect(gradeMcq(q, item, 1)).toEqual({ correct: true, chosenOption: 2 });
-    expect(gradeMcq(q, item, 0)).toEqual({ correct: false, chosenOption: 3 });
-    expect(() => gradeMcq(q, item, 4)).toThrow(RangeError);
+describe('layoutFor', () => {
+  it('shuffles what each type displays', () => {
+    const r = seededRandom(5);
+    expect([...layoutFor(mcq(), r)].sort()).toEqual([0, 1, 2, 3]);
+    expect([...layoutFor(cloze(), r)].sort()).toEqual([0, 1, 2, 3]);
+    expect([...layoutFor(match(), r)].sort()).toEqual([0, 1, 2]);
+    expect(layoutFor(recall(), r)).toEqual([]);
+    expect(layoutFor(short(), r)).toEqual([]);
+  });
+
+  it('never shows an order question already solved', () => {
+    for (let seed = 0; seed < 50; seed += 1) {
+      expect(layoutFor(order(), seededRandom(seed))).not.toEqual([0, 1, 2]);
+    }
   });
 });
 

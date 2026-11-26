@@ -26,7 +26,7 @@
       "$ref": "defs.schema.json#/$defs/id"
     },
     "type": {
-      "enum": ["mcq", "recall"]
+      "enum": ["mcq", "recall", "short", "cloze", "match", "order"]
     },
     "tier": {
       "enum": ["foundational", "advanced", "expert"]
@@ -151,9 +151,15 @@
     "lang": {
       "$ref": "defs.schema.json#/$defs/lang"
     },
-    "options": true,
     "answer": true,
-    "answer_text": true
+    "answer_text": true,
+    "answers": true,
+    "bank": true,
+    "items": true,
+    "numeric": true,
+    "options": true,
+    "pairs": true,
+    "text": true
   },
   "additionalProperties": false,
   "oneOf": [
@@ -186,7 +192,13 @@
           "minimum": 0,
           "maximum": 4
         },
-        "answer_text": false
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
+        "pairs": false,
+        "text": false
       },
       "required": ["options", "answer"]
     },
@@ -199,10 +211,146 @@
         "answer_text": {
           "$ref": "defs.schema.json#/$defs/nonEmptyText"
         },
+        "answer": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
         "options": false,
-        "answer": false
+        "pairs": false,
+        "text": false
       },
       "required": ["answer_text"]
+    },
+    {
+      "title": "short",
+      "properties": {
+        "type": {
+          "const": "short"
+        },
+        "answers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "description": "First is the canonical answer; the rest are accepted variants."
+        },
+        "numeric": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "tolerance"],
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "tolerance": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "description": "Accept numbers within value \u00b1 tolerance."
+        },
+        "answer": false,
+        "answer_text": false,
+        "bank": false,
+        "items": false,
+        "options": false,
+        "pairs": false,
+        "text": false
+      },
+      "required": ["answers"]
+    },
+    {
+      "title": "cloze",
+      "properties": {
+        "type": {
+          "const": "cloze"
+        },
+        "text": {
+          "type": "string",
+          "pattern": "\\{\\{[^{}]+\\}\\}",
+          "description": "Sentence with blanks written as {{answer}}."
+        },
+        "bank": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "description": "Distractor chips shown together with the answers."
+        },
+        "answer": false,
+        "answer_text": false,
+        "answers": false,
+        "items": false,
+        "numeric": false,
+        "options": false,
+        "pairs": false
+      },
+      "required": ["text"]
+    },
+    {
+      "title": "match",
+      "properties": {
+        "type": {
+          "const": "match"
+        },
+        "pairs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["left", "right"],
+            "properties": {
+              "left": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "right": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              }
+            }
+          }
+        },
+        "answer": false,
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
+        "options": false,
+        "text": false
+      },
+      "required": ["pairs"]
+    },
+    {
+      "title": "order",
+      "properties": {
+        "type": {
+          "const": "order"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "description": "Items in the correct order; shown shuffled."
+        },
+        "answer": false,
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "numeric": false,
+        "options": false,
+        "pairs": false,
+        "text": false
+      },
+      "required": ["items"]
     }
   ]
 }

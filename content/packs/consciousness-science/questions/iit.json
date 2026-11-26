@@ -107,6 +107,26 @@
       "status": "verified",
       "created": "2026-11-23",
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "cons-iit-0004",
+      "pack": "consciousness-science",
+      "topic": "iit",
+      "type": "short",
+      "tier": "foundational",
+      "tags": ["iit", "phi"],
+      "prompt": "In integrated information theory, which Greek letter names the measure of integrated information?",
+      "answers": ["Phi", "Φ"],
+      "explanation": "IIT quantifies integrated information with $\\Phi$ (phi): how much information a system generates as a whole beyond its parts.",
+      "sources": [
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience, 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

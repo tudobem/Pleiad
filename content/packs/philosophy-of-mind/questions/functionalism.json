@@ -63,6 +63,51 @@
       "status": "verified",
       "created": "2026-11-23",
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "pom-func-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "match",
+      "tier": "foundational",
+      "tags": ["contrast", "positions"],
+      "prompt": "Match each position in philosophy of mind to its core claim.",
+      "pairs": [
+        {
+          "left": "Substance dualism",
+          "right": "Mind and body are distinct kinds of substance"
+        },
+        {
+          "left": "Type identity theory",
+          "right": "Each type of mental state is a type of brain state"
+        },
+        {
+          "left": "Functionalism",
+          "right": "Mental states are defined by their causal roles"
+        },
+        {
+          "left": "Logical behaviorism",
+          "right": "Talk of mental states is talk of dispositions to behave"
+        }
+      ],
+      "explanation": "Dualism separates mind and body; identity theory identifies mental types with brain types; functionalism defines states by causal role; behaviorism analyzes mental talk in terms of behavior.",
+      "sources": [
+        {
+          "citation": "Robinson, H. Dualism. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/dualism/"
+        },
+        {
+          "citation": "Smart, J. J. C. (1959). Sensations and brain processes. The Philosophical Review, 68(2), 141-156.",
+          "url": "https://doi.org/10.2307/2182164"
+        },
+        {
+          "citation": "Levin, J. Functionalism. In E. N. Zalta (Ed.), Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/functionalism/"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

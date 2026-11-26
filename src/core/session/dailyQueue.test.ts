@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildDailyQueue, pickByTierMix, prerequisitesMet, tierUnlocked } from './dailyQueue.ts';
-import { mcq } from '../content/fixtures.test-util.ts';
+import { mcq, recall, short } from '../content/fixtures.test-util.ts';
 import type { McqQuestion, Tier } from '../content/types.ts';
 import { fsrsScheduler } from '../scheduler/fsrsScheduler.ts';
 import { DAY_MS } from '../scheduler/day.ts';
@@ -104,6 +104,29 @@ describe('buildDailyQueue', () => {
     const packs = first.fresh.map((id) => mixed.find((x) => x.id === id)?.pack);
     // Consecutive items come from different packs while both have items left.
     for (let i = 1; i < 6; i += 1) expect(packs[i]).not.toBe(packs[i - 1]);
+  });
+
+  it('includes every supported type and alternates types', () => {
+    const v = { status: 'verified' as const, verified_on: '2026-01-02' };
+    const mixed = [
+      q('m1'),
+      q('m2'),
+      q('m3'),
+      recall({ ...v, id: 'r1' }),
+      recall({ ...v, id: 'r2' }),
+      short({ ...v, id: 's1' }),
+    ];
+    const ids = buildDailyQueue({
+      questions: mixed,
+      cards: new Map(),
+      events: [],
+      settings: DEFAULT_SETTINGS,
+      now: NOW,
+      offsetMinutes: CET,
+    }).fresh;
+    expect([...ids].sort()).toEqual(['m1', 'm2', 'm3', 'r1', 'r2', 's1']);
+    const type = (id: string) => mixed.find((x) => x.id === id)?.type;
+    expect(type(ids[0] ?? '')).not.toBe(type(ids[1] ?? ''));
   });
 
   it('never offers locked tiers on a fresh profile', () => {

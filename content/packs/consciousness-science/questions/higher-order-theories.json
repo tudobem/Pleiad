@@ -41,6 +41,30 @@
       "created": "2026-11-23",
       "confusable_with": ["cons-gwt-0003"],
       "verified_on": "2026-11-23"
+    },
+    {
+      "id": "cons-hot-0002",
+      "pack": "consciousness-science",
+      "topic": "higher-order-theories",
+      "type": "cloze",
+      "tier": "foundational",
+      "tags": ["higher-order"],
+      "prompt": "Fill in the blanks about higher-order theories.",
+      "text": "According to higher-order theories, a mental state is conscious when the subject has a suitable {{higher-order}} representation of being in it. In Rosenthal's version, this representation is a {{thought}}.",
+      "bank": ["first-order", "broadcast"],
+      "explanation": "Higher-order theories hold that a state is conscious when the subject is aware of being in it. In Rosenthal's version, that awareness is a higher-order thought.",
+      "sources": [
+        {
+          "citation": "Rosenthal, D. M. (2005). Consciousness and Mind. Oxford University Press."
+        },
+        {
+          "citation": "Brown, R., Lau, H., & LeDoux, J. E. (2019). Understanding the higher-order approach to consciousness. Trends in Cognitive Sciences, 23(9), 754-768.",
+          "url": "https://doi.org/10.1016/j.tics.2019.06.009"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-26",
+      "verified_on": "2026-11-26"
     }
   ]
 }

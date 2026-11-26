@@ -4,7 +4,12 @@ import { createReviewEvent, type EventContext } from '../sync/events.ts';
 import { applyEvent, type CardState } from '../sync/replay.ts';
 import type { Rating, ReviewEvent } from '../sync/reviewEvent.ts';
 import { ratingFor } from './rating.ts';
-import type { AnswerRecord, SessionMode } from './reducer.ts';
+import {
+  finalizeAnswer,
+  type AnswerRecord,
+  type LeaveOptions,
+  type SessionMode,
+} from './reducer.ts';
 import { isSlow, type SlowThresholds } from './slow.ts';
 
 export interface AnswerContext {
@@ -16,9 +21,13 @@ export interface AnswerContext {
   readonly thresholds: SlowThresholds;
 }
 
-/** SPEC 7.3 rating for an answer, including the slow and Too easy rules. */
+/**
+ * SPEC 7.3 rating for an answer: recall uses the user's own rating; the other
+ * types are auto-graded (after any override) with the slow and Too easy rules.
+ */
 export function answerRating(ctx: AnswerContext): Rating {
   const { answer, question, thresholds } = ctx;
+  if (question.type === 'recall') return answer.selfRating ?? (answer.correct ? 'good' : 'again');
   return ratingFor({
     correct: answer.correct,
     slow: isSlow(thresholds, question.tier, answer.responseMs),
@@ -55,9 +64,16 @@ export function reviewForAnswer(
   return { event, card: applyEvent(ctx.card, event, ctx.scheduler) };
 }
 
-/** When the card would next be due if the user continues normally; null for extra practice. */
-export function previewDue(ctx: AnswerContext): number | null {
+/**
+ * When the card would next be due if the user leaves feedback with these
+ * options (e.g. a recall rating button); null for extra practice.
+ */
+export function previewDue(ctx: AnswerContext, options: LeaveOptions = {}): number | null {
   if (ctx.mode !== 'scheduled') return null;
-  return ctx.scheduler.review(ctx.card?.scheduler ?? null, answerRating(ctx), ctx.answer.answeredAt)
-    .due;
+  const answer = finalizeAnswer(ctx.answer, options);
+  return ctx.scheduler.review(
+    ctx.card?.scheduler ?? null,
+    answerRating({ ...ctx, answer }),
+    answer.answeredAt,
+  ).due;
 }

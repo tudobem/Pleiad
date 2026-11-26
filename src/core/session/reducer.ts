@@ -1,3 +1,5 @@
+import type { Rating } from '../sync/reviewEvent.ts';
+import type { Response } from './response.ts';
 import type { SessionItem } from './session.ts';
 
 /**
@@ -5,20 +7,27 @@ import type { SessionItem } from './session.ts';
  * can be saved and resumed (SPEC 8). Time values come from the injected clock
  * and are passed in with each action.
  *
- * An answer is recorded when checked, but its review event is committed when
- * the user leaves the feedback screen (Continue or Too easy), so the final
- * rating is known. While `phase` is "feedback", the last answer is pending.
+ * An answer is recorded when checked (or, for recall, when the answer is
+ * shown), but its review event is committed when the user leaves the
+ * feedback screen, so the final rating is known: Too easy, a short-answer
+ * override, or the recall self-rating. While `phase` is "feedback", the last
+ * answer is pending.
  */
 export type SessionMode = 'scheduled' | 'extra';
 
 export interface AnswerRecord {
   readonly questionId: string;
-  readonly chosenDisplayIndex: number;
+  readonly response: Response;
+  /** Auto-graded result, after any override; for recall, set from the self-rating. */
   readonly correct: boolean;
   readonly responseMs: number;
   /** When the answer was checked (UTC ms); becomes the review event's ts. */
   readonly answeredAt: number;
   readonly tooEasy: boolean;
+  /** Recall: the rating the user chose (SPEC 7.3). */
+  readonly selfRating?: Rating;
+  /** Short answer: the user corrected the auto-grade ("I was right/wrong"). */
+  readonly overridden?: boolean;
 }
 
 export type SessionPhase = 'question' | 'feedback' | 'done';
@@ -32,17 +41,26 @@ export interface SessionState {
   readonly items: readonly SessionItem[];
   readonly index: number;
   readonly phase: SessionPhase;
-  /** Display index currently selected, before checking. */
-  readonly selected: number | null;
+  /** What the user has entered for the current question so far. */
+  readonly response: Response | null;
   /** When the current question was shown (epoch ms). */
   readonly shownAt: number;
   readonly answers: readonly AnswerRecord[];
 }
 
+export interface LeaveOptions {
+  /** Rate a correct auto-graded answer Easy. */
+  readonly tooEasy?: boolean;
+  /** Recall self-rating. */
+  readonly rating?: Rating;
+}
+
 export type SessionAction =
-  | { readonly type: 'select'; readonly displayIndex: number }
+  | { readonly type: 'respond'; readonly response: Response }
   | { readonly type: 'answer'; readonly correct: boolean; readonly now: number }
-  | { readonly type: 'continue'; readonly now: number; readonly tooEasy?: boolean }
+  /** Short answers: the user says the auto-grade was wrong. */
+  | { readonly type: 'override'; readonly correct: boolean }
+  | ({ readonly type: 'continue'; readonly now: number } & LeaveOptions)
   /** Restart the response timer after resuming a saved session. */
   | { readonly type: 'resume'; readonly now: number };
 
@@ -64,7 +82,7 @@ export function startSession(
     items,
     index: 0,
     phase: items.length === 0 ? 'done' : 'question',
-    selected: null,
+    response: null,
     shownAt: now,
     answers: [],
   };
@@ -79,22 +97,25 @@ export function pendingAnswer(state: SessionState): AnswerRecord | undefined {
   return state.phase === 'feedback' ? state.answers[state.answers.length - 1] : undefined;
 }
 
+/** The answer as it will be logged once the user leaves feedback with these options. */
+export function finalizeAnswer(answer: AnswerRecord, options: LeaveOptions = {}): AnswerRecord {
+  if (answer.response.type === 'recall') {
+    const rating = options.rating ?? answer.selfRating;
+    return rating ? { ...answer, selfRating: rating, correct: rating !== 'again' } : answer;
+  }
+  return options.tooEasy && answer.correct ? { ...answer, tooEasy: true } : answer;
+}
+
 export function sessionReducer(state: SessionState, action: SessionAction): SessionState {
   switch (action.type) {
-    case 'select': {
-      if (state.phase !== 'question') return state;
-      const item = state.items[state.index];
-      if (!item || action.displayIndex < 0 || action.displayIndex >= item.displayOrder.length) {
-        return state;
-      }
-      return { ...state, selected: action.displayIndex };
-    }
+    case 'respond':
+      return state.phase === 'question' ? { ...state, response: action.response } : state;
     case 'answer': {
       const item = state.items[state.index];
-      if (state.phase !== 'question' || state.selected === null || !item) return state;
+      if (state.phase !== 'question' || state.response === null || !item) return state;
       const record: AnswerRecord = {
         questionId: item.questionId,
-        chosenDisplayIndex: state.selected,
+        response: state.response,
         correct: action.correct,
         responseMs: Math.max(0, action.now - state.shownAt),
         answeredAt: action.now,
@@ -102,20 +123,28 @@ export function sessionReducer(state: SessionState, action: SessionAction): Sess
       };
       return { ...state, phase: 'feedback', answers: [...state.answers, record] };
     }
+    case 'override': {
+      const last = pendingAnswer(state);
+      if (!last || last.response.type !== 'short') return state;
+      return {
+        ...state,
+        answers: [
+          ...state.answers.slice(0, -1),
+          { ...last, correct: action.correct, overridden: true },
+        ],
+      };
+    }
     case 'continue': {
-      if (state.phase !== 'feedback') return state;
-      const last = state.answers[state.answers.length - 1];
-      const answers =
-        last && action.tooEasy && last.correct
-          ? [...state.answers.slice(0, -1), { ...last, tooEasy: true }]
-          : state.answers;
+      const last = pendingAnswer(state);
+      if (!last) return state;
+      if (last.response.type === 'recall' && !action.rating) return state;
       const index = state.index + 1;
       return {
         ...state,
-        answers,
+        answers: [...state.answers.slice(0, -1), finalizeAnswer(last, action)],
         index,
         phase: index >= state.items.length ? 'done' : 'question',
-        selected: null,
+        response: null,
         shownAt: action.now,
       };
     }
@@ -131,14 +160,34 @@ export function sessionScore(state: SessionState): { correct: number; answered: 
   };
 }
 
-/** Saved sessions from before M3 have no mode; they cannot be resumed. */
-export function isCurrentSessionShape(value: unknown): value is SessionState {
-  const s = value as Partial<SessionState> | null;
-  return (
-    !!s &&
-    (s.mode === 'scheduled' || s.mode === 'extra') &&
-    typeof s.day === 'number' &&
-    Array.isArray(s.items) &&
-    Array.isArray(s.answers)
-  );
+/**
+ * Bring a saved session up to the current shape, or return null if it cannot
+ * be resumed. M3 sessions (MCQ only, `displayOrder`/`selected`) are migrated;
+ * sessions from before M3 (no mode) are dropped.
+ */
+export function migrateSession(value: unknown): SessionState | null {
+  const s = value as Record<string, unknown> | null;
+  if (!s || (s.mode !== 'scheduled' && s.mode !== 'extra') || typeof s.day !== 'number') {
+    return null;
+  }
+  if (!Array.isArray(s.items) || !Array.isArray(s.answers)) return null;
+  if ('response' in s) return s as unknown as SessionState;
+
+  // M3 shape: MCQ only.
+  type OldItem = { questionId: string; displayOrder: number[] };
+  type OldAnswer = Omit<AnswerRecord, 'response'> & { chosenDisplayIndex: number };
+  const { selected, ...rest } = s as unknown as { selected: number | null } & SessionState;
+  return {
+    ...rest,
+    items: (s.items as OldItem[]).map((i) => ({
+      questionId: i.questionId,
+      layout: i.displayOrder,
+    })),
+    answers: (s.answers as OldAnswer[]).map(({ chosenDisplayIndex, ...a }) => ({
+      ...a,
+      response: { type: 'mcq', choice: chosenDisplayIndex },
+    })),
+    response:
+      selected === null || selected === undefined ? null : { type: 'mcq', choice: selected },
+  };
 }
