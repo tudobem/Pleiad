@@ -6,6 +6,7 @@ import { memoryStorage } from '../core/memoryStorage.ts';
 import type { StorageAdapter } from '../core/storage.ts';
 import { systemClock } from '../platform/clock/systemClock.ts';
 import { fetchContentSource } from '../platform/content/fetchContent.ts';
+import { browserDevice, requestPersistentStorage } from '../platform/device/device.ts';
 import { loadIdentity } from '../platform/identity.ts';
 import { uuidIds } from '../platform/ids.ts';
 import { systemRandom } from '../platform/random.ts';
@@ -36,7 +37,9 @@ async function main(): Promise<void> {
     identity: await loadIdentity(storage, uuidIds),
     appVersion: __APP_VERSION__,
     persistent,
+    device: browserDevice,
   };
+  requestPersistentStorage();
 
   render(
     <ServicesContext.Provider value={services}>

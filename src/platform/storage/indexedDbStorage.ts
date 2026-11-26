@@ -1,5 +1,5 @@
 import { openDB, type IDBPDatabase } from 'idb';
-import type { StorageAdapter, StoreName } from '../../core/storage.ts';
+import { STORE_NAMES, type StorageAdapter, type StoreName } from '../../core/storage.ts';
 import type { PleiadDB, StoredReview } from './schema.ts';
 import { assertMigrationsOrdered, MIGRATIONS, type Migration } from './migrations.ts';
 
@@ -35,6 +35,15 @@ export async function indexedDbStorage(
       await db.delete(store, key);
     },
     getAll: async <T>(store: StoreName) => (await db.getAll(store)) as T[],
+    async entries(store) {
+      const out: [string, unknown][] = [];
+      let cursor = await db.transaction(store).store.openCursor();
+      while (cursor) {
+        out.push([String(cursor.key), cursor.value]);
+        cursor = await cursor.continue();
+      }
+      return out;
+    },
     async appendReview(event) {
       const tx = db.transaction('reviews', 'readwrite');
       const done = tx.done;
@@ -58,6 +67,31 @@ export async function indexedDbStorage(
       const names = ['cards', 'settings', 'notes', 'flags', 'meta', 'reviews'] as const;
       const tx = db.transaction([...names], 'readwrite');
       await Promise.all([...names.map((n) => tx.objectStore(n).clear()), tx.done]);
+    },
+    async replaceAll(snapshot) {
+      const names = [...STORE_NAMES, 'reviews'] as const;
+      const tx = db.transaction([...names], 'readwrite');
+      const done = tx.done;
+      try {
+        for (const name of names) await tx.objectStore(name).clear();
+        for (const name of STORE_NAMES) {
+          const store = tx.objectStore(name);
+          for (const [key, value] of snapshot.stores[name]) await store.put(value, key);
+        }
+        const reviews = tx.objectStore('reviews');
+        let seq = 0;
+        // add() rejects a duplicate eventId, which aborts the whole transaction.
+        for (const event of snapshot.reviews) await reviews.add({ ...event, seq: (seq += 1) });
+        await done;
+      } catch (error) {
+        done.catch(() => undefined);
+        try {
+          tx.abort();
+        } catch {
+          // Already aborted by the failed request.
+        }
+        throw error;
+      }
     },
     close: () => db.close(),
   };

@@ -211,3 +211,54 @@ a.button {
   font-family: ui-monospace, monospace;
   color: var(--text-muted);
 }
+
+/* Storage notices on Today (SPEC 18, 19) */
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-option);
+  background: var(--surface);
+  font-size: var(--text-small);
+}
+
+.notice--alert {
+  border-color: var(--coral);
+  background: var(--coral-tint);
+}
+
+.notice__text {
+  flex: 1 1 14rem;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.notice--alert .notice__text {
+  color: var(--coral-text);
+}
+
+.notice__action {
+  min-height: var(--tap-min);
+  padding: 0 var(--space-2);
+  border: none;
+  background: none;
+  color: var(--link);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.button--danger {
+  border-color: var(--coral);
+  background: var(--transparent);
+  color: var(--coral-text);
+  height: var(--button-height);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-button);
+}

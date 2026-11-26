@@ -3,6 +3,7 @@ import { useRoute } from './router.ts';
 import { SessionScreen } from './screens/SessionScreen.tsx';
 import { LibraryScreen } from './screens/LibraryScreen.tsx';
 import { RewardsScreen, StatsScreen } from './screens/StatsScreen.tsx';
+import { SettingsScreen } from './screens/SettingsScreen.tsx';
 import { StubScreen } from './screens/StubScreen.tsx';
 import { SubjectScreen } from './screens/SubjectScreen.tsx';
 import { TodayScreen } from './screens/TodayScreen.tsx';
@@ -13,7 +14,7 @@ import './screens/screens.css';
 export function App() {
   const location = useRoute();
   const route = location.name;
-  const { appVersion, persistent } = useServices();
+  const { persistent } = useServices();
 
   if (route === 'session') return <SessionScreen />;
 
@@ -35,11 +36,7 @@ export function App() {
         />
       ) : null}
       {route === 'library' && !location.id ? <LibraryScreen /> : null}
-      {route === 'settings' ? (
-        <StubScreen title="settings.title" body="settings.body">
-          <p class="screen__muted">{t('settings.version', { version: appVersion })}</p>
-        </StubScreen>
-      ) : null}
+      {route === 'settings' ? <SettingsScreen /> : null}
       <TabBar current={route} />
     </>
   );

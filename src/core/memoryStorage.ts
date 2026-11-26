@@ -1,4 +1,4 @@
-import type { StorageAdapter, StoreName } from './storage.ts';
+import { STORE_NAMES, type StorageAdapter, type StoreName } from './storage.ts';
 import type { ReviewEvent } from './sync/reviewEvent.ts';
 
 /**
@@ -7,8 +7,8 @@ import type { ReviewEvent } from './sync/reviewEvent.ts';
  * cannot mutate stored data, similar to IndexedDB cloning.
  */
 export function memoryStorage(): StorageAdapter {
-  const stores = new Map<StoreName, Map<string, unknown>>();
-  const reviews: ReviewEvent[] = [];
+  let stores = new Map<StoreName, Map<string, unknown>>();
+  let reviews: ReviewEvent[] = [];
   const store = (name: StoreName) => {
     let s = stores.get(name);
     if (!s) {
@@ -33,6 +33,7 @@ export function memoryStorage(): StorageAdapter {
       store(name).delete(key);
     },
     getAll: async <T>(name: StoreName) => [...store(name).values()].map((v) => copy(v as T)),
+    entries: async (name) => [...store(name).entries()].map(([k, v]) => [k, copy(v)]),
     appendReview: async (event) => {
       if (reviews.some((e) => e.eventId === event.eventId)) {
         throw new Error(`Duplicate review eventId ${event.eventId}`);
@@ -43,6 +44,20 @@ export function memoryStorage(): StorageAdapter {
     clear: async () => {
       stores.clear();
       reviews.length = 0;
+    },
+    replaceAll: async (snapshot) => {
+      // Build the new state completely before swapping it in (all or nothing).
+      const ids = new Set<string>();
+      for (const e of snapshot.reviews) {
+        if (ids.has(e.eventId)) throw new Error(`Duplicate review eventId ${e.eventId}`);
+        ids.add(e.eventId);
+      }
+      const next = new Map<StoreName, Map<string, unknown>>();
+      for (const name of STORE_NAMES) {
+        next.set(name, new Map(snapshot.stores[name].map(([k, v]) => [k, copy(v)])));
+      }
+      stores = next;
+      reviews = snapshot.reviews.map(copy);
     },
   };
 }

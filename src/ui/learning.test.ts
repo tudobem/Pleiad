@@ -43,6 +43,13 @@ function setup(now = NOW) {
     identity: { deviceId: 'd', profileId: 'p' },
     appVersion: 'test',
     persistent: true,
+    device: {
+      saveFile: () => Promise.resolve('downloaded'),
+      isStandalone: () => true,
+      readUsage: () => 0,
+      writeUsage: () => undefined,
+      reload: () => undefined,
+    },
   };
   return { storage, services };
 }
