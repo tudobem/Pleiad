@@ -1,0 +1,273 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-hist-experimental-0001",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "wundt", "introspection"],
+      "prompt": "What was the explicit target of the experimental psychology Wundt pursued at his Leipzig laboratory, founded in 1879?",
+      "options": [
+        {
+          "text": "Observable behaviour, with no reference to mind",
+          "why_wrong": "That is Watson's behaviourist programme of 1913."
+        },
+        {
+          "text": "Internal information processing in memory stores and attention filters",
+          "why_wrong": "That framing belongs to the cognitive revolution of the 1950s."
+        },
+        {
+          "text": "Unconscious drives revealed through free association",
+          "why_wrong": "That is psychoanalysis, a clinical rather than laboratory tradition."
+        },
+        {
+          "text": "The structure of conscious experience, studied under controlled conditions"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Wundt treated conscious experience as the subject matter of psychology and studied it with controlled, repeatable measurement. His introspective reports were deliberately minimal, such as pressing a key when a sensation appeared.",
+      "sources": [
+        {
+          "citation": "Wundt, W. (1874). Grundzüge der physiologischen Psychologie. Leipzig: Engelmann."
+        },
+        {
+          "citation": "Boring, E. G. (1950). A History of Experimental Psychology, 2nd edn. New York: Appleton-Century-Crofts."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0002",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "history", "james", "titchener", "structuralism"],
+      "prompt": "Which pairing of psychologist and approach is correct?",
+      "options": [
+        {
+          "text": "James: experience is a continuous stream, understood by what it does for the organism"
+        },
+        {
+          "text": "Titchener: experience is an unbroken stream that resists analysis into parts",
+          "why_wrong": "That is James's stream of consciousness, which he set against structuralism."
+        },
+        {
+          "text": "James: experience decomposes into elementary sensations, like matter into elements",
+          "why_wrong": "That is Titchener's structuralism, the view James criticised."
+        },
+        {
+          "text": "Titchener: psychology should study only observable behaviour",
+          "why_wrong": "That is Watson's behaviourism; Titchener was a committed introspectionist."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Titchener's structuralism tried to break experience into elementary sensations, while James argued that experience flows continuously and that cutting it into atoms distorts it. James also championed functionalism in the older sense: mental life explained by what it does for the organism.",
+      "sources": [
+        {
+          "citation": "James, W. (1890). The Principles of Psychology. New York: Henry Holt."
+        },
+        {
+          "citation": "Titchener, E. B. (1898). The postulates of a structural psychology. The Philosophical Review 7(5), 449-465.",
+          "url": "https://doi.org/10.2307/2177110"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["cons-hist-experimental-0006"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0003",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "fechner", "psychophysics"],
+      "prompt": "What did Fechner's *Elemente der Psychophysik* (1860) provide?",
+      "options": [
+        {
+          "text": "A method for timing mental operations by subtracting reaction times",
+          "why_wrong": "That is Donders's subtraction method (1868)."
+        },
+        {
+          "text": "A mathematical law relating stimulus intensity to the magnitude of sensation"
+        },
+        {
+          "text": "The account of perception as unconscious inference",
+          "why_wrong": "That is Helmholtz's proposal."
+        },
+        {
+          "text": "A way to separate sensitivity from response bias",
+          "why_wrong": "That is signal detection theory, from the 1950s."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Building on Weber's observation that just-noticeable differences scale with stimulus intensity, Fechner proposed that sensation grows with the logarithm of intensity, $S = k \\log I$. It was an early attempt to put numbers on experience.",
+      "sources": [
+        {
+          "citation": "Fechner, G. T. (1860). Elemente der Psychophysik. Leipzig: Breitkopf und Härtel."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0004",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "recall",
+      "tier": "advanced",
+      "tags": ["history", "donders", "subtraction-method"],
+      "prompt": "What is the logic of Donders's subtraction method?",
+      "answer_text": "Subtract the reaction time of a simpler task from that of a task adding one mental operation; the difference estimates how long that operation takes.",
+      "explanation": "The method assumes that inserting a stage leaves the other stages unchanged ('pure insertion'). The same contrast logic underlies much brain imaging, including conscious-versus-unconscious contrasts.",
+      "sources": [
+        {
+          "citation": "Donders, F. C. (1868/1969). On the speed of mental processes, trans. W. G. Koster. Acta Psychologica 30, 412-431.",
+          "url": "https://doi.org/10.1016/0001-6918(69)90065-1"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0005",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "helmholtz", "unconscious-inference"],
+      "prompt": "What did Helmholtz mean by 'unconscious inference' in perception?",
+      "options": [
+        {
+          "text": "Stimuli below threshold can still influence behaviour",
+          "why_wrong": "That is subliminal processing, studied much later with masking."
+        },
+        {
+          "text": "Perceptual experience is a direct copy of the retinal image",
+          "why_wrong": "This is the view Helmholtz rejected."
+        },
+        {
+          "text": "Perception draws unnoticed conclusions about the likely causes of sensory signals"
+        },
+        {
+          "text": "Unconscious wishes shape what we perceive",
+          "why_wrong": "That is a psychoanalytic idea, not Helmholtz's."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Helmholtz argued that what we see is the result of inferences, drawn from past experience, about what most likely caused the sensory signal. The idea returned as the core of predictive processing theories.",
+      "sources": [
+        {
+          "citation": "Helmholtz, H. von (1867). Handbuch der physiologischen Optik. Leipzig: Voss."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0006",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "history", "introspection", "imageless-thought"],
+      "prompt": "In the imageless-thought controversy (roughly 1901 to 1910), what did Külpe's Würzburg school report?",
+      "options": [
+        {
+          "text": "That all thought is built from images and sensations",
+          "why_wrong": "That was the position of Titchener's Cornell laboratory, the other side of the dispute."
+        },
+        {
+          "text": "That thoughts can occur without any accompanying image or sensation"
+        },
+        {
+          "text": "That thinking can be studied only through behaviour",
+          "why_wrong": "That is the later behaviourist position."
+        },
+        {
+          "text": "That thinking proceeds by unconscious inference",
+          "why_wrong": "That is Helmholtz's account of perception, not a claim about thought."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Trained introspectors at Würzburg reported imageless thoughts, while Titchener's trained introspectors found only images and sensations. With no neutral way to decide between them, the dispute is commonly cited as a reason introspection lost credibility as a method.",
+      "sources": [
+        {
+          "citation": "Titchener, E. B. (1909). Lectures on the Experimental Psychology of the Thought-Processes. New York: Macmillan."
+        },
+        {
+          "citation": "Humphrey, G. (1951). Thinking: An Introduction to Its Experimental Psychology. London: Methuen."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["cons-hist-experimental-0002"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0007",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "watson", "behaviourism"],
+      "prompt": "What did Watson propose in his 1913 behaviourist manifesto?",
+      "options": [
+        {
+          "text": "Combining trained introspection with reaction-time measurement",
+          "why_wrong": "That describes Wundt's programme, which Watson rejected."
+        },
+        {
+          "text": "Defining mental states by their causal roles",
+          "why_wrong": "That is functionalism in philosophy of mind (Putnam, 1960s)."
+        },
+        {
+          "text": "Studying the unconscious through dream analysis",
+          "why_wrong": "That is psychoanalysis."
+        },
+        {
+          "text": "Dropping introspection and consciousness to aim at predicting and controlling behaviour"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Watson argued that experience is observable only by its owner and so cannot be studied objectively; psychology should study behaviour instead. Within a few decades mainstream psychology had largely set consciousness aside.",
+      "sources": [
+        {
+          "citation": "Watson, J. B. (1913). Psychology as the behaviorist views it. Psychological Review 20(2), 158-177.",
+          "url": "https://doi.org/10.1037/h0074428"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-experimental-0008",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "recall",
+      "tier": "advanced",
+      "tags": ["history", "ryle", "ghost-in-the-machine"],
+      "prompt": "Why does Ryle (1949) call the Cartesian 'ghost in the machine' a category mistake?",
+      "answer_text": "Because it treats the mind as a further inner thing alongside the body, when mental talk describes how a person is disposed to behave; like asking where the university is after seeing its colleges.",
+      "explanation": "Ryle's logical behaviourism did not deny that people think and feel; it denied that thinking and feeling are hidden inner episodes. Its descendants include functionalism.",
+      "sources": [
+        {
+          "citation": "Ryle, G. (1949). The Concept of Mind. London: Hutchinson."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    }
+  ]
+}

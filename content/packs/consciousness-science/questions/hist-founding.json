@@ -1,0 +1,131 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-hist-founding-0001",
+      "pack": "consciousness-science",
+      "topic": "hist-founding",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["history", "baars", "global-workspace"],
+      "prompt": "In Baars's global workspace theory (1988), what makes a content conscious?",
+      "answer_text": "Being selected into a limited-capacity global workspace and broadcast to the many specialised, unconscious processors.",
+      "explanation": "Baars pictured many parallel specialist processors competing for access to a shared workspace; the winning content is made globally available. Dehaene and colleagues later developed this into the neural global neuronal workspace theory.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Dehaene, S. and Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. Cognition 79(1-2), 1-37.",
+          "url": "https://doi.org/10.1016/S0010-0277(00)00123-2"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-founding-0002",
+      "pack": "consciousness-science",
+      "topic": "hist-founding",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "crick", "koch", "neural-correlates"],
+      "prompt": "What research strategy did Crick and Koch (1990) help establish?",
+      "options": [
+        {
+          "text": "Computing a system's integrated information",
+          "why_wrong": "That is Tononi's integrated information theory (2004)."
+        },
+        {
+          "text": "Searching for the neural correlates of consciousness, starting with visual awareness"
+        },
+        {
+          "text": "Testing rival theories in jointly designed experiments",
+          "why_wrong": "That is adversarial collaboration, applied to consciousness from 2018 onwards."
+        },
+        {
+          "text": "Using trained introspectors to catalogue elementary sensations",
+          "why_wrong": "That is Titchener's structuralism."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Crick and Koch proposed treating visual awareness as a neuroscience problem: find the neural activity that corresponds to it. Their specific suggestion, that synchronised firing around 40 Hz binds features, mattered less in the long run than the correlates strategy itself.",
+      "sources": [
+        {
+          "citation": "Crick, F. and Koch, C. (1990). Towards a neurobiological theory of consciousness. Seminars in the Neurosciences 2, 263-275."
+        },
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M. and Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience 17(5), 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-founding-0003",
+      "pack": "consciousness-science",
+      "topic": "hist-founding",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "history", "hard-problem", "access-phenomenal"],
+      "prompt": "Which pairing of author and distinction is correct?",
+      "options": [
+        {
+          "text": "Block (1995): the easy problems versus the hard problem",
+          "why_wrong": "The easy/hard distinction is Chalmers's."
+        },
+        {
+          "text": "Chalmers (1995): access versus phenomenal consciousness",
+          "why_wrong": "The access/phenomenal distinction is Block's."
+        },
+        {
+          "text": "Chalmers (1995): explaining functions versus explaining why there is experience at all"
+        },
+        {
+          "text": "Block (1995): wakefulness versus awareness",
+          "why_wrong": "Wakefulness versus awareness is the clinical distinction behind the vegetative state."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Chalmers separated the 'easy' problems of explaining functions such as discrimination and report from the hard problem of why that processing is accompanied by experience. Block separated access consciousness, availability for report and control, from phenomenal consciousness, what an experience is like.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies 2(3), 200-219."
+        },
+        {
+          "citation": "Block, N. (1995). On a confusion about a function of consciousness. Behavioral and Brain Sciences 18(2), 227-247.",
+          "url": "https://doi.org/10.1017/S0140525X00038188"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-founding-0004",
+      "pack": "consciousness-science",
+      "topic": "hist-founding",
+      "type": "recall",
+      "tier": "advanced",
+      "tags": ["neural-correlates", "definition"],
+      "prompt": "How is a neural correlate of consciousness (NCC) for a specific experience standardly defined?",
+      "answer_text": "The minimal neural mechanisms jointly sufficient for that specific conscious experience.",
+      "explanation": "'Minimal' excludes background conditions such as a working heart or brainstem arousal, and 'sufficient' excludes mere correlates such as the consequences of an experience. A frequent confusion is to equate the NCC with any activity that differs between conscious and unconscious trials.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2000). What is a neural correlate of consciousness? In T. Metzinger (ed.), Neural Correlates of Consciousness: Empirical and Conceptual Questions, pp. 17-39. MIT Press."
+        },
+        {
+          "citation": "Koch, C., Massimini, M., Boly, M. and Tononi, G. (2016). Neural correlates of consciousness: progress and problems. Nature Reviews Neuroscience 17(5), 307-321.",
+          "url": "https://doi.org/10.1038/nrn.2016.22"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    }
+  ]
+}

@@ -33,9 +33,8 @@
           "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-hard-0002",
@@ -69,9 +68,8 @@
           "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-hard-0003",
@@ -89,9 +87,8 @@
           "url": "https://doi.org/10.2307/2183914"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-hard-0004",
@@ -109,9 +106,8 @@
           "url": "https://plato.stanford.edu/entries/qualia/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "status": "retired",
+      "created": "2026-11-26"
     },
     {
       "id": "pom-hard-0005",
@@ -130,9 +126,8 @@
           "url": "https://doi.org/10.2307/2183914"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "status": "retired",
+      "created": "2026-11-26"
     },
     {
       "id": "pom-hard-0006",
@@ -166,9 +161,120 @@
           "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
         }
       ],
+      "status": "retired",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "pom-hard-problem-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["explanatory-gap", "levine"],
+      "prompt": "What is the 'explanatory gap', in Levine's (1983) sense?",
+      "options": [
+        {
+          "text": "The gap between what a subject experiences and what they can report",
+          "why_wrong": "That is the access/phenomenal overflow question."
+        },
+        {
+          "text": "The failure of even a complete physical account to make intelligible why a process feels like anything"
+        },
+        {
+          "text": "The time lag between brain activity and awareness of an intention",
+          "why_wrong": "That is the Libet timing result."
+        },
+        {
+          "text": "Missing data about which brain areas correlate with consciousness",
+          "why_wrong": "The gap is conceptual, not a lack of correlational data."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Levine's example: 'pain is C-fibre firing' might be true, yet nothing about the firing explains why it feels the way pain does. The gap concerns explanation, which is why it survives any amount of extra neural data.",
+      "sources": [
+        {
+          "citation": "Levine, J. (1983). Materialism and qualia: the explanatory gap. Pacific Philosophical Quarterly 64(4), 354-361.",
+          "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
+        }
+      ],
       "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-hard-problem-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "explanatory-gap", "levine", "epistemic-gap"],
+      "prompt": "What was Levine's own view of the explanatory gap?",
+      "options": [
+        {
+          "text": "It proves that consciousness is non-physical",
+          "why_wrong": "That ontological reading is the non-physicalist one; Levine did not draw it."
+        },
+        {
+          "text": "It is an illusion produced by misleading introspection",
+          "why_wrong": "That is the illusionist response, not Levine's."
+        },
+        {
+          "text": "It will be closed by finding the neural correlates of consciousness",
+          "why_wrong": "Levine argued that correlations alone would not close it."
+        },
+        {
+          "text": "It is a gap in our understanding, which need not be a gap in nature"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Levine was a materialist: he took the gap to be epistemic, a gap in what we can explain, without concluding that the world contains anything non-physical. Whether the gap is merely epistemic or also ontological is what separates the positions.",
+      "sources": [
+        {
+          "citation": "Levine, J. (1983). Materialism and qualia: the explanatory gap. Pacific Philosophical Quarterly 64(4), 354-361.",
+          "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-type-a-b-0001"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-hard-problem-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["nagel", "subjectivity"],
+      "prompt": "What did Nagel (1974) himself conclude about physicalism?",
+      "options": [
+        {
+          "text": "That it is false, because bat experience is non-physical",
+          "why_wrong": "Nagel explicitly stopped short of this."
+        },
+        {
+          "text": "That it may be true, but we currently have no idea how it could be true"
+        },
+        {
+          "text": "That it is true and the bat case is a confusion",
+          "why_wrong": "Nagel took the problem of subjectivity seriously."
+        },
+        {
+          "text": "That it is meaningless, so the question should be dropped",
+          "why_wrong": "Nagel did not dismiss the question."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Nagel argued that an objective science leaves out the subjective point of view, but did not infer that physicalism is false; he held that we lack the concepts to understand how it could be true. A common reply is that the bat case shows a limit on human imagination rather than a non-physical fact.",
+      "sources": [
+        {
+          "citation": "Nagel, T. (1974). What is it like to be a bat? The Philosophical Review 83(4), 435-450.",
+          "url": "https://doi.org/10.2307/2183914"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

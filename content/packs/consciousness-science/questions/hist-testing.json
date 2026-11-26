@@ -1,0 +1,245 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-hist-testing-0001",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "iit", "tononi", "phi"],
+      "prompt": "In Tononi's (2004) integrated information theory, what is $\\Phi$ meant to quantify?",
+      "options": [
+        {
+          "text": "How widely a content is broadcast across cortex",
+          "why_wrong": "Broadcast is the central notion of global workspace theory."
+        },
+        {
+          "text": "The precision assigned to prediction errors",
+          "why_wrong": "Precision belongs to predictive processing."
+        },
+        {
+          "text": "The information a system generates as a whole, over and above its parts"
+        },
+        {
+          "text": "How well confidence tracks accuracy",
+          "why_wrong": "That is metacognitive sensitivity (meta-$d'$)."
+        }
+      ],
+      "answer": 2,
+      "explanation": "$\\Phi$ measures how far a system's information is integrated rather than reducible to independent parts. According to IIT, the quantity of consciousness corresponds to this integration.",
+      "sources": [
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-testing-0002",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "covert-awareness", "vegetative-state", "fmri"],
+      "prompt": "What did Owen et al. (2006) report in a patient diagnosed as vegetative?",
+      "options": [
+        {
+          "text": "Her TMS-evoked EEG response was as complex as in healthy wakefulness",
+          "why_wrong": "That is the later perturbational complexity approach, not this fMRI study."
+        },
+        {
+          "text": "She answered yes/no questions with vertical eye movements",
+          "why_wrong": "That describes communication in locked-in syndrome."
+        },
+        {
+          "text": "Asked to imagine playing tennis or walking through her home, she showed fMRI activity like that of healthy volunteers"
+        },
+        {
+          "text": "She discriminated visual stimuli above chance without reporting them",
+          "why_wrong": "That describes blindsight."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Motor imagery and spatial navigation imagery produced distinct activation patterns matching those of controls, which the authors took as evidence of covert awareness. Critics argued that the activity could in principle arise without awareness, so the inference was contested from the start.",
+      "sources": [
+        {
+          "citation": "Owen, A. M., Coleman, M. R., Boly, M., Davis, M. H., Laureys, S. and Pickard, J. D. (2006). Detecting awareness in the vegetative state. Science 313(5792), 1402.",
+          "url": "https://doi.org/10.1126/science.1130197"
+        },
+        {
+          "citation": "Nachev, P. and Husain, M. (2007). Comment on 'Detecting awareness in the vegetative state'. Science 315(5816), 1221.",
+          "url": "https://doi.org/10.1126/science.1135284"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-testing-0003",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "tms-eeg", "sleep", "pci"],
+      "prompt": "What did Massimini et al. (2005) find when stimulating cortex with TMS during NREM sleep?",
+      "options": [
+        {
+          "text": "The evoked response stayed local instead of spreading as it did in wakefulness"
+        },
+        {
+          "text": "The evoked response became larger and spread more widely than in wakefulness",
+          "why_wrong": "The reverse: effective connectivity broke down in sleep."
+        },
+        {
+          "text": "The EEG response was unchanged; only behavioural responsiveness differed",
+          "why_wrong": "The cortical response itself changed markedly."
+        },
+        {
+          "text": "No EEG response to the pulse could be recorded at all",
+          "why_wrong": "A response was recorded, but it was local and short-lived."
+        }
+      ],
+      "answer": 0,
+      "explanation": "In wakefulness a TMS pulse set off a sustained, spreading pattern of activity; in NREM sleep the response remained local, indicating a breakdown of cortical effective connectivity. Casali et al. (2013) later compressed such responses into a single number, the Perturbational Complexity Index.",
+      "sources": [
+        {
+          "citation": "Massimini, M., Ferrarelli, F., Huber, R., Esser, S. K., Singh, H. and Tononi, G. (2005). Breakdown of cortical effective connectivity during sleep. Science 309(5744), 2228-2232.",
+          "url": "https://doi.org/10.1126/science.1117256"
+        },
+        {
+          "citation": "Casali, A. G., Gosseries, O., Rosanova, M., Boly, M., Sarasso, S., Casali, K. R., et al. (2013). A theoretically based index of consciousness independent of sensory processing and behavior. Science Translational Medicine 5(198), 198ra105.",
+          "url": "https://doi.org/10.1126/scitranslmed.3006294"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-testing-0004",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["adversarial-collaboration", "methodology"],
+      "prompt": "What defines an adversarial collaboration, in the sense of Mellers, Hertwig and Kahneman (2001)?",
+      "options": [
+        {
+          "text": "Independent laboratories replicate one theory's flagship result",
+          "why_wrong": "That is a multi-lab replication, which involves no rival theorists."
+        },
+        {
+          "text": "Rival camps run separate experiments and compare conclusions afterwards",
+          "why_wrong": "The point is a jointly designed study, so neither side can explain away the outcome."
+        },
+        {
+          "text": "Proponents of rival views agree in advance on a study and on which outcomes would count against each"
+        },
+        {
+          "text": "A neutral panel decides which theory won after seeing the data",
+          "why_wrong": "The interpretation of outcomes is agreed before data collection, not after."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Committing in advance to a design and to what each result would mean prevents either side from reinterpreting the outcome afterwards. The COGITATE consortium applied this format to theories of consciousness.",
+      "sources": [
+        {
+          "citation": "Mellers, B., Hertwig, R. and Kahneman, D. (2001). Do frequency representations eliminate conjunction effects? An exercise in adversarial collaboration. Psychological Science 12(4), 269-275.",
+          "url": "https://doi.org/10.1111/1467-9280.00350"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-testing-0005",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["cogitate", "iit", "global-workspace", "adversarial-collaboration"],
+      "prompt": "In the COGITATE adversarial test (Cogitate Consortium, 2025), which result challenged integrated information theory specifically?",
+      "options": [
+        {
+          "text": "No ignition-like response appeared when the stimulus was switched off",
+          "why_wrong": "Offset ignition was a prediction of global neuronal workspace theory, so its absence challenged that theory."
+        },
+        {
+          "text": "Sustained synchronisation within posterior cortex was not found"
+        },
+        {
+          "text": "Some dimensions of conscious content were weakly represented in prefrontal cortex",
+          "why_wrong": "Limited prefrontal representation challenged global neuronal workspace theory."
+        },
+        {
+          "text": "Conscious content could be decoded from visual and ventrotemporal cortex",
+          "why_wrong": "Posterior content decoding was consistent with IIT rather than a challenge to it."
+        }
+      ],
+      "answer": 1,
+      "explanation": "IIT predicted sustained synchronisation within posterior cortex for as long as a stimulus was seen, and it was not observed. The consortium summarised the results as aligning with some predictions of both theories while substantially challenging key tenets of each; how damaging each result is remains disputed by the theories' proponents.",
+      "sources": [
+        {
+          "citation": "Cogitate Consortium, Ferrante, O., Gorska-Klimowska, U., et al. (2025). Adversarial testing of global neuronal workspace and integrated information theories of consciousness. Nature 642(8066), 133-142.",
+          "url": "https://doi.org/10.1038/s41586-025-08888-1"
+        },
+        {
+          "citation": "Melloni, L., Mudrik, L., Pitts, M. and Koch, C. (2021). Making the hard problem of consciousness easier. Science 372(6545), 911-912.",
+          "url": "https://doi.org/10.1126/science.abj3259"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["cons-hist-testing-0006"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-testing-0006",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["iit", "pseudoscience-letter", "falsifiability"],
+      "prompt": "What was the central charge of the 2023 open letter calling integrated information theory 'pseudoscience', restated in the 2025 *Nature Neuroscience* comment?",
+      "options": [
+        {
+          "text": "That the COGITATE results had decisively falsified the theory",
+          "why_wrong": "The letter's complaint was about testability, not that a test had refuted the theory."
+        },
+        {
+          "text": "That the theory's mathematics contains derivation errors",
+          "why_wrong": "Formal objections exist in the literature, but they were not the letter's central charge."
+        },
+        {
+          "text": "That its proponents refused to preregister predictions",
+          "why_wrong": "IIT's proponents took part in a preregistered adversarial collaboration."
+        },
+        {
+          "text": "That its core claims, including panpsychist implications, are untestable"
+        }
+      ],
+      "answer": 3,
+      "explanation": "The signatories argued that IIT's core claims cannot be tested even in principle, for example its ascription of consciousness to static systems with no observable function, so it should not be presented as an empirically supported theory. The 'pseudoscience' label was itself sharply contested by other researchers, including some with no stake in IIT.",
+      "sources": [
+        {
+          "citation": "Fleming, S. M., Frith, C. D., Goodale, M., Lau, H., LeDoux, J. E., Lee, A. L. F., et al. (2023). The integrated information theory of consciousness as pseudoscience. PsyArXiv.",
+          "url": "https://doi.org/10.31234/osf.io/zsr78"
+        },
+        {
+          "citation": "IIT-Concerned, Klincewicz, M., Cheng, T., Schmitz, M., Sebastián, M. Á. and Snyder, J. S. (2025). What makes a theory of consciousness unscientific? Nature Neuroscience 28(4), 689-693.",
+          "url": "https://doi.org/10.1038/s41593-025-01881-x"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["cons-hist-testing-0005"],
+      "verified_on": "2026-11-25"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-identity-theory-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "identity-theory",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["behaviourism", "ryle", "putnam"],
+      "prompt": "What problem undermined philosophical behaviourism as an account of mental states?",
+      "options": [
+        {
+          "text": "It could not explain unconscious processing",
+          "why_wrong": "This was not its central difficulty."
+        },
+        {
+          "text": "Mental states and behavioural dispositions come apart, as in suppressed or feigned pain"
+        },
+        {
+          "text": "It required a non-physical mind",
+          "why_wrong": "Behaviourism was a physicalist-friendly view."
+        },
+        {
+          "text": "It conflicted with the neural correlates of consciousness",
+          "why_wrong": "The objection was conceptual, not neuroscientific."
+        }
+      ],
+      "answer": 1,
+      "explanation": "A person can be in pain and suppress every sign of it, or show every sign without pain; Putnam's 'super-spartans' make the point. So mental states cannot simply be dispositions to behave.",
+      "sources": [
+        {
+          "citation": "Ryle, G. (1949). The Concept of Mind. London: Hutchinson."
+        },
+        {
+          "citation": "Putnam, H. (1965). Brains and behavior. In R. J. Butler (ed.), Analytical Philosophy, Second Series. Oxford: Blackwell."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-identity-theory-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "identity-theory",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["identity-theory", "place", "smart"],
+      "prompt": "What does type identity theory (Place 1956; Smart 1959) claim?",
+      "options": [
+        {
+          "text": "Mental states are defined by their causal roles",
+          "why_wrong": "That is functionalism."
+        },
+        {
+          "text": "Each type of mental state is identical to a type of brain state"
+        },
+        {
+          "text": "Mental states are dispositions to behave",
+          "why_wrong": "That is philosophical behaviourism."
+        },
+        {
+          "text": "Mental properties depend on, but are distinct from, brain properties",
+          "why_wrong": "That is property dualism or non-reductive physicalism."
+        }
+      ],
+      "answer": 1,
+      "explanation": "On identity theory, pain simply is a certain kind of neural process, as lightning is electrical discharge. The identities are held to be empirical discoveries, not truths of meaning.",
+      "sources": [
+        {
+          "citation": "Place, U. T. (1956). Is consciousness a brain process? British Journal of Psychology 47(1), 44-50.",
+          "url": "https://doi.org/10.1111/j.2044-8295.1956.tb00560.x"
+        },
+        {
+          "citation": "Smart, J. J. C. (1959). Sensations and brain processes. The Philosophical Review 68(2), 141-156.",
+          "url": "https://doi.org/10.2307/2182164"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-identity-theory-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "identity-theory",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "multiple-realisability", "putnam", "functionalism"],
+      "prompt": "What is Putnam's multiple realisability argument against type identity theory?",
+      "options": [
+        {
+          "text": "Pain could be realised by many brain states within one person, so it has no correlate",
+          "why_wrong": "The argument concerns different systems realising the same state."
+        },
+        {
+          "text": "Brain states are too variable to measure",
+          "why_wrong": "The argument is conceptual, not methodological."
+        },
+        {
+          "text": "Creatures with very different physical make-ups could feel pain, so pain is not one neural type"
+        },
+        {
+          "text": "Mental states have no physical realisation at all",
+          "why_wrong": "Putnam's argument assumes physical realisation, only varied."
+        }
+      ],
+      "answer": 2,
+      "explanation": "An octopus, an alien or perhaps a machine could plausibly feel pain without our neurons, so pain cannot be identical to one kind of neural state. The argument motivated functionalism, which defines pain by its role rather than its substrate.",
+      "sources": [
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan and D. D. Merrill (eds.), Art, Mind, and Religion. University of Pittsburgh Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-functionalism-0001"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-identity-theory-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "identity-theory",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["identity-theory", "kripke", "modal-argument"],
+      "prompt": "What is the core of Kripke's (1980) modal argument against mind-brain identity?",
+      "options": [
+        {
+          "text": "Identities between rigid designators are necessary, yet pain without C-fibre firing seems possible"
+        },
+        {
+          "text": "Pain and C-fibre firing occur at different times",
+          "why_wrong": "The argument is about necessity, not timing."
+        },
+        {
+          "text": "Brain states are multiply realised across species",
+          "why_wrong": "That is Putnam's argument."
+        },
+        {
+          "text": "Pain cannot be observed, so it cannot be identified with anything",
+          "why_wrong": "Kripke's argument does not rest on observability."
+        }
+      ],
+      "answer": 0,
+      "explanation": "If 'pain = C-fibre firing' is a true identity between rigid designators, it holds necessarily, like 'water = H₂O'. But the firing without the pain seems possible, and unlike the water case the appearance cannot be explained away, since anything that feels like pain is pain.",
+      "sources": [
+        {
+          "citation": "Kripke, S. (1980). Naming and Necessity. Cambridge, MA: Harvard University Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    }
+  ]
+}

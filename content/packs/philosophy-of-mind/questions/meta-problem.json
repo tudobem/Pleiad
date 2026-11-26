@@ -1,0 +1,64 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-meta-problem-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "meta-problem",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["meta-problem", "chalmers"],
+      "prompt": "What is the meta-problem of consciousness?",
+      "answer_text": "The problem of explaining why we judge and report that consciousness is hard to explain, in terms that do not presuppose consciousness.",
+      "explanation": "Chalmers (2018) proposed it because problem intuitions are reports and judgements, which are behaviour and so can be studied empirically. It turns an untestable question into a testable one.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2018). The meta-problem of consciousness. Journal of Consciousness Studies 25(9-10), 6-61."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-meta-problem-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "meta-problem",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "meta-problem", "illusionism"],
+      "prompt": "How do illusionists and realists differ on what solving the meta-problem would achieve?",
+      "options": [
+        {
+          "text": "Illusionists: it would dissolve the hard problem; realists: the hard problem would remain"
+        },
+        {
+          "text": "Illusionists: it is unsolvable; realists: it would solve the hard problem",
+          "why_wrong": "Illusionists take the meta-problem to be the whole task, and solvable."
+        },
+        {
+          "text": "Both: it would solve the hard problem",
+          "why_wrong": "Realists deny that explaining belief in experience explains experience."
+        },
+        {
+          "text": "Both: it is irrelevant to the hard problem",
+          "why_wrong": "Both sides think it bears on the hard problem, differently."
+        }
+      ],
+      "answer": 0,
+      "explanation": "For illusionists, fully explaining why we believe in phenomenal consciousness debunks the belief and dissolves the hard problem. For realists such as Chalmers, explaining the belief in pain is not explaining the pain, so the hard problem survives.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2018). The meta-problem of consciousness. Journal of Consciousness Studies 25(9-10), 6-61."
+        },
+        {
+          "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-illusionism-0001"],
+      "verified_on": "2026-11-25"
+    }
+  ]
+}
