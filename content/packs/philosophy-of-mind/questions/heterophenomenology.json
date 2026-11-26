@@ -37,8 +37,9 @@
           "url": "https://doi.org/10.1007/s11097-006-9044-9"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-heterophenomenology-0002",
@@ -72,8 +73,9 @@
           "citation": "Dennett, D. C. (1991). Consciousness Explained. Boston: Little, Brown."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-heterophenomenology-0003",
@@ -111,8 +113,9 @@
           "citation": "Lutz, A. and Thompson, E. (2003). Neurophenomenology: integrating subjective experience and brain dynamics in the neuroscience of consciousness. Journal of Consciousness Studies 10(9-10), 31-52."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     }
   ]
 }

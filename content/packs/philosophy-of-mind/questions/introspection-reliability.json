@@ -34,9 +34,10 @@
           "url": "https://doi.org/10.1037/0033-295X.84.3.231"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-introspection-reliability-0003"]
+      "confusable_with": ["pom-introspection-reliability-0003"],
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0002",
@@ -71,8 +72,9 @@
           "url": "https://doi.org/10.1126/science.1111709"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0003",
@@ -111,9 +113,10 @@
           "url": "https://doi.org/10.1126/science.1111709"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-introspection-reliability-0001"]
+      "confusable_with": ["pom-introspection-reliability-0001"],
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0004",
@@ -148,8 +151,9 @@
           "url": "https://doi.org/10.1215/00318108-2007-037"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0005",
@@ -184,8 +188,9 @@
           "url": "https://doi.org/10.1371/journal.pone.0045370"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0006",
@@ -220,8 +225,9 @@
           "url": "https://doi.org/10.1037/xge0000505"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0007",
@@ -276,8 +282,9 @@
           "url": "https://doi.org/10.1016/j.concog.2009.12.013"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     },
     {
       "id": "pom-introspection-reliability-0008",
@@ -311,8 +318,9 @@
           "citation": "Lutz, A., Dunne, J. D. and Davidson, R. J. (2007). Meditation and the neuroscience of consciousness: an introduction. In P. D. Zelazo, M. Moscovitch and E. Thompson (eds.), The Cambridge Handbook of Consciousness. Cambridge University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-26"
     }
   ]
 }
