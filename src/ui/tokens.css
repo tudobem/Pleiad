@@ -25,6 +25,12 @@
   --gold-tint: rgba(242, 200, 121, 0.14);
   --coral-tint: rgba(255, 138, 122, 0.12);
   --transparent: transparent;
+  /* Activity heatmap steps, track to gold (DESIGN 4.6). */
+  --heat-0: rgba(255, 255, 255, 0.06);
+  --heat-1: rgba(242, 200, 121, 0.25);
+  --heat-2: rgba(242, 200, 121, 0.45);
+  --heat-3: rgba(242, 200, 121, 0.7);
+  --heat-4: #f2c879;
 
   /* Type */
   --font-heading: 'Fraunces', ui-serif, Georgia, serif;
