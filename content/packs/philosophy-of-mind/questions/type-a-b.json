@@ -33,9 +33,10 @@
           "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-hard-problem-0002"]
+      "confusable_with": ["pom-hard-problem-0002"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-type-a-b-0002",
@@ -73,8 +74,9 @@
           "citation": "Papineau, D. (2002). Thinking about Consciousness. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-type-a-b-0003",
@@ -111,8 +113,9 @@
           "citation": "Papineau, D. (2002). Thinking about Consciousness. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-type-a-b-0004",
@@ -146,8 +149,9 @@
           "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

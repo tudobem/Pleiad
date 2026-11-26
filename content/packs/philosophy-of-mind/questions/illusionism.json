@@ -36,9 +36,10 @@
           "citation": "Dennett, D. C. (1991). Consciousness Explained. Boston: Little, Brown."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-meta-problem-0002"]
+      "confusable_with": ["pom-meta-problem-0002"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-illusionism-0002",
@@ -55,8 +56,9 @@
           "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-illusionism-0003",
@@ -93,8 +95,9 @@
           "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

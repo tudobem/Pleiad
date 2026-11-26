@@ -34,8 +34,9 @@
           "url": "https://doi.org/10.1093/mind/XCVIII.391.349"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-mysterianism-0002",
@@ -72,8 +73,9 @@
           "citation": "Russell, B. (1921). The Analysis of Mind. London: George Allen and Unwin."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

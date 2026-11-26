@@ -37,9 +37,10 @@
           "url": "https://doi.org/10.1017/S0140525X00005756"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-functionalism-0001"]
+      "confusable_with": ["pom-functionalism-0001"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-biological-naturalism-0002",
@@ -73,8 +74,9 @@
           "citation": "Seth, A. (2021). Being You: A New Science of Consciousness. London: Faber and Faber."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

@@ -36,8 +36,9 @@
           "citation": "Putnam, H. (1965). Brains and behavior. In R. J. Butler (ed.), Analytical Philosophy, Second Series. Oxford: Blackwell."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-identity-theory-0002",
@@ -76,8 +77,9 @@
           "url": "https://doi.org/10.2307/2182164"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-identity-theory-0003",
@@ -111,9 +113,10 @@
           "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan and D. D. Merrill (eds.), Art, Mind, and Religion. University of Pittsburgh Press."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-functionalism-0001"]
+      "confusable_with": ["pom-functionalism-0001"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-identity-theory-0004",
@@ -147,8 +150,9 @@
           "citation": "Kripke, S. (1980). Naming and Necessity. Cambridge, MA: Harvard University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

@@ -151,8 +151,9 @@
           "url": "https://doi.org/10.2307/2026143"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-knowledge-argument-0002",
@@ -189,9 +190,10 @@
           "citation": "Nemirow, L. (1990). Physicalism and the cognitive role of acquaintance. In W. G. Lycan (ed.), Mind and Cognition. Oxford: Blackwell."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-knowledge-argument-0003"]
+      "confusable_with": ["pom-knowledge-argument-0003"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-knowledge-argument-0003",
@@ -229,9 +231,10 @@
           "citation": "Papineau, D. (2002). Thinking about Consciousness. Oxford University Press."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-knowledge-argument-0002"]
+      "confusable_with": ["pom-knowledge-argument-0002"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-knowledge-argument-0004",
@@ -248,8 +251,9 @@
           "citation": "Jackson, F. (1998). Postscript on qualia. In Mind, Method and Conditionals: Selected Essays. London: Routledge."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

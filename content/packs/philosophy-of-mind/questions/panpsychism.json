@@ -36,8 +36,9 @@
           "citation": "Goff, P. (2017). Consciousness and Fundamental Reality. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-panpsychism-0002",
@@ -74,8 +75,9 @@
           "citation": "James, W. (1890). The Principles of Psychology, Vol. 1, Chapter 6. New York: Henry Holt."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-panpsychism-0003",
@@ -109,8 +111,9 @@
           "citation": "Strawson, G. (2006). Realistic monism: why physicalism entails panpsychism. Journal of Consciousness Studies 13(10-11), 3-31."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

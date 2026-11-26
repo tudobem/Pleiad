@@ -34,9 +34,10 @@
           "url": "https://doi.org/10.1017/S0140525X00038188"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-access-phenomenal-0002"]
+      "confusable_with": ["pom-access-phenomenal-0002"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-access-phenomenal-0002",
@@ -75,9 +76,10 @@
           "url": "https://doi.org/10.1017/S0140525X00038188"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-access-phenomenal-0001"]
+      "confusable_with": ["pom-access-phenomenal-0001"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-access-phenomenal-0003",
@@ -115,8 +117,9 @@
           "citation": "Rosenthal, D. M. (2005). Consciousness and Mind. Oxford: Clarendon Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-access-phenomenal-0004",
@@ -137,8 +140,9 @@
           "citation": "Dennett, D. C. (1988). Quining qualia. In A. J. Marcel and E. Bisiach (eds.), Consciousness in Contemporary Science. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-access-phenomenal-0005",
@@ -181,8 +185,9 @@
           "url": "https://doi.org/10.1016/j.tics.2010.04.006"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

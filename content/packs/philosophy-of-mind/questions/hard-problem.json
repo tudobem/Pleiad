@@ -197,8 +197,9 @@
           "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-hard-problem-0002",
@@ -233,9 +234,10 @@
           "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-type-a-b-0001"]
+      "confusable_with": ["pom-type-a-b-0001"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-hard-problem-0003",
@@ -270,8 +272,9 @@
           "url": "https://doi.org/10.2307/2183914"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

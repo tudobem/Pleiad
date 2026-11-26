@@ -138,9 +138,10 @@
           "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan and D. D. Merrill (eds.), Art, Mind, and Religion. University of Pittsburgh Press."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-identity-theory-0003", "pom-biological-naturalism-0001"]
+      "confusable_with": ["pom-identity-theory-0003", "pom-biological-naturalism-0001"],
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-functionalism-0002",
@@ -175,8 +176,9 @@
           "url": "https://doi.org/10.3998/phimp.2109"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-functionalism-0003",
@@ -196,8 +198,9 @@
           "citation": "Putnam, H. (1988). Representation and Reality. Cambridge, MA: MIT Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

@@ -37,8 +37,9 @@
           "citation": "Tye, M. (1995). Ten Problems of Consciousness: A Representational Theory of the Phenomenal Mind. Cambridge, MA: MIT Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-representationalism-hot-0002",
@@ -78,8 +79,9 @@
           "citation": "Lycan, W. G. (1996). Consciousness and Experience. Cambridge, MA: MIT Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-representationalism-hot-0003",
@@ -118,8 +120,9 @@
           "url": "https://doi.org/10.1093/analys/anr039"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

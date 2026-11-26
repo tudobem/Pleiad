@@ -146,8 +146,9 @@
           "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-zombies-0002",
@@ -184,8 +185,9 @@
           "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-zombies-0003",
@@ -223,8 +225,9 @@
           "url": "https://doi.org/10.2307/2026213"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-zombies-0004",
@@ -259,8 +262,9 @@
           "url": "https://doi.org/10.3998/phimp.2109"
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

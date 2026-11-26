@@ -16,8 +16,9 @@
           "citation": "Chalmers, D. J. (2018). The meta-problem of consciousness. Journal of Consciousness Studies 25(9-10), 6-61."
         }
       ],
-      "status": "draft",
-      "created": "2026-11-25"
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     },
     {
       "id": "pom-meta-problem-0002",
@@ -54,9 +55,10 @@
           "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
         }
       ],
-      "status": "draft",
+      "status": "verified",
       "created": "2026-11-25",
-      "confusable_with": ["pom-illusionism-0001"]
+      "confusable_with": ["pom-illusionism-0001"],
+      "verified_on": "2026-11-25"
     }
   ]
 }
