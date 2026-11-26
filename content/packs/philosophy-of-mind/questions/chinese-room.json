@@ -38,9 +38,8 @@
           "url": "https://plato.stanford.edu/entries/chinese-room/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-chin-0002",
@@ -59,9 +58,82 @@
           "url": "https://doi.org/10.1017/S0140525X00005756"
         }
       ],
+      "status": "retired",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "pom-chinese-room-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "chinese-room",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["chinese-room", "searle"],
+      "prompt": "What does Searle's Chinese room (1980) argue?",
+      "options": [
+        {
+          "text": "Computers will never pass the Turing test",
+          "why_wrong": "The room passes for a native speaker; the argument grants behavioural success."
+        },
+        {
+          "text": "Running a program by manipulating symbols is not sufficient for understanding"
+        },
+        {
+          "text": "Understanding requires a non-physical mind",
+          "why_wrong": "Searle is a physicalist of a biological kind."
+        },
+        {
+          "text": "Chinese is harder for machines than other languages",
+          "why_wrong": "The language is incidental."
+        }
+      ],
+      "answer": 1,
+      "explanation": "A person who knows no Chinese follows a rulebook to produce answers indistinguishable from a native speaker's, yet understands nothing; the same, Searle argues, holds for any computer running the program. Syntax alone does not give semantics.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences 3(3), 417-424.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        }
+      ],
       "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-chinese-room-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "chinese-room",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["chinese-room", "systems-reply"],
+      "prompt": "What does the 'systems reply' to the Chinese room claim?",
+      "options": [
+        {
+          "text": "Embedding the program in a robot body would give it understanding",
+          "why_wrong": "That is the robot reply."
+        },
+        {
+          "text": "Simulating the actual neurons of a Chinese speaker would give understanding",
+          "why_wrong": "That is the brain simulator reply."
+        },
+        {
+          "text": "Understanding is an illusion even in native speakers",
+          "why_wrong": "That is not the systems reply."
+        },
+        {
+          "text": "The whole system, room, rulebook and person together, understands Chinese"
+        }
+      ],
+      "answer": 3,
+      "explanation": "The reply grants that the person does not understand but locates understanding in the larger system. Searle answered that the person could memorise the rules and still understand nothing.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences 3(3), 417-424.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

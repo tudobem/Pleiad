@@ -37,9 +37,8 @@
           "url": "https://plato.stanford.edu/entries/functionalism/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-func-0002",
@@ -60,9 +59,8 @@
           "url": "https://plato.stanford.edu/entries/multiple-realizability/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-func-0003",
@@ -105,9 +103,104 @@
           "url": "https://plato.stanford.edu/entries/functionalism/"
         }
       ],
+      "status": "retired",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "pom-functionalism-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "functionalism", "putnam"],
+      "prompt": "How does functionalism define mental states?",
+      "options": [
+        {
+          "text": "By the type of brain state that realises them",
+          "why_wrong": "That is type identity theory."
+        },
+        {
+          "text": "By their causal role: what causes them and what they cause"
+        },
+        {
+          "text": "By the behaviour they produce, with no inner states",
+          "why_wrong": "That is behaviourism; functionalism allows inner states defined by role."
+        },
+        {
+          "text": "By their intrinsic qualitative feel",
+          "why_wrong": "Functionalism is criticised for leaving qualitative feel out."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Being in pain is being in whatever state is caused by damage and causes avoidance, wincing and further states, whether it runs on neurons or circuits. This accommodates multiple realisability; its standard objection is that it seems to leave out qualia.",
+      "sources": [
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan and D. D. Merrill (eds.), Art, Mind, and Religion. University of Pittsburgh Press."
+        }
+      ],
       "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "created": "2026-11-25",
+      "confusable_with": ["pom-identity-theory-0003", "pom-biological-naturalism-0001"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-functionalism-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["functionalism", "philpapers-survey"],
+      "prompt": "In the 2020 PhilPapers Survey question on consciousness, which single view drew the most support?",
+      "options": [
+        {
+          "text": "Dualism",
+          "why_wrong": "Dualism drew about 22 per cent."
+        },
+        {
+          "text": "Identity theory",
+          "why_wrong": "Identity theory drew about 13 per cent."
+        },
+        {
+          "text": "Functionalism"
+        },
+        {
+          "text": "Panpsychism",
+          "why_wrong": "Panpsychism drew about 8 per cent."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Functionalism was the largest single view in the 2020 survey, at about 33 per cent of respondents accepting or leaning towards it. Respondents could choose several views, and no view had a majority. These are 2020 figures.",
+      "sources": [
+        {
+          "citation": "Bourget, D. and Chalmers, D. J. (2023). Philosophers on philosophy: the 2020 PhilPapers survey. Philosophers' Imprint 23, 11.",
+          "url": "https://doi.org/10.3998/phimp.2109"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-functionalism-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "recall",
+      "tier": "advanced",
+      "tags": ["functionalism", "putnam"],
+      "prompt": "Which prominent founder of functionalism later abandoned it?",
+      "answer_text": "Hilary Putnam.",
+      "explanation": "Putnam introduced machine-state functionalism in the 1960s and later argued against it, notably in *Representation and Reality* (1988). The view nonetheless remains the most widely held position on consciousness among philosophers.",
+      "sources": [
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan and D. D. Merrill (eds.), Art, Mind, and Religion. University of Pittsburgh Press."
+        },
+        {
+          "citation": "Putnam, H. (1988). Representation and Reality. Cambridge, MA: MIT Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
     }
   ]
 }

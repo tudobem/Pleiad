@@ -1,0 +1,476 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-phenomenology-method-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["brentano", "intentionality"],
+      "prompt": "What did Brentano (1874) propose as the mark that distinguishes mental from physical phenomena?",
+      "options": [
+        {
+          "text": "Intentionality: every mental act is directed at an object"
+        },
+        {
+          "text": "Privacy: only the subject can observe a mental act",
+          "why_wrong": "Privacy was a common assumption, but Brentano's criterion was directedness."
+        },
+        {
+          "text": "Consciousness: every mental act is felt",
+          "why_wrong": "Brentano held that mental acts are also aware of themselves, but his mark of the mental was intentionality."
+        },
+        {
+          "text": "Non-extension: mental acts occupy no space",
+          "why_wrong": "That is Descartes's criterion."
+        }
+      ],
+      "answer": 0,
+      "explanation": "In seeing, something is seen; in judging, something is judged; in loving, something is loved. Husserl, Brentano's student, took intentionality over as the organising fact of consciousness.",
+      "sources": [
+        {
+          "citation": "Brentano, F. (1874). Psychologie vom empirischen Standpunkte (Psychology from an Empirical Standpoint). Leipzig: Duncker und Humblot."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "short",
+      "tier": "foundational",
+      "tags": ["husserl", "epoche"],
+      "prompt": "What is Husserl's term for bracketing the natural attitude's assumption that the world exists as it appears?",
+      "answers": ["epoché", "epokhe"],
+      "explanation": "From the Greek for 'suspension'. The epoché does not deny that the world exists; it sets the question aside so that attention can turn to how things appear.",
+      "sources": [
+        {
+          "citation": "Husserl, E. (1913/1983). Ideas Pertaining to a Pure Phenomenology and to a Phenomenological Philosophy, First Book, trans. F. Kersten. The Hague: Martinus Nijhoff."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "cloze",
+      "tier": "advanced",
+      "tags": ["husserl", "time-consciousness"],
+      "prompt": "Complete Husserl's analysis of the experienced present.",
+      "text": "When hearing a melody, each present moment contains a {{primal impression}} of the note now sounding, a {{retention}} of the just-past notes, and a {{protention}} of what is about to come.",
+      "bank": ["recollection", "apperception", "reflection"],
+      "explanation": "Retention and protention give the present a temporal thickness, which is why a phrase is heard as a phrase rather than inferred from isolated notes. James had called this short experienced duration the 'specious present'.",
+      "sources": [
+        {
+          "citation": "Husserl, E. (1928/1991). On the Phenomenology of the Consciousness of Internal Time (1893-1917), trans. J. B. Brough. Dordrecht: Kluwer."
+        },
+        {
+          "citation": "James, W. (1890). The Principles of Psychology. New York: Henry Holt."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "husserl", "retention"],
+      "prompt": "On Husserl's account, how does retention differ from recollection?",
+      "options": [
+        {
+          "text": "Retention is voluntary; recollection is automatic",
+          "why_wrong": "Neither difference is about voluntariness in this sense."
+        },
+        {
+          "text": "Retention concerns the distant past; recollection the recent past",
+          "why_wrong": "Retention concerns only the just-past, but the difference is structural, not merely one of distance."
+        },
+        {
+          "text": "Retention is part of the structure of present perception; recollection is a new act that represents the past"
+        },
+        {
+          "text": "Retention is a memory trace in the brain; recollection is its conscious read-out",
+          "why_wrong": "Husserl's analysis describes how time is given in experience, not brain mechanisms."
+        }
+      ],
+      "answer": 2,
+      "explanation": "The just-past note is still given in the present as its fading edge, without being recalled. Remembering yesterday's concert is a separate act that represents an absent past.",
+      "sources": [
+        {
+          "citation": "Husserl, E. (1928/1991). On the Phenomenology of the Consciousness of Internal Time (1893-1917), trans. J. B. Brough. Dordrecht: Kluwer."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0005",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["husserl", "eidetic-reduction"],
+      "prompt": "What is imaginative variation (the eidetic reduction) meant to reveal?",
+      "options": [
+        {
+          "text": "The neural basis of a type of experience",
+          "why_wrong": "The method is descriptive and does not appeal to the brain."
+        },
+        {
+          "text": "The essential structure of a type of experience: what cannot be varied away without destroying it"
+        },
+        {
+          "text": "Unconscious causes of a person's choices",
+          "why_wrong": "That is the target of later confabulation research, not of eidetic analysis."
+        },
+        {
+          "text": "Individual differences between people's experiences",
+          "why_wrong": "The aim is invariant structure, not individual variation."
+        }
+      ],
+      "answer": 1,
+      "explanation": "By varying features of, say, hearing a melody in imagination, one notes which changes destroy the experience and which do not. What survives all variation is the essence, which moves description beyond one person's anecdote.",
+      "sources": [
+        {
+          "citation": "Husserl, E. (1913/1983). Ideas Pertaining to a Pure Phenomenology and to a Phenomenological Philosophy, First Book, trans. F. Kersten. The Hague: Martinus Nijhoff."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0006",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["merleau-ponty", "motor-intentionality"],
+      "prompt": "What did Merleau-Ponty take the case of Schneider, Gelb and Goldstein's patient, to show?",
+      "options": [
+        {
+          "text": "That the phantom limb is a memory",
+          "why_wrong": "The phantom limb was a separate case."
+        },
+        {
+          "text": "That visual consciousness depends on occipital cortex",
+          "why_wrong": "Merleau-Ponty's interest was not localisation."
+        },
+        {
+          "text": "That all movement is guided by explicit thought",
+          "why_wrong": "The case is used to argue the opposite."
+        },
+        {
+          "text": "That there is a bodily, motor intentionality that is neither reflex nor explicit thought, and can be lost while both survive"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Schneider could perform familiar, concrete movements, such as taking out his handkerchief, but not comparable movements on command or by imitation. Merleau-Ponty read this as evidence for a pre-reflective bodily directedness at things.",
+      "sources": [
+        {
+          "citation": "Merleau-Ponty, M. (1945/2012). Phenomenology of Perception, trans. D. A. Landes. London: Routledge."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0007",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["contrast", "gallagher", "body-schema"],
+      "prompt": "How does Gallagher (2005) distinguish the body schema from the body image?",
+      "options": [
+        {
+          "text": "Body schema: perceptions and beliefs about one's body; body image: sensorimotor capacities",
+          "why_wrong": "This swaps the two."
+        },
+        {
+          "text": "Body schema: sensorimotor capacities operating without awareness; body image: perceptions and beliefs about one's body"
+        },
+        {
+          "text": "Body schema: the brain's map of the body; body image: the body's appearance to others",
+          "why_wrong": "The body image is first-personal, not about others' view."
+        },
+        {
+          "text": "They are synonyms for the same representation",
+          "why_wrong": "Gallagher's point is that they dissociate."
+        }
+      ],
+      "answer": 1,
+      "explanation": "The two can dissociate in pathology, so a report can reach the body image while missing the body schema. This makes precise Merleau-Ponty's point that much embodied experience is pre-reflective.",
+      "sources": [
+        {
+          "citation": "Gallagher, S. (2005). How the Body Shapes the Mind. Oxford University Press."
+        },
+        {
+          "citation": "Merleau-Ponty, M. (1945/2012). Phenomenology of Perception, trans. D. A. Landes. London: Routledge."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0008",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["varela", "neurophenomenology"],
+      "prompt": "What is the core methodological idea of Varela's neurophenomenology (1996)?",
+      "options": [
+        {
+          "text": "Replace first-person reports with brain measurement",
+          "why_wrong": "That is a purely third-person programme, which Varela rejected."
+        },
+        {
+          "text": "Treat reports as data while staying neutral on their truth",
+          "why_wrong": "That is Dennett's heterophenomenology."
+        },
+        {
+          "text": "Let disciplined first-person reports and neural data constrain and refine each other"
+        },
+        {
+          "text": "Solve the hard problem by identifying experience with brain dynamics",
+          "why_wrong": "Varela reframed the problem as methodological rather than claiming to solve it."
+        }
+      ],
+      "answer": 2,
+      "explanation": "First-person reports tell the analyst which neural patterns to look for, and neural structure in turn sharpens the first-person categories; neither is treated as ground truth for the other. Varela wrote the proposal as a response to Chalmers's hard problem.",
+      "sources": [
+        {
+          "citation": "Varela, F. J. (1996). Neurophenomenology: a methodological remedy for the hard problem. Journal of Consciousness Studies 3(4), 330-349."
+        },
+        {
+          "citation": "Lutz, A. and Thompson, E. (2003). Neurophenomenology: integrating subjective experience and brain dynamics in the neuroscience of consciousness. Journal of Consciousness Studies 10(9-10), 31-52."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0009",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "order",
+      "tier": "advanced",
+      "tags": ["neurophenomenology", "lutz"],
+      "prompt": "Put the steps of the Lutz et al. (2002) neurophenomenology study in order.",
+      "items": [
+        "Participants give trained first-person reports of their readiness on each trial",
+        "The experimenters derive a small set of phenomenological clusters from the reports",
+        "Trials and EEG data are sorted by cluster",
+        "Each cluster shows a distinct pattern of frontal synchrony before the stimulus"
+      ],
+      "explanation": "The first-person reports came first and were used to sort the brain data, not the other way round. This order is what makes the study neurophenomenological.",
+      "sources": [
+        {
+          "citation": "Lutz, A., Lachaux, J.-P., Martinerie, J. and Varela, F. J. (2002). Guiding the study of brain dynamics by using first-person data: synchrony patterns correlate with ongoing conscious states during a simple visual task. Proceedings of the National Academy of Sciences 99(3), 1586-1591.",
+          "url": "https://doi.org/10.1073/pnas.032658199"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0010",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["neurophenomenology", "lutz"],
+      "prompt": "What did Lutz et al. (2002) show with a random-dot stereogram task?",
+      "options": [
+        {
+          "text": "Trial-to-trial variability treated as noise was signal once trials were sorted by first-person reports"
+        },
+        {
+          "text": "Subjects cannot accurately report their state of readiness",
+          "why_wrong": "The reports proved informative about brain dynamics."
+        },
+        {
+          "text": "Seeing the 3D shape required frontal ignition",
+          "why_wrong": "The study concerned preparatory states, not ignition."
+        },
+        {
+          "text": "EEG synchrony is unrelated to reaction time",
+          "why_wrong": "Preparatory states modulated reaction times."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Clusters of readiness reported by participants mapped onto stable patterns of frontal phase synchrony before the stimulus, and these modulated reaction times and post-stimulus synchrony. Disciplined reports explained structure that averaging would have discarded.",
+      "sources": [
+        {
+          "citation": "Lutz, A., Lachaux, J.-P., Martinerie, J. and Varela, F. J. (2002). Guiding the study of brain dynamics by using first-person data: synchrony patterns correlate with ongoing conscious states during a simple visual task. Proceedings of the National Academy of Sciences 99(3), 1586-1591.",
+          "url": "https://doi.org/10.1073/pnas.032658199"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0011",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "recall",
+      "tier": "expert",
+      "tags": ["neurophenomenology", "lutz", "thompson"],
+      "prompt": "What three obstacles do Lutz and Thompson (2003) say any neurophenomenological method must face?",
+      "answer_text": "Reports can be biased or inaccurate; reporting can change the experience (reactivity); and the explanatory gap between first- and third-person data remains.",
+      "explanation": "Neurophenomenology bets that better first-person method mitigates the first two and that reciprocal constraint makes progress on the third without dissolving it.",
+      "sources": [
+        {
+          "citation": "Lutz, A. and Thompson, E. (2003). Neurophenomenology: integrating subjective experience and brain dynamics in the neuroscience of consciousness. Journal of Consciousness Studies 10(9-10), 31-52."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0012",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "match",
+      "tier": "advanced",
+      "tags": ["people", "first-person-methods"],
+      "prompt": "Match each method or concept to the person most associated with it.",
+      "pairs": [
+        {
+          "left": "Epoché",
+          "right": "Edmund Husserl"
+        },
+        {
+          "left": "The lived body",
+          "right": "Maurice Merleau-Ponty"
+        },
+        {
+          "left": "Neurophenomenology",
+          "right": "Francisco Varela"
+        },
+        {
+          "left": "Micro-phenomenology (elicitation interview)",
+          "right": "Claire Petitmengin"
+        },
+        {
+          "left": "Descriptive Experience Sampling",
+          "right": "Russell Hurlburt"
+        },
+        {
+          "left": "Heterophenomenology",
+          "right": "Daniel Dennett"
+        }
+      ],
+      "explanation": "These methods run from classical phenomenology (Husserl, Merleau-Ponty) through laboratory programmes (Varela) and second-person techniques (Petitmengin, Hurlburt) to Dennett's deflationary alternative.",
+      "sources": [
+        {
+          "citation": "Husserl, E. (1913/1983). Ideas Pertaining to a Pure Phenomenology and to a Phenomenological Philosophy, First Book, trans. F. Kersten. The Hague: Martinus Nijhoff."
+        },
+        {
+          "citation": "Merleau-Ponty, M. (1945/2012). Phenomenology of Perception, trans. D. A. Landes. London: Routledge."
+        },
+        {
+          "citation": "Varela, F. J. (1996). Neurophenomenology: a methodological remedy for the hard problem. Journal of Consciousness Studies 3(4), 330-349."
+        },
+        {
+          "citation": "Petitmengin, C. (2006). Describing one's subjective experience in the second person: an interview method for the science of consciousness. Phenomenology and the Cognitive Sciences 5(3-4), 229-269.",
+          "url": "https://doi.org/10.1007/s11097-006-9022-2"
+        },
+        {
+          "citation": "Hurlburt, R. T. (2011). Investigating Pristine Inner Experience: Moments of Truth. Cambridge University Press."
+        },
+        {
+          "citation": "Dennett, D. C. (2003). Who's on first? Heterophenomenology explained. Journal of Consciousness Studies 10(9-10), 19-30."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0013",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "micro-phenomenology", "experience-sampling"],
+      "prompt": "How does Descriptive Experience Sampling differ from the micro-phenomenological interview?",
+      "options": [
+        {
+          "text": "DES uses questionnaires; micro-phenomenology uses EEG",
+          "why_wrong": "Neither is defined by those tools."
+        },
+        {
+          "text": "DES samples random moments flagged by a beeper; micro-phenomenology guides re-evocation of one chosen past episode with open 'how' questions"
+        },
+        {
+          "text": "DES asks why people acted; micro-phenomenology asks what they believe",
+          "why_wrong": "Both avoid 'why' questions and theorising."
+        },
+        {
+          "text": "DES is used only with meditators; micro-phenomenology only with patients",
+          "why_wrong": "Both are used with many populations."
+        }
+      ],
+      "answer": 1,
+      "explanation": "DES catches experience in the wild at random moments and interviews within a day, to limit reconstruction. The elicitation interview instead takes a specific episode and guides the person to describe its fine-grained unfolding.",
+      "sources": [
+        {
+          "citation": "Hurlburt, R. T. (2011). Investigating Pristine Inner Experience: Moments of Truth. Cambridge University Press."
+        },
+        {
+          "citation": "Petitmengin, C. (2006). Describing one's subjective experience in the second person: an interview method for the science of consciousness. Phenomenology and the Cognitive Sciences 5(3-4), 229-269.",
+          "url": "https://doi.org/10.1007/s11097-006-9022-2"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-phenomenology-method-0014",
+      "pack": "philosophy-of-mind",
+      "topic": "phenomenology-method",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["experience-sampling", "unsymbolised-thinking"],
+      "prompt": "In Heavey and Hurlburt's (2008) sampling study, what is 'unsymbolised thinking'?",
+      "options": [
+        {
+          "text": "Thinking that occurs during dreamless sleep",
+          "why_wrong": "Sampling was done in waking life."
+        },
+        {
+          "text": "Inner speech too fast to be heard",
+          "why_wrong": "That would still be inner speech."
+        },
+        {
+          "text": "Vague imagery that cannot be described",
+          "why_wrong": "Imagery is a separate category (inner seeing)."
+        },
+        {
+          "text": "A definite thought present without words, images or other symbols"
+        }
+      ],
+      "answer": 3,
+      "explanation": "It was one of five recurring phenomena, alongside inner speech, inner seeing, feelings and sensory awareness. Frequencies varied widely between people, and participants' prior beliefs about their inner life were often not borne out by sampling.",
+      "sources": [
+        {
+          "citation": "Heavey, C. L. and Hurlburt, R. T. (2008). The phenomena of inner experience. Consciousness and Cognition 17(3), 798-810.",
+          "url": "https://doi.org/10.1016/j.concog.2007.12.006"
+        },
+        {
+          "citation": "Hurlburt, R. T. (2011). Investigating Pristine Inner Experience: Moments of Truth. Cambridge University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

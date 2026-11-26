@@ -37,10 +37,9 @@
           "url": "https://doi.org/10.1016/j.tics.2019.06.009"
         }
       ],
-      "status": "verified",
+      "status": "retired",
       "created": "2026-11-23",
-      "confusable_with": ["cons-gwt-0003"],
-      "verified_on": "2026-11-23"
+      "confusable_with": ["cons-gwt-0003"]
     },
     {
       "id": "cons-hot-0002",
@@ -62,9 +61,8 @@
           "url": "https://doi.org/10.1016/j.tics.2019.06.009"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "status": "retired",
+      "created": "2026-11-26"
     }
   ]
 }

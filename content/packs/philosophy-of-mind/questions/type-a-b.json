@@ -1,0 +1,157 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-type-a-b-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "type-a-b",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "type-a", "type-b", "explanatory-gap"],
+      "prompt": "In Chalmers's (2003) taxonomy, how does Type-B physicalism differ from Type-A?",
+      "options": [
+        {
+          "text": "Type-B denies any epistemic gap; Type-A accepts one",
+          "why_wrong": "The reverse: Type-A denies the epistemic gap."
+        },
+        {
+          "text": "Type-B accepts an epistemic gap but denies an ontological one; Type-A denies the gap itself"
+        },
+        {
+          "text": "Type-B expects future science to close the gap; Type-A thinks it never will",
+          "why_wrong": "Expecting future closure is Type-C."
+        },
+        {
+          "text": "Type-B accepts non-physical properties; Type-A does not",
+          "why_wrong": "Both are forms of physicalism."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Type-A holds that, on careful reflection, physical knowledge leaves nothing out (zombies are not even conceivable). Type-B grants that physical knowledge does not a priori entail phenomenal truths, but holds that consciousness is physical all the same, with the identities knowable only a posteriori.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-hard-problem-0002"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-type-a-b-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "type-a-b",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["phenomenal-concepts", "loar", "papineau"],
+      "prompt": "What is the core claim of the phenomenal concepts strategy?",
+      "options": [
+        {
+          "text": "Phenomenal concepts refer to non-physical properties",
+          "why_wrong": "That would concede the anti-physicalist conclusion."
+        },
+        {
+          "text": "Phenomenal concepts are empty, so qualia do not exist",
+          "why_wrong": "That is closer to illusionism."
+        },
+        {
+          "text": "We have two unlinked ways to pick out one physical state, explaining a gap in understanding without a gap in reality"
+        },
+        {
+          "text": "Phenomenal concepts can be defined in functional terms a priori",
+          "why_wrong": "That is a Type-A claim; the strategy denies an a priori link."
+        }
+      ],
+      "answer": 2,
+      "explanation": "A third-person neural concept and a first-person phenomenal concept can refer to the same brain state without reasoning alone connecting them, as with 'water' and 'H₂O'. This explains the explanatory gap while keeping physicalism.",
+      "sources": [
+        {
+          "citation": "Loar, B. (1990). Phenomenal states. Philosophical Perspectives 4, 81-108.",
+          "url": "https://doi.org/10.2307/2214188"
+        },
+        {
+          "citation": "Papineau, D. (2002). Thinking about Consciousness. Oxford University Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-type-a-b-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "type-a-b",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["phenomenal-concepts", "chalmers", "master-argument"],
+      "prompt": "What dilemma does Chalmers's 'master argument' (2007) pose for the phenomenal concepts strategy?",
+      "options": [
+        {
+          "text": "Either phenomenal concepts refer to qualia, or they refer to nothing",
+          "why_wrong": "The dilemma concerns whether the concepts are physically explicable."
+        },
+        {
+          "text": "Either phenomenal concepts are physically explicable, so they cannot explain the sense of a gap, or they are not, so physicalism has already failed"
+        },
+        {
+          "text": "Either Mary learns a fact, or she learns an ability",
+          "why_wrong": "That contrasts two replies to the knowledge argument."
+        },
+        {
+          "text": "Either zombies are conceivable, or the hard problem is easy",
+          "why_wrong": "This is not the structure of the master argument."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Chalmers argues that the phenomenal concepts themselves face the same conceivability test: if a zombie could have the same concepts, they cannot explain our epistemic situation; if it could not, the concepts are not physically explicable. Type-B physicalists such as Papineau and Balog reject the dilemma.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2007). Phenomenal concepts and the explanatory gap. In T. Alter and S. Walter (eds.), Phenomenal Concepts and Phenomenal Knowledge. Oxford University Press."
+        },
+        {
+          "citation": "Papineau, D. (2002). Thinking about Consciousness. Oxford University Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-type-a-b-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "type-a-b",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["type-c", "chalmers"],
+      "prompt": "What does Type-C physicalism hold, and what does Chalmers argue about it?",
+      "options": [
+        {
+          "text": "That consciousness is fundamental; Chalmers endorses it",
+          "why_wrong": "Type-C is a physicalist view, and Chalmers does not endorse it."
+        },
+        {
+          "text": "That the gap is unclosable by humans; Chalmers calls this mysterianism proper",
+          "why_wrong": "That describes mysterianism."
+        },
+        {
+          "text": "That the gap is purely conceptual; Chalmers calls it the strongest physicalism",
+          "why_wrong": "That is Type-B."
+        },
+        {
+          "text": "That a mature science will close the gap; Chalmers argues it collapses into Type-A or Type-B"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Type-C grants a deep epistemic gap now but expects it to be closable in principle. Chalmers argues that it is unstable: either the gap was never deep (Type-A) or it is only conceptual (Type-B).",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    }
+  ]
+}

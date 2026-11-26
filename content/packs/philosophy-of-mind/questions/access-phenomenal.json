@@ -1,0 +1,193 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-access-phenomenal-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "access-phenomenal",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["block", "access-consciousness", "phenomenal-consciousness"],
+      "prompt": "In Block's (1995) terms, what is access consciousness?",
+      "options": [
+        {
+          "text": "What an experience is like for its subject",
+          "why_wrong": "That is phenomenal consciousness, the other half of Block's distinction."
+        },
+        {
+          "text": "Information available to the rest of the mind for reasoning, report and the control of behaviour"
+        },
+        {
+          "text": "Being awake and responsive rather than asleep or comatose",
+          "why_wrong": "That is creature consciousness, a property of the organism."
+        },
+        {
+          "text": "Awareness of oneself as oneself",
+          "why_wrong": "That is self-consciousness, a separate notion."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Access consciousness is a matter of function: content is poised for use in reasoning, report and action. Block's point is that a complete functional story about access may still leave phenomenal consciousness, what the experience is like, unexplained.",
+      "sources": [
+        {
+          "citation": "Block, N. (1995). On a confusion about a function of consciousness. Behavioral and Brain Sciences 18(2), 227-247.",
+          "url": "https://doi.org/10.1017/S0140525X00038188"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-access-phenomenal-0002"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-access-phenomenal-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "access-phenomenal",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "rosenthal", "creature-consciousness", "state-consciousness"],
+      "prompt": "Which example shows that creature consciousness and state consciousness come apart?",
+      "options": [
+        {
+          "text": "A blindsight patient, awake, whose perception guiding her pointing is not conscious"
+        },
+        {
+          "text": "A patient in dreamless sleep who has no conscious states at all",
+          "why_wrong": "Here creature and state consciousness are both absent, so they do not come apart."
+        },
+        {
+          "text": "An alert subject consciously seeing a red patch",
+          "why_wrong": "Here both are present together."
+        },
+        {
+          "text": "A person who is conscious of being in pain",
+          "why_wrong": "This illustrates transitive consciousness of a state, not the creature/state split."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Creature consciousness is a property of an organism (awake and responsive); state consciousness is a property of a particular mental state. An awake creature can have many states that are not conscious, as blindsight shows.",
+      "sources": [
+        {
+          "citation": "Rosenthal, D. M. (1986). Two concepts of consciousness. Philosophical Studies 49(3), 329-359.",
+          "url": "https://doi.org/10.1007/BF00355521"
+        },
+        {
+          "citation": "Block, N. (1995). On a confusion about a function of consciousness. Behavioral and Brain Sciences 18(2), 227-247.",
+          "url": "https://doi.org/10.1017/S0140525X00038188"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-access-phenomenal-0001"],
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-access-phenomenal-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "access-phenomenal",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["rosenthal", "transitive-consciousness"],
+      "prompt": "In Rosenthal's terminology, what is the difference between transitive and intransitive consciousness?",
+      "options": [
+        {
+          "text": "Transitive: a creature is awake; intransitive: one of its states is conscious",
+          "why_wrong": "Wakefulness is creature consciousness, not transitive consciousness."
+        },
+        {
+          "text": "Transitive: a state is accessible for report; intransitive: it has a phenomenal feel",
+          "why_wrong": "That is Block's access/phenomenal distinction."
+        },
+        {
+          "text": "Transitive: being conscious of something; intransitive: a mental state's being conscious at all"
+        },
+        {
+          "text": "Transitive: consciousness of the self; intransitive: consciousness of the world",
+          "why_wrong": "Self-consciousness is a separate notion; transitive consciousness can be of anything."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Transitive consciousness takes an object ('conscious of the noise'); intransitive state consciousness is the property of a state's being conscious. Rosenthal's higher-order theory explains the second in terms of the first: a state is conscious when one is conscious of being in it.",
+      "sources": [
+        {
+          "citation": "Rosenthal, D. M. (1986). Two concepts of consciousness. Philosophical Studies 49(3), 329-359.",
+          "url": "https://doi.org/10.1007/BF00355521"
+        },
+        {
+          "citation": "Rosenthal, D. M. (2005). Consciousness and Mind. Oxford: Clarendon Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-access-phenomenal-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "access-phenomenal",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["qualia"],
+      "prompt": "What are qualia?",
+      "answer_text": "The felt, qualitative features of experience: what it is like, for example, to see red or taste coffee.",
+      "explanation": "Qualia are the currency of the debate over phenomenal consciousness: positions differ on what they are and whether they are physical. Some philosophers, notably Dennett, deny that qualia in the full traditional sense exist.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Dennett, D. C. (1988). Quining qualia. In A. J. Marcel and E. Bisiach (eds.), Consciousness in Contemporary Science. Oxford University Press."
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-access-phenomenal-0005",
+      "pack": "philosophy-of-mind",
+      "topic": "access-phenomenal",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["block", "overflow", "sperling"],
+      "prompt": "How did Block (2007) use Sperling's partial-report result?",
+      "options": [
+        {
+          "text": "As evidence that phenomenal consciousness overflows cognitive access"
+        },
+        {
+          "text": "As evidence that conscious experience is sparse and limited to what can be reported",
+          "why_wrong": "That is the critics' view, which Block opposes."
+        },
+        {
+          "text": "As evidence that iconic memory is unconscious",
+          "why_wrong": "Block argues the letters were experienced, not that iconic storage is unconscious."
+        },
+        {
+          "text": "As evidence that access and phenomenal consciousness are identical",
+          "why_wrong": "Block uses the result to argue they come apart."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Observers say they saw all twelve letters, can name only a few, yet can report any cued row; Block reads this as all letters being experienced but only some accessed. Critics reply that observers may experience only a generic impression of letters, with identities reconstructed at the cue, so the overflow is illusory.",
+      "sources": [
+        {
+          "citation": "Block, N. (2007). Consciousness, accessibility, and the mesh between psychology and neuroscience. Behavioral and Brain Sciences 30(5-6), 481-499.",
+          "url": "https://doi.org/10.1017/S0140525X07002786"
+        },
+        {
+          "citation": "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied 74(11), 1-29.",
+          "url": "https://doi.org/10.1037/h0093759"
+        },
+        {
+          "citation": "Kouider, S., de Gardelle, V., Sackur, J. and Dupoux, E. (2010). How rich is consciousness? The partial awareness hypothesis. Trends in Cognitive Sciences 14(7), 301-307.",
+          "url": "https://doi.org/10.1016/j.tics.2010.04.006"
+        }
+      ],
+      "status": "verified",
+      "created": "2026-11-25",
+      "verified_on": "2026-11-25"
+    }
+  ]
+}
