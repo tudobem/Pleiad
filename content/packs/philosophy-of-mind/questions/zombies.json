@@ -37,9 +37,8 @@
           "url": "https://plato.stanford.edu/entries/zombies/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-zomb-0002",
@@ -77,10 +76,9 @@
           "url": "https://doi.org/10.2307/2960077"
         }
       ],
-      "status": "verified",
+      "status": "retired",
       "created": "2026-11-23",
-      "confusable_with": ["pom-zomb-0001", "pom-know-0001"],
-      "verified_on": "2026-11-23"
+      "confusable_with": ["pom-zomb-0001", "pom-know-0001"]
     },
     {
       "id": "pom-zomb-0003",
@@ -130,9 +128,139 @@
           "url": "https://plato.stanford.edu/entries/zombies/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "status": "retired",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "pom-zombies-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["zombies", "chalmers"],
+      "prompt": "What is a philosophical zombie?",
+      "answer_text": "A being physically and functionally identical to a conscious human, atom for atom, but with no experience at all.",
+      "explanation": "A zombie behaves exactly as you do, including talking about its experiences, yet there is nothing it is like to be it. Chalmers argues that if such a being is conceivable, consciousness is not fixed by the physical facts.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-zombies-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["zombies", "type-b", "conceivability"],
+      "prompt": "The zombie argument runs: (1) a zombie world is conceivable; (2) if conceivable, it is metaphysically possible; (3) if possible, consciousness is not fixed by the physical; (4) so physicalism is false. Which step do Type-B physicalists deny?",
+      "options": [
+        {
+          "text": "Step 1: zombies are not really conceivable",
+          "why_wrong": "Denying conceivability is the Type-A response."
+        },
+        {
+          "text": "Step 2: conceivability does not entail metaphysical possibility"
+        },
+        {
+          "text": "Step 3: possibility of zombies is compatible with physicalism",
+          "why_wrong": "Almost no one denies step 3; it is close to a definition of physicalism."
+        },
+        {
+          "text": "None: they accept the conclusion",
+          "why_wrong": "Type-B physicalists reject the conclusion."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Type-B physicalists grant that zombies seem conceivable but deny that this shows they are possible, because phenomenal and physical concepts can co-refer without any a priori link. Type-A physicalists instead deny step 1, and illusionists question what the zombie world is supposed to lack.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        },
+        {
+          "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-zombies-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["inverted-spectrum", "functionalism", "locke"],
+      "prompt": "Why is the inverted spectrum taken to threaten functionalism?",
+      "options": [
+        {
+          "text": "It shows that colour perception varies across cultures",
+          "why_wrong": "The scenario is about undetectable differences in experience, not cultural variation."
+        },
+        {
+          "text": "It shows that colour terms are learned behaviourally",
+          "why_wrong": "This would not threaten functionalism."
+        },
+        {
+          "text": "It suggests two people could differ in experience with no functional difference"
+        },
+        {
+          "text": "It shows that colour experience has no neural correlate",
+          "why_wrong": "The scenario makes no claim about neural correlates."
+        }
+      ],
+      "answer": 2,
+      "explanation": "If your red is my green, systematically, with all discriminations and behaviour matched, then functional role would not fix experience. Locke described the possibility in 1689; functionalists reply that a fully specified inversion may be incoherent or detectable.",
+      "sources": [
+        {
+          "citation": "Locke, J. (1689). An Essay Concerning Human Understanding, Book II, Chapter xxxii, §15. London: Thomas Basset."
+        },
+        {
+          "citation": "Shoemaker, S. (1982). The inverted spectrum. The Journal of Philosophy 79(7), 357-381.",
+          "url": "https://doi.org/10.2307/2026213"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-zombies-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["zombies", "philpapers-survey"],
+      "prompt": "In the 2020 PhilPapers Survey, which view of zombies was most common among philosophers?",
+      "options": [
+        {
+          "text": "Zombies are conceivable but not metaphysically possible"
+        },
+        {
+          "text": "Zombies are metaphysically possible",
+          "why_wrong": "This was a minority view, at about a quarter of respondents."
+        },
+        {
+          "text": "Zombies are inconceivable",
+          "why_wrong": "This was less common than 'conceivable but not possible'."
+        },
+        {
+          "text": "The question is meaningless",
+          "why_wrong": "This was not the most common answer."
+        }
+      ],
+      "answer": 0,
+      "explanation": "In the 2020 survey about 37 per cent judged zombies conceivable but not metaphysically possible, against about 24 per cent who judged them metaphysically possible. The majority thus rejects the move from conceivability to possibility, the Type-B line. These are 2020 figures and may shift in later surveys.",
+      "sources": [
+        {
+          "citation": "Bourget, D. and Chalmers, D. J. (2023). Philosophers on philosophy: the 2020 PhilPapers survey. Philosophers' Imprint 23, 11.",
+          "url": "https://doi.org/10.3998/phimp.2109"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
     }
   ]
 }

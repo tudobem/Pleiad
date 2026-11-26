@@ -38,9 +38,8 @@
           "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-know-0002",
@@ -61,9 +60,8 @@
           "citation": "Jackson, F. (1998). Postscript on qualia. In Mind, Method and Conditionals: Selected Essays. Routledge."
         }
       ],
-      "status": "verified",
-      "created": "2026-11-23",
-      "verified_on": "2026-11-23"
+      "status": "retired",
+      "created": "2026-11-23"
     },
     {
       "id": "pom-know-0003",
@@ -85,9 +83,8 @@
           "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "status": "retired",
+      "created": "2026-11-26"
     },
     {
       "id": "pom-know-0004",
@@ -114,9 +111,145 @@
           "url": "https://plato.stanford.edu/entries/qualia-knowledge/"
         }
       ],
-      "status": "verified",
-      "created": "2026-11-26",
-      "verified_on": "2026-11-26"
+      "status": "retired",
+      "created": "2026-11-26"
+    },
+    {
+      "id": "pom-knowledge-argument-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["jackson", "mary"],
+      "prompt": "What does Jackson (1982) conclude from the case of Mary, the colour scientist raised in a black-and-white room?",
+      "options": [
+        {
+          "text": "Colour vision depends on early visual experience",
+          "why_wrong": "The argument is about knowledge and facts, not developmental neuroscience."
+        },
+        {
+          "text": "Mary learns nothing new on seeing red, so physicalism is safe",
+          "why_wrong": "That is the Type-A reply to the argument."
+        },
+        {
+          "text": "Not all facts are physical facts, so physicalism is false"
+        },
+        {
+          "text": "Mary gains only a new ability, not new knowledge",
+          "why_wrong": "That is the ability hypothesis, a reply to the argument."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Mary knows every physical fact about colour vision, yet on seeing red she seems to learn something new: what red is like. If complete physical knowledge leaves a fact out, the argument concludes, there are non-physical facts.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. The Philosophical Quarterly 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        },
+        {
+          "citation": "Jackson, F. (1986). What Mary didn't know. The Journal of Philosophy 83(5), 291-295.",
+          "url": "https://doi.org/10.2307/2026143"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-knowledge-argument-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "ability-hypothesis", "lewis", "nemirow"],
+      "prompt": "According to the ability hypothesis (Lewis; Nemirow), what does Mary gain on leaving her room?",
+      "options": [
+        {
+          "text": "New abilities to recognise, imagine and remember red, not a new fact"
+        },
+        {
+          "text": "A new fact about red, which shows physicalism is false",
+          "why_wrong": "That is Jackson's original conclusion, which the hypothesis rejects."
+        },
+        {
+          "text": "An old physical fact grasped under a new phenomenal concept",
+          "why_wrong": "That is the phenomenal concepts reply, a different strategy."
+        },
+        {
+          "text": "Nothing at all, since she already knew what red is like",
+          "why_wrong": "The ability hypothesis grants that she gains something, only not factual knowledge."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Knowing what red is like is treated as know-how rather than knowing-that, like riding a bicycle versus knowing it has two wheels. Since Mary gains no new information, physicalism is untouched.",
+      "sources": [
+        {
+          "citation": "Lewis, D. (1988). What experience teaches. Proceedings of the Russellian Society 13, 29-57."
+        },
+        {
+          "citation": "Nemirow, L. (1990). Physicalism and the cognitive role of acquaintance. In W. G. Lycan (ed.), Mind and Cognition. Oxford: Blackwell."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-knowledge-argument-0003"]
+    },
+    {
+      "id": "pom-knowledge-argument-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "phenomenal-concepts", "mary"],
+      "prompt": "On the phenomenal concepts strategy, what does Mary learn when she first sees red?",
+      "options": [
+        {
+          "text": "A new non-physical fact about red",
+          "why_wrong": "That is the anti-physicalist reading."
+        },
+        {
+          "text": "Only a new ability, not anything factual",
+          "why_wrong": "That is the ability hypothesis, which denies she acquires knowledge-that."
+        },
+        {
+          "text": "Nothing, because the scenario is incoherent",
+          "why_wrong": "The strategy accepts the scenario and reinterprets what she learns."
+        },
+        {
+          "text": "An old physical fact under a new, first-person concept"
+        }
+      ],
+      "answer": 3,
+      "explanation": "She acquires a phenomenal concept that picks out a brain state she already knew about under a physical description, as 'water' and 'H₂O' pick out one substance. So something real is learned, but no new fact.",
+      "sources": [
+        {
+          "citation": "Loar, B. (1990). Phenomenal states. Philosophical Perspectives 4, 81-108.",
+          "url": "https://doi.org/10.2307/2214188"
+        },
+        {
+          "citation": "Papineau, D. (2002). Thinking about Consciousness. Oxford University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-knowledge-argument-0002"]
+    },
+    {
+      "id": "pom-knowledge-argument-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["jackson", "mary"],
+      "prompt": "What happened to Frank Jackson's own view of the knowledge argument?",
+      "answer_text": "He later abandoned it and became a physicalist.",
+      "explanation": "Jackson came to think that the intuition that Mary learns a new fact must be mistaken, and argued for a representationalist physicalism. The argument is still widely discussed independently of its author's later view.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1998). Postscript on qualia. In Mind, Method and Conditionals: Selected Essays. London: Routledge."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
     }
   ]
 }

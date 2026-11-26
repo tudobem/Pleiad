@@ -1,0 +1,75 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-dualism-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "dualism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["property-dualism", "chalmers", "naturalistic-dualism"],
+      "prompt": "What does Chalmers's 'naturalistic dualism' add to property dualism?",
+      "options": [
+        {
+          "text": "A non-physical soul that interacts with the brain",
+          "why_wrong": "That is substance dualism."
+        },
+        {
+          "text": "Fundamental psychophysical laws linking physical organisation to experience"
+        },
+        {
+          "text": "The claim that experience is an illusion",
+          "why_wrong": "That is illusionism."
+        },
+        {
+          "text": "The claim that experience will be reduced to physics",
+          "why_wrong": "Naturalistic dualism denies reduction."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Chalmers holds that experience is not entailed by physics but is tied to physical organisation by fundamental laws that science can map, even if it cannot derive them. This keeps dualism within a naturalistic, law-governed picture.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-dualism-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "dualism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["mental-causation", "kim", "epiphenomenalism"],
+      "prompt": "Why does the causal exclusion argument (Kim 1998) push property dualism towards epiphenomenalism?",
+      "options": [
+        {
+          "text": "Because non-physical properties cannot be observed",
+          "why_wrong": "The argument is about causation, not observability."
+        },
+        {
+          "text": "Because psychophysical laws are probabilistic",
+          "why_wrong": "This is not part of the argument."
+        },
+        {
+          "text": "Because the brain is not deterministic",
+          "why_wrong": "The argument does not depend on determinism."
+        },
+        {
+          "text": "Because if every physical event has a sufficient physical cause, extra mental properties have no causal work left"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Given causal closure and no systematic overdetermination, a non-physical quale cannot also cause your saying 'ow'. That leaves experience as a causally inert by-product, which many find hard to accept.",
+      "sources": [
+        {
+          "citation": "Kim, J. (1998). Mind in a Physical World: An Essay on the Mind-Body Problem and Mental Causation. Cambridge, MA: MIT Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

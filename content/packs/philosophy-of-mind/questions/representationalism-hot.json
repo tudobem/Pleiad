@@ -1,0 +1,125 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-representationalism-hot-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "representationalism-hot",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["representationalism", "transparency", "harman"],
+      "prompt": "What is the 'transparency of experience', as Harman (1990) describes it?",
+      "options": [
+        {
+          "text": "When attending to an experience, one finds only features of the object presented, not intrinsic features of the experience"
+        },
+        {
+          "text": "Experiences are fully available to introspection without error",
+          "why_wrong": "Transparency is not a claim of infallibility."
+        },
+        {
+          "text": "Brain states are visible in imaging",
+          "why_wrong": "This is not the philosophical notion."
+        },
+        {
+          "text": "Experience reveals the physical nature of its own vehicle",
+          "why_wrong": "Transparency says the vehicle is not revealed."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Attending to your experience of a tree, you find only the tree as presented. Representationalists take this to support the view that phenomenal character is fixed by what an experience represents.",
+      "sources": [
+        {
+          "citation": "Harman, G. (1990). The intrinsic quality of experience. Philosophical Perspectives 4, 31-52.",
+          "url": "https://doi.org/10.2307/2214186"
+        },
+        {
+          "citation": "Tye, M. (1995). Ten Problems of Consciousness: A Representational Theory of the Phenomenal Mind. Cambridge, MA: MIT Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-representationalism-hot-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "representationalism-hot",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "higher-order-thought", "higher-order-perception"],
+      "prompt": "Which pairing of higher-order theory and proponent is correct?",
+      "options": [
+        {
+          "text": "Higher-order thought: Armstrong; higher-order perception: Rosenthal",
+          "why_wrong": "This swaps them."
+        },
+        {
+          "text": "Higher-order thought: Rosenthal; higher-order perception (inner sense): Armstrong and Lycan"
+        },
+        {
+          "text": "Higher-order thought: Block; higher-order perception: Dennett",
+          "why_wrong": "Block is a prominent critic of higher-order theories."
+        },
+        {
+          "text": "Higher-order thought: Harman; higher-order perception: Tye",
+          "why_wrong": "Harman and Tye are representationalists about first-order experience."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Rosenthal holds that a state is conscious when one has a suitable thought that one is in it. Armstrong and Lycan model the higher-order state as an inner perception or monitoring, in the line of Locke's 'inner sense'.",
+      "sources": [
+        {
+          "citation": "Rosenthal, D. M. (2005). Consciousness and Mind. Oxford: Clarendon Press."
+        },
+        {
+          "citation": "Armstrong, D. M. (1968). A Materialist Theory of the Mind. London: Routledge and Kegan Paul."
+        },
+        {
+          "citation": "Lycan, W. G. (1996). Consciousness and Experience. Cambridge, MA: MIT Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-representationalism-hot-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "representationalism-hot",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["higher-order-thought", "misrepresentation", "block"],
+      "prompt": "What is the misrepresentation objection to higher-order theories?",
+      "options": [
+        {
+          "text": "Higher-order states are too slow to explain conscious timing",
+          "why_wrong": "This is not the objection."
+        },
+        {
+          "text": "Higher-order theories cannot explain blindsight",
+          "why_wrong": "They are often said to handle blindsight well."
+        },
+        {
+          "text": "If a higher-order state can represent a first-order state that does not exist, it is unclear what is conscious"
+        },
+        {
+          "text": "Animals cannot have higher-order states",
+          "why_wrong": "That is a separate objection, about overintellectualising."
+        }
+      ],
+      "answer": 2,
+      "explanation": "A higher-order representation might target a state that is absent or different. Block argues this makes the theory incoherent; Rosenthal replies that the conscious state is the one the higher-order state represents one as being in.",
+      "sources": [
+        {
+          "citation": "Block, N. (2011). The higher order approach to consciousness is defunct. Analysis 71(3), 419-431.",
+          "url": "https://doi.org/10.1093/analys/anr037"
+        },
+        {
+          "citation": "Rosenthal, D. M. (2011). Exaggerated reports: reply to Block. Analysis 71(3), 431-437.",
+          "url": "https://doi.org/10.1093/analys/anr039"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

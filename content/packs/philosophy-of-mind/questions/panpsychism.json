@@ -1,0 +1,116 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-panpsychism-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "panpsychism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["russellian-monism", "russell"],
+      "prompt": "What observation of Russell's (1927) motivates Russellian monism?",
+      "options": [
+        {
+          "text": "Physics describes only structure and relations, never the intrinsic nature of matter"
+        },
+        {
+          "text": "Quantum mechanics requires an observer",
+          "why_wrong": "Russellian monism does not rest on quantum measurement."
+        },
+        {
+          "text": "Matter is ultimately made of ideas",
+          "why_wrong": "That is idealism."
+        },
+        {
+          "text": "Consciousness emerges at a threshold of complexity",
+          "why_wrong": "Russellian monism rejects emergence from the wholly non-experiential."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Physics tells us what matter does, not what it is; the one place we know anything intrinsic about the physical is our own experience. So the intrinsic nature of matter might be experiential or proto-experiential.",
+      "sources": [
+        {
+          "citation": "Russell, B. (1927). The Analysis of Matter. London: Kegan Paul, Trench, Trubner."
+        },
+        {
+          "citation": "Goff, P. (2017). Consciousness and Fundamental Reality. Oxford University Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-panpsychism-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "panpsychism",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["panpsychism", "combination-problem"],
+      "prompt": "What is the combination problem for panpsychism?",
+      "options": [
+        {
+          "text": "How to measure experience in fundamental particles",
+          "why_wrong": "The problem is conceptual, not one of measurement."
+        },
+        {
+          "text": "How micro-level experiences could combine into a single unified consciousness like ours"
+        },
+        {
+          "text": "How non-physical minds could move physical bodies",
+          "why_wrong": "That is the interaction problem for substance dualism."
+        },
+        {
+          "text": "How consciousness could emerge from non-experiential matter",
+          "why_wrong": "Panpsychism is meant to avoid that problem."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Even if electrons have tiny flecks of experience, it is unclear how many such subjects add up to one subject with one point of view. James raised a version in 1890; until it is answered, critics argue, panpsychism relocates the hard problem rather than solving it.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2016). The combination problem for panpsychism. In G. Brüntrup and L. Jaskolla (eds.), Panpsychism: Contemporary Perspectives. Oxford University Press."
+        },
+        {
+          "citation": "James, W. (1890). The Principles of Psychology, Vol. 1, Chapter 6. New York: Henry Holt."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-panpsychism-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "panpsychism",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["panpsychism", "galen-strawson", "emergence"],
+      "prompt": "Why does Galen Strawson (2006) argue that 'realistic' physicalism entails panpsychism?",
+      "options": [
+        {
+          "text": "Because quantum fields are conscious",
+          "why_wrong": "The argument does not rest on quantum physics."
+        },
+        {
+          "text": "Because physics is causally closed",
+          "why_wrong": "Causal closure is the premise of the exclusion argument, not Strawson's."
+        },
+        {
+          "text": "Because experience cannot emerge from the wholly non-experiential"
+        },
+        {
+          "text": "Because the PhilPapers survey favours it",
+          "why_wrong": "The argument is a priori, not sociological."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Strawson holds that genuine emergence of experience from wholly non-experiential stuff is unintelligible, so a physicalist who takes experience to be real must place experiential being at the fundamental level. Critics take this to be a reductio of the emergence premise.",
+      "sources": [
+        {
+          "citation": "Strawson, G. (2006). Realistic monism: why physicalism entails panpsychism. Journal of Consciousness Studies 13(10-11), 3-31."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

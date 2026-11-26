@@ -1,0 +1,207 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-hist-early-0001",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "descartes", "substance-dualism"],
+      "prompt": "In the *Meditations* (1641), what does Descartes hold about mind and body?",
+      "options": [
+        {
+          "text": "They are distinct substances: an unextended thinking thing and extended matter"
+        },
+        {
+          "text": "The mind is the form of the living body, what the body is organised to do",
+          "why_wrong": "That is Aristotle's view in *De Anima*, closer to modern functionalism than to dualism."
+        },
+        {
+          "text": "The mind is a bundle of perceptions with no further subject behind them",
+          "why_wrong": "That is Hume's bundle view of the self (1739)."
+        },
+        {
+          "text": "Mind and body are one substance conceived under two attributes",
+          "why_wrong": "That is Spinoza's dual-aspect view (1677), a reaction against Cartesian dualism."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Descartes defines body by extension in space and mind as a thinking thing with no extension, so the two are different kinds of substance. Because the mind is not in public space, on this view it is directly accessible only to its owner.",
+      "sources": [
+        {
+          "citation": "Descartes, R. (1641). Meditationes de Prima Philosophia (Meditations on First Philosophy). Paris: Michel Soly."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["cons-hist-early-0002"]
+    },
+    {
+      "id": "cons-hist-early-0002",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "history", "aristotle", "descartes"],
+      "prompt": "In *De Anima*, how does Aristotle characterise the soul?",
+      "options": [
+        {
+          "text": "As a thinking substance that could exist without any body",
+          "why_wrong": "That is Descartes's conception of mind, which Aristotle's view points away from."
+        },
+        {
+          "text": "As the form of a living body: what that body is organised to do"
+        },
+        {
+          "text": "As a bundle of perceptions with no unifying subject",
+          "why_wrong": "That is Hume's view of the self."
+        },
+        {
+          "text": "As a causally inert by-product of bodily motion",
+          "why_wrong": "That is epiphenomenalism, a much later position."
+        }
+      ],
+      "answer": 1,
+      "explanation": "For Aristotle the soul is the form, or functional organisation, of a living body rather than a separate thing inside it. This is often compared with modern functionalism and contrasted with Descartes's separable mind.",
+      "sources": [
+        {
+          "citation": "Aristotle (c. 350 BCE). De Anima (On the Soul), Book II.1."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["cons-hist-early-0001"]
+    },
+    {
+      "id": "cons-hist-early-0003",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "descartes", "elisabeth-of-bohemia", "interaction-problem"],
+      "prompt": "What objection did Princess Elisabeth of Bohemia put to Descartes in 1643?",
+      "options": [
+        {
+          "text": "That animals, which behave intelligently, must also have minds",
+          "why_wrong": "Elisabeth's challenge concerned mind-body causation, not animal minds."
+        },
+        {
+          "text": "That introspective reports cannot be checked by anyone else",
+          "why_wrong": "That is the later methodological objection to introspective psychology."
+        },
+        {
+          "text": "That the *cogito* already presupposes the self it claims to prove",
+          "why_wrong": "That is a separate objection to the *cogito*, not the one Elisabeth raised."
+        },
+        {
+          "text": "That an unextended thinking substance could not move a body"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Elisabeth asked how a mind with no extension could move the body, since bodies seem to be moved only by contact and impulsion. This interaction problem survives as the argument from the causal closure of the physical against non-physical minds.",
+      "sources": [
+        {
+          "citation": "Shapiro, L. (ed. and trans.) (2007). The Correspondence between Princess Elisabeth of Bohemia and René Descartes. University of Chicago Press."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-early-0004",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "recall",
+      "tier": "foundational",
+      "tags": ["history", "leibniz", "explanatory-gap"],
+      "prompt": "What is Leibniz's mill argument (*Monadology* §17) meant to show?",
+      "answer_text": "That if you walked inside a brain enlarged to the size of a mill, you would see only parts pushing on parts and never a perception, so perception cannot be explained mechanically.",
+      "explanation": "Leibniz concluded that perception must be sought in simple substances rather than in mechanism. The passage is widely read as an early statement of what is now called the explanatory gap.",
+      "sources": [
+        {
+          "citation": "Leibniz, G. W. (1714). Monadologie (Monadology), §17."
+        },
+        {
+          "citation": "Levine, J. (1983). Materialism and qualia: the explanatory gap. Pacific Philosophical Quarterly 64(4), 354-361.",
+          "url": "https://doi.org/10.1111/j.1468-0114.1983.tb00207.x"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-early-0005",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "history", "kant", "hume", "unity"],
+      "prompt": "Against Hume's bundle view of the self, what did Kant argue in the *Critique of Pure Reason* (1781)?",
+      "options": [
+        {
+          "text": "The self is nothing but a bundle of perceptions",
+          "why_wrong": "That is Hume's own position, the one Kant was replying to."
+        },
+        {
+          "text": "Personal identity consists in a consciousness extended back through memory",
+          "why_wrong": "That is Locke's account of personal identity (1689)."
+        },
+        {
+          "text": "All experiences must be capable of belonging to one 'I': the unity of apperception"
+        },
+        {
+          "text": "The self is a thinking substance known with certainty through doubt",
+          "why_wrong": "That is Descartes's view, which Kant also rejected as an unwarranted inference."
+        }
+      ],
+      "answer": 2,
+      "explanation": "Kant held that for experiences to be mine they must be capable of being tied together under a single 'I think'. Hume, looking inward, found only particular perceptions and no self that had them; Kant's reply prefigures the modern unity and binding problems.",
+      "sources": [
+        {
+          "citation": "Hume, D. (1739). A Treatise of Human Nature, Book I, Part iv, Section 6. London: John Noon."
+        },
+        {
+          "citation": "Kant, I. (1781). Kritik der reinen Vernunft (Critique of Pure Reason), Transcendental Deduction. Riga: Hartknoch."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-early-0006",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "locke", "personal-identity"],
+      "prompt": "According to Locke's *Essay Concerning Human Understanding*, what makes you the same person as your past self?",
+      "options": [
+        {
+          "text": "Continuity of the same body",
+          "why_wrong": "Locke separates the identity of the man (the living body) from the identity of the person."
+        },
+        {
+          "text": "Continuity of consciousness, extended back through memory"
+        },
+        {
+          "text": "Possession of the same immaterial soul",
+          "why_wrong": "Locke argues that sameness of soul is neither necessary nor sufficient for sameness of person."
+        },
+        {
+          "text": "Continuity of the brain's physical structure",
+          "why_wrong": "This is a modern physical-continuity view, not Locke's."
+        }
+      ],
+      "answer": 1,
+      "explanation": "For Locke you are the same person as an earlier self insofar as your consciousness can reach back to that self's thoughts and actions. The psychological account of personal identity is the ancestor of the modern debates about selfhood.",
+      "sources": [
+        {
+          "citation": "Locke, J. (1694). An Essay Concerning Human Understanding, 2nd edn, Book II, Chapter xxvii. London: Thomas Basset."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

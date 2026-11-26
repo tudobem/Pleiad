@@ -1,0 +1,80 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-biological-naturalism-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "biological-naturalism",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "biological-naturalism", "searle"],
+      "prompt": "How does Searle's biological naturalism differ from functionalism?",
+      "options": [
+        {
+          "text": "It holds that consciousness is non-physical",
+          "why_wrong": "Biological naturalism is physicalist."
+        },
+        {
+          "text": "It holds that running the right program is not enough; the specific causal powers of brains are needed"
+        },
+        {
+          "text": "It denies that consciousness exists",
+          "why_wrong": "That is eliminativism or illusionism."
+        },
+        {
+          "text": "It defines mental states by their causal role",
+          "why_wrong": "That is functionalism itself."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Searle holds that consciousness is caused by neurobiological processes and realised in the brain as a system feature, as liquidity is a feature of water molecules in aggregate. Unlike functionalism, it denies that substrate-neutral computation suffices.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1992). The Rediscovery of the Mind. Cambridge, MA: MIT Press."
+        },
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences 3(3), 417-424.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-functionalism-0001"]
+    },
+    {
+      "id": "pom-biological-naturalism-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "biological-naturalism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["biological-naturalism", "seth"],
+      "prompt": "What distinguishes Seth's contemporary version of biological naturalism?",
+      "options": [
+        {
+          "text": "It ties consciousness to properties of living, self-maintaining systems rather than to brains as such"
+        },
+        {
+          "text": "It identifies consciousness with integrated information",
+          "why_wrong": "That is IIT."
+        },
+        {
+          "text": "It holds that consciousness requires quantum processes in neurons",
+          "why_wrong": "That is Orch-OR."
+        },
+        {
+          "text": "It locates consciousness in the global broadcast of information",
+          "why_wrong": "That is global workspace theory."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Seth links experience to predictive regulation of a living body, which makes life rather than computation the relevant property. The view's difficulty, like Searle's, is saying exactly which properties of the material matter and why.",
+      "sources": [
+        {
+          "citation": "Seth, A. (2021). Being You: A New Science of Consciousness. London: Faber and Faber."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-illusionism-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "illusionism",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "illusionism", "frankish", "dennett"],
+      "prompt": "What does illusionism (Frankish 2016) claim about phenomenal consciousness?",
+      "options": [
+        {
+          "text": "It exists and is a fundamental feature of matter",
+          "why_wrong": "That is panpsychism."
+        },
+        {
+          "text": "It exists but is non-physical",
+          "why_wrong": "That is property dualism."
+        },
+        {
+          "text": "Phenomenal consciousness as usually conceived does not exist; introspection misrepresents brain states as having it"
+        },
+        {
+          "text": "It exists but humans cannot understand how",
+          "why_wrong": "That is mysterianism."
+        }
+      ],
+      "answer": 2,
+      "explanation": "On illusionism, what exists is information processing that represents itself as having rich qualitative feels. The hard problem is replaced by the task of explaining why the illusion is so compelling.",
+      "sources": [
+        {
+          "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
+        },
+        {
+          "citation": "Dennett, D. C. (1991). Consciousness Explained. Boston: Little, Brown."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25",
+      "confusable_with": ["pom-meta-problem-0002"]
+    },
+    {
+      "id": "pom-illusionism-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "illusionism",
+      "type": "recall",
+      "tier": "advanced",
+      "tags": ["illusionism", "frankish"],
+      "prompt": "What does Frankish call the problem that replaces the hard problem on illusionism?",
+      "answer_text": "The illusion problem: explaining why we are so strongly disposed to think we have phenomenal experiences.",
+      "explanation": "If phenomenal consciousness is illusory, the task is to explain the illusion in ordinary physical terms. Graziano's attention schema theory can be read as one proposed solution.",
+      "sources": [
+        {
+          "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-illusionism-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "illusionism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["illusionism", "objection"],
+      "prompt": "What is the most common objection to illusionism?",
+      "options": [
+        {
+          "text": "It cannot be squared with neuroscience",
+          "why_wrong": "Illusionism is designed to fit neuroscience."
+        },
+        {
+          "text": "An illusion of experience seems itself to be an experience"
+        },
+        {
+          "text": "It implies panpsychism",
+          "why_wrong": "It is the opposite of panpsychism in spirit."
+        },
+        {
+          "text": "It makes consciousness causally inert",
+          "why_wrong": "That is the problem facing property dualism."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Critics such as Chalmers and Galen Strawson argue that there is something it is like to seem to see red, so appealing to illusion presupposes the phenomenal consciousness it denies. Illusionists reply that the seeming is a representational state, not a phenomenal one.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (2018). The meta-problem of consciousness. Journal of Consciousness Studies 25(9-10), 6-61."
+        },
+        {
+          "citation": "Frankish, K. (2016). Illusionism as a theory of consciousness. Journal of Consciousness Studies 23(11-12), 11-39."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

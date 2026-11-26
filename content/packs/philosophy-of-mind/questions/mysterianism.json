@@ -1,0 +1,79 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "pom-mysterianism-0001",
+      "pack": "philosophy-of-mind",
+      "topic": "mysterianism",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["mysterianism", "mcginn"],
+      "prompt": "What does McGinn's mysterianism (1989) claim?",
+      "options": [
+        {
+          "text": "Consciousness is non-physical and therefore inexplicable",
+          "why_wrong": "McGinn holds there is a natural, physical answer."
+        },
+        {
+          "text": "Consciousness is an illusion",
+          "why_wrong": "That is illusionism."
+        },
+        {
+          "text": "Future science will explain consciousness",
+          "why_wrong": "That is the Type-C hope McGinn rejects for human minds."
+        },
+        {
+          "text": "There is a natural solution, but human minds are cognitively closed to it"
+        }
+      ],
+      "answer": 3,
+      "explanation": "McGinn compares us to a dog that cannot grasp arithmetic: the property linking brain to consciousness exists but is beyond our concept-forming capacities. Critics call the view untestable and premature.",
+      "sources": [
+        {
+          "citation": "McGinn, C. (1989). Can we solve the mind-body problem? Mind 98(391), 349-366.",
+          "url": "https://doi.org/10.1093/mind/XCVIII.391.349"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "pom-mysterianism-0002",
+      "pack": "philosophy-of-mind",
+      "topic": "mysterianism",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["contrast", "idealism", "neutral-monism"],
+      "prompt": "How does neutral monism differ from idealism?",
+      "options": [
+        {
+          "text": "Idealism grounds the physical in the mental; neutral monism grounds both in something neither mental nor physical"
+        },
+        {
+          "text": "Idealism grounds the mental in the physical; neutral monism denies either exists",
+          "why_wrong": "Idealism makes the mental basic, not the physical."
+        },
+        {
+          "text": "They are two names for the same view",
+          "why_wrong": "They differ in what is fundamental."
+        },
+        {
+          "text": "Neutral monism is a form of substance dualism",
+          "why_wrong": "It is a monism, so not dualist."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Idealists such as Berkeley make the mental fundamental; neutral monists such as Russell and James make a more basic neutral reality fundamental, with mind and matter as two ways of organising it. Both must explain why the physical world is so objective and law-governed.",
+      "sources": [
+        {
+          "citation": "Berkeley, G. (1710). A Treatise Concerning the Principles of Human Knowledge. Dublin: Jeremy Pepyat."
+        },
+        {
+          "citation": "Russell, B. (1921). The Analysis of Mind. London: George Allen and Unwin."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}

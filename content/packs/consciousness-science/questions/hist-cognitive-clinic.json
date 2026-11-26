@@ -1,0 +1,272 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "id": "cons-hist-cognitive-clinic-0001",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "sperling", "partial-report", "overflow"],
+      "prompt": "What did Sperling's (1960) partial-report experiments show?",
+      "options": [
+        {
+          "text": "Immediate memory holds only about seven items",
+          "why_wrong": "That is Miller's (1956) capacity result."
+        },
+        {
+          "text": "Attention acts as a filter selecting one channel of input",
+          "why_wrong": "That is Broadbent's (1958) filter model."
+        },
+        {
+          "text": "Just after a brief letter display, observers can report any cued row, so more is briefly available than whole report reveals"
+        },
+        {
+          "text": "Observers can discriminate stimuli they say they do not see",
+          "why_wrong": "That describes blindsight (Weiskrantz et al., 1974)."
+        }
+      ],
+      "answer": 2,
+      "explanation": "A cue given after the display had gone let observers report whichever row was asked for, implying brief access to most of the array even though whole report recovers only a few letters. Block later used the result to argue that phenomenal consciousness overflows access.",
+      "sources": [
+        {
+          "citation": "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied 74(11), 1-29.",
+          "url": "https://doi.org/10.1037/h0093759"
+        },
+        {
+          "citation": "Block, N. (2007). Consciousness, accessibility, and the mesh between psychology and neuroscience. Behavioral and Brain Sciences 30(5-6), 481-499.",
+          "url": "https://doi.org/10.1017/S0140525X07002786"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-cognitive-clinic-0002",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "advanced",
+      "tags": ["history", "signal-detection-theory"],
+      "prompt": "What does signal detection theory separate?",
+      "options": [
+        {
+          "text": "An observer's sensitivity to a signal from their criterion for saying it is present"
+        },
+        {
+          "text": "Conscious from unconscious processing of the signal",
+          "why_wrong": "SDT is neutral about consciousness; it is later used as a tool in that debate."
+        },
+        {
+          "text": "Early sensory from late decision stages in the brain",
+          "why_wrong": "SDT is a model of decisions from evidence, not a neural staging scheme."
+        },
+        {
+          "text": "Accuracy from reaction time",
+          "why_wrong": "Speed-accuracy trade-offs are a different problem."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Sensitivity ($d'$) captures how well signal and noise are discriminated, while the criterion captures how readily the observer says 'yes'. Separating the two underlies modern measures of conscious perception and of metacognition.",
+      "sources": [
+        {
+          "citation": "Tanner, W. P. and Swets, J. A. (1954). A decision-making theory of visual detection. Psychological Review 61(6), 401-409.",
+          "url": "https://doi.org/10.1037/h0058700"
+        },
+        {
+          "citation": "Green, D. M. and Swets, J. A. (1966). Signal Detection Theory and Psychophysics. New York: Wiley."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-cognitive-clinic-0003",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "nagel", "subjectivity"],
+      "prompt": "What does Nagel argue in 'What is it like to be a bat?' (1974)?",
+      "options": [
+        {
+          "text": "Bats are not conscious because they cannot report their experiences",
+          "why_wrong": "Nagel assumes bats have experience; his point is that we cannot grasp it objectively."
+        },
+        {
+          "text": "Echolocation shows that perception is unconscious inference",
+          "why_wrong": "Nagel's argument is about subjectivity, not the mechanism of perception."
+        },
+        {
+          "text": "An objective physical description leaves out the subjective character of experience"
+        },
+        {
+          "text": "Consciousness requires a cortex organised like ours",
+          "why_wrong": "Nagel makes no such anatomical claim."
+        }
+      ],
+      "answer": 2,
+      "explanation": "An organism is conscious if there is something it is like to be it, and Nagel argues that this subjective character is exactly what an objective, third-person account omits. The bat makes the point vivid because its sonar experience is so unlike ours.",
+      "sources": [
+        {
+          "citation": "Nagel, T. (1974). What is it like to be a bat? The Philosophical Review 83(4), 435-450.",
+          "url": "https://doi.org/10.2307/2183914"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-cognitive-clinic-0004",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "arousal", "reticular-formation"],
+      "prompt": "What did Moruzzi and Magoun (1949) find?",
+      "options": [
+        {
+          "text": "Stimulating the brainstem reticular formation turns a drowsy, synchronised EEG into the desynchronised EEG of arousal"
+        },
+        {
+          "text": "Cutting the corpus callosum leaves each hemisphere able to respond separately",
+          "why_wrong": "That is the split-brain work of the 1960s."
+        },
+        {
+          "text": "Damage to primary visual cortex spares above-chance discrimination",
+          "why_wrong": "That is blindsight (1974)."
+        },
+        {
+          "text": "Brain activity preparing a movement precedes the reported urge to move",
+          "why_wrong": "That is Libet et al. (1983)."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Moruzzi and Magoun proposed that maintained activity in an ascending brainstem system underlies wakefulness, and that its reduction contributes to sleep and coma. The finding anchors the later distinction between the level of consciousness and its contents.",
+      "sources": [
+        {
+          "citation": "Moruzzi, G. and Magoun, H. W. (1949). Brain stem reticular formation and activation of the EEG. Electroencephalography and Clinical Neurophysiology 1(4), 455-473.",
+          "url": "https://doi.org/10.1016/0013-4694(49)90219-9"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-cognitive-clinic-0005",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["history", "split-brain", "unity"],
+      "prompt": "What did Gazzaniga, Bogen and Sperry (1962) report after the cerebral commissures were cut?",
+      "options": [
+        {
+          "text": "The patient lost consciousness whenever the two hemispheres disagreed",
+          "why_wrong": "Patients stayed conscious and behaved normally in everyday life."
+        },
+        {
+          "text": "Information reaching one hemisphere could guide its responses while the speaking hemisphere showed no knowledge of it"
+        },
+        {
+          "text": "Both hemispheres could describe in speech what the other had seen",
+          "why_wrong": "Only the speaking (usually left) hemisphere could report, and it lacked the other side's information."
+        },
+        {
+          "text": "The patient lost the ability to speak",
+          "why_wrong": "Speech was preserved; the dissociation appeared only in lateralised laboratory tests."
+        }
+      ],
+      "answer": 1,
+      "explanation": "In lateralised tests, the hemisphere receiving information could act on it while the verbal hemisphere denied knowing it. Whether such patients have one stream of consciousness or two remains a test case for the unity of consciousness.",
+      "sources": [
+        {
+          "citation": "Gazzaniga, M. S., Bogen, J. E. and Sperry, R. W. (1962). Some functional effects of sectioning the cerebral commissures in man. Proceedings of the National Academy of Sciences 48(10), 1765-1769.",
+          "url": "https://doi.org/10.1073/pnas.48.10.1765"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-cognitive-clinic-0006",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "foundational",
+      "tags": ["contrast", "history", "vegetative-state", "blindsight"],
+      "prompt": "Which pairing of clinical finding and dissociation is correct?",
+      "options": [
+        {
+          "text": "Blindsight: reported awareness in part of the visual field with no ability to respond to it",
+          "why_wrong": "This reverses blindsight: patients report seeing nothing yet discriminate above chance."
+        },
+        {
+          "text": "Vegetative state: awareness preserved while wakefulness is lost",
+          "why_wrong": "This reverses the vegetative state: sleep-wake cycles continue without signs of awareness."
+        },
+        {
+          "text": "Blindsight: loss of wakefulness with preserved visual reports",
+          "why_wrong": "Blindsight patients are fully awake; what is missing is reported visual experience."
+        },
+        {
+          "text": "Vegetative state: wakefulness without behavioural signs of awareness"
+        }
+      ],
+      "answer": 3,
+      "explanation": "Jennett and Plum named a state in which patients open their eyes and cycle between sleep and waking with no sign of awareness. Weiskrantz and colleagues showed the converse kind of dissociation in vision: discrimination above chance in a field region where the patient reported seeing nothing.",
+      "sources": [
+        {
+          "citation": "Jennett, B. and Plum, F. (1972). Persistent vegetative state after brain damage: a syndrome in search of a name. The Lancet 1(7753), 734-737.",
+          "url": "https://doi.org/10.1016/S0140-6736(72)90242-5"
+        },
+        {
+          "citation": "Weiskrantz, L., Warrington, E. K., Sanders, M. D. and Marshall, J. (1974). Visual capacity in the hemianopic field following a restricted occipital ablation. Brain 97(4), 709-728.",
+          "url": "https://doi.org/10.1093/brain/97.1.709"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-cognitive-clinic-0007",
+      "pack": "consciousness-science",
+      "topic": "hist-cognitive-clinic",
+      "type": "mcq",
+      "tier": "expert",
+      "tags": ["history", "libet", "readiness-potential", "volition"],
+      "prompt": "What did Libet et al. (1983) report about spontaneous, self-timed movements?",
+      "options": [
+        {
+          "text": "The reported time of the urge to move preceded the readiness potential",
+          "why_wrong": "The reverse: the readiness potential began first."
+        },
+        {
+          "text": "The readiness potential began several hundred milliseconds before the reported time of the urge to move"
+        },
+        {
+          "text": "The readiness potential appeared only after the movement had started",
+          "why_wrong": "It is by definition a pre-movement potential."
+        },
+        {
+          "text": "No readiness potential was found for spontaneous movements",
+          "why_wrong": "A readiness potential was found; its timing relative to the urge was the result."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Libet and colleagues found that the readiness potential began roughly 350 ms or more before subjects' clock-reported time of first awareness of the urge to move. What this shows about volition is disputed; one influential reinterpretation treats the potential as the build-up of spontaneous fluctuations rather than a decision.",
+      "sources": [
+        {
+          "citation": "Libet, B., Gleason, C. A., Wright, E. W. and Pearl, D. K. (1983). Time of conscious intention to act in relation to onset of cerebral activity (readiness-potential). Brain 106(3), 623-642.",
+          "url": "https://doi.org/10.1093/brain/106.3.623"
+        },
+        {
+          "citation": "Schurger, A., Sitt, J. D. and Dehaene, S. (2012). An accumulator model for spontaneous neural activity prior to self-initiated movement. Proceedings of the National Academy of Sciences 109(42), E2904-E2913.",
+          "url": "https://doi.org/10.1073/pnas.1210467109"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
+    }
+  ]
+}
