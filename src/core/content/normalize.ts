@@ -39,3 +39,8 @@ export function isCatchAllOption(text: string): boolean {
 export function compareStrings(a: string, b: string): number {
   return a < b ? -1 : a > b ? 1 : 0;
 }
+
+/** Locale-independent label order: ignoring case first, then by code point. */
+export function compareLabels(a: string, b: string): number {
+  return compareStrings(a.toLowerCase(), b.toLowerCase()) || compareStrings(a, b);
+}

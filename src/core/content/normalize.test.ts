@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { compareStrings, isCatchAllOption, jaccard, normalizeText } from './normalize.ts';
+import {
+  compareLabels,
+  compareStrings,
+  isCatchAllOption,
+  jaccard,
+  normalizeText,
+} from './normalize.ts';
 
 describe('normalize', () => {
   it('folds case, diacritics, punctuation and LaTeX', () => {
@@ -20,5 +26,17 @@ describe('normalize', () => {
 
   it('compares strings by code point', () => {
     expect(['b', 'B', 'a'].sort(compareStrings)).toEqual(['B', 'a', 'b']);
+  });
+});
+
+describe('compareLabels', () => {
+  it('ignores case first and falls back to code points for a stable order', () => {
+    expect(['meta-d', 'Zebra', 'apple', 'Banana', 'Apple'].sort(compareLabels)).toEqual([
+      'Apple',
+      'apple',
+      'Banana',
+      'meta-d',
+      'Zebra',
+    ]);
   });
 });

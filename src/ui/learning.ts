@@ -2,7 +2,7 @@ import type { Question } from '../core/content/types.ts';
 import { fsrsScheduler } from '../core/scheduler/fsrsScheduler.ts';
 import { learningDay } from '../core/scheduler/day.ts';
 import type { Scheduler } from '../core/scheduler/scheduler.ts';
-import { reviewForAnswer } from '../core/session/commit.ts';
+import { reviewForAnswer, subjectFor } from '../core/session/commit.ts';
 import { buildDailyQueue, type DailyQueue } from '../core/session/dailyQueue.ts';
 import {
   finalizeAnswer,
@@ -78,8 +78,10 @@ export async function commitPending(
   options: LeaveOptions = {},
 ): Promise<void> {
   const raw = pendingAnswer(session);
-  const question = raw ? data.questions.get(raw.questionId) : undefined;
-  if (!raw || !question) return;
+  if (!raw) return;
+  // The question may no longer be served (retired since the session started);
+  // the answer is still logged from what the answer record itself holds.
+  const question = subjectFor(raw, data.questions.get(raw.questionId));
   const answer = finalizeAnswer(raw, options);
   // A recall answer that was shown but never rated carries no information.
   if (answer.response.type === 'recall' && !answer.selfRating) return;

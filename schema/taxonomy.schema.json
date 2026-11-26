@@ -5,7 +5,9 @@
   "additionalProperties": false,
   "required": ["nodes"],
   "properties": {
-    "$schema": { "type": "string" },
+    "$schema": {
+      "type": "string"
+    },
     "nodes": {
       "type": "array",
       "items": {
@@ -13,10 +15,23 @@
         "additionalProperties": false,
         "required": ["id", "label", "kind"],
         "properties": {
-          "id": { "$ref": "defs.schema.json#/$defs/id" },
-          "label": { "$ref": "defs.schema.json#/$defs/nonEmptyText" },
-          "kind": { "enum": ["domain", "subject", "branch", "topic"] },
-          "parent": { "$ref": "defs.schema.json#/$defs/id" }
+          "id": {
+            "$ref": "defs.schema.json#/$defs/id"
+          },
+          "label": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText"
+          },
+          "kind": {
+            "enum": ["domain", "subject", "branch", "topic"]
+          },
+          "parent": {
+            "$ref": "defs.schema.json#/$defs/id"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Position among siblings, ascending. Nodes without an order come after those with one, sorted by label."
+          }
         }
       }
     }

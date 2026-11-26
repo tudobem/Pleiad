@@ -39,6 +39,11 @@ export interface TaxonomyNode {
   readonly label: string;
   readonly kind: NodeKind;
   readonly parent?: string;
+  /**
+   * Position among siblings, ascending (for example chronological or book
+   * order). Nodes without one come after those with one, sorted by label.
+   */
+  readonly order?: number;
 }
 
 export interface Source {

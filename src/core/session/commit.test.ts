@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { previewDue, reviewForAnswer, type AnswerContext } from './commit.ts';
+import { previewDue, reviewForAnswer, subjectFor, type AnswerContext } from './commit.ts';
 import { mcq, recall } from '../content/fixtures.test-util.ts';
 import { fixedClock } from '../clock.ts';
 import { sequentialIds } from '../ids.ts';
@@ -95,5 +95,32 @@ describe('previewDue', () => {
   it('matches the committed due date and is null for practice', () => {
     expect(previewDue(ctx())).toBe(reviewForAnswer(events, ctx()).card.scheduler?.due);
     expect(previewDue(ctx({ mode: 'extra' }))).toBeNull();
+  });
+});
+
+describe('answers whose question is no longer served', () => {
+  it('uses the answer record when there is no live question', () => {
+    const a = answer({ questionId: 'retired-1', response: { type: 'short', text: 'x' } });
+    expect(subjectFor(a, undefined)).toEqual({ id: 'retired-1', type: 'short' });
+    expect(subjectFor(a, question)).toBe(question);
+  });
+
+  it('logs the review from the id and type alone, skipping the slow rule', () => {
+    const subject = { id: 'retired-1', type: 'mcq' as const };
+    // A tier threshold would make this slow (Hard) if the tier were known.
+    const withTier = reviewForAnswer(events, ctx({ thresholds: { foundational: 1000 } }));
+    expect(withTier.event.rating).toBe('hard');
+    const { event, card } = reviewForAnswer(
+      events,
+      ctx({ question: subject, thresholds: { foundational: 1000 } }),
+    );
+    expect(event).toMatchObject({
+      cardId: 'retired-1',
+      type: 'mcq',
+      mode: 'scheduled',
+      rating: 'good',
+    });
+    expect(card.scheduler).toEqual(event.schedulerStateAfter);
+    expect(replayCards([event], scheduler).get('retired-1')).toEqual(card);
   });
 });

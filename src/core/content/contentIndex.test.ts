@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { buildContentIndex } from './contentIndex.ts';
 import { mergeTaxonomy } from './taxonomy.ts';
 import { countContent, formatReport } from './report.ts';
-import { mcq, recall, pack, meta } from './fixtures.test-util.ts';
+import { mcq, recall, pack, meta, NODES } from './fixtures.test-util.ts';
 
 describe('buildContentIndex', () => {
   const a = pack([mcq(), recall({ status: 'verified', verified_on: '2026-02-01' })]);
@@ -36,5 +36,40 @@ describe('buildContentIndex', () => {
     expect(text).toContain('all packs');
     expect(text).toContain('cons-pack');
     expect(text).toMatch(/iit\s+2/);
+  });
+});
+
+describe('content index order', () => {
+  const topic = (id: string, label: string, order?: number) => ({
+    id,
+    label,
+    kind: 'topic' as const,
+    parent: 'theories',
+    ...(order !== undefined ? { order } : {}),
+  });
+  const nodes = [
+    ...NODES.filter((n) => n.kind !== 'topic'),
+    topic('later', '2004 to 2025', 2),
+    topic('earlier', 'Antiquity to Kant', 1),
+    topic('plain-z', 'Zebra'),
+    topic('plain-m', "meta-d' and metacognition"),
+    topic('plain-a', 'Apple'),
+  ];
+
+  it('lists children by order first, then unordered ones by label ignoring case', () => {
+    const p = pack([], { taxonomy: nodes });
+    const index = buildContentIndex([p], mergeTaxonomy([p]).taxonomy);
+    const theories = index.tree[0]?.children[0]?.children[0];
+    expect(theories?.children.map((c) => c.id)).toEqual([
+      'earlier',
+      'later',
+      'plain-a',
+      'plain-m',
+      'plain-z',
+    ]);
+    expect(theories?.children.map((c) => c.order)).toEqual([1, 2, undefined, undefined, undefined]);
+    // Unordered nodes carry no `order` property at all.
+    expect(theories?.children[2]).not.toHaveProperty('order');
+    expect(theories?.children[0]).toHaveProperty('order', 1);
   });
 });

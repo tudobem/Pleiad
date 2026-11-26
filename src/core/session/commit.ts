@@ -1,4 +1,4 @@
-import type { Question } from '../content/types.ts';
+import type { Question, Tier } from '../content/types.ts';
 import type { Scheduler } from '../scheduler/scheduler.ts';
 import { createReviewEvent, type EventContext } from '../sync/events.ts';
 import { applyEvent, type CardState } from '../sync/replay.ts';
@@ -12,8 +12,26 @@ import {
 } from './reducer.ts';
 import { isSlow, type SlowThresholds } from './slow.ts';
 
+/**
+ * What logging an answer needs to know about its question. A full Question
+ * qualifies, but so does just an ID and type: an answer given just before its
+ * question was retired must still be logged (the log is append-only and the
+ * source of truth), even though the question is no longer served.
+ */
+export interface AnswerSubject {
+  readonly id: string;
+  readonly type: Question['type'];
+  /** Unknown for questions no longer served; the slow-answer rule is then skipped. */
+  readonly tier?: Tier;
+}
+
+/** The subject of an answer: the live question if there is one, else what the answer records. */
+export function subjectFor(answer: AnswerRecord, question: Question | undefined): AnswerSubject {
+  return question ?? { id: answer.questionId, type: answer.response.type };
+}
+
 export interface AnswerContext {
-  readonly question: Question;
+  readonly question: AnswerSubject;
   readonly answer: AnswerRecord;
   readonly mode: SessionMode;
   readonly card: CardState | undefined;
@@ -30,7 +48,7 @@ export function answerRating(ctx: AnswerContext): Rating {
   if (question.type === 'recall') return answer.selfRating ?? (answer.correct ? 'good' : 'again');
   return ratingFor({
     correct: answer.correct,
-    slow: isSlow(thresholds, question.tier, answer.responseMs),
+    slow: question.tier !== undefined && isSlow(thresholds, question.tier, answer.responseMs),
     tooEasy: answer.tooEasy,
   });
 }
