@@ -265,6 +265,32 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "id": "pom-zombies-0005",
+      "pack": "philosophy-of-mind",
+      "topic": "zombies",
+      "type": "order",
+      "tier": "expert",
+      "tags": ["zombies", "argument-structure"],
+      "prompt": "Put the steps of the zombie argument against physicalism in order.",
+      "items": [
+        "A world physically identical to ours but without consciousness is conceivable",
+        "Whatever is conceivable in this way is metaphysically possible",
+        "If such a world is possible, consciousness is not fixed by the physical facts",
+        "Therefore physicalism is false"
+      ],
+      "explanation": "Type-A physicalists deny the first step, Type-B physicalists the second; almost no one disputes the third, which is close to a definition of physicalism.",
+      "sources": [
+        {
+          "citation": "Chalmers, D. J. (1996). The Conscious Mind: In Search of a Fundamental Theory. Oxford University Press."
+        },
+        {
+          "citation": "Chalmers, D. J. (2003). Consciousness and its place in nature. In S. Stich and T. Warfield (eds.), The Blackwell Guide to Philosophy of Mind. Oxford: Blackwell."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
     }
   ]
 }

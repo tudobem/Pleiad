@@ -208,6 +208,64 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-early-0007",
+      "pack": "consciousness-science",
+      "topic": "hist-early",
+      "type": "match",
+      "tier": "foundational",
+      "tags": ["history", "people"],
+      "prompt": "Match each thinker to the idea most associated with them.",
+      "pairs": [
+        {
+          "left": "Leibniz",
+          "right": "The mill argument"
+        },
+        {
+          "left": "Hume",
+          "right": "The self as a bundle of perceptions"
+        },
+        {
+          "left": "Kant",
+          "right": "The unity of apperception"
+        },
+        {
+          "left": "Locke",
+          "right": "Personal identity through memory"
+        },
+        {
+          "left": "Helmholtz",
+          "right": "Perception as unconscious inference"
+        },
+        {
+          "left": "Fechner",
+          "right": "A logarithmic law of sensation"
+        }
+      ],
+      "explanation": "Each idea returns in modern form: the mill as the explanatory gap, the bundle as the self-model, apperception as the binding and unity problems, unconscious inference as predictive processing, and Fechner's law as the drive to quantify experience.",
+      "sources": [
+        {
+          "citation": "Leibniz, G. W. (1714). Monadologie (Monadology), §17."
+        },
+        {
+          "citation": "Hume, D. (1739). A Treatise of Human Nature, Book I, Part iv, Section 6. London: John Noon."
+        },
+        {
+          "citation": "Kant, I. (1781). Kritik der reinen Vernunft (Critique of Pure Reason). Riga: Hartknoch."
+        },
+        {
+          "citation": "Locke, J. (1694). An Essay Concerning Human Understanding, 2nd edn, Book II, Chapter xxvii. London: Thomas Basset."
+        },
+        {
+          "citation": "Helmholtz, H. von (1867). Handbuch der physiologischen Optik. Leipzig: Voss."
+        },
+        {
+          "citation": "Fechner, G. T. (1860). Elemente der Psychophysik. Leipzig: Breitkopf und Härtel."
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
     }
   ]
 }

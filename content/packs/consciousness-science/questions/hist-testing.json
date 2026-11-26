@@ -240,6 +240,50 @@
       "created": "2026-11-25",
       "confusable_with": ["cons-hist-testing-0005"],
       "verified_on": "2026-11-25"
+    },
+    {
+      "id": "cons-hist-testing-0007",
+      "pack": "consciousness-science",
+      "topic": "hist-testing",
+      "type": "order",
+      "tier": "foundational",
+      "tags": ["history", "timeline"],
+      "prompt": "Put these turning points in the study of consciousness in chronological order, earliest first.",
+      "items": [
+        "Wundt founds his Leipzig laboratory",
+        "Watson's behaviourist manifesto",
+        "Moruzzi and Magoun's brainstem arousal system",
+        "Nagel's 'What is it like to be a bat?'",
+        "Baars's global workspace theory",
+        "Tononi's integrated information theory"
+      ],
+      "explanation": "The dates are 1879, 1913, 1949, 1974, 1988 and 2004. The sequence runs from the founding of experimental psychology, through its behaviourist expulsion of consciousness, to the modern theories.",
+      "sources": [
+        {
+          "citation": "Boring, E. G. (1950). A History of Experimental Psychology, 2nd edn. New York: Appleton-Century-Crofts."
+        },
+        {
+          "citation": "Watson, J. B. (1913). Psychology as the behaviorist views it. Psychological Review 20(2), 158-177.",
+          "url": "https://doi.org/10.1037/h0074428"
+        },
+        {
+          "citation": "Moruzzi, G. and Magoun, H. W. (1949). Brain stem reticular formation and activation of the EEG. Electroencephalography and Clinical Neurophysiology 1(4), 455-473.",
+          "url": "https://doi.org/10.1016/0013-4694(49)90219-9"
+        },
+        {
+          "citation": "Nagel, T. (1974). What is it like to be a bat? The Philosophical Review 83(4), 435-450.",
+          "url": "https://doi.org/10.2307/2183914"
+        },
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        }
+      ],
+      "status": "draft",
+      "created": "2026-11-25"
     }
   ]
 }
