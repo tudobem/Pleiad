@@ -60,6 +60,55 @@ export function storageContract(name: string, create: () => Promise<StorageAdapt
       expect((await storage.listReviews()).map((e) => e.eventId)).toEqual(['b', 'a']);
     });
 
+    it('lists entries with their keys', async () => {
+      await storage.put('notes', 'q-1', 'first');
+      await storage.put('notes', 'q-2', { text: 'second' });
+      const entries = await storage.entries('notes');
+      expect(entries.sort((a, b) => (a[0] < b[0] ? -1 : 1))).toEqual([
+        ['q-1', 'first'],
+        ['q-2', { text: 'second' }],
+      ]);
+    });
+
+    it('replaces everything at once, in the given review order', async () => {
+      await storage.put('settings', 'old', 1);
+      await storage.put('meta', 'deviceId', 'd-old');
+      await storage.appendReview(reviewEvent({ eventId: 'old' }));
+      await storage.replaceAll({
+        reviews: [reviewEvent({ eventId: 'z', ts: 1 }), reviewEvent({ eventId: 'a', ts: 2 })],
+        stores: {
+          cards: [['c', { n: 1 }]],
+          settings: [['learning', { newPerDay: 5 }]],
+          notes: [],
+          flags: [],
+          meta: [['deviceId', 'd-new']],
+        },
+      });
+      expect((await storage.listReviews()).map((e) => e.eventId)).toEqual(['z', 'a']);
+      expect(await storage.get('settings', 'old')).toBeUndefined();
+      expect(await storage.get('settings', 'learning')).toEqual({ newPerDay: 5 });
+      expect(await storage.get('meta', 'deviceId')).toBe('d-new');
+      expect(await storage.get('cards', 'c')).toEqual({ n: 1 });
+      // Appending after a replace continues the order.
+      await storage.appendReview(reviewEvent({ eventId: 'next' }));
+      expect((await storage.listReviews()).map((e) => e.eventId)).toEqual(['z', 'a', 'next']);
+    });
+
+    it('leaves the old data untouched when a replace fails', async () => {
+      await storage.put('settings', 'keep', 1);
+      await storage.appendReview(reviewEvent({ eventId: 'keep' }));
+      const empty = { cards: [], settings: [], notes: [], flags: [], meta: [] };
+      await expect(
+        storage.replaceAll({
+          reviews: [reviewEvent({ eventId: 'dup' }), reviewEvent({ eventId: 'dup' })],
+          stores: { ...empty, settings: [['new', 2]] },
+        }),
+      ).rejects.toThrow();
+      expect(await storage.get('settings', 'keep')).toBe(1);
+      expect(await storage.get('settings', 'new')).toBeUndefined();
+      expect((await storage.listReviews()).map((e) => e.eventId)).toEqual(['keep']);
+    });
+
     it('clears everything', async () => {
       await storage.put('notes', 'n', 'text');
       await storage.appendReview(reviewEvent());

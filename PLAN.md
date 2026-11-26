@@ -45,8 +45,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Rewards entry row (screen comes in M9)
 
 ## M7: Backup and restore
-- [ ] Export/import JSON (Replace, Merge by eventId, replay), atomic, round-trip tests
-- [ ] Backup reminder banner, standalone-mode warning, data-loss detection
+- [x] Export/import JSON (Replace, Merge by eventId, replay), atomic, round-trip tests
+- [x] Backup reminder banner, standalone-mode warning, data-loss detection
 
 ## M8: iPad landscape and offline hardening
 - [ ] Sidebar layout, two-pane Session, Library and Stats wide layouts
@@ -152,3 +152,6 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-26, M6: The streak counts consecutive learning days (04:00 boundary) with at least one answer in any mode; it still holds until the end of today if you practiced yesterday. M9 replaces it with the goal-based streak with a weekly grace day (SPEC 15).
 - 2026-11-26, M6: Weak-spot score = 2 x misses in the last 30 days (scheduled and extra) + 3 x (1 - retrievability) + 3 if a leech (6 or more lapses) + 2 x wrong answers given as Certain (0 until M10). Only cards with a recent miss or retrievability below 80% are listed, top 10, from active packs. "Drill these" starts extra practice of the list (no FSRS change); full weak-spot mode is M11. Entries link to their subject page with the branch open; there is no single-question view yet.
 - 2026-11-26, M6: The heatmap shows the last 35 learning days in five gold steps relative to the busiest day, oldest first, today outlined. The Rewards row opens a stub page until M9.
+- 2026-11-26, M7: A backup file (`format: "pleiad-backup"`, `schema_version` 1) holds the review log, the settings, notes and flags stores, the profile ID and export metadata. Card state is not exported; it is rebuilt by replaying the log on import. The device ID, the saved in-progress session and UI flags are not exported. Files from a newer schema are refused; older ones go through a migration table (empty so far). Limit 25 MB.
+- 2026-11-26, M7: Import is atomic: the complete new state is computed in core (`planReplace` / `planMerge`), then written by `StorageAdapter.replaceAll` in one IndexedDB transaction; a validation or write failure changes nothing. Replace keeps this device's ID and takes the backup's profile, drops any saved session, asks for confirmation, and reloads the app afterwards. Merge unions the logs by eventId (the local copy wins a conflicting eventId, counted in the result) and lets local settings, notes and flags win per key.
+- 2026-11-26, M7: Today shows at most one storage notice, by priority: data loss (a localStorage marker remembers how many answers this browser had; if the database log is empty but the marker is not, it offers "Restore from backup"), then the browser-tab warning when not running as an installed app (dismissible, stored in meta), then the backup reminder when the last export, or the first answer if never exported, is more than 7 days old. `navigator.storage.persist()` is requested at startup but never relied on. Settings now has the Backup section; the other preferences come later.
