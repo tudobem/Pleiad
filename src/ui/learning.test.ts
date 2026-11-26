@@ -19,6 +19,7 @@ import {
   loadResumableSession,
   loadSettings,
   setPacksActive,
+  startDrillSession,
   startSubjectSession,
 } from './learning.ts';
 import type { Services } from './services.ts';
@@ -262,5 +263,16 @@ describe('active packs and Practice <Subject>', () => {
     expect((await loadSettings(services)).activePacks).toEqual(['b']);
     await setPacksActive(services, index, ['a'], true);
     expect((await loadSettings(services)).activePacks).toEqual(['a', 'b']);
+  });
+});
+
+describe('startDrillSession', () => {
+  it('starts extra practice with the given questions that are served', async () => {
+    const { storage, services } = setup();
+    const data = await loadLearningData(services, new Map([[live.id, live]]));
+    const session = await startDrillSession(services, data, [live.id, 'not-served']);
+    expect(session.mode).toBe('extra');
+    expect(session.items.map((i) => i.questionId)).toEqual([live.id]);
+    expect(await storage.get('meta', 'activeSession')).toEqual(session);
   });
 });

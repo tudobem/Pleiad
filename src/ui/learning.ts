@@ -297,3 +297,19 @@ export async function startSubjectSession(
     startSession(services.ids.newId(), items, services.clock.now(), { mode: 'extra', day }),
   );
 }
+
+/** Drill the given questions as extra practice (SPEC 7.6: no FSRS change). */
+export function startDrillSession(
+  services: Services,
+  data: LearningData,
+  ids: readonly string[],
+): Promise<SessionState> {
+  const items = toSessionItems(ids, data.questions, services.random);
+  return begin(
+    services,
+    startSession(services.ids.newId(), items, services.clock.now(), {
+      mode: 'extra',
+      day: today(services),
+    }),
+  );
+}

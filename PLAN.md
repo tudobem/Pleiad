@@ -41,8 +41,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Practice-this-subject entry point
 
 ## M6: Stats
-- [ ] Retention, coverage, per-topic bars, weak-spot list, heatmap, streak
-- [ ] Rewards entry row (screen comes in M9)
+- [x] Retention, coverage, per-topic bars, weak-spot list, heatmap, streak
+- [x] Rewards entry row (screen comes in M9)
 
 ## M7: Backup and restore
 - [ ] Export/import JSON (Replace, Merge by eventId, replay), atomic, round-trip tests
@@ -147,3 +147,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-26, M5: Progress in the Library is coverage (verified items introduced, labelled "started", SPEC 14.1) counted from verified questions only; retention and "mastered" come with Stats in M6. Branches and topics without verified questions are shown dimmed as "No questions yet", not hidden.
 - 2026-11-26, M5: Practice <Subject> activates the subject if needed, then runs the subject's part of the Daily queue as a scheduled session; the daily new limit, review cap and tier unlock still count all questions, so it never exceeds the daily budget. With nothing due or new it becomes extra practice (no FSRS change). If a pack cannot be fetched offline it shows a message and changes nothing. Subject level only for now; the scope mechanism can serve branch and topic drills later (SPEC 8.2).
 - 2026-11-26, M5: Search matches subject, branch and topic labels and topic tags by word prefix, ignoring case and accents ("epoche" finds "epoché"). Label matches rank before tag matches; a result opens its subject page with the branch expanded.
+- 2026-11-26, M6: Retention is the mean FSRS retrievability now over started verified items; coverage is the share of verified items introduced. Both count every pack in the index, active or not, so turning a subject off keeps its history in Stats.
+- 2026-11-26, M6: Topic bars show only started topics, weakest retention first, with a toggle to sort by least coverage. A topic is coral when its retention is more than 5 points below the desired retention (85% at the default 90%).
+- 2026-11-26, M6: The streak counts consecutive learning days (04:00 boundary) with at least one answer in any mode; it still holds until the end of today if you practiced yesterday. M9 replaces it with the goal-based streak with a weekly grace day (SPEC 15).
+- 2026-11-26, M6: Weak-spot score = 2 x misses in the last 30 days (scheduled and extra) + 3 x (1 - retrievability) + 3 if a leech (6 or more lapses) + 2 x wrong answers given as Certain (0 until M10). Only cards with a recent miss or retrievability below 80% are listed, top 10, from active packs. "Drill these" starts extra practice of the list (no FSRS change); full weak-spot mode is M11. Entries link to their subject page with the branch open; there is no single-question view yet.
+- 2026-11-26, M6: The heatmap shows the last 35 learning days in five gold steps relative to the busiest day, oldest first, today outlined. The Rewards row opens a stub page until M9.
