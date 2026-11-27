@@ -4,6 +4,7 @@ import type { Rating } from '../../core/sync/reviewEvent.ts';
 import { daysBetween } from '../../core/scheduler/day.ts';
 import type { SessionState } from '../../core/session/reducer.ts';
 import { sessionScore } from '../../core/session/reducer.ts';
+import { sessionXp } from '../../core/gamification/rewards.ts';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { Icon } from '../components/Icon.tsx';
@@ -53,6 +54,8 @@ export function SessionScreen() {
 function Session({ initial, data }: { initial: SessionState; data: LearningData }) {
   const { clock } = useServices();
   const session = useSession(initial, data);
+  // Answers logged from here on belong to this session (for the XP line).
+  const [eventsAtStart] = useState(() => data.events.length);
   const { state, question, item, response, pending } = session;
   useSessionKeys(session);
   const total = state.items.length;
@@ -67,6 +70,17 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
         <p class="session-done__score">
           {t('session.doneScore', { correct: score.correct, total: score.answered })}
         </p>
+        {data.settings.rewards ? (
+          <p class="session-done__xp">
+            {t('session.doneXp', {
+              xp: sessionXp(
+                data.events,
+                new Set(data.events.slice(eventsAtStart).map((e) => e.eventId)),
+                data.index,
+              ),
+            })}
+          </p>
+        ) : null}
         <p class="screen__muted">{t('session.doneBody')}</p>
         <div class="session__footer">
           <Button onClick={() => navigate('today')}>{t('session.backToToday')}</Button>

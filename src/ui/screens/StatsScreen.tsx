@@ -8,11 +8,14 @@ import { Icon } from '../components/Icon.tsx';
 import { MathText } from '../components/MathText.tsx';
 import { Chip } from '../components/library/Chip.tsx';
 import { Heatmap } from '../components/stats/Heatmap.tsx';
+import { ProgressBar } from '../components/ProgressBar.tsx';
+import { ProgressRing } from '../components/ProgressRing.tsx';
+import { useRewards } from '../rewards.ts';
 import { StatBar } from '../components/stats/StatBar.tsx';
 import { type LearningData, startDrillSession } from '../learning.ts';
 import { href, navigate } from '../router.ts';
 import { useServices } from '../services.ts';
-import { t } from '../strings.ts';
+import { t, type StringId } from '../strings.ts';
 import { useLearning } from '../useLearning.ts';
 import './screens.css';
 
@@ -87,6 +90,12 @@ function StatsBody({ data }: { data: LearningData }) {
 
   const { stats, weak } = view;
   const act = view.activity;
+  const rewards = useRewards(data);
+  const showRewards = data.settings.rewards;
+  // With rewards on, the streak counts days that met the goal (SPEC 15).
+  const streak = showRewards
+    ? rewards.streak
+    : { current: act.currentStreak, longest: act.longestStreak };
   const topics = sortTopics(stats.topics, sort);
   const notStarted = stats.topics.length - topics.length;
   const topicById = new Map(stats.topics.map((x) => [x.id, x]));
@@ -134,10 +143,8 @@ function StatsBody({ data }: { data: LearningData }) {
           </div>
           <div class="stats__tile">
             <dt>{t('stats.streak')}</dt>
-            <dd class="stats__tile-value">{t('stats.streakValue', { days: act.currentStreak })}</dd>
-            <dd class="stats__tile-detail">
-              {t('stats.streakDetail', { days: act.longestStreak })}
-            </dd>
+            <dd class="stats__tile-value">{t('stats.streakValue', { days: streak.current })}</dd>
+            <dd class="stats__tile-detail">{t('stats.streakDetail', { days: streak.longest })}</dd>
           </div>
           <div class="stats__tile">
             <dt>{t('stats.answers')}</dt>
@@ -249,27 +256,135 @@ function StatsBody({ data }: { data: LearningData }) {
           <Heatmap days={act.days} />
         </section>
 
-        <a class="quiet-row" href={href('stats', 'rewards')}>
-          <span class="quiet-row__text">
-            <span>{t('stats.rewards')}</span>
-            <span class="quiet-row__hint">{t('stats.rewardsHint')}</span>
-          </span>
-          <Icon name="chevron" size={20} />
-        </a>
+        {showRewards ? (
+          <a class="quiet-row" href={href('stats', 'rewards')}>
+            <span class="quiet-row__text">
+              <span>{t('stats.rewards')}</span>
+              <span class="quiet-row__hint">
+                {t('rewards.level', { level: rewards.level.level, title: rewards.level.title })}
+              </span>
+            </span>
+            <Icon name="chevron" size={20} />
+          </a>
+        ) : null}
       </div>
     </div>
   );
 }
 
 export function RewardsScreen() {
+  const learning = useLearning();
   return (
-    <main class="screen">
+    <main class="screen rewards">
       <a class="back-link" href={href('stats')}>
         <Icon name="back" size={20} />
         {t('rewards.back')}
       </a>
       <h1 class="screen__title">{t('rewards.title')}</h1>
-      <p class="screen__muted">{t('rewards.body')}</p>
+      {learning.status === 'ready' ? (
+        learning.value.data.settings.rewards ? (
+          <RewardsBody data={learning.value.data} />
+        ) : (
+          <p class="screen__muted">{t('rewards.off')}</p>
+        )
+      ) : (
+        <p class="screen__muted" aria-live="polite">
+          {t('common.loading')}
+        </p>
+      )}
     </main>
+  );
+}
+
+function RewardsBody({ data }: { data: LearningData }) {
+  const { level, xp, challenge, subjects, badges } = useRewards(data);
+  return (
+    <>
+      <section class="rewards__level">
+        <ProgressRing
+          value={level.into / level.span}
+          size={96}
+          stroke={6}
+          label={t('rewards.levelLabel', {
+            level: level.level,
+            into: level.into,
+            span: level.span,
+          })}
+        >
+          <span class="rewards__level-number" aria-hidden="true">
+            {level.level}
+          </span>
+        </ProgressRing>
+        <div class="rewards__level-text">
+          <p class="screen__subtitle">
+            {t('rewards.level', { level: level.level, title: level.title })}
+          </p>
+          <p class="screen__muted rewards__line">{t('rewards.xp', { xp })}</p>
+          <p class="screen__muted rewards__line">{t('rewards.toNext', { n: level.toNext })}</p>
+        </div>
+      </section>
+
+      <section class="stats__section" aria-labelledby="rewards-week">
+        <h2 class="shelf__title" id="rewards-week">
+          {t('rewards.week')}
+        </h2>
+        <Card class="rewards__challenge">
+          <p class="rewards__line">
+            {t(`rewards.challenge.${challenge.id}` as StringId, { target: challenge.target })}
+          </p>
+          <ProgressBar
+            value={Math.min(1, challenge.value / challenge.target)}
+            label={t('rewards.challengeProgress', {
+              value: challenge.value,
+              target: challenge.target,
+              reward: challenge.reward,
+            })}
+          />
+          <p class="screen__muted rewards__line">
+            {challenge.done
+              ? t('rewards.challengeDone', { reward: challenge.reward })
+              : t('rewards.challengeProgress', {
+                  value: challenge.value,
+                  target: challenge.target,
+                  reward: challenge.reward,
+                })}
+          </p>
+        </Card>
+      </section>
+
+      <section class="stats__section" aria-labelledby="rewards-subjects">
+        <h2 class="shelf__title" id="rewards-subjects">
+          {t('rewards.subjects')}
+        </h2>
+        <ul class="rewards__subjects">
+          {subjects.map((s) => (
+            <li key={s.id}>
+              <span>{s.label}</span>
+              <span class="screen__muted">
+                {t('rewards.subjectXp', { title: s.title, xp: s.xp })}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="stats__section" aria-labelledby="rewards-badges">
+        <h2 class="shelf__title" id="rewards-badges">
+          {t('rewards.badges')}
+        </h2>
+        <ul class="badges">
+          {badges.map((b) => (
+            <li key={b.id} class={`badge${b.earned ? ' badge--earned' : ''}`}>
+              <Icon name="today" size={28} />
+              <span class="badge__name">{t(`badge.${b.id}.name` as StringId)}</span>
+              <span class="badge__how">{t(`badge.${b.id}.how` as StringId)}</span>
+              <span class="visually-hidden">
+                {b.earned ? t('rewards.earned') : t('rewards.notYet')}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 }

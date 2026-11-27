@@ -19,6 +19,10 @@ export interface Settings {
    * active; the first explicit change stores the full list.
    */
   readonly activePacks?: readonly string[];
+  /** Daily goal in answers (SPEC 15). Never read by the queue or scheduler. */
+  readonly dailyGoal: number;
+  /** Show goal, streak and rewards (SPEC 15: everything can be turned off). */
+  readonly rewards: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -27,7 +31,12 @@ export const DEFAULT_SETTINGS: Settings = {
   desiredRetention: RETENTION_DEFAULT,
   tierMix: { foundational: 60, advanced: 30, expert: 10 },
   autoUnlock: true,
+  dailyGoal: 20,
+  rewards: true,
 };
+
+export const DAILY_GOAL_MIN = 5;
+export const DAILY_GOAL_MAX = 200;
 
 const intIn = (v: unknown, min: number, max: number, fallback: number): number =>
   typeof v === 'number' && Number.isFinite(v)
@@ -50,6 +59,8 @@ export function normalizeSettings(stored: Partial<Settings> | undefined): Settin
     desiredRetention: clampRetention(s.desiredRetention ?? DEFAULT_SETTINGS.desiredRetention),
     tierMix: mixTotal > 0 ? tierMix : DEFAULT_SETTINGS.tierMix,
     autoUnlock: typeof s.autoUnlock === 'boolean' ? s.autoUnlock : DEFAULT_SETTINGS.autoUnlock,
+    dailyGoal: intIn(s.dailyGoal, DAILY_GOAL_MIN, DAILY_GOAL_MAX, DEFAULT_SETTINGS.dailyGoal),
+    rewards: typeof s.rewards === 'boolean' ? s.rewards : DEFAULT_SETTINGS.rewards,
     ...(Array.isArray(s.activePacks)
       ? {
           activePacks: [

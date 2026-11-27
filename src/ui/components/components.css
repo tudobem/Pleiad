@@ -155,7 +155,8 @@ a.button {
 
 /* Progress */
 .progress {
-  flex: 1;
+  /* Grow along a row, but keep its height inside a column. */
+  flex: 1 0 auto;
   height: 4px;
   border-radius: 2px;
   background: var(--track);
@@ -321,4 +322,35 @@ a.button {
 
 .sidebar__subject .progress {
   flex: none;
+}
+
+/* Progress ring (DESIGN 5) */
+.ring {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+
+.ring svg {
+  position: absolute;
+  inset: 0;
+}
+
+.ring__track {
+  fill: none;
+  stroke: var(--track);
+}
+
+.ring__fill {
+  fill: none;
+  stroke: var(--gold);
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--duration-slow) var(--ease-out);
+}
+
+.ring__center {
+  position: relative;
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
 }
