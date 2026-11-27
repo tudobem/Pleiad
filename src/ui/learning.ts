@@ -63,6 +63,16 @@ export async function loadSettings(services: Services): Promise<Settings> {
   return normalizeSettings(await services.storage.get('settings', SETTINGS_KEY));
 }
 
+/** Change some settings, keeping the rest as stored. */
+export async function saveSettings(
+  services: Services,
+  patch: Partial<Settings>,
+): Promise<Settings> {
+  const next = normalizeSettings({ ...(await loadSettings(services)), ...patch });
+  await services.storage.put('settings', SETTINGS_KEY, next);
+  return next;
+}
+
 export async function loadLearningData(
   services: Services,
   questions: ReadonlyMap<string, Question>,

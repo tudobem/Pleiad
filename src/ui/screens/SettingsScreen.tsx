@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { RestoreMode } from '../../core/backup/restore.ts';
+import { DAILY_GOAL_MAX, DAILY_GOAL_MIN, type Settings } from '../../core/settings.ts';
+import { loadSettings, saveSettings } from '../learning.ts';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { UpdateNotice } from '../components/UpdateNotice.tsx';
@@ -22,10 +24,71 @@ export function SettingsScreen() {
     <main class="screen settings">
       <h1 class="screen__title">{t('settings.title')}</h1>
       <UpdateNotice />
+      <GoalSection />
       <BackupSection />
       <p class="screen__muted">{t('settings.later')}</p>
       <p class="screen__muted">{t('settings.version', { version: appVersion })}</p>
     </main>
+  );
+}
+
+const GOAL_STEP = 5;
+
+function GoalSection() {
+  const services = useServices();
+  const [settings, setSettings] = useState<Settings | undefined>(undefined);
+  useEffect(() => {
+    void loadSettings(services).then(setSettings);
+  }, [services]);
+  if (!settings) return null;
+
+  const update = async (patch: Partial<Settings>) =>
+    setSettings(await saveSettings(services, patch));
+  const goal = settings.dailyGoal;
+  return (
+    <section class="settings__section" aria-labelledby="goal-title">
+      <h2 class="shelf__title" id="goal-title">
+        {t('goal.title')}
+      </h2>
+      <div class="stepper">
+        <button
+          type="button"
+          class="stepper__button"
+          aria-label={t('goal.less')}
+          disabled={goal <= DAILY_GOAL_MIN}
+          onClick={() => void update({ dailyGoal: goal - GOAL_STEP })}
+        >
+          −
+        </button>
+        <span class="stepper__value" aria-live="polite">
+          {t('goal.daily', { n: goal })}
+        </span>
+        <button
+          type="button"
+          class="stepper__button"
+          aria-label={t('goal.more')}
+          disabled={goal >= DAILY_GOAL_MAX}
+          onClick={() => void update({ dailyGoal: goal + GOAL_STEP })}
+        >
+          +
+        </button>
+      </div>
+      <button
+        type="button"
+        class="switch"
+        role="switch"
+        aria-checked={settings.rewards}
+        onClick={() => void update({ rewards: !settings.rewards })}
+      >
+        <span class="switch__text">
+          <span class="switch__label">{t('goal.rewards')}</span>
+          <span class="switch__hint">{t('goal.rewardsHint')}</span>
+        </span>
+        <span class="switch__track" aria-hidden="true">
+          <span class="switch__thumb" />
+        </span>
+      </button>
+    </section>
   );
 }
 

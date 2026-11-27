@@ -1,10 +1,17 @@
 import { compareStrings } from './normalize.ts';
 import { compareNodes, pathTo, type MergedTaxonomy } from './taxonomy.ts';
 import { addToCounts, emptyCounts, type Counts } from './report.ts';
-import type { LoadedPack, NodeKind } from './types.ts';
+import type { LoadedPack, NodeKind, Tier } from './types.ts';
+
+/** Tier as a number (XP weight, SPEC 15). */
+export const TIER_LEVEL: Readonly<Record<Tier, number>> = {
+  foundational: 1,
+  advanced: 2,
+  expert: 3,
+};
 
 /** Bump when the shape of content-index.json changes. */
-export const CONTENT_INDEX_VERSION = 3;
+export const CONTENT_INDEX_VERSION = 4;
 
 export interface IndexTreeNode {
   readonly id: string;
@@ -16,6 +23,8 @@ export interface IndexTreeNode {
   readonly counts: Counts;
   /** Topics only: IDs of verified questions, sorted (progress without loading packs). */
   readonly questionIds?: readonly string[];
+  /** Topics only: tier of each verified question (1 foundational, 2 advanced, 3 expert), aligned with questionIds. */
+  readonly tiers?: readonly number[];
   /** Topics only: tags of the topic's verified questions, sorted (search). */
   readonly tags?: readonly string[];
   readonly children: readonly IndexTreeNode[];
@@ -55,6 +64,7 @@ export function buildContentIndex(
 ): ContentIndex {
   const countsByNode = new Map<string, Counts>();
   const idsByTopic = new Map<string, string[]>();
+  const tierById = new Map<string, number>();
   const tagsByTopic = new Map<string, Set<string>>();
   for (const id of taxonomy.nodes.keys()) countsByNode.set(id, emptyCounts());
 
@@ -68,6 +78,7 @@ export function buildContentIndex(
         topics.add(q.topic);
         if (q.status === 'verified') {
           idsByTopic.set(q.topic, [...(idsByTopic.get(q.topic) ?? []), q.id]);
+          tierById.set(q.id, TIER_LEVEL[q.tier]);
           const tags = tagsByTopic.get(q.topic) ?? new Set<string>();
           for (const tag of q.tags) tags.add(tag);
           tagsByTopic.set(q.topic, tags);
@@ -103,6 +114,9 @@ export function buildContentIndex(
     children.set(node.parent, list);
   }
 
+  const sortedIds = (topic: string): string[] =>
+    [...(idsByTopic.get(topic) ?? [])].sort(compareStrings);
+
   const build = (id: string): IndexTreeNode => {
     const node = taxonomy.nodes.get(id);
     if (!node) throw new Error(`Unknown taxonomy node ${id}`);
@@ -115,7 +129,8 @@ export function buildContentIndex(
       counts: countsByNode.get(id) ?? emptyCounts(),
       ...(node.kind === 'topic'
         ? {
-            questionIds: [...(idsByTopic.get(id) ?? [])].sort(compareStrings),
+            questionIds: sortedIds(id),
+            tiers: sortedIds(id).map((q) => tierById.get(q) ?? 1),
             tags: [...(tagsByTopic.get(id) ?? [])].sort(compareStrings),
           }
         : {}),

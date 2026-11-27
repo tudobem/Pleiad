@@ -3,6 +3,8 @@ import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { StorageNotice } from '../components/Notice.tsx';
 import { UpdateNotice } from '../components/UpdateNotice.tsx';
+import { ProgressRing } from '../components/ProgressRing.tsx';
+import { useRewards } from '../rewards.ts';
 import {
   closeSession,
   startPracticeSession,
@@ -75,17 +77,66 @@ export function TodayScreen() {
     <main class="screen today">
       <p class="screen__overline">{t('today.overline')}</p>
       <h1 class="screen__title">{t('today.title')}</h1>
-      <svg class="today__sky" viewBox="0 0 240 120" aria-hidden="true">
-        <circle cx="40" cy="70" r="2" class="today__star" />
-        <circle cx="86" cy="34" r="1.6" class="today__star" />
-        <circle cx="150" cy="82" r="1.8" class="today__star" />
-        <circle cx="196" cy="40" r="1.4" class="today__star" />
-        <circle cx="120" cy="56" r="4" class="today__star today__star--lit" />
-      </svg>
+      {learning.status === 'ready' && learning.value.data.settings.rewards ? (
+        <GoalSky data={learning.value.data} />
+      ) : (
+        <Sky lit={1} />
+      )}
       <UpdateNotice />
       {learning.status === 'ready' ? <StorageNotice data={learning.value.data} /> : null}
       {body}
     </main>
+  );
+}
+
+/** Hero stars: the centre star first, then the others (DESIGN 4.1). */
+const STARS = [
+  { cx: 120, cy: 56, r: 4 },
+  { cx: 40, cy: 70, r: 2 },
+  { cx: 86, cy: 34, r: 1.6 },
+  { cx: 150, cy: 82, r: 1.8 },
+  { cx: 196, cy: 40, r: 1.4 },
+];
+
+/** The hero sky with the first `lit` stars lit. */
+function Sky({ lit }: { lit: number }) {
+  return (
+    <svg class="today__sky" viewBox="0 0 240 120" aria-hidden="true">
+      {STARS.map((s, i) => (
+        <circle
+          key={i}
+          cx={s.cx}
+          cy={s.cy}
+          r={s.r}
+          class={`today__star${i < lit ? ' today__star--lit' : ''}`}
+        />
+      ))}
+    </svg>
+  );
+}
+
+/** Goal ring and streak above the sky; one star lights per fifth of the goal (SPEC 15). */
+function GoalSky({ data }: { data: LearningData }) {
+  const rewards = useRewards(data);
+  const { goal, streak } = rewards;
+  const lit = Math.floor(goal.ratio * STARS.length + 1e-9);
+  return (
+    <>
+      <div class="today__goal">
+        <ProgressRing
+          value={goal.ratio}
+          size={48}
+          label={t('today.goalLabel', { done: goal.done, goal: goal.goal })}
+        >
+          <span aria-hidden="true">{goal.done}</span>
+        </ProgressRing>
+        <span class="today__goal-text">
+          <span>{t('today.goal', { done: goal.done, goal: goal.goal })}</span>
+          <span class="today__goal-streak">{t('today.streak', { days: streak.current })}</span>
+        </span>
+      </div>
+      <Sky lit={lit} />
+    </>
   );
 }
 

@@ -29,16 +29,17 @@ describe('buildContentIndex', () => {
     const v = { status: 'verified' as const, verified_on: '2026-02-01' };
     const c = pack([
       mcq({ id: 'cons-0002', tags: ['Tononi'], ...v }),
-      mcq({ id: 'cons-0001', tags: ['phi', 'Tononi'], ...v }),
+      mcq({ id: 'cons-0001', tags: ['phi', 'Tononi'], tier: 'expert', ...v }),
       mcq({ id: 'cons-0003', tags: ['draft-only'] }),
     ]);
     const index = buildContentIndex([c], mergeTaxonomy([c]).taxonomy, {
       'cons-pack': 'packs/cons-pack.abc.json',
     });
-    expect(index.version).toBe(3);
+    expect(index.version).toBe(4);
     expect(index.packs[0]?.file).toBe('packs/cons-pack.abc.json');
     const iit = index.tree[0]?.children[0]?.children[0]?.children.find((n) => n.id === 'iit');
     expect(iit?.questionIds).toEqual(['cons-0001', 'cons-0002']);
+    expect(iit?.tiers).toEqual([3, 1]);
     expect(iit?.tags).toEqual(['Tononi', 'phi']);
     expect(index.tree[0]).not.toHaveProperty('questionIds');
   });

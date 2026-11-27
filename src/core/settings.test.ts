@@ -56,3 +56,15 @@ describe('active packs', () => {
     ).toEqual(['c']);
   });
 });
+
+describe('goal and rewards settings', () => {
+  it('defaults to a goal of 20 with rewards on, and clamps the goal', () => {
+    expect(normalizeSettings({})).toMatchObject({ dailyGoal: 20, rewards: true });
+    expect(normalizeSettings({ dailyGoal: 1 }).dailyGoal).toBe(5);
+    expect(normalizeSettings({ dailyGoal: 999 }).dailyGoal).toBe(200);
+    expect(normalizeSettings({ dailyGoal: 35, rewards: false })).toMatchObject({
+      dailyGoal: 35,
+      rewards: false,
+    });
+  });
+});

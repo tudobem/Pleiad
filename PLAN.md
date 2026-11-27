@@ -54,8 +54,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Offline tests; update prompt; startup budget check
 
 ## M9: Gamification and Rewards
-- [ ] Goal ring, streak with weekly grace day, XP/levels, about 8 badges, weekly challenge
-- [ ] Rewards screen; all optional in Settings
+- [x] Goal ring, streak with weekly grace day, XP/levels, about 8 badges, weekly challenge
+- [x] Rewards screen; all optional in Settings
 
 ## M10: Confidence calibration
 - [ ] Confidence chips, metrics, high-confidence-error flow
@@ -159,3 +159,8 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-27, M8: Keyboard (SPEC 17, session only): 1 to 5 choose an MCQ option, Space or Enter check or reveal and then continue, 1 to 4 rate a revealed recall item. Keys typed into fields are left alone, a focused button keeps its own Space and Enter, and modifier combinations are ignored. A quiet key hint shows in the wide layout.
 - 2026-11-27, M8: Update prompt: when a new version is waiting, Today and Settings say "An update is ready. It applies the next time you open Pleiad." with "Restart now" (activates it and reloads). The session screen never shows it.
 - 2026-11-27, M8: Offline, update and startup checks are local Playwright scripts (`npm run e2e`, `e2e/README.md`), not CI, as Martin chose; no new dependency. First run: startup from cache 232 to 277 ms at 4x CPU throttle (budget 1000 ms). CI runs `npm run budget` after the build: initial JS <= 100 KB gzip (39.8 KB now) and precached shell without KaTeX <= 1 MB (397 KB now).
+- 2026-11-27, M9: Gamification is derived entirely from the review log and the content index (no stored XP or badges), so it replays exactly and never feeds back into the queue, scheduler or ratings; a test checks the Daily queue is identical with rewards on or off. Two new settings: `dailyGoal` (default 20 answers, 5 to 200, steps of 5 in Settings) and `rewards` (default on). When off, Today shows no ring, streak or star progress, Stats has no Rewards row and the done screen no XP.
+- 2026-11-27, M9: Goal streak = learning days that met the daily goal (scheduled and extra answers count). One missed day per Monday-to-Sunday week is forgiven when it sits between met days (it keeps the streak without adding to it); the current streak is counted backwards from today, and today only counts once met. With rewards on, the Stats streak tile shows this streak instead of the M6 activity streak.
+- 2026-11-27, M9: XP = 1/2/3 per correct answer by tier, +2 for getting a card right right after missing it, +1 for a correct "Certain" answer (from M10), +100 per completed weekly challenge. Tiers come from the content index (topics gain `tiers`, index version 4); retired IDs count as tier 1. Level L needs 25·L·(L−1) XP; titles First Light, Stargazer, Skywatcher, Navigator, Cartographer, Astronomer, Constellation Keeper, Luminary (two levels each). Subject titles by XP in the subject: Newcomer, Apprentice 100, Adept 300, Scholar 700, Sage 1500.
+- 2026-11-27, M9: Eight badges: First Light (first answer), Century (100 answers), Week of Light (7-day goal streak), Steady Orbit (30 days), Comeback (10 different missed cards recovered), Explorer (10 topics started), Bright Star (a subject with 20 started at 80% retention), Challenger (a weekly challenge). The SPEC's "well-calibrated week" badge waits for confidence data in M10. Weekly challenges rotate by week number: 100 answers, goal on 5 days, 5 recoveries, 15 new questions, 5 topics; +100 XP each.
+- 2026-11-27, M9: Today shows a small goal ring with "Today: n / goal" and the streak; the five hero stars light one per fifth of the goal (centre first), as the restrained completion moment. The done screen shows "+N XP" for the session's own answers.
