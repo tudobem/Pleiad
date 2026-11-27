@@ -100,6 +100,11 @@ export function currentItem(state: SessionState): SessionItem | undefined {
   return state.phase === 'done' ? undefined : state.items[state.index];
 }
 
+/** Mode of the current item (or the pending answer's item): its own, else the session's. */
+export function itemMode(state: SessionState): SessionMode {
+  return state.items[state.index]?.mode ?? state.mode;
+}
+
 /** The answer awaiting commit (the user is on its feedback screen), if any. */
 export function pendingAnswer(state: SessionState): AnswerRecord | undefined {
   return state.phase === 'feedback' ? state.answers[state.answers.length - 1] : undefined;

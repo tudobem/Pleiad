@@ -1,6 +1,7 @@
 import { shuffle, type Random } from '../random.ts';
 import { clozeAnswers } from '../content/cloze.ts';
 import { QUESTION_TYPES, type Question } from '../content/types.ts';
+import type { ReviewMode } from '../sync/reviewEvent.ts';
 
 /** One question in a session. */
 export interface SessionItem {
@@ -11,6 +12,11 @@ export interface SessionItem {
    * items). Empty for recall and short answers.
    */
   readonly layout: readonly number[];
+  /**
+   * Overrides the session's mode for this item: in a drill, an item due today
+   * is a scheduled review and the rest is extra practice (SPEC 8.2).
+   */
+  readonly mode?: ReviewMode;
 }
 
 export interface BuildSessionOptions {

@@ -1,6 +1,7 @@
 import { RETENTION_DEFAULT } from './scheduler/scheduler.ts';
 import { clampRetention } from './scheduler/fsrsScheduler.ts';
 import type { Tier } from './content/types.ts';
+import { DEFAULT_DRILL_SIZE, DRILL_SIZES, type DrillSize } from './session/drill.ts';
 
 /** Learning settings (SPEC 7). Stored in the `settings` store; UI comes later. */
 export interface Settings {
@@ -25,6 +26,8 @@ export interface Settings {
   readonly rewards: boolean;
   /** Ask Guess / Fairly sure / Certain before MCQ and short answers (SPEC 9). */
   readonly confidencePrompts: boolean;
+  /** Length of Practice drills (SPEC 8): 10, 20 or every match. */
+  readonly drillSize: DrillSize;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -36,6 +39,7 @@ export const DEFAULT_SETTINGS: Settings = {
   dailyGoal: 20,
   rewards: true,
   confidencePrompts: true,
+  drillSize: DEFAULT_DRILL_SIZE,
 };
 
 export const DAILY_GOAL_MIN = 5;
@@ -68,6 +72,9 @@ export function normalizeSettings(stored: Partial<Settings> | undefined): Settin
       typeof s.confidencePrompts === 'boolean'
         ? s.confidencePrompts
         : DEFAULT_SETTINGS.confidencePrompts,
+    drillSize: (DRILL_SIZES as readonly unknown[]).includes(s.drillSize)
+      ? (s.drillSize as DrillSize)
+      : DEFAULT_SETTINGS.drillSize,
     ...(Array.isArray(s.activePacks)
       ? {
           activePacks: [

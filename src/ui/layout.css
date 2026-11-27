@@ -71,9 +71,17 @@
     color: var(--text-muted);
   }
 
-  /* Stats: topics on the left, weak spots and activity on the right. */
-  .stats {
+  /* Stats: topics left, weak spots and activity right. Practice: drills left, topic drill right. */
+  .stats,
+  .practice {
     max-width: 64rem;
+  }
+
+  .practice__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
   }
 
   .stats__columns {

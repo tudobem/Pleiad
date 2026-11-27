@@ -3,7 +3,7 @@ import type { Question } from '../../core/content/types.ts';
 import type { Rating } from '../../core/sync/reviewEvent.ts';
 import { daysBetween } from '../../core/scheduler/day.ts';
 import type { SessionState } from '../../core/session/reducer.ts';
-import { CONFIDENCE_TYPES, sessionScore } from '../../core/session/reducer.ts';
+import { CONFIDENCE_TYPES, itemMode, sessionScore } from '../../core/session/reducer.ts';
 import type { Response } from '../../core/session/response.ts';
 import { sessionXp } from '../../core/gamification/rewards.ts';
 import { Button } from '../components/Button.tsx';
@@ -100,6 +100,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
   const position = state.index + 1;
   const feedback = state.phase === 'feedback' && !!pending;
   const recall = question.type === 'recall';
+  const mode = itemMode(state);
   const offset = (at: number) => clock.utcOffsetMinutes(at);
   const daysUntil = (due: number | null): number | null =>
     pending && due !== null
@@ -108,7 +109,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
 
   let consequence: string | null = null;
   if (feedback && !recall) {
-    if (state.mode === 'extra') {
+    if (mode === 'extra') {
       consequence = t('session.practiceOnly');
     } else {
       const n = daysUntil(session.nextDue());
@@ -183,7 +184,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
               onRate={(rating) => session.next({ rating })}
               busy={session.busy}
               daysFor={(rating) =>
-                state.mode === 'scheduled' ? daysUntil(session.nextDue({ rating })) : null
+                mode === 'scheduled' ? daysUntil(session.nextDue({ rating })) : null
               }
             />
           ) : (
@@ -191,7 +192,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
               <Button onClick={() => session.next()} disabled={session.busy}>
                 {position === total ? t('session.finish') : t('session.continue')}
               </Button>
-              {state.mode === 'scheduled' && pending.correct ? (
+              {mode === 'scheduled' && pending.correct ? (
                 <div class="session__secondary">
                   <Button
                     variant="text"
