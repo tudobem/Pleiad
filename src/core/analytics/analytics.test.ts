@@ -8,6 +8,7 @@ import { fsrsScheduler } from '../scheduler/fsrsScheduler.ts';
 import { reviewEvent } from '../storageContract.test-util.ts';
 import { replayCards } from '../sync/replay.ts';
 import type { ReviewEvent } from '../sync/reviewEvent.ts';
+import { accuracyOf } from './accuracy.ts';
 import { activity, intensity } from './activity.ts';
 import { masteryOf } from './retention.ts';
 import { buildStats, sortTopics } from './stats.ts';
@@ -78,17 +79,25 @@ describe('masteryOf', () => {
 });
 
 describe('buildStats', () => {
+  const miss = { correct: false, rating: 'again' as const };
   const events = [
+    // t-old: answered long ago (outside the 30-day window).
     ev('a1', NOW - 60 * DAY_MS),
     ev('a2', NOW - 60 * DAY_MS),
-    ev('b1', NOW - 3_600_000),
+    // t-new: 1 right, 3 wrong recently (an extra-practice miss counts too).
+    ev('b1', NOW - 3 * DAY_MS),
+    ev('b1', NOW - 2 * DAY_MS, miss),
+    ev('b1', NOW - DAY_MS, { ...miss, mode: 'extra' }),
+    ev('b1', NOW - 3_600_000, miss),
+    // A retired question still counts in overall accuracy.
+    ev('retired', NOW - 3_600_000),
   ];
   const stats = buildStats({
     index: INDEX,
     cards: replayCards(events, scheduler),
     scheduler,
     now: NOW,
-    desiredRetention: 0.9,
+    events,
   });
 
   it('rolls up per subject and topic and skips empty topics', () => {
@@ -100,17 +109,40 @@ describe('buildStats', () => {
     ]);
   });
 
-  it('marks topics weak relative to the desired retention', () => {
+  it('measures accuracy over the last 30 days', () => {
+    expect(stats.overall.accuracy).toEqual({ answered: 5, right: 2, share: 0.4 });
+    const old = stats.topics.find((t) => t.id === 't-old');
+    const fresh = stats.topics.find((t) => t.id === 't-new');
+    expect(old?.accuracy).toEqual({ answered: 0, right: 0, share: null });
+    expect(fresh?.accuracy).toEqual({ answered: 4, right: 1, share: 0.25 });
+  });
+
+  it('marks topics weak by recent accuracy, not by expected recall', () => {
     const old = stats.topics.find((t) => t.id === 't-old');
     const fresh = stats.topics.find((t) => t.id === 't-new');
     expect(old?.retention).toBeLessThan(0.85);
-    expect(old?.weak).toBe(true);
-    expect(fresh?.weak).toBe(false);
+    expect(old?.weak).toBe(false);
+    expect(fresh?.weak).toBe(true);
   });
 
-  it('sorts weakest first by retention or coverage', () => {
+  it('sorts weakest first by accuracy, expected recall or coverage', () => {
+    // No recent answers sorts last by accuracy.
+    expect(sortTopics(stats.topics, 'accuracy').map((t) => t.id)).toEqual(['t-new', 't-old']);
     expect(sortTopics(stats.topics, 'retention').map((t) => t.id)).toEqual(['t-old', 't-new']);
     expect(sortTopics(stats.topics, 'coverage').map((t) => t.id)).toEqual(['t-new', 't-old']);
+  });
+});
+
+describe('accuracyOf', () => {
+  it('counts right answers in the window, optionally for some questions', () => {
+    const events = [
+      ev('x', NOW - 40 * DAY_MS),
+      ev('x', NOW - DAY_MS),
+      ev('y', NOW - DAY_MS, { correct: false, rating: 'again' }),
+    ];
+    expect(accuracyOf(events, NOW)).toEqual({ answered: 2, right: 1, share: 0.5 });
+    expect(accuracyOf(events, NOW, new Set(['x']))).toEqual({ answered: 1, right: 1, share: 1 });
+    expect(accuracyOf([], NOW).share).toBeNull();
   });
 });
 

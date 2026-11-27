@@ -44,7 +44,8 @@
   /* Library: shelves beside the selected subject (DESIGN 3). */
   .split {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    /* Shelves and the selected subject get equal width (Martin, 2026-11-27). */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--space-6);
     align-items: start;
   }

@@ -78,14 +78,14 @@ export function ClozeAnswer({
       {!feedback ? (
         <>
           <p class="answer__hint">{t('session.clozeHint')}</p>
-          <div class="chips" role="group" aria-label={t('session.wordBank')}>
+          <div class="word-bank" role="group" aria-label={t('session.wordBank')}>
             {layout.map((_, displayIndex) => {
               const used = fills.includes(displayIndex);
               return (
                 <button
                   key={displayIndex}
                   type="button"
-                  class="chip"
+                  class="word-chip"
                   disabled={used || target < 0}
                   onClick={() => place(displayIndex)}
                 >

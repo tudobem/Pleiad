@@ -118,11 +118,14 @@ a.button {
 .option--selected {
   border-color: var(--gold);
   background: var(--gold-tint);
+  /* A second inner line makes the selection unmistakable at a glance. */
+  box-shadow: inset 0 0 0 1px var(--gold);
 }
 
 .option--selected .option__letter {
   border-color: var(--gold);
-  color: var(--gold-text);
+  background: var(--gold);
+  color: var(--on-gold);
 }
 
 .option--correct {
@@ -353,4 +356,26 @@ a.button {
   position: relative;
   font-size: var(--text-caption);
   font-variant-numeric: tabular-nums;
+}
+
+/* Pressed feedback on touch (all tappable controls). */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:active:not(:disabled),
+.chip:active,
+.word-chip:active:not(:disabled),
+.option:active:not([aria-disabled='true']),
+.switch:active,
+.stepper__button:active:not(:disabled),
+.sidebar__item:active,
+.sidebar__subject:active,
+.tabbar__item:active,
+.subject-card:active,
+.quiet-row:active,
+.tree-row__toggle:active {
+  filter: brightness(1.25);
+  transition: filter var(--duration-fast) var(--ease-out);
 }

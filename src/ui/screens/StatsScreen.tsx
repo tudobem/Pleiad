@@ -63,7 +63,7 @@ export function StatsScreen() {
 function StatsBody({ data }: { data: LearningData }) {
   const services = useServices();
   const { clock } = services;
-  const [sort, setSort] = useState<TopicSort>('retention');
+  const [sort, setSort] = useState<TopicSort>('accuracy');
   const [busy, setBusy] = useState(false);
 
   const view = useMemo(() => {
@@ -73,7 +73,7 @@ function StatsBody({ data }: { data: LearningData }) {
       cards: data.cards,
       scheduler: data.scheduler,
       now,
-      desiredRetention: data.settings.desiredRetention,
+      events: data.events,
     });
     return {
       stats,
@@ -118,17 +118,31 @@ function StatsBody({ data }: { data: LearningData }) {
   return (
     <div class="stats__columns">
       <div class="stats__col stats__col--main">
-        <section class="stats__hero" aria-label={t('stats.retention')}>
+        <section class="stats__hero" aria-label={t('stats.accuracy')}>
           <p class="stats__big">
-            {stats.overall.retention === null
+            {stats.overall.accuracy.share === null
               ? t('stats.retentionNone')
-              : `${pct(stats.overall.retention)}%`}
+              : `${pct(stats.overall.accuracy.share)}%`}
           </p>
-          <p class="stats__big-label">{t('stats.retention')}</p>
-          <p class="screen__muted stats__hint">{t('stats.retentionHint')}</p>
+          <p class="stats__big-label">{t('stats.accuracy')}</p>
+          <p class="screen__muted stats__hint">
+            {t('stats.accuracyHint', {
+              right: stats.overall.accuracy.right,
+              answered: stats.overall.accuracy.answered,
+            })}
+          </p>
         </section>
 
         <dl class="stats__tiles">
+          <div class="stats__tile">
+            <dt>{t('stats.recall')}</dt>
+            <dd class="stats__tile-value">
+              {stats.overall.retention === null
+                ? t('stats.retentionNone')
+                : `${pct(stats.overall.retention)}%`}
+            </dd>
+            <dd class="stats__tile-detail">{t('stats.recallDetail')}</dd>
+          </div>
           <div class="stats__tile">
             <dt>{t('stats.coverage')}</dt>
             <dd class="stats__tile-value">
@@ -152,12 +166,16 @@ function StatsBody({ data }: { data: LearningData }) {
             <dd class="stats__tile-detail">{t('stats.answersDetail', { total: act.total })}</dd>
           </div>
         </dl>
+        <p class="screen__muted stats__hint">{t('stats.recallHint')}</p>
 
         <section class="stats__section" aria-labelledby="stats-topics">
           <h2 class="shelf__title" id="stats-topics">
             {t('stats.topics')}
           </h2>
           <div class="chips" role="group" aria-label={t('stats.sortLabel')}>
+            <Chip pressed={sort === 'accuracy'} onClick={() => setSort('accuracy')}>
+              {t('stats.sortAccuracy')}
+            </Chip>
             <Chip pressed={sort === 'retention'} onClick={() => setSort('retention')}>
               {t('stats.sortRetention')}
             </Chip>
@@ -165,31 +183,41 @@ function StatsBody({ data }: { data: LearningData }) {
               {t('stats.sortCoverage')}
             </Chip>
           </div>
+          <p class="screen__muted stats__hint">{t(`stats.sortIntro.${sort}` as StringId)}</p>
           {topics.length === 0 ? (
             <p class="screen__muted">{t('stats.noTopics')}</p>
           ) : (
             <ul class="stat-list">
               {topics.map((x) => {
-                const shown = sort === 'retention' ? (x.retention ?? 0) : x.coverage;
-                const detail = t('stats.topicCoverage', {
-                  started: x.started,
-                  verified: x.verified,
-                });
+                const share = x.accuracy.share;
+                const shown =
+                  sort === 'accuracy'
+                    ? (share ?? 0)
+                    : sort === 'retention'
+                      ? (x.retention ?? 0)
+                      : x.coverage;
+                const valueText =
+                  sort === 'accuracy' && share === null
+                    ? t('stats.noRecent')
+                    : t('stats.topicValue', { percent: pct(shown) });
+                const detail =
+                  sort === 'accuracy'
+                    ? t('stats.topicAnswers', { n: x.accuracy.answered })
+                    : t('stats.topicCoverage', { started: x.started, verified: x.verified });
                 return (
                   <StatBar
                     key={x.id}
                     label={x.label}
                     caption={x.subjectLabel}
                     value={shown}
-                    valueText={t('stats.topicValue', { percent: pct(shown) })}
+                    valueText={valueText}
                     detail={detail}
                     weak={x.weak}
                     href={href('library', x.subjectId, x.branchId)}
                     ariaLabel={t('stats.topicLabel', {
                       topic: x.label,
-                      percent: pct(x.retention ?? 0),
-                      started: x.started,
-                      verified: x.verified,
+                      value: valueText,
+                      detail,
                     })}
                   />
                 );
