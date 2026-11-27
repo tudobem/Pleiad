@@ -3,7 +3,8 @@ import { saveFile } from '../share/shareFile.ts';
 
 const USAGE_KEY = 'pleiad.usage';
 
-export const browserDevice: Device = {
+/** The browser parts of Device; the service worker parts are added in src/app. */
+export const browserDevice: Omit<Device, 'onUpdateReady' | 'applyUpdate'> = {
   saveFile: (name, text) => saveFile(name, text),
   isStandalone: () =>
     window.matchMedia?.('(display-mode: standalone)').matches === true ||

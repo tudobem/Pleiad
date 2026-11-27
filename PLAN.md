@@ -49,9 +49,9 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - [x] Backup reminder banner, standalone-mode warning, data-loss detection
 
 ## M8: iPad landscape and offline hardening
-- [ ] Sidebar layout, two-pane Session, Library and Stats wide layouts
-- [ ] Keyboard shortcuts
-- [ ] Offline tests; update prompt; startup budget check
+- [x] Sidebar layout, two-pane Session, Library and Stats wide layouts
+- [x] Keyboard shortcuts
+- [x] Offline tests; update prompt; startup budget check
 
 ## M9: Gamification and Rewards
 - [ ] Goal ring, streak with weekly grace day, XP/levels, about 8 badges, weekly challenge
@@ -155,3 +155,7 @@ Definition of done for every milestone: `npm ci && npm test && npm run build` pa
 - 2026-11-26, M7: A backup file (`format: "pleiad-backup"`, `schema_version` 1) holds the review log, the settings, notes and flags stores, the profile ID and export metadata. Card state is not exported; it is rebuilt by replaying the log on import. The device ID, the saved in-progress session and UI flags are not exported. Files from a newer schema are refused; older ones go through a migration table (empty so far). Limit 25 MB.
 - 2026-11-26, M7: Import is atomic: the complete new state is computed in core (`planReplace` / `planMerge`), then written by `StorageAdapter.replaceAll` in one IndexedDB transaction; a validation or write failure changes nothing. Replace keeps this device's ID and takes the backup's profile, drops any saved session, asks for confirmation, and reloads the app afterwards. Merge unions the logs by eventId (the local copy wins a conflicting eventId, counted in the result) and lets local settings, notes and flags win per key.
 - 2026-11-26, M7: Today shows at most one storage notice, by priority: data loss (a localStorage marker remembers how many answers this browser had; if the database log is empty but the marker is not, it offers "Restore from backup"), then the browser-tab warning when not running as an installed app (dismissible, stored in meta), then the backup reminder when the last export, or the first answer if never exported, is more than 7 days old. `navigator.storage.persist()` is requested at startup but never relied on. Settings now has the Backup section; the other preferences come later.
+- 2026-11-27, M8: The wide layout applies at `(min-width: 1000px) and (orientation: landscape)` (iPad landscape, desktop); portrait iPad keeps the phone layout. It is CSS-first (`src/ui/layout.css`), with a `useWide()` hook only for the Library split. The sidebar shows the five destinations and the active subjects with progress; it is hidden in a session, like the tab bar, so the two panes get the width. Session: question and actions left, Why card right (an "Answer to see why" placeholder before answering); on the phone the same markup keeps the old order. Library: shelves left, selected subject right. Stats: topics left, weak spots, heatmap and Rewards right. Today stays one column until the concept of the day and goal ring exist.
+- 2026-11-27, M8: Keyboard (SPEC 17, session only): 1 to 5 choose an MCQ option, Space or Enter check or reveal and then continue, 1 to 4 rate a revealed recall item. Keys typed into fields are left alone, a focused button keeps its own Space and Enter, and modifier combinations are ignored. A quiet key hint shows in the wide layout.
+- 2026-11-27, M8: Update prompt: when a new version is waiting, Today and Settings say "An update is ready. It applies the next time you open Pleiad." with "Restart now" (activates it and reloads). The session screen never shows it.
+- 2026-11-27, M8: Offline, update and startup checks are local Playwright scripts (`npm run e2e`, `e2e/README.md`), not CI, as Martin chose; no new dependency. First run: startup from cache 232 to 277 ms at 4x CPU throttle (budget 1000 ms). CI runs `npm run budget` after the build: initial JS <= 100 KB gzip (39.8 KB now) and precached shell without KaTeX <= 1 MB (397 KB now).

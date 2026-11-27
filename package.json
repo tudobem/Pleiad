@@ -11,9 +11,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "budget": "node scripts/check-budget.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "e2e": "node e2e/run.mjs",
     "lint": "eslint .",
     "typecheck": "tsc -b",
     "format": "prettier --write .",

@@ -49,6 +49,8 @@ function setup(now = NOW) {
       readUsage: () => 0,
       writeUsage: () => undefined,
       reload: () => undefined,
+      onUpdateReady: () => () => undefined,
+      applyUpdate: () => undefined,
     },
   };
   return { storage, services };

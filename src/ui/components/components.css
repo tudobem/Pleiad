@@ -262,3 +262,63 @@ a.button {
   padding: 0 var(--space-5);
   border-radius: var(--radius-button);
 }
+
+/* Sidebar (wide layout only; see layout.css) */
+.sidebar__name {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  color: var(--gold-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-semibold);
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar__item,
+.sidebar__subject {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap-min);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-option);
+  color: var(--text-muted);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.sidebar__subject {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+}
+
+.sidebar__item--active,
+.sidebar__subject--active {
+  background: var(--gold-tint);
+  color: var(--gold-text);
+}
+
+.sidebar__heading {
+  margin: 0 0 var(--space-2);
+  padding: 0 var(--space-3);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+
+.sidebar__subject .progress {
+  flex: none;
+}

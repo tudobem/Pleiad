@@ -17,4 +17,11 @@ export interface Device {
   readUsage(): number;
   writeUsage(answers: number): void;
   reload(): void;
+  /**
+   * Call `listener` once a new app version is installed and waiting (now, if
+   * it already is). Returns an unsubscribe function.
+   */
+  onUpdateReady(listener: () => void): () => void;
+  /** Activate the waiting version and reload (SPEC 18: never mid-session). */
+  applyUpdate(): void;
 }

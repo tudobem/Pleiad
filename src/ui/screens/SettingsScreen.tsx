@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import type { RestoreMode } from '../../core/backup/restore.ts';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
+import { UpdateNotice } from '../components/UpdateNotice.tsx';
 import {
   describeBackup,
   exportBackup,
@@ -20,6 +21,7 @@ export function SettingsScreen() {
   return (
     <main class="screen settings">
       <h1 class="screen__title">{t('settings.title')}</h1>
+      <UpdateNotice />
       <BackupSection />
       <p class="screen__muted">{t('settings.later')}</p>
       <p class="screen__muted">{t('settings.version', { version: appVersion })}</p>

@@ -131,7 +131,27 @@
   margin-top: auto;
 }
 
+.session__main,
+.session__aside {
+  /* Phone: one column; the panes only exist in the wide layout (layout.css). */
+  display: contents;
+}
+
+.session__why-empty,
+.session__keys {
+  display: none;
+  margin: 0;
+  color: var(--text-dim);
+  font-size: var(--text-caption);
+}
+
+.session__keys {
+  margin-top: var(--space-2);
+  text-align: center;
+}
+
 .session__footer {
+  order: 1;
   position: sticky;
   bottom: 0;
   padding: var(--space-3) 0 max(var(--space-2), env(safe-area-inset-bottom));
@@ -404,6 +424,13 @@
 }
 
 /* Stats (DESIGN 4.6) */
+.stats__columns,
+.stats__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .stats__hero {
   display: flex;
   flex-direction: column;

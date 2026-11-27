@@ -32,6 +32,8 @@ function setup(opts: { standalone?: boolean; usage?: number } = {}) {
       usage = n;
     },
     reload: () => undefined,
+    onUpdateReady: () => () => undefined,
+    applyUpdate: () => undefined,
   };
   const services: Services = {
     storage,

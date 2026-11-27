@@ -83,6 +83,8 @@ export const strings = {
   'rewards.body': 'Levels, badges and a weekly challenge arrive in a later update.',
   'rewards.back': 'Stats',
   'library.title': 'Library',
+  'library.chooseSubject': 'Choose a subject to see its branches and topics.',
+  'sidebar.subjects': 'Your subjects',
   'library.search': 'Search topics, thinkers and tags',
   'library.searchLabel': 'Search the Library',
   'library.filtersLabel': 'Show subjects',
@@ -148,6 +150,8 @@ export const strings = {
   'backup.error.invalid-content': 'This backup is damaged ({detail}). Nothing was changed.',
   'backup.error.write-failed': 'The backup could not be saved on this device. Nothing was changed.',
   'backup.error.read-failed': 'The file could not be read.',
+  'update.ready': 'An update is ready. It applies the next time you open Pleiad.',
+  'update.restart': 'Restart now',
   'notice.dataLoss': 'Your answers seem to be missing on this device.',
   'notice.dataLossAction': 'Restore from backup',
   'notice.browserTab':
@@ -157,6 +161,10 @@ export const strings = {
   'notice.backupAction': 'Back up now',
 
   'session.close': 'Close session',
+  'session.whyEmpty': 'Answer to see why.',
+  'session.keysMcq': 'Keys: 1 to 5 choose · Space check, then continue',
+  'session.keysRecall': 'Keys: Space show the answer · then 1 to 4 rate',
+  'session.keysOther': 'Keys: Space check, then continue',
   'session.progress': '{current} / {total}',
   'session.progressLabel': 'Question {current} of {total}',
   'session.optionsLabel': 'Answer options',
