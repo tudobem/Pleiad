@@ -42,3 +42,22 @@ describe('keyCommand', () => {
     expect(keyCommand(' ', ctx({ phase: 'feedback', busy: true }))).toBeNull();
   });
 });
+
+describe('confidence keys', () => {
+  it('maps Q, W, E to the confidence levels where asked', () => {
+    expect(keyCommand('q', ctx({ asksConfidence: true }))).toEqual({
+      kind: 'confidence',
+      confidence: 'guess',
+    });
+    expect(keyCommand('W', ctx({ asksConfidence: true }))).toEqual({
+      kind: 'confidence',
+      confidence: 'fairly_sure',
+    });
+    expect(keyCommand('e', ctx({ asksConfidence: true }))).toEqual({
+      kind: 'confidence',
+      confidence: 'certain',
+    });
+    expect(keyCommand('e', ctx())).toBeNull();
+    expect(keyCommand('e', ctx({ asksConfidence: true, phase: 'feedback' }))).toBeNull();
+  });
+});

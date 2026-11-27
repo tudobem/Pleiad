@@ -14,7 +14,9 @@ function ownedByTarget(event: KeyboardEvent): boolean {
 }
 
 /** Hardware keyboard shortcuts in a session (SPEC 17). */
-export function useSessionKeys(session: SessionController): void {
+export function useSessionKeys(
+  session: SessionController & { readonly asksConfidence: boolean },
+): void {
   const ref = useRef(session);
   ref.current = session;
 
@@ -31,6 +33,7 @@ export function useSessionKeys(session: SessionController): void {
         optionCount: question.type === 'mcq' ? question.options.length : 0,
         canCheck: s.canCheck,
         busy: s.busy,
+        asksConfidence: s.asksConfidence,
       });
       if (!command) return;
       event.preventDefault();
@@ -46,6 +49,9 @@ export function useSessionKeys(session: SessionController): void {
           break;
         case 'rate':
           s.next({ rating: command.rating });
+          break;
+        case 'confidence':
+          s.setConfidence(command.confidence);
           break;
       }
     };

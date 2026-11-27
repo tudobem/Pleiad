@@ -188,3 +188,45 @@ describe('migrateSession', () => {
     expect(migrateSession(null)).toBeNull();
   });
 });
+
+describe('confidence (SPEC 9)', () => {
+  const start = () => startSession('s', items, 0, opts);
+  const certain: SessionAction = { type: 'confidence', confidence: 'certain' };
+
+  it('records the chosen confidence with MCQ and short answers and keeps it for the next question', () => {
+    const s = run(
+      start(),
+      certain,
+      mcq(0),
+      { type: 'answer', correct: false, now: 10 },
+      { type: 'continue', now: 11 },
+    );
+    expect(s.answers[0]?.confidence).toBe('certain');
+    expect(s.confidence).toBe('certain');
+    const short = run(
+      s,
+      { type: 'respond', response: { type: 'short', text: 'x' } },
+      { type: 'answer', correct: true, now: 20 },
+    );
+    expect(short.answers[1]?.confidence).toBe('certain');
+  });
+
+  it('can be cleared, is ignored on feedback, and is not recorded for other types', () => {
+    const cleared = run(start(), certain, { type: 'confidence', confidence: null });
+    expect(cleared).not.toHaveProperty('confidence');
+    const feedback = run(start(), mcq(0), { type: 'answer', correct: true, now: 5 }, certain);
+    expect(feedback.confidence).toBeUndefined();
+    const recall = run(
+      start(),
+      certain,
+      { type: 'respond', response: { type: 'recall' } },
+      { type: 'answer', correct: false, now: 5 },
+    );
+    expect(recall.answers[0]).not.toHaveProperty('confidence');
+  });
+
+  it('still loads saved sessions without the field', () => {
+    const saved = JSON.parse(JSON.stringify(start()));
+    expect(migrateSession(saved)).toEqual(start());
+  });
+});

@@ -23,6 +23,8 @@ export interface Settings {
   readonly dailyGoal: number;
   /** Show goal, streak and rewards (SPEC 15: everything can be turned off). */
   readonly rewards: boolean;
+  /** Ask Guess / Fairly sure / Certain before MCQ and short answers (SPEC 9). */
+  readonly confidencePrompts: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -33,6 +35,7 @@ export const DEFAULT_SETTINGS: Settings = {
   autoUnlock: true,
   dailyGoal: 20,
   rewards: true,
+  confidencePrompts: true,
 };
 
 export const DAILY_GOAL_MIN = 5;
@@ -61,6 +64,10 @@ export function normalizeSettings(stored: Partial<Settings> | undefined): Settin
     autoUnlock: typeof s.autoUnlock === 'boolean' ? s.autoUnlock : DEFAULT_SETTINGS.autoUnlock,
     dailyGoal: intIn(s.dailyGoal, DAILY_GOAL_MIN, DAILY_GOAL_MAX, DEFAULT_SETTINGS.dailyGoal),
     rewards: typeof s.rewards === 'boolean' ? s.rewards : DEFAULT_SETTINGS.rewards,
+    confidencePrompts:
+      typeof s.confidencePrompts === 'boolean'
+        ? s.confidencePrompts
+        : DEFAULT_SETTINGS.confidencePrompts,
     ...(Array.isArray(s.activePacks)
       ? {
           activePacks: [

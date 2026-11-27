@@ -317,3 +317,10 @@
   font-size: var(--text-caption);
   text-align: center;
 }
+
+/* Confidence chips (SPEC 9) */
+.confidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

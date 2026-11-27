@@ -256,6 +256,13 @@ function StatsBody({ data }: { data: LearningData }) {
           <Heatmap days={act.days} />
         </section>
 
+        <a class="quiet-row" href={href('stats', 'calibration')}>
+          <span class="quiet-row__text">
+            <span>{t('calibration.row')}</span>
+            <span class="quiet-row__hint">{t('calibration.rowHint')}</span>
+          </span>
+          <Icon name="chevron" size={20} />
+        </a>
         {showRewards ? (
           <a class="quiet-row" href={href('stats', 'rewards')}>
             <span class="quiet-row__text">

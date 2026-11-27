@@ -1,4 +1,4 @@
-import type { Rating } from '../sync/reviewEvent.ts';
+import type { Confidence, Rating } from '../sync/reviewEvent.ts';
 import type { Response } from './response.ts';
 import type { SessionItem } from './session.ts';
 
@@ -28,6 +28,8 @@ export interface AnswerRecord {
   readonly selfRating?: Rating;
   /** Short answer: the user corrected the auto-grade ("I was right/wrong"). */
   readonly overridden?: boolean;
+  /** Confidence chosen before answering (SPEC 9; MCQ and short only). */
+  readonly confidence?: Confidence;
 }
 
 export type SessionPhase = 'question' | 'feedback' | 'done';
@@ -46,7 +48,12 @@ export interface SessionState {
   /** When the current question was shown (epoch ms). */
   readonly shownAt: number;
   readonly answers: readonly AnswerRecord[];
+  /** Selected confidence chip; kept from question to question (DESIGN 4.2). */
+  readonly confidence?: Confidence;
 }
+
+/** Question types that ask for confidence (SPEC 9). */
+export const CONFIDENCE_TYPES: readonly Response['type'][] = ['mcq', 'short'];
 
 export interface LeaveOptions {
   /** Rate a correct auto-graded answer Easy. */
@@ -57,6 +64,7 @@ export interface LeaveOptions {
 
 export type SessionAction =
   | { readonly type: 'respond'; readonly response: Response }
+  | { readonly type: 'confidence'; readonly confidence: Confidence | null }
   | { readonly type: 'answer'; readonly correct: boolean; readonly now: number }
   /** Short answers: the user says the auto-grade was wrong. */
   | { readonly type: 'override'; readonly correct: boolean }
@@ -110,9 +118,18 @@ export function sessionReducer(state: SessionState, action: SessionAction): Sess
   switch (action.type) {
     case 'respond':
       return state.phase === 'question' ? { ...state, response: action.response } : state;
+    case 'confidence': {
+      if (state.phase !== 'question') return state;
+      if (action.confidence) return { ...state, confidence: action.confidence };
+      // Clearing removes the field so saved sessions stay minimal.
+      return Object.fromEntries(
+        Object.entries(state).filter(([key]) => key !== 'confidence'),
+      ) as unknown as SessionState;
+    }
     case 'answer': {
       const item = state.items[state.index];
       if (state.phase !== 'question' || state.response === null || !item) return state;
+      const asksConfidence = CONFIDENCE_TYPES.includes(state.response.type);
       const record: AnswerRecord = {
         questionId: item.questionId,
         response: state.response,
@@ -120,6 +137,7 @@ export function sessionReducer(state: SessionState, action: SessionAction): Sess
         responseMs: Math.max(0, action.now - state.shownAt),
         answeredAt: action.now,
         tooEasy: false,
+        ...(asksConfidence && state.confidence ? { confidence: state.confidence } : {}),
       };
       return { ...state, phase: 'feedback', answers: [...state.answers, record] };
     }

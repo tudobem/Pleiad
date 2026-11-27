@@ -25,10 +25,44 @@ export function SettingsScreen() {
       <h1 class="screen__title">{t('settings.title')}</h1>
       <UpdateNotice />
       <GoalSection />
+      <AnsweringSection />
       <BackupSection />
       <p class="screen__muted">{t('settings.later')}</p>
       <p class="screen__muted">{t('settings.version', { version: appVersion })}</p>
     </main>
+  );
+}
+
+function AnsweringSection() {
+  const services = useServices();
+  const [settings, setSettings] = useState<Settings | undefined>(undefined);
+  useEffect(() => {
+    void loadSettings(services).then(setSettings);
+  }, [services]);
+  if (!settings) return null;
+  const toggle = async () =>
+    setSettings(await saveSettings(services, { confidencePrompts: !settings.confidencePrompts }));
+  return (
+    <section class="settings__section" aria-labelledby="answering-title">
+      <h2 class="shelf__title" id="answering-title">
+        {t('answering.title')}
+      </h2>
+      <button
+        type="button"
+        class="switch"
+        role="switch"
+        aria-checked={settings.confidencePrompts}
+        onClick={() => void toggle()}
+      >
+        <span class="switch__text">
+          <span class="switch__label">{t('answering.confidence')}</span>
+          <span class="switch__hint">{t('answering.confidenceHint')}</span>
+        </span>
+        <span class="switch__track" aria-hidden="true">
+          <span class="switch__thumb" />
+        </span>
+      </button>
+    </section>
   );
 }
 

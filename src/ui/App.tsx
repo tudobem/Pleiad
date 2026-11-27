@@ -2,6 +2,7 @@ import { Sidebar } from './components/Sidebar.tsx';
 import { TabBar } from './components/TabBar.tsx';
 import { useRoute } from './router.ts';
 import { SessionScreen } from './screens/SessionScreen.tsx';
+import { CalibrationScreen } from './screens/CalibrationScreen.tsx';
 import { LibraryScreen } from './screens/LibraryScreen.tsx';
 import { RewardsScreen, StatsScreen } from './screens/StatsScreen.tsx';
 import { SettingsScreen } from './screens/SettingsScreen.tsx';
@@ -40,7 +41,10 @@ export function App() {
         {route === 'today' ? <TodayScreen /> : null}
         {route === 'practice' ? <StubScreen title="practice.title" body="practice.body" /> : null}
         {route === 'stats' && location.id === 'rewards' ? <RewardsScreen /> : null}
-        {route === 'stats' && location.id !== 'rewards' ? <StatsScreen /> : null}
+        {route === 'stats' && location.id === 'calibration' ? <CalibrationScreen /> : null}
+        {route === 'stats' && location.id !== 'rewards' && location.id !== 'calibration' ? (
+          <StatsScreen />
+        ) : null}
         {route === 'library' && wide ? (
           // Wide: the shelves stay beside the selected subject (DESIGN 3).
           <div class="split">

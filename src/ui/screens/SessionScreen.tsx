@@ -3,13 +3,15 @@ import type { Question } from '../../core/content/types.ts';
 import type { Rating } from '../../core/sync/reviewEvent.ts';
 import { daysBetween } from '../../core/scheduler/day.ts';
 import type { SessionState } from '../../core/session/reducer.ts';
-import { sessionScore } from '../../core/session/reducer.ts';
+import { CONFIDENCE_TYPES, sessionScore } from '../../core/session/reducer.ts';
+import type { Response } from '../../core/session/response.ts';
 import { sessionXp } from '../../core/gamification/rewards.ts';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { Icon } from '../components/Icon.tsx';
 import { MathText } from '../components/MathText.tsx';
 import { AnswerArea } from '../components/answers/AnswerArea.tsx';
+import { ConfidenceChips } from '../components/answers/ConfidenceChips.tsx';
 import { ProgressBar } from '../components/ProgressBar.tsx';
 import type { LearningData } from '../learning.ts';
 import { navigate } from '../router.ts';
@@ -57,7 +59,13 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
   // Answers logged from here on belong to this session (for the XP line).
   const [eventsAtStart] = useState(() => data.events.length);
   const { state, question, item, response, pending } = session;
-  useSessionKeys(session);
+  // Chips show on MCQ and short items before answering (SPEC 9).
+  const asksConfidence =
+    !!question &&
+    data.settings.confidencePrompts &&
+    state.phase === 'question' &&
+    CONFIDENCE_TYPES.includes(question.type as Response['type']);
+  useSessionKeys({ ...session, asksConfidence });
   const total = state.items.length;
 
   if (state.phase === 'done' || !question || !item || !response) {
@@ -144,6 +152,9 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
           <MathText text={question.prompt} />
         </h1>
 
+        {asksConfidence ? (
+          <ConfidenceChips value={state.confidence} onChange={session.setConfidence} />
+        ) : null}
         <AnswerArea
           question={question}
           layout={item.layout}
@@ -198,15 +209,24 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
               recall
                 ? 'session.keysRecall'
                 : question.type === 'mcq'
-                  ? 'session.keysMcq'
-                  : 'session.keysOther',
+                  ? asksConfidence
+                    ? 'session.keysMcqConfidence'
+                    : 'session.keysMcq'
+                  : asksConfidence
+                    ? 'session.keysShortConfidence'
+                    : 'session.keysOther',
             )}
           </p>
         </div>
       </div>
       <aside class="session__aside" aria-label={t('session.why')}>
         {feedback ? (
-          <WhyCard question={question} />
+          <>
+            <WhyCard question={question} />
+            {pending.confidence === 'certain' && !pending.correct ? (
+              <ConfidentErrorCard question={question} questions={data.questions} />
+            ) : null}
+          </>
         ) : (
           <p class="session__why-empty">{t('session.whyEmpty')}</p>
         )}
@@ -276,6 +296,30 @@ function ResultHeader({ correct, consequence }: { correct: boolean; consequence:
         {consequence ? <span class="result__consequence">{consequence}</span> : null}
       </span>
     </div>
+  );
+}
+
+/** After a wrong "Certain" answer: a short prompt to reflect (SPEC 9). */
+function ConfidentErrorCard({
+  question,
+  questions,
+}: {
+  question: Question;
+  questions: ReadonlyMap<string, Question>;
+}) {
+  const confusable = (question.confusable_with ?? [])
+    .map((id) => questions.get(id))
+    .find((q): q is Question => q !== undefined);
+  return (
+    <Card class="why why--confident">
+      <p class="screen__overline">{t('confidence.whyTitle')}</p>
+      <p class="why__text">{t('confidence.whyBody')}</p>
+      {confusable ? (
+        <p class="why__source">
+          {t('confidence.confusedWith')} <MathText text={confusable.prompt} />
+        </p>
+      ) : null}
+    </Card>
   );
 }
 

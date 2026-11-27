@@ -124,3 +124,24 @@ describe('answers whose question is no longer served', () => {
     expect(replayCards([event], scheduler).get('retired-1')).toEqual(card);
   });
 });
+
+describe('confidence in reviews (SPEC 9)', () => {
+  it('rates a correct guess Hard and logs the confidence', () => {
+    const { event } = reviewForAnswer(events, ctx({ answer: answer({ confidence: 'guess' }) }));
+    expect(event.rating).toBe('hard');
+    expect(event.confidence).toBe('guess');
+  });
+
+  it('never changes the rating for Fairly sure or Certain', () => {
+    for (const confidence of ['fairly_sure', 'certain'] as const) {
+      expect(reviewForAnswer(events, ctx({ answer: answer({ confidence }) })).event.rating).toBe(
+        'good',
+      );
+      expect(
+        reviewForAnswer(events, ctx({ answer: answer({ confidence, correct: false }) })).event
+          .rating,
+      ).toBe('again');
+    }
+    expect(reviewForAnswer(events, ctx()).event).not.toHaveProperty('confidence');
+  });
+});
