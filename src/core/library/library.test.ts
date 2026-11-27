@@ -14,6 +14,7 @@ import {
   matchesFilter,
 } from './library.ts';
 import { searchLibrary } from './search.ts';
+import { findIndexNode, locateNode, questionIdsFor } from './drillScope.ts';
 
 const node = (
   id: string,
@@ -197,5 +198,32 @@ describe('searchLibrary', () => {
     expect(searchLibrary(INDEX, 'consciousness').map((r) => r.kind)).toEqual(['subject']);
     expect(searchLibrary(INDEX, 'philosophy mind').map((r) => r.id)).toEqual(['pom']);
     expect(searchLibrary(INDEX, '  ')).toEqual([]);
+  });
+});
+
+describe('drill scope', () => {
+  const library = buildLibrary({
+    index: INDEX,
+    cards: new Map(),
+    activePacks: ['mind', 'sci'],
+    now: NOW,
+    offsetMinutes: 0,
+  });
+
+  it('collects the question IDs under a subject, branch or topic', () => {
+    expect(questionIdsFor(INDEX.tree, 'pom')).toEqual(['m1', 'm2']);
+    expect(questionIdsFor(INDEX.tree, 'hist')).toEqual(['s1', 's2', 's3']);
+    expect(questionIdsFor(INDEX.tree, 'phenomenology')).toEqual(['m1', 'm2']);
+    expect(questionIdsFor(INDEX.tree, 'nope')).toEqual([]);
+    expect(findIndexNode(INDEX.tree, 'early')?.kind).toBe('topic');
+  });
+
+  it('locates a node with its subject', () => {
+    expect(locateNode(library, 'cs')?.subject.id).toBe('cs');
+    expect(locateNode(library, 'cs')?.node).toBeUndefined();
+    expect(locateNode(library, 'method')?.node?.id).toBe('method');
+    const t = locateNode(library, 'phenomenology');
+    expect([t?.subject.id, t?.node?.id]).toEqual(['pom', 'phenomenology']);
+    expect(locateNode(library, 'nope')).toBeUndefined();
   });
 });

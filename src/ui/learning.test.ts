@@ -8,6 +8,7 @@ import { seededRandom } from '../core/random.ts';
 import { DAY_MS, learningDay } from '../core/scheduler/day.ts';
 import { startSession, sessionReducer, type SessionState } from '../core/session/reducer.ts';
 import { replayCards } from '../core/sync/replay.ts';
+import { reviewEvent } from '../core/storageContract.test-util.ts';
 import type { ContentIndex, IndexPack } from '../core/content/contentIndex.ts';
 import { emptyCounts } from '../core/content/report.ts';
 import type { ContentSource, PackContent } from '../core/content/source.ts';
@@ -19,6 +20,7 @@ import {
   loadResumableSession,
   loadSettings,
   setPacksActive,
+  startDrill,
   startDrillSession,
   startSubjectSession,
 } from './learning.ts';
@@ -283,5 +285,62 @@ describe('startDrillSession', () => {
     expect(session.mode).toBe('extra');
     expect(session.items.map((i) => i.questionId)).toEqual([live.id]);
     expect(await storage.get('meta', 'activeSession')).toEqual(session);
+  });
+
+  it('logs an item due today as a scheduled review and the rest as extra', async () => {
+    const other = mcq({ id: 'other-1', status: 'verified', verified_on: '2026-02-01' });
+    const { storage, services } = setup();
+    // Both answered long ago: live-1 in the Daily queue (now overdue), other-1 only in practice.
+    await storage.appendReview(
+      reviewEvent({ eventId: 'old', cardId: live.id, ts: NOW - 30 * DAY_MS, mode: 'scheduled' }),
+    );
+    const questions = new Map([
+      [live.id, live],
+      [other.id, other],
+    ]);
+    const data = await loadLearningData(services, questions);
+    let session = await startDrillSession(services, data, [live.id, other.id]);
+    expect(session.items.map((i) => i.mode)).toEqual(['scheduled', 'extra']);
+    for (let i = 0; i < 2; i += 1) {
+      session = sessionReducer(session, { type: 'respond', response: { type: 'mcq', choice: 0 } });
+      session = sessionReducer(session, { type: 'answer', correct: true, now: NOW });
+      await commitPending(services, data, session);
+      session = sessionReducer(session, { type: 'continue', now: NOW });
+    }
+    const logged = (await storage.listReviews()).slice(1);
+    expect(logged.map((e) => [e.cardId, e.mode])).toEqual([
+      [live.id, 'scheduled'],
+      [other.id, 'extra'],
+    ]);
+    expect(logged[0]?.schedulerStateAfter).not.toBeNull();
+    expect(logged[1]?.schedulerStateAfter).toBeNull();
+  });
+});
+
+describe('startDrill', () => {
+  it('logs the answer of a session paused on feedback before replacing it', async () => {
+    const { storage, services } = setup();
+    const data = await loadLearningData(services, new Map([[live.id, live]]));
+    await storage.put('meta', 'activeSession', pausedOn(live.id, true, learningDay(NOW, 0)));
+    const session = await startDrill(services, data, { kind: 'topic', filter: {} });
+    expect((await storage.listReviews()).map((e) => e.cardId)).toEqual([live.id]);
+    expect(await storage.get('meta', 'activeSession')).toEqual(session);
+  });
+
+  it('starts a topic drill limited to the filter and the drill size', async () => {
+    const many = Array.from({ length: 25 }, (_, i) =>
+      mcq({ id: `t-${i}`, status: 'verified', verified_on: '2026-02-01', tier: 'foundational' }),
+    );
+    const { services } = setup();
+    const data = await loadLearningData(services, new Map(many.map((x) => [x.id, x])));
+    const ten = await startDrill(services, data, { kind: 'topic', filter: {} });
+    expect(ten.items).toHaveLength(10);
+    const all = await startDrill(
+      services,
+      { ...data, settings: { ...data.settings, drillSize: 'all' } },
+      { kind: 'topic', filter: { scope: new Set(['t-1', 't-2']) } },
+    );
+    expect(all.items.map((i) => i.questionId).sort()).toEqual(['t-1', 't-2']);
+    expect(all.mode).toBe('extra');
   });
 });

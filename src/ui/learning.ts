@@ -7,6 +7,7 @@ import { reviewForAnswer, subjectFor } from '../core/session/commit.ts';
 import { buildDailyQueue, type DailyQueue } from '../core/session/dailyQueue.ts';
 import {
   finalizeAnswer,
+  itemMode,
   migrateSession,
   pendingAnswer,
   type LeaveOptions,
@@ -14,7 +15,16 @@ import {
   startSession,
   type SessionState,
 } from '../core/session/reducer.ts';
-import { buildSession, toSessionItems } from '../core/session/session.ts';
+import {
+  confusableDrill,
+  drillItems,
+  topicDrill,
+  weakSpotDrill,
+  type DrillInput,
+  type DrillSize,
+  type TopicFilter,
+} from '../core/session/drill.ts';
+import { buildSession, toSessionItems, type SessionItem } from '../core/session/session.ts';
 import { slowThresholds, type SlowThresholds } from '../core/session/slow.ts';
 import {
   normalizeSettings,
@@ -170,7 +180,7 @@ export async function commitPending(
     {
       question,
       answer,
-      mode: session.mode,
+      mode: itemMode(session),
       card: data.cards.get(question.id),
       scheduler: data.scheduler,
       thresholds: data.thresholds,
@@ -308,18 +318,88 @@ export async function startSubjectSession(
   );
 }
 
-/** Drill the given questions as extra practice (SPEC 7.6: no FSRS change). */
+/** What a drill needs from the loaded data, at the current time. */
+export function drillInput(
+  services: Services,
+  data: LearningData,
+  size: DrillSize = data.settings.drillSize,
+): DrillInput {
+  const now = services.clock.now();
+  return {
+    questions: data.questions,
+    cards: data.cards,
+    events: data.events,
+    scheduler: data.scheduler,
+    now,
+    offsetMinutes: services.clock.utcOffsetMinutes(now),
+    random: services.random,
+    size,
+  };
+}
+
+/** The Practice drills (SPEC 8.2 to 8.4). */
+export type DrillRequest =
+  | { readonly kind: 'topic'; readonly filter: TopicFilter }
+  | { readonly kind: 'weak' }
+  | { readonly kind: 'confusable' };
+
+/** The items a drill would start with now (empty when nothing matches). */
+export function drillPlan(
+  services: Services,
+  data: LearningData,
+  request: DrillRequest,
+): SessionItem[] {
+  const input = drillInput(services, data);
+  switch (request.kind) {
+    case 'topic':
+      return topicDrill(input, request.filter);
+    case 'weak':
+      return weakSpotDrill(input);
+    case 'confusable':
+      return confusableDrill(input);
+  }
+}
+
+/**
+ * End a saved session before another one replaces it, keeping an answer the
+ * user already gave (the log is the source of truth).
+ */
+async function closeSavedSession(services: Services, data: LearningData): Promise<void> {
+  const raw: unknown = await services.storage.get('meta', SESSION_KEY);
+  const saved = raw ? migrateSession(raw) : null;
+  if (saved) await commitPending(services, data, saved);
+}
+
+async function startDrillItems(
+  services: Services,
+  data: LearningData,
+  items: () => SessionItem[],
+): Promise<SessionState> {
+  await closeSavedSession(services, data);
+  // Items due today are scheduled reviews; the rest is extra practice (SPEC 7.6, 8.2).
+  return begin(
+    services,
+    startSession(services.ids.newId(), items(), services.clock.now(), {
+      mode: 'extra',
+      day: today(services),
+    }),
+  );
+}
+
+/** Start a Practice drill. */
+export function startDrill(
+  services: Services,
+  data: LearningData,
+  request: DrillRequest,
+): Promise<SessionState> {
+  return startDrillItems(services, data, () => drillPlan(services, data, request));
+}
+
+/** Drill the given questions in this order (Stats "Drill these"). */
 export function startDrillSession(
   services: Services,
   data: LearningData,
   ids: readonly string[],
 ): Promise<SessionState> {
-  const items = toSessionItems(ids, data.questions, services.random);
-  return begin(
-    services,
-    startSession(services.ids.newId(), items, services.clock.now(), {
-      mode: 'extra',
-      day: today(services),
-    }),
-  );
+  return startDrillItems(services, data, () => drillItems(ids, drillInput(services, data)));
 }

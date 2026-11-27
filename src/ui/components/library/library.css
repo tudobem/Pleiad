@@ -208,3 +208,34 @@
 .tree-row--empty .tree-row__count {
   color: var(--text-dim);
 }
+
+/* Subject page: a small Drill link beside branch and topic rows (DESIGN 4.5). */
+.tree-row__drill {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-2);
+  color: var(--gold-text);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.tree-row__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tree-row__head > .tree-row__toggle,
+.tree-row__head > .tree-row__static,
+.tree-row__head > .tree-row__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.tree-row__drill:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}

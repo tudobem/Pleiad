@@ -6,7 +6,7 @@ import { CalibrationScreen } from './screens/CalibrationScreen.tsx';
 import { LibraryScreen } from './screens/LibraryScreen.tsx';
 import { RewardsScreen, StatsScreen } from './screens/StatsScreen.tsx';
 import { SettingsScreen } from './screens/SettingsScreen.tsx';
-import { StubScreen } from './screens/StubScreen.tsx';
+import { PracticeScreen } from './screens/PracticeScreen.tsx';
 import { SubjectScreen } from './screens/SubjectScreen.tsx';
 import { TodayScreen } from './screens/TodayScreen.tsx';
 import { useServices } from './services.ts';
@@ -39,7 +39,12 @@ export function App() {
           </p>
         ) : null}
         {route === 'today' ? <TodayScreen /> : null}
-        {route === 'practice' ? <StubScreen title="practice.title" body="practice.body" /> : null}
+        {route === 'practice' ? (
+          <PracticeScreen
+            key={location.id ?? ''}
+            {...(location.id ? { target: location.id } : {})}
+          />
+        ) : null}
         {route === 'stats' && location.id === 'rewards' ? <RewardsScreen /> : null}
         {route === 'stats' && location.id === 'calibration' ? <CalibrationScreen /> : null}
         {route === 'stats' && location.id !== 'rewards' && location.id !== 'calibration' ? (

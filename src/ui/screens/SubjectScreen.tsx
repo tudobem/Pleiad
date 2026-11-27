@@ -181,6 +181,7 @@ function SubjectDetail({
               accent={subject.accent}
               open={expanded.has(node.id)}
               onToggle={() => toggle(node.id)}
+              {...(subject.active ? { drillHref: (id: string) => href('practice', id) } : {})}
             />
           ))}
         </ul>

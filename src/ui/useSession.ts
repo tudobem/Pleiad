@@ -4,6 +4,7 @@ import { previewDue } from '../core/session/commit.ts';
 import { grade, type Grade } from '../core/session/grading.ts';
 import {
   currentItem,
+  itemMode,
   pendingAnswer,
   sessionReducer,
   type AnswerRecord,
@@ -102,7 +103,7 @@ export function useSession(initial: SessionState, data: LearningData): SessionCo
           {
             question,
             answer: pending,
-            mode: state.mode,
+            mode: itemMode(state),
             card: data.cards.get(question.id),
             scheduler: data.scheduler,
             thresholds: data.thresholds,

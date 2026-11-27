@@ -841,3 +841,87 @@
 .why--confident {
   border-color: var(--coral);
 }
+
+/* Practice (SPEC 8): drill length, weak spots, confusable pairs, topic drill. */
+.practice__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.practice__intro .chips {
+  align-items: center;
+}
+
+.practice__caption {
+  margin: 0;
+  text-align: left;
+}
+
+.practice__columns,
+.practice__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.practice__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.practice__card .screen__subtitle,
+.practice__card .screen__muted {
+  margin: 0;
+}
+
+.practice__label {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
+.practice__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* A drawn chevron, so the select can drop the native arrow. */
+.practice__field::after {
+  content: '';
+  position: absolute;
+  right: var(--space-4);
+  bottom: calc(var(--tap-min) / 2 + 2px);
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.practice__select {
+  appearance: none;
+  min-height: var(--tap-min);
+  padding: 0 calc(var(--space-6) + var(--space-2)) 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-option);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  /* 16 px keeps iOS from zooming into the field. */
+  font-size: max(16px, var(--text-body));
+}
+
+.practice__select:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.practice__inactive {
+  margin: 0;
+}
