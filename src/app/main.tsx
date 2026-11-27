@@ -37,7 +37,7 @@ async function main(): Promise<void> {
     identity: await loadIdentity(storage, uuidIds),
     appVersion: __APP_VERSION__,
     persistent,
-    device: browserDevice,
+    device: { ...browserDevice, ...registerServiceWorker() },
   };
   requestPersistentStorage();
 
@@ -47,7 +47,6 @@ async function main(): Promise<void> {
     </ServicesContext.Provider>,
     root,
   );
-  registerServiceWorker();
 }
 
 void main();

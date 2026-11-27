@@ -2,6 +2,7 @@ import { useMemo, useState } from 'preact/hooks';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { StorageNotice } from '../components/Notice.tsx';
+import { UpdateNotice } from '../components/UpdateNotice.tsx';
 import {
   closeSession,
   startPracticeSession,
@@ -81,6 +82,7 @@ export function TodayScreen() {
         <circle cx="196" cy="40" r="1.4" class="today__star" />
         <circle cx="120" cy="56" r="4" class="today__star today__star--lit" />
       </svg>
+      <UpdateNotice />
       {learning.status === 'ready' ? <StorageNotice data={learning.value.data} /> : null}
       {body}
     </main>

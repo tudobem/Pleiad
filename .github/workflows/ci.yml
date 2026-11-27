@@ -28,6 +28,7 @@ jobs:
       - run: npm test
       - run: npm run validate:content
       - run: npm run build
+      - run: npm run budget
 
   deploy:
     # Deploy to GitHub Pages only from main, and only when checks pass.

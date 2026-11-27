@@ -1,0 +1,114 @@
+/*
+ * Wide layout (DESIGN 3): iPad landscape and desktop. The media query must
+ * match WIDE_QUERY in useWide.ts. Portrait tablets keep the phone layout.
+ */
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    gap: var(--space-6);
+    min-height: calc(100dvh - 2 * var(--screen-padding));
+  }
+
+  .layout__content {
+    min-width: 0;
+  }
+
+  .tabbar {
+    display: none;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: var(--screen-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    align-self: start;
+    max-height: calc(100dvh - 2 * var(--screen-padding));
+    padding-right: var(--space-4);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
+
+  /* Without a bottom tab bar, screens need no space reserved for it. */
+  .screen {
+    padding-bottom: var(--space-6);
+  }
+
+  /* Library: shelves beside the selected subject (DESIGN 3). */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .split > .screen {
+    max-width: none;
+    margin: 0;
+  }
+
+  .split__detail {
+    position: sticky;
+    top: var(--screen-padding);
+    max-height: calc(100dvh - 2 * var(--screen-padding));
+    overflow-y: auto;
+  }
+
+  .split .back-link {
+    display: none;
+  }
+
+  .split__empty {
+    padding-top: var(--space-6);
+    color: var(--text-muted);
+  }
+
+  /* Stats: topics on the left, weak spots and activity on the right. */
+  .stats {
+    max-width: 64rem;
+  }
+
+  .stats__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  /* Session: question on the left, explanation on the right (DESIGN 3). */
+  .session {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--space-6);
+    align-items: start;
+    max-width: 72rem;
+  }
+
+  .session__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-height: calc(100dvh - 2 * var(--screen-padding));
+  }
+
+  .session__aside {
+    position: sticky;
+    top: var(--screen-padding);
+    padding-top: calc(var(--tap-min) + var(--space-4));
+  }
+
+  .session__why-empty {
+    display: block;
+  }
+
+  .session__keys {
+    display: block;
+  }
+}

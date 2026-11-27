@@ -16,6 +16,7 @@ import { useServices } from '../services.ts';
 import { t, type StringId } from '../strings.ts';
 import { useLearning } from '../useLearning.ts';
 import { useSession } from '../useSession.ts';
+import { useSessionKeys } from '../useSessionKeys.ts';
 import './screens.css';
 
 export function SessionScreen() {
@@ -53,6 +54,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
   const { clock } = useServices();
   const session = useSession(initial, data);
   const { state, question, item, response, pending } = session;
+  useSessionKeys(session);
   const total = state.items.length;
 
   if (state.phase === 'done' || !question || !item || !response) {
@@ -101,83 +103,100 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
 
   return (
     <main class="session">
-      <header class="session__top">
-        <button
-          type="button"
-          class="session__close"
-          aria-label={t('session.close')}
-          onClick={() => navigate('today')}
-        >
-          <Icon name="close" />
-        </button>
-        <ProgressBar
-          value={(state.index + (feedback ? 1 : 0)) / total}
-          label={t('session.progressLabel', { current: position, total })}
-        />
-        <span class="session__count" aria-hidden="true">
-          {t('session.progress', { current: position, total })}
-        </span>
-      </header>
-
-      {feedback && !recall ? (
-        <ResultHeader correct={pending.correct} consequence={consequence} />
-      ) : null}
-
-      <h1 class="session__prompt">
-        <MathText text={question.prompt} />
-      </h1>
-
-      <AnswerArea
-        question={question}
-        layout={item.layout}
-        response={feedback ? pending.response : response}
-        feedback={feedback}
-        pending={pending}
-        grade={session.grade}
-        onRespond={session.respond}
-        onSubmit={session.check}
-        onOverride={session.override}
-      />
-
-      {feedback ? <WhyCard question={question} /> : null}
-      {session.saveFailed ? (
-        <p class="session__error" role="alert">
-          {t('common.saveError')}
-        </p>
-      ) : null}
-
-      <div class="session__footer">
-        {!feedback ? (
-          <Button onClick={session.check} disabled={!session.canCheck}>
-            {recall ? t('session.showAnswer') : t('session.check')}
-          </Button>
-        ) : recall ? (
-          <RatingButtons
-            onRate={(rating) => session.next({ rating })}
-            busy={session.busy}
-            daysFor={(rating) =>
-              state.mode === 'scheduled' ? daysUntil(session.nextDue({ rating })) : null
-            }
+      <div class="session__main">
+        <header class="session__top">
+          <button
+            type="button"
+            class="session__close"
+            aria-label={t('session.close')}
+            onClick={() => navigate('today')}
+          >
+            <Icon name="close" />
+          </button>
+          <ProgressBar
+            value={(state.index + (feedback ? 1 : 0)) / total}
+            label={t('session.progressLabel', { current: position, total })}
           />
-        ) : (
-          <>
-            <Button onClick={() => session.next()} disabled={session.busy}>
-              {position === total ? t('session.finish') : t('session.continue')}
+          <span class="session__count" aria-hidden="true">
+            {t('session.progress', { current: position, total })}
+          </span>
+        </header>
+
+        {feedback && !recall ? (
+          <ResultHeader correct={pending.correct} consequence={consequence} />
+        ) : null}
+
+        <h1 class="session__prompt">
+          <MathText text={question.prompt} />
+        </h1>
+
+        <AnswerArea
+          question={question}
+          layout={item.layout}
+          response={feedback ? pending.response : response}
+          feedback={feedback}
+          pending={pending}
+          grade={session.grade}
+          onRespond={session.respond}
+          onSubmit={session.check}
+          onOverride={session.override}
+        />
+
+        {session.saveFailed ? (
+          <p class="session__error" role="alert">
+            {t('common.saveError')}
+          </p>
+        ) : null}
+
+        <div class="session__footer">
+          {!feedback ? (
+            <Button onClick={session.check} disabled={!session.canCheck}>
+              {recall ? t('session.showAnswer') : t('session.check')}
             </Button>
-            {state.mode === 'scheduled' && pending.correct ? (
-              <div class="session__secondary">
-                <Button
-                  variant="text"
-                  onClick={() => session.next({ tooEasy: true })}
-                  disabled={session.busy}
-                >
-                  {t('session.tooEasy')}
-                </Button>
-              </div>
-            ) : null}
-          </>
-        )}
+          ) : recall ? (
+            <RatingButtons
+              onRate={(rating) => session.next({ rating })}
+              busy={session.busy}
+              daysFor={(rating) =>
+                state.mode === 'scheduled' ? daysUntil(session.nextDue({ rating })) : null
+              }
+            />
+          ) : (
+            <>
+              <Button onClick={() => session.next()} disabled={session.busy}>
+                {position === total ? t('session.finish') : t('session.continue')}
+              </Button>
+              {state.mode === 'scheduled' && pending.correct ? (
+                <div class="session__secondary">
+                  <Button
+                    variant="text"
+                    onClick={() => session.next({ tooEasy: true })}
+                    disabled={session.busy}
+                  >
+                    {t('session.tooEasy')}
+                  </Button>
+                </div>
+              ) : null}
+            </>
+          )}
+          <p class="session__keys">
+            {t(
+              recall
+                ? 'session.keysRecall'
+                : question.type === 'mcq'
+                  ? 'session.keysMcq'
+                  : 'session.keysOther',
+            )}
+          </p>
+        </div>
       </div>
+      <aside class="session__aside" aria-label={t('session.why')}>
+        {feedback ? (
+          <WhyCard question={question} />
+        ) : (
+          <p class="session__why-empty">{t('session.whyEmpty')}</p>
+        )}
+      </aside>
     </main>
   );
 }
