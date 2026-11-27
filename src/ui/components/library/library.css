@@ -1,6 +1,9 @@
 /* Library components (DESIGN 4.4, 4.5). Tokens only. */
 
 .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   min-height: var(--tap-min);
   padding: 0 var(--space-4);
   border: 1px solid var(--border);
@@ -13,10 +16,16 @@
   cursor: pointer;
 }
 
-.chip--pressed {
+/* Selected: from aria-pressed, so it outranks any plain .chip rule. */
+.chip[aria-pressed='true'] {
   border-color: var(--gold);
   background: var(--gold-tint);
   color: var(--gold-text);
+}
+
+.chip__check {
+  display: inline-grid;
+  color: var(--gold);
 }
 
 .shelf {
