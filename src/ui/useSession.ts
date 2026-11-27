@@ -13,6 +13,7 @@ import {
 } from '../core/session/reducer.ts';
 import { emptyResponse, isComplete, type Response } from '../core/session/response.ts';
 import type { SessionItem } from '../core/session/session.ts';
+import type { Confidence } from '../core/sync/reviewEvent.ts';
 import { commitPending, saveSession, type LearningData } from './learning.ts';
 import { useServices } from './services.ts';
 
@@ -30,6 +31,8 @@ export interface SessionController {
   /** Set when a review could not be saved. */
   readonly saveFailed: boolean;
   respond(response: Response): void;
+  /** Choose or clear the confidence chip (SPEC 9). */
+  setConfidence(confidence: Confidence | null): void;
   /** Check an auto-graded answer, or show the answer of a recall item. */
   check(): void;
   /** Short answers: "I was right" / "I was wrong". */
@@ -119,6 +122,7 @@ export function useSession(initial: SessionState, data: LearningData): SessionCo
     busy,
     saveFailed,
     respond: (r) => dispatch({ type: 'respond', response: r }),
+    setConfidence: (c) => dispatch({ type: 'confidence', confidence: c }),
     check,
     override: (correct) => dispatch({ type: 'override', correct }),
     next,

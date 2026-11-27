@@ -48,6 +48,7 @@ export function answerRating(ctx: AnswerContext): Rating {
   if (question.type === 'recall') return answer.selfRating ?? (answer.correct ? 'good' : 'again');
   return ratingFor({
     correct: answer.correct,
+    guess: answer.confidence === 'guess',
     slow: question.tier !== undefined && isSlow(thresholds, question.tier, answer.responseMs),
     tooEasy: answer.tooEasy,
   });
@@ -72,6 +73,7 @@ export function reviewForAnswer(
     rating,
     responseMs: ctx.answer.responseMs,
     ts: ctx.answer.answeredAt,
+    ...(ctx.answer.confidence ? { confidence: ctx.answer.confidence } : {}),
     ...(scheduled
       ? {
           schedulerStateBefore: before,

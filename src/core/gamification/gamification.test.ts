@@ -140,6 +140,7 @@ describe('badges', () => {
     topicsStarted: 0,
     brightSubject: false,
     challengesDone: 0,
+    calibratedWeeks: 0,
   };
   it('earns each badge at its threshold', () => {
     expect(badgeStates(none).every((b) => !b.earned)).toBe(true);
@@ -150,9 +151,10 @@ describe('badges', () => {
       topicsStarted: 10,
       brightSubject: true,
       challengesDone: 1,
+      calibratedWeeks: 1,
     });
     expect(all.every((b) => b.earned)).toBe(true);
-    expect(BADGES).toHaveLength(8);
+    expect(BADGES).toHaveLength(9);
     expect(
       badgeStates({ ...none, answers: 1, longestGoalStreak: 7 })
         .filter((b) => b.earned)

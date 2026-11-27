@@ -1,4 +1,4 @@
-/** About eight milestone badges (SPEC 15), all derived from the log. */
+/** About eight milestone badges (SPEC 15), all derived from the log (nine with True North, M10). */
 export type BadgeId =
   | 'first-light'
   | 'century'
@@ -7,7 +7,8 @@ export type BadgeId =
   | 'comeback'
   | 'explorer'
   | 'bright-star'
-  | 'challenger';
+  | 'challenger'
+  | 'true-north';
 
 export interface BadgeFacts {
   readonly answers: number;
@@ -19,6 +20,8 @@ export interface BadgeFacts {
   /** A subject with >= 20 started items at >= 80% retention. */
   readonly brightSubject: boolean;
   readonly challengesDone: number;
+  /** Weeks whose confidence was well calibrated (SPEC 9). */
+  readonly calibratedWeeks: number;
 }
 
 export const BADGES: readonly {
@@ -33,6 +36,7 @@ export const BADGES: readonly {
   { id: 'explorer', earned: (f) => f.topicsStarted >= 10 },
   { id: 'bright-star', earned: (f) => f.brightSubject },
   { id: 'challenger', earned: (f) => f.challengesDone >= 1 },
+  { id: 'true-north', earned: (f) => f.calibratedWeeks >= 1 },
 ];
 
 export function badgeStates(

@@ -1,3 +1,4 @@
+import { calibratedWeeks } from '../analytics/calibration.ts';
 import { masteryOf } from '../analytics/retention.ts';
 import type { ContentIndex, IndexTreeNode } from '../content/contentIndex.ts';
 import { questionIdsUnder } from '../library/library.ts';
@@ -116,6 +117,7 @@ export function buildRewards(input: RewardsInput): Rewards {
       return m.started >= BRIGHT_MIN_STARTED && (m.retention ?? 0) >= BRIGHT_RETENTION;
     }),
     challengesDone: done.length,
+    calibratedWeeks: calibratedWeeks(events, offsetMinutes).length,
   });
 
   return {
