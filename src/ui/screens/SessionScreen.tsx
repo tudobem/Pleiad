@@ -13,8 +13,10 @@ import { MathText } from '../components/MathText.tsx';
 import { AnswerArea } from '../components/answers/AnswerArea.tsx';
 import { ConfidenceChips } from '../components/answers/ConfidenceChips.tsx';
 import { ProgressBar } from '../components/ProgressBar.tsx';
-import type { LearningData } from '../learning.ts';
-import { navigate } from '../router.ts';
+import { savePlacement, type LearningData } from '../learning.ts';
+import { PLACEMENT_LENGTH } from '../../core/session/placement.ts';
+import type { Tier } from '../../core/content/types.ts';
+import { navigate, navigateHash } from '../router.ts';
 import { useServices } from '../services.ts';
 import { t, type StringId } from '../strings.ts';
 import { useLearning } from '../useLearning.ts';
@@ -66,7 +68,15 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
     state.phase === 'question' &&
     CONFIDENCE_TYPES.includes(question.type as Response['type']);
   useSessionKeys({ ...session, asksConfidence });
-  const total = state.items.length;
+  const total = state.placement
+    ? Math.max(PLACEMENT_LENGTH, state.items.length)
+    : state.items.length;
+  const leave = () =>
+    state.placement?.returnTo ? navigateHash(state.placement.returnTo) : navigate('today');
+
+  if (state.placement && (state.phase === 'done' || !question || !item || !response)) {
+    return <PlacementDone state={state} data={data} onLeave={leave} />;
+  }
 
   if (state.phase === 'done' || !question || !item || !response) {
     const score = sessionScore(state);
@@ -109,7 +119,9 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
 
   let consequence: string | null = null;
   if (feedback && !recall) {
-    if (mode === 'extra') {
+    if (state.placement) {
+      consequence = t('session.placementOnly');
+    } else if (mode === 'extra') {
       consequence = t('session.practiceOnly');
     } else {
       const n = daysUntil(session.nextDue());
@@ -132,7 +144,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
             type="button"
             class="session__close"
             aria-label={t('session.close')}
-            onClick={() => navigate('today')}
+            onClick={leave}
           >
             <Icon name="close" />
           </button>
@@ -375,5 +387,47 @@ function WhyCard({ question }: { question: Question }) {
         </>
       ) : null}
     </Card>
+  );
+}
+
+/** End of a placement quiz: save and show the level (SPEC 13). */
+function PlacementDone({
+  state,
+  data,
+  onLeave,
+}: {
+  state: SessionState;
+  data: LearningData;
+  onLeave: () => void;
+}) {
+  const services = useServices();
+  const [level, setLevel] = useState<Tier | null | undefined>(undefined);
+  useEffect(() => {
+    savePlacement(services, data, state).then(
+      (l) => setLevel(l ?? null),
+      () => setLevel(null),
+    );
+  }, [services, data, state]);
+  const score = sessionScore(state);
+  return (
+    <main class="screen session-done">
+      <p class="screen__overline">{t('placement.overline')}</p>
+      <h1 class="screen__title">
+        {level ? t('placement.result', { level: t(`tier.${level}`) }) : t('placement.noResult')}
+      </h1>
+      {score.answered > 0 ? (
+        <p class="session-done__score">
+          {t('session.doneScore', { correct: score.correct, total: score.answered })}
+        </p>
+      ) : null}
+      <p class="screen__muted">
+        {level ? t(`placement.meaning.${level}`) : t('placement.noResultBody')}
+      </p>
+      <div class="session__footer">
+        <Button onClick={onLeave} disabled={level === undefined}>
+          {t('placement.done')}
+        </Button>
+      </div>
+    </main>
   );
 }

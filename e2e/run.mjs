@@ -77,6 +77,8 @@ async function installed(browser) {
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   await page.goto(`${URL_BASE}#/today`);
+  // A fresh profile opens the first-run welcome (SPEC 13); skip it.
+  await page.getByRole('button', { name: 'Skip setup' }).click();
   await page.getByRole('button', { name: "Start today's session" }).waitFor();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();

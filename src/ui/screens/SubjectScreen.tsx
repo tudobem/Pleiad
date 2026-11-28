@@ -4,7 +4,14 @@ import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { Icon } from '../components/Icon.tsx';
 import { TreeRow } from '../components/library/TreeRow.tsx';
-import { type LearningData, setPacksActive, startSubjectSession, todayQueue } from '../learning.ts';
+import { placementEligible } from '../../core/session/placement.ts';
+import {
+  type LearningData,
+  setPacksActive,
+  startPlacement,
+  startSubjectSession,
+  todayQueue,
+} from '../learning.ts';
 import { href, navigate } from '../router.ts';
 import { useServices } from '../services.ts';
 import { t } from '../strings.ts';
@@ -147,6 +154,9 @@ function SubjectDetail({
             {t('subject.practice', { subject: subject.label })}
           </Button>
           <p class="today__caption">{caption}</p>
+          {subject.active && placementEligible(subject.verified) ? (
+            <PlacementEntry data={data} subject={subject} busy={busy} setBusy={setBusy} />
+          ) : null}
           {offline ? (
             <p class="session__error" role="alert">
               {t('subject.offline')}
@@ -187,5 +197,41 @@ function SubjectDetail({
         </ul>
       </section>
     </>
+  );
+}
+
+/** "Find my level" (SPEC 13): a placement quiz for subjects with enough questions. */
+function PlacementEntry({
+  data,
+  subject,
+  busy,
+  setBusy,
+}: {
+  data: LearningData;
+  subject: LibrarySubject;
+  busy: boolean;
+  setBusy: (b: boolean) => void;
+}) {
+  const services = useServices();
+  const placed = subject.packs.map((p) => data.settings.placements[p]).find(Boolean);
+  const start = async () => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      await startPlacement(services, data, subject.packs, href('library', subject.id));
+      navigate('session');
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <div class="subject__placement">
+      {placed ? (
+        <p class="today__caption">{t('placement.current', { level: t(`tier.${placed}`) })}</p>
+      ) : null}
+      <Button variant="text" onClick={() => void start()} disabled={busy}>
+        {placed ? t('placement.again') : t('placement.find')}
+      </Button>
+    </div>
   );
 }

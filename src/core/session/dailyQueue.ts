@@ -76,7 +76,8 @@ export function buildDailyQueue(input: QueueInput): DailyQueue {
     (q) =>
       inScope(q) &&
       !introduced(cards, q.id) &&
-      tierUnlocked(q, questions, cards, settings.autoUnlock) &&
+      (tierUnlocked(q, questions, cards, settings.autoUnlock) ||
+        placementUnlocks(q, settings.placements)) &&
       prerequisitesMet(q, byId, cards),
   );
   const random = seededRandom(day);
@@ -125,6 +126,15 @@ export function tierUnlocked(
   if (q.tier === 'advanced') return advancedOpen;
   const advanced = ratio('advanced');
   return advancedOpen && (advanced === null || advanced >= UNLOCK_RATIO);
+}
+
+/** A placement result opens every tier up to it in that pack (SPEC 13). */
+export function placementUnlocks(
+  q: Question,
+  placements: Readonly<Record<string, Tier>> | undefined,
+): boolean {
+  const placed = placements?.[q.pack];
+  return placed !== undefined && TIERS.indexOf(q.tier) <= TIERS.indexOf(placed);
 }
 
 /** A prerequisite question must be introduced; a concept needs any introduced question using it. */

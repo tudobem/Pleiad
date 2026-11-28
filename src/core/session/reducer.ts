@@ -32,6 +32,13 @@ export interface AnswerRecord {
   readonly confidence?: Confidence;
 }
 
+/** A placement quiz (SPEC 13): the packs it places, and where to go when it ends. */
+export interface PlacementInfo {
+  readonly packs: readonly string[];
+  /** Hash route to return to, e.g. the welcome flow or a subject page. */
+  readonly returnTo?: string;
+}
+
 export type SessionPhase = 'question' | 'feedback' | 'done';
 
 export interface SessionState {
@@ -50,6 +57,8 @@ export interface SessionState {
   readonly answers: readonly AnswerRecord[];
   /** Selected confidence chip; kept from question to question (DESIGN 4.2). */
   readonly confidence?: Confidence;
+  /** A placement quiz (SPEC 13) for these packs; it grows one question at a time. */
+  readonly placement?: PlacementInfo;
 }
 
 /** Question types that ask for confidence (SPEC 9). */
@@ -68,25 +77,32 @@ export type SessionAction =
   | { readonly type: 'answer'; readonly correct: boolean; readonly now: number }
   /** Short answers: the user says the auto-grade was wrong. */
   | { readonly type: 'override'; readonly correct: boolean }
-  | ({ readonly type: 'continue'; readonly now: number } & LeaveOptions)
+  | ({
+      readonly type: 'continue';
+      readonly now: number;
+      /** Placement: the next question, added before moving on. */
+      readonly append?: SessionItem;
+    } & LeaveOptions)
   /** Restart the response timer after resuming a saved session. */
   | { readonly type: 'resume'; readonly now: number };
 
 export interface StartOptions {
   readonly mode: SessionMode;
   readonly day: number;
+  readonly placement?: PlacementInfo;
 }
 
 export function startSession(
   id: string,
   items: readonly SessionItem[],
   now: number,
-  { mode, day }: StartOptions,
+  { mode, day, placement }: StartOptions,
 ): SessionState {
   return {
     id,
     mode,
     day,
+    ...(placement ? { placement } : {}),
     items,
     index: 0,
     phase: items.length === 0 ? 'done' : 'question',
@@ -162,11 +178,13 @@ export function sessionReducer(state: SessionState, action: SessionAction): Sess
       if (!last) return state;
       if (last.response.type === 'recall' && !action.rating) return state;
       const index = state.index + 1;
+      const items = action.append ? [...state.items, action.append] : state.items;
       return {
         ...state,
+        items,
         answers: [...state.answers.slice(0, -1), finalizeAnswer(last, action)],
         index,
-        phase: index >= state.items.length ? 'done' : 'question',
+        phase: index >= items.length ? 'done' : 'question',
         response: null,
         shownAt: action.now,
       };

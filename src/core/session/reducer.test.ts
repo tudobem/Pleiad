@@ -230,3 +230,24 @@ describe('confidence (SPEC 9)', () => {
     expect(migrateSession(saved)).toEqual(start());
   });
 });
+
+describe('placement sessions', () => {
+  it('appends the next question on continue', () => {
+    const first = { questionId: 'a', layout: [0, 1, 2, 3] };
+    let s = startSession('s', [first], 0, { mode: 'extra', day: 1, placement: { packs: ['p'] } });
+    expect(s.placement).toEqual({ packs: ['p'] });
+    s = sessionReducer(s, { type: 'respond', response: { type: 'mcq', choice: 0 } });
+    s = sessionReducer(s, { type: 'answer', correct: true, now: 10 });
+    s = sessionReducer(s, {
+      type: 'continue',
+      now: 20,
+      append: { questionId: 'b', layout: [1, 0, 2, 3] },
+    });
+    expect(s.phase).toBe('question');
+    expect(s.items.map((i) => i.questionId)).toEqual(['a', 'b']);
+    s = sessionReducer(s, { type: 'respond', response: { type: 'mcq', choice: 0 } });
+    s = sessionReducer(s, { type: 'answer', correct: false, now: 30 });
+    s = sessionReducer(s, { type: 'continue', now: 40 });
+    expect(s.phase).toBe('done');
+  });
+});

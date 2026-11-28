@@ -1,6 +1,6 @@
 import { RETENTION_DEFAULT } from './scheduler/scheduler.ts';
 import { clampRetention } from './scheduler/fsrsScheduler.ts';
-import type { Tier } from './content/types.ts';
+import { TIERS, type Tier } from './content/types.ts';
 import { DEFAULT_DRILL_SIZE, DRILL_SIZES, type DrillSize } from './session/drill.ts';
 
 /** Learning settings (SPEC 7). Stored in the `settings` store; UI comes later. */
@@ -28,6 +28,11 @@ export interface Settings {
   readonly confidencePrompts: boolean;
   /** Length of Practice drills (SPEC 8): 10, 20 or every match. */
   readonly drillSize: DrillSize;
+  /**
+   * Placement results (SPEC 13): per pack, the highest tier the placement
+   * quiz opened. Tiers up to it are unlocked in that pack.
+   */
+  readonly placements: Readonly<Record<string, Tier>>;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -40,6 +45,7 @@ export const DEFAULT_SETTINGS: Settings = {
   rewards: true,
   confidencePrompts: true,
   drillSize: DEFAULT_DRILL_SIZE,
+  placements: {},
 };
 
 export const DAILY_GOAL_MIN = 5;
@@ -75,6 +81,11 @@ export function normalizeSettings(stored: Partial<Settings> | undefined): Settin
     drillSize: (DRILL_SIZES as readonly unknown[]).includes(s.drillSize)
       ? (s.drillSize as DrillSize)
       : DEFAULT_SETTINGS.drillSize,
+    placements: Object.fromEntries(
+      Object.entries(s.placements && typeof s.placements === 'object' ? s.placements : {}).filter(
+        (entry): entry is [string, Tier] => (TIERS as readonly unknown[]).includes(entry[1]),
+      ),
+    ),
     ...(Array.isArray(s.activePacks)
       ? {
           activePacks: [
