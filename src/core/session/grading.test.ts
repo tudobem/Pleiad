@@ -10,6 +10,9 @@ import {
   recall,
   short,
   timeline,
+  imageMcq,
+  hotspot,
+  attribution,
 } from '../content/fixtures.test-util.ts';
 
 describe('grade', () => {
@@ -100,6 +103,26 @@ describe('grade', () => {
     };
     expect(grade(binned, [], { type: 'estimation', bin: 1, value: null }).correct).toBe(true);
     expect(grade(binned, [], { type: 'estimation', bin: 2, value: null }).correct).toBe(false);
+  });
+
+  it('image: MCQ choice or a tap inside the answer circle', () => {
+    expect(grade(imageMcq(), [1, 0, 2, 3], { type: 'image', choice: 1, point: null }).correct).toBe(
+      true,
+    );
+    const q = hotspot(); // answer circle at 50%, 50%, r 12% of the width
+    const tap = (x: number, y: number, aspect = 1) =>
+      grade(q, [], { type: 'image', choice: -1, point: { x, y, aspect } }).correct;
+    expect(tap(55, 55)).toBe(true);
+    expect(tap(63, 50)).toBe(false);
+    // A wide image (2:1): 10% of the height is only 5% of the width.
+    expect(tap(50, 70, 2)).toBe(true);
+    expect(tap(50, 70, 1)).toBe(false);
+  });
+
+  it('attribution: display index of the right thinker', () => {
+    const q = attribution();
+    expect(grade(q, [2, 0, 1, 3], { type: 'attribution', choice: 1 }).correct).toBe(true);
+    expect(grade(q, [2, 0, 1, 3], { type: 'attribution', choice: 0 }).correct).toBe(false);
   });
 
   it('recall is never auto-graded', () => {

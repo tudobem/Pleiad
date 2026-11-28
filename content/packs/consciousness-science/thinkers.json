@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/thinkers.schema.json",
+  "thinkers": [
+    {
+      "id": "bernard-baars",
+      "name": "Bernard Baars",
+      "years": "b. 1946",
+      "note": "Proposed global workspace theory in A Cognitive Theory of Consciousness (1988)."
+    },
+    {
+      "id": "giulio-tononi",
+      "name": "Giulio Tononi",
+      "years": "b. 1960",
+      "note": "Proposed integrated information theory (2004)."
+    },
+    {
+      "id": "stanislas-dehaene",
+      "name": "Stanislas Dehaene",
+      "years": "b. 1965"
+    },
+    {
+      "id": "christof-koch",
+      "name": "Christof Koch",
+      "years": "b. 1956"
+    },
+    {
+      "id": "victor-lamme",
+      "name": "Victor Lamme"
+    },
+    {
+      "id": "david-rosenthal",
+      "name": "David Rosenthal",
+      "years": "b. 1939"
+    }
+  ]
+}

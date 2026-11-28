@@ -1,3 +1,4 @@
+import { registerThinkers } from './thinkers.ts';
 import type { ContentIndex, IndexPack } from '../core/content/contentIndex.ts';
 import type { ContentSource, PackContent } from '../core/content/source.ts';
 import type { Question } from '../core/content/types.ts';
@@ -57,8 +58,10 @@ export async function loadQuestions(
   const loaded: Question[] = [];
   const unavailable: string[] = [];
   results.forEach((r, i) => {
-    if (r.status === 'fulfilled') loaded.push(...r.value.questions);
-    else unavailable.push(wanted[i]?.id ?? '');
+    if (r.status === 'fulfilled') {
+      loaded.push(...r.value.questions);
+      registerThinkers(r.value.thinkers);
+    } else unavailable.push(wanted[i]?.id ?? '');
   });
   return {
     questions: new Map(sessionEligible(loaded).map((q) => [q.id, q])),

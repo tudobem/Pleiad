@@ -279,6 +279,51 @@
           "url": "https://doi.org/10.2307/2960077"
         }
       ]
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-knowledge-argument-0006",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "image",
+      "mode": "mcq",
+      "tier": "foundational",
+      "tags": ["jackson", "qualia"],
+      "prompt": "Mary has learned every physical fact about colour vision inside this black-and-white room. According to Jackson, what happens when she steps out and sees the red tomato?",
+      "media": [
+        {
+          "src": "media/mary-room.svg",
+          "alt": "A room in shades of grey with a person reading at a desk and a grey monitor; through an open door a single red tomato is visible",
+          "credit": "Pleiad",
+          "license": "CC-BY-4.0"
+        }
+      ],
+      "options": [
+        {
+          "text": "She learns something new: what it is like to see red"
+        },
+        {
+          "text": "Nothing: she already knew everything about seeing red",
+          "why_wrong": "That is the physicalist reply Jackson argues against in 1982."
+        },
+        {
+          "text": "She cannot see colour, because her eyes never developed it",
+          "why_wrong": "The thought experiment assumes normal colour vision."
+        },
+        {
+          "text": "She forgets the physical facts she learned",
+          "why_wrong": "The argument turns on gaining knowledge, not losing it."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Jackson argued that Mary learns a new fact on seeing red, so the physical facts are not all the facts; critics reply that she gains a new ability or a new way of knowing an old fact.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        }
+      ]
     }
   ]
 }

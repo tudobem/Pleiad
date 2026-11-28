@@ -5,7 +5,7 @@ import { dateKey, parseTimelineDate, precisionOf } from './timeline.ts';
 import { clozeAnswers } from './cloze.ts';
 import { normalizeAnswer, parseNumber } from '../session/normalizeAnswer.ts';
 import { mergeTaxonomy, type MergedTaxonomy } from './taxonomy.ts';
-import type { IdLedger, LoadedPack, Question } from './types.ts';
+import type { IdLedger, LoadedPack, Question, Thinker } from './types.ts';
 
 /** Prompts at or above this token similarity are reported as near-duplicates. */
 export const NEAR_DUPLICATE_THRESHOLD = 0.8;
@@ -59,10 +59,12 @@ export function validateContent(input: ValidateInput): ValidateResult {
   }
 
   for (const pack of input.packs) checkConcepts(pack, taxonomy, conceptIds, issues);
+  const thinkers = collectThinkers(input.packs, issues);
 
   const referencedConcepts = new Set<string>();
   for (const { question, pack, file } of located.values()) {
     checkQuestion(question, pack, file, taxonomy, issues);
+    if (question.type === 'attribution') checkAttribution(question, thinkers, file, issues);
     checkReferences(question, file, located, questionIds, conceptIds, issues);
     for (const c of question.concepts ?? []) referencedConcepts.add(c);
     for (const p of question.prerequisites ?? []) if (conceptIds.has(p)) referencedConcepts.add(p);
@@ -276,6 +278,7 @@ function checkQuestion(
   }
 
   for (const m of q.media ?? []) {
+    checkMediaFile(m.src, pack, file, q, issues);
     if (!pack.mediaFiles.includes(m.src)) {
       issues.push(
         issue(
@@ -290,6 +293,7 @@ function checkQuestion(
   }
 
   if (q.type === 'mcq') checkMcq(q, file, issues);
+  if (q.type === 'image') checkImage(q, file, issues);
   if (q.type === 'short') checkShort(q, file, issues);
   if (q.type === 'cloze') checkCloze(q, file, issues);
   if (q.type === 'match') {
@@ -313,6 +317,132 @@ function checkQuestion(
   if (q.type === 'order') checkDistinct(q.items, 'order.duplicate', 'items', q, file, issues);
   if (q.type === 'estimation') checkEstimation(q, file, issues);
   if (q.type === 'timeline') checkTimeline(q, file, issues);
+}
+
+/** Images are inlined into the pack file, so only small web images are allowed. */
+export const MEDIA_MAX_BYTES = 150 * 1024;
+export const MEDIA_TYPES = ['svg', 'png', 'webp', 'jpg', 'jpeg'] as const;
+
+function checkMediaFile(
+  src: string,
+  pack: LoadedPack,
+  file: string,
+  q: Question,
+  issues: Issue[],
+): void {
+  const ext = src.split('.').pop()?.toLowerCase() ?? '';
+  if (!(MEDIA_TYPES as readonly string[]).includes(ext)) {
+    issues.push(
+      issue('error', 'media.type', file, `"${src}" must be ${MEDIA_TYPES.join(', ')}.`, q.id),
+    );
+  }
+  const bytes = pack.mediaBytes?.[src];
+  if (bytes !== undefined && bytes > MEDIA_MAX_BYTES) {
+    issues.push(
+      issue(
+        'error',
+        'media.too-large',
+        file,
+        `"${src}" is ${Math.round(bytes / 1024)} KB; images are inlined, so the limit is ${MEDIA_MAX_BYTES / 1024} KB.`,
+        q.id,
+      ),
+    );
+  }
+}
+
+function checkImage(q: Extract<Question, { type: 'image' }>, file: string, issues: Issue[]): void {
+  const err = (code: string, message: string) =>
+    issues.push(issue('error', code, file, message, q.id));
+  if (q.media.length !== 1) err('image.media', 'An image question needs exactly one image.');
+  if (q.mode === 'mcq') {
+    checkMcq(q as unknown as Extract<Question, { type: 'mcq' }>, file, issues);
+    return;
+  }
+  if (!Number.isInteger(q.answer) || q.answer < 0 || q.answer >= q.hotspots.length) {
+    err('image.answer', 'The answer must be the index of a hotspot.');
+  }
+  q.hotspots.forEach((h, i) => {
+    if (h.x < 0 || h.x > 100 || h.y < 0 || h.y > 100 || h.r <= 0 || h.r > 50) {
+      err('image.hotspot', `Hotspot ${i + 1} lies outside the image or has a bad radius.`);
+    }
+  });
+  // In percent of width and height; a conservative check without the image's proportions.
+  q.hotspots.forEach((a, i) =>
+    q.hotspots.slice(i + 1).forEach((b, j) => {
+      if (Math.hypot(a.x - b.x, a.y - b.y) < a.r + b.r) {
+        err('image.overlap', `Hotspots ${i + 1} and ${i + j + 2} overlap.`);
+      }
+    }),
+  );
+  checkDistinct(
+    q.hotspots.map((h) => h.label),
+    'image.duplicate',
+    'hotspot labels',
+    q,
+    file,
+    issues,
+  );
+}
+
+/** All thinkers by ID; a thinker declared in several packs must be identical. */
+function collectThinkers(packs: readonly LoadedPack[], issues: Issue[]): Map<string, Thinker> {
+  const all = new Map<string, Thinker>();
+  for (const pack of packs) {
+    const file = `content/packs/${pack.folder}/thinkers.json`;
+    const seen = new Set<string>();
+    for (const t of pack.thinkers ?? []) {
+      if (seen.has(t.id)) {
+        issues.push(issue('error', 'thinker.duplicate', file, `"${t.id}" appears twice.`, t.id));
+      }
+      seen.add(t.id);
+      const other = all.get(t.id);
+      if (other && JSON.stringify(other) !== JSON.stringify(t)) {
+        issues.push(
+          issue(
+            'error',
+            'thinker.conflict',
+            file,
+            `"${t.id}" differs from its entry in another pack.`,
+            t.id,
+          ),
+        );
+      }
+      all.set(t.id, t);
+    }
+  }
+  return all;
+}
+
+function checkAttribution(
+  q: Extract<Question, { type: 'attribution' }>,
+  thinkers: ReadonlyMap<string, Thinker>,
+  file: string,
+  issues: Issue[],
+): void {
+  for (const id of [q.thinker, ...q.options]) {
+    if (!thinkers.has(id)) {
+      issues.push(
+        issue(
+          'error',
+          'attribution.unknown',
+          file,
+          `Thinker "${id}" is not in any thinkers.json.`,
+          q.id,
+        ),
+      );
+    }
+  }
+  if (new Set([q.thinker, ...q.options]).size !== q.options.length + 1) {
+    issues.push(
+      issue(
+        'error',
+        'attribution.duplicate',
+        file,
+        'The options must be different thinkers, without the answer.',
+        q.id,
+      ),
+    );
+  }
 }
 
 function checkEstimation(

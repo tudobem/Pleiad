@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 400 260" role="img" aria-label="A room in shades of grey with a person reading at a desk and a grey monitor; through an open door a single red tomato is visible">
+  <rect width="400" height="260" fill="#151a2e"/>
+  <rect x="30" y="30" width="270" height="200" fill="#3a3a3a" stroke="#d0d0d0" stroke-width="3"/>
+  <rect x="60" y="60" width="80" height="56" fill="#5a5a5a" stroke="#d0d0d0" stroke-width="2"/>
+  <rect x="80" y="150" width="120" height="10" fill="#9a9a9a"/>
+  <g stroke="#d0d0d0" stroke-width="3" fill="none" stroke-linecap="round">
+    <circle cx="225" cy="120" r="15"/>
+    <line x1="225" y1="135" x2="225" y2="185"/>
+    <line x1="225" y1="150" x2="195" y2="152"/>
+    <line x1="225" y1="185" x2="210" y2="220"/>
+    <line x1="225" y1="185" x2="240" y2="220"/>
+  </g>
+  <rect x="300" y="80" width="70" height="150" fill="#151a2e" stroke="#d0d0d0" stroke-width="3"/>
+  <circle cx="335" cy="190" r="18" fill="#d8322a"/>
+  <path d="M327 173 L335 178 L343 173" stroke="#3c8a3c" stroke-width="3" fill="none"/>
+</svg>

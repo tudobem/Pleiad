@@ -13,6 +13,10 @@ import {
   recall,
   short,
   timeline,
+  imageMcq,
+  hotspot,
+  attribution,
+  THINKERS,
 } from './fixtures.test-util.ts';
 import type { EstimationQuestion, LoadedPack } from './types.ts';
 
@@ -244,6 +248,68 @@ describe('validateContent', () => {
       expect(with_(['1974', 'later', '1996'])).toContain('error:timeline.date');
       expect(with_(['1974-01', '1974-02', '1995-03'], 'month')).toEqual([]);
       expect(with_(['-0350', '1641', '1995'])).toEqual([]);
+    });
+  });
+
+  describe('image and attribution', () => {
+    const media = { mediaFiles: ['media/cube.svg', 'media/gw.svg'] };
+    const withThinkers = { ...media, thinkers: THINKERS };
+
+    it('accepts valid items', () => {
+      expect(
+        codes({ packs: [pack([imageMcq(), hotspot(), attribution()], withThinkers)] }),
+      ).toEqual([]);
+    });
+
+    it('checks images and hotspots', () => {
+      const has = (q: ReturnType<typeof hotspot>, code: string, extra = {}) =>
+        expect(codes({ packs: [pack([q], { ...media, ...extra })] })).toContain(code);
+      has(hotspot({ answer: 3 }), 'error:image.answer');
+      has(
+        hotspot({
+          hotspots: [
+            { x: 50, y: 50, r: 12, label: 'A' },
+            { x: 55, y: 50, r: 10, label: 'B' },
+          ],
+        }),
+        'error:image.overlap',
+      );
+      has(
+        hotspot({
+          hotspots: [
+            { x: 120, y: 50, r: 5, label: 'A' },
+            { x: 10, y: 10, r: 5, label: 'B' },
+          ],
+        }),
+        'error:image.hotspot',
+      );
+      has(imageMcq({ answer: 7 }), 'error:mcq.answer-range');
+      has(imageMcq(), 'error:media.too-large', { mediaBytes: { 'media/cube.svg': 200_000 } });
+      const gif = imageMcq({
+        media: [{ src: 'media/x.gif', alt: 'x', license: 'CC-BY-4.0' }],
+      } as never);
+      expect(codes({ packs: [pack([gif], { mediaFiles: ['media/x.gif'] })] })).toContain(
+        'error:media.type',
+      );
+    });
+
+    it('checks thinkers', () => {
+      const one = (q: ReturnType<typeof attribution>, thinkers = THINKERS) =>
+        codes({ packs: [pack([q], { thinkers })] });
+      expect(one(attribution({ options: ['tononi', 'koch', 'nobody'] }))).toContain(
+        'error:attribution.unknown',
+      );
+      expect(one(attribution({ options: ['tononi', 'koch', 'baars'] }))).toContain(
+        'error:attribution.duplicate',
+      );
+      const twice = [...THINKERS, { id: 'koch', name: 'C. Koch' }];
+      expect(one(attribution(), twice)).toContain('error:thinker.duplicate');
+      const a = pack([attribution()], { thinkers: THINKERS });
+      const b = pack([], {
+        folder: 'other-pack',
+        thinkers: [{ id: 'koch', name: 'Someone else' }],
+      });
+      expect(codes({ packs: [a, b] })).toContain('error:thinker.conflict');
     });
   });
 

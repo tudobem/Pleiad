@@ -18,6 +18,8 @@ const PLACEMENT_TYPES: readonly Question['type'][] = [
   'order',
   'estimation',
   'timeline',
+  'image',
+  'attribution',
 ];
 
 export interface PlacementAnswer {

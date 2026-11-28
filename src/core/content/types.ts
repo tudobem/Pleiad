@@ -20,6 +20,8 @@ export const QUESTION_TYPES: readonly QuestionType[] = [
   'order',
   'estimation',
   'timeline',
+  'image',
+  'attribution',
 ];
 
 export interface PackMeta {
@@ -164,8 +166,36 @@ export interface TimelineQuestion extends QuestionBase {
   readonly precision?: DatePrecision;
 }
 
+/** A tappable circle on an image, in percent: x, y of the image box; r of its width. */
+export interface Hotspot {
+  readonly x: number;
+  readonly y: number;
+  readonly r: number;
+  readonly label: string;
+}
+
+/** A picture with MCQ options, or a picture to tap (SPEC 6). */
+export type ImageQuestion = QuestionBase & {
+  readonly type: 'image';
+  readonly media: readonly Media[];
+} & (
+    | { readonly mode: 'mcq'; readonly options: readonly McqOption[]; readonly answer: number }
+    | { readonly mode: 'hotspot'; readonly hotspots: readonly Hotspot[]; readonly answer: number }
+  );
+
+/** "Who argued this?" (SPEC 6): names drawn from the pack thinkers list. */
+export interface AttributionQuestion extends QuestionBase {
+  readonly type: 'attribution';
+  /** Thinker ID of the right answer. */
+  readonly thinker: string;
+  /** Thinker IDs of the other options. */
+  readonly options: readonly string[];
+}
+
 export type Question =
   | McqQuestion
+  | ImageQuestion
+  | AttributionQuestion
   | RecallQuestion
   | ShortQuestion
   | ClozeQuestion
@@ -192,6 +222,18 @@ export interface Concepts {
   readonly edges: readonly ConceptEdge[];
 }
 
+/** A person attribution questions can name (pack thinkers.json). */
+export interface Thinker {
+  readonly id: string;
+  readonly name: string;
+  readonly years?: string;
+  readonly note?: string;
+}
+
+export interface Thinkers {
+  readonly thinkers: readonly Thinker[];
+}
+
 /** A question file as loaded: its path (for messages) and topic from the file name. */
 export interface QuestionFile {
   readonly path: string;
@@ -207,8 +249,11 @@ export interface LoadedPack {
   readonly taxonomy: readonly TaxonomyNode[];
   readonly questionFiles: readonly QuestionFile[];
   readonly concepts?: Concepts;
+  readonly thinkers?: readonly Thinker[];
   /** Media paths present on disk, relative to the pack folder (e.g. "media/x.png"). */
   readonly mediaFiles: readonly string[];
+  /** Size in bytes of each media file (for the inlining limit). */
+  readonly mediaBytes?: Readonly<Record<string, number>>;
   /** Total bytes of the pack's JSON files (for the content index). */
   readonly bytes: number;
 }

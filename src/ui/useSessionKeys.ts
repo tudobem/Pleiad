@@ -35,7 +35,11 @@ export function useSessionKeys(
             ? question.options.length
             : question.type === 'estimation'
               ? (question.bins?.length ?? 0)
-              : 0,
+              : question.type === 'attribution'
+                ? question.options.length + 1
+                : question.type === 'image' && question.mode === 'mcq'
+                  ? question.options.length
+                  : 0,
         canCheck: s.canCheck,
         busy: s.busy,
         asksConfidence: s.asksConfidence,
@@ -47,7 +51,11 @@ export function useSessionKeys(
           s.respond(
             question.type === 'estimation'
               ? { type: 'estimation', bin: command.index, value: null }
-              : { type: 'mcq', choice: command.index },
+              : question.type === 'attribution'
+                ? { type: 'attribution', choice: command.index }
+                : question.type === 'image'
+                  ? { type: 'image', choice: command.index, point: null }
+                  : { type: 'mcq', choice: command.index },
           );
           break;
         case 'check':

@@ -10,6 +10,7 @@ import type { ValidateFunction } from 'ajv/dist/2020.js';
 import { issue, type Issue } from '../../src/core/content/issues.ts';
 import type {
   Concepts,
+  Thinkers,
   IdLedger,
   LoadedPack,
   PackMeta,
@@ -45,7 +46,7 @@ export interface LoadResult {
   readonly issues: Issue[];
 }
 
-type SchemaName = 'pack' | 'taxonomy' | 'questions-file' | 'concepts' | 'id-ledger';
+type SchemaName = 'pack' | 'taxonomy' | 'questions-file' | 'concepts' | 'thinkers' | 'id-ledger';
 
 function loadSchemas(schemaDir: string): Record<SchemaName, ValidateFunction> {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
@@ -62,6 +63,7 @@ function loadSchemas(schemaDir: string): Record<SchemaName, ValidateFunction> {
     taxonomy: get('taxonomy'),
     'questions-file': get('questions-file'),
     concepts: get('concepts'),
+    thinkers: get('thinkers'),
     'id-ledger': get('id-ledger'),
   };
 }
@@ -159,8 +161,33 @@ export function loadContent(paths: ContentPaths = contentPaths()): LoadResult {
       }
     }
 
+    let thinkers: Thinkers['thinkers'] | undefined;
+    const thinkersFile = join(dir, 'thinkers.json');
+    if (existsSync(thinkersFile)) {
+      const parsed = readJson<Thinkers>(thinkersFile, 'thinkers');
+      if (parsed) {
+        thinkers = parsed.value.thinkers;
+        bytes += parsed.bytes;
+      }
+    }
+
     const mediaDir = join(dir, 'media');
     const mediaFiles = existsSync(mediaDir) ? listFiles(mediaDir).map((f) => relative(dir, f)) : [];
+    const mediaBytes = Object.fromEntries(mediaFiles.map((f) => [f, statSync(join(dir, f)).size]));
+    // Inlined SVGs need an intrinsic size, or <img> collapses and hotspots misalign.
+    for (const f of mediaFiles.filter((m) => m.toLowerCase().endsWith('.svg'))) {
+      const root = /<svg\b[^>]*>/i.exec(readFileSync(join(dir, f), 'utf8'))?.[0] ?? '';
+      if (!/\swidth=/.test(root) || !/\sheight=/.test(root)) {
+        issues.push(
+          issue(
+            'error',
+            'media.svg-size',
+            rel(join(dir, f)),
+            'An SVG needs width and height attributes on its root element.',
+          ),
+        );
+      }
+    }
 
     if (meta && taxonomy) {
       packs.push({
@@ -169,7 +196,9 @@ export function loadContent(paths: ContentPaths = contentPaths()): LoadResult {
         taxonomy: taxonomy.value.nodes,
         questionFiles,
         ...(concepts ? { concepts } : {}),
+        ...(thinkers ? { thinkers } : {}),
         mediaFiles,
+        mediaBytes,
         bytes,
       });
     }

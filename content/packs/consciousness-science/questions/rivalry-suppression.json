@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../../schema/questions-file.schema.json",
+  "questions": [
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-rivalry-0001",
+      "pack": "consciousness-science",
+      "topic": "rivalry-suppression",
+      "type": "image",
+      "mode": "mcq",
+      "tier": "foundational",
+      "tags": ["bistable", "contrast"],
+      "prompt": "Looking at this figure, the cube seems to flip between two orientations while the drawing never changes. Why are such figures useful to consciousness science?",
+      "media": [
+        {
+          "src": "media/necker-cube.svg",
+          "alt": "A Necker cube: a wire-frame cube drawn without depth cues, so either square face can look like the front",
+          "credit": "Pleiad",
+          "license": "CC-BY-4.0"
+        }
+      ],
+      "options": [
+        {
+          "text": "Experience changes while the stimulus stays the same, so brain activity that tracks the flip is a candidate correlate of the experience"
+        },
+        {
+          "text": "They show that the eyes move to a new position at each flip",
+          "why_wrong": "The flips happen even with steady fixation; the point is the constant stimulus."
+        },
+        {
+          "text": "They prove that perception is fully determined by the stimulus",
+          "why_wrong": "They show the opposite: one stimulus, two experiences."
+        },
+        {
+          "text": "They measure how fast people can draw cubes",
+          "why_wrong": "Nothing is drawn; the figure is viewed."
+        }
+      ],
+      "answer": 0,
+      "explanation": "Bistable figures hold the input fixed while the conscious percept alternates, which lets researchers separate activity that follows the stimulus from activity that follows the experience, the contrastive logic behind rivalry studies.",
+      "sources": [
+        {
+          "citation": "Sterzer, P., Kleinschmidt, A., & Rees, G. (2009). The neural bases of multistable perception. Trends in Cognitive Sciences, 13(7), 310-318.",
+          "url": "https://doi.org/10.1016/j.tics.2009.04.006"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/thinkers.schema.json",
+  "thinkers": [
+    {
+      "id": "daniel-dennett",
+      "name": "Daniel Dennett",
+      "years": "1942-2024",
+      "note": "Coined heterophenomenology as a method for studying consciousness from the third person."
+    },
+    {
+      "id": "john-searle",
+      "name": "John Searle",
+      "note": "Defended biological naturalism and devised the Chinese room argument."
+    },
+    {
+      "id": "thomas-nagel",
+      "name": "Thomas Nagel",
+      "years": "b. 1937"
+    },
+    {
+      "id": "david-chalmers",
+      "name": "David Chalmers",
+      "years": "b. 1966"
+    },
+    {
+      "id": "frank-jackson",
+      "name": "Frank Jackson",
+      "years": "b. 1943"
+    },
+    {
+      "id": "ned-block",
+      "name": "Ned Block",
+      "years": "b. 1942"
+    }
+  ]
+}

@@ -134,6 +134,60 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-chinese-room-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "chinese-room",
+      "type": "image",
+      "mode": "hotspot",
+      "tier": "foundational",
+      "tags": ["searle", "ai"],
+      "prompt": "In Searle's Chinese room, tap the part that plays the role of the computer program.",
+      "media": [
+        {
+          "src": "media/chinese-room.svg",
+          "alt": "A closed room with an input slot and an output slot, a person at a desk, a large book on the desk and boxes of symbol cards on the floor",
+          "credit": "Pleiad",
+          "license": "CC-BY-4.0"
+        }
+      ],
+      "hotspots": [
+        {
+          "x": 58.75,
+          "y": 54,
+          "r": 8,
+          "label": "The rulebook"
+        },
+        {
+          "x": 37.5,
+          "y": 50,
+          "r": 9,
+          "label": "The person"
+        },
+        {
+          "x": 21.25,
+          "y": 79,
+          "r": 7,
+          "label": "The boxes of symbols"
+        },
+        {
+          "x": 9,
+          "y": 48,
+          "r": 5,
+          "label": "The input slot"
+        }
+      ],
+      "answer": 0,
+      "explanation": "The person follows the rulebook's instructions to match symbols, as a processor runs a program; Searle argues that nobody in the room understands Chinese, so running the right program is not enough for understanding.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences, 3(3), 417-424.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        }
+      ]
     }
   ]
 }

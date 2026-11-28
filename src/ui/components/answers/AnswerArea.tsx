@@ -1,5 +1,7 @@
 import type { Question } from '../../../core/content/types.ts';
+import { AttributionAnswer } from './AttributionAnswer.tsx';
 import { ClozeAnswer } from './ClozeAnswer.tsx';
+import { ImageAnswer } from './ImageAnswer.tsx';
 import { EstimationAnswer } from './EstimationAnswer.tsx';
 import { TimelineAnswer } from './TimelineAnswer.tsx';
 import { MatchAnswer } from './MatchAnswer.tsx';
@@ -28,6 +30,10 @@ export function AnswerArea(props: AnswerProps<Question>) {
       return <EstimationAnswer {...props} question={q} />;
     case 'timeline':
       return <TimelineAnswer {...props} question={q} />;
+    case 'image':
+      return <ImageAnswer {...props} question={q} />;
+    case 'attribution':
+      return <AttributionAnswer {...props} question={q} />;
     case 'recall':
       return <RecallAnswer {...props} question={q} />;
   }

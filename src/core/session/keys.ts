@@ -45,7 +45,12 @@ export function keyCommand(key: string, ctx: KeyContext): KeyCommand | null {
   if (ctx.phase === 'question') {
     const confidence = CONFIDENCE_KEYS[key.toLowerCase()];
     if (confidence && ctx.asksConfidence) return { kind: 'confidence', confidence };
-    const max = ctx.type === 'mcq' ? MAX_OPTIONS : ctx.type === 'estimation' ? MAX_BINS : 0;
+    const max =
+      ctx.type === 'estimation'
+        ? MAX_BINS
+        : ctx.type === 'mcq' || ctx.type === 'image' || ctx.type === 'attribution'
+          ? MAX_OPTIONS
+          : 0;
     if (digit && digit <= Math.min(ctx.optionCount, max)) {
       return { kind: 'select', index: digit - 1 };
     }

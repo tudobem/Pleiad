@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Thinkers named by attribution questions (thinkers.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["thinkers"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "thinkers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "$ref": "defs.schema.json#/$defs/id" },
+          "name": { "$ref": "defs.schema.json#/$defs/nonEmptyText" },
+          "years": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText",
+            "description": "Lifetime or birth year, e.g. \"1596-1650\" or \"b. 1966\"."
+          },
+          "note": {
+            "$ref": "defs.schema.json#/$defs/nonEmptyText",
+            "description": "One line shown after attribution answers."
+          }
+        }
+      }
+    }
+  }
+}
