@@ -1,5 +1,6 @@
 import { shuffle, type Random } from '../random.ts';
 import { clozeAnswers } from '../content/cloze.ts';
+import { chronological } from '../content/timeline.ts';
 import { QUESTION_TYPES, type Question } from '../content/types.ts';
 import type { ReviewMode } from '../sync/reviewEvent.ts';
 
@@ -43,10 +44,23 @@ function layoutSize(q: Question): number {
       return q.pairs.length;
     case 'order':
       return q.items.length;
+    case 'timeline':
+      return q.events.length;
     case 'recall':
     case 'short':
+    case 'estimation':
       return 0;
   }
+}
+
+/** Order and timeline items must not be shown already in the right order. */
+function inSequence(q: Question, layout: readonly number[]): boolean {
+  if (q.type === 'order') return layout.every((v, i) => v === i);
+  if (q.type === 'timeline') {
+    const right = chronological(q);
+    return layout.every((v, i) => v === right[i]);
+  }
+  return false;
 }
 
 export function layoutFor(q: Question, random: Random): number[] {
@@ -55,7 +69,7 @@ export function layoutFor(q: Question, random: Random): number[] {
   // Never present an order question already in the right order.
   for (let attempt = 0; attempt < 8; attempt += 1) {
     const shuffled = shuffle(identity, random);
-    if (q.type !== 'order' || shuffled.some((v, i) => v !== i)) return shuffled;
+    if (!inSequence(q, shuffled)) return shuffled;
   }
   return [...identity.slice(1), identity[0] ?? 0];
 }

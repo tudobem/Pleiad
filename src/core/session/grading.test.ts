@@ -1,7 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { grade } from './grading.ts';
 import { emptyResponse, isComplete } from './response.ts';
-import { cloze, match, mcq, order, recall, short } from '../content/fixtures.test-util.ts';
+import {
+  cloze,
+  estimation,
+  match,
+  mcq,
+  order,
+  recall,
+  short,
+  timeline,
+} from '../content/fixtures.test-util.ts';
 
 describe('grade', () => {
   it('mcq: maps the display choice back through the layout', () => {
@@ -60,6 +69,37 @@ describe('grade', () => {
       correct: false,
       parts: [true, false, false],
     });
+  });
+
+  it('timeline: date order, marked per position', () => {
+    const q = timeline(); // 1995, 1974, 1982
+    const layout = [0, 1, 2];
+    expect(grade(q, layout, { type: 'timeline', sequence: [1, 2, 0] })).toEqual({
+      correct: true,
+      parts: [true, true, true],
+    });
+    expect(grade(q, layout, { type: 'timeline', sequence: [2, 1, 0] }).parts).toEqual([
+      false,
+      false,
+      true,
+    ]);
+  });
+
+  it('estimation: slider within tolerance, or the right bin', () => {
+    const q = estimation(); // 86 billion, factor 2
+    const r = (value: number) => ({ type: 'estimation' as const, bin: null, value });
+    expect(grade(q, [], r(50e9)).correct).toBe(true);
+    expect(grade(q, [], r(40e9)).correct).toBe(false);
+    const binned = {
+      ...q,
+      bins: [
+        { min: 1e6, max: 1e9 },
+        { min: 1e9, max: 1e11 },
+        { min: 1e11, max: 1e13 },
+      ],
+    };
+    expect(grade(binned, [], { type: 'estimation', bin: 1, value: null }).correct).toBe(true);
+    expect(grade(binned, [], { type: 'estimation', bin: 2, value: null }).correct).toBe(false);
   });
 
   it('recall is never auto-graded', () => {

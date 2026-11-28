@@ -1,5 +1,7 @@
 import { issue, type Issue } from './issues.ts';
 import { isCatchAllOption, jaccard, normalizeText } from './normalize.ts';
+import { binOf } from './estimation.ts';
+import { dateKey, parseTimelineDate, precisionOf } from './timeline.ts';
 import { clozeAnswers } from './cloze.ts';
 import { normalizeAnswer, parseNumber } from '../session/normalizeAnswer.ts';
 import { mergeTaxonomy, type MergedTaxonomy } from './taxonomy.ts';
@@ -309,6 +311,87 @@ function checkQuestion(
     );
   }
   if (q.type === 'order') checkDistinct(q.items, 'order.duplicate', 'items', q, file, issues);
+  if (q.type === 'estimation') checkEstimation(q, file, issues);
+  if (q.type === 'timeline') checkTimeline(q, file, issues);
+}
+
+function checkEstimation(
+  q: Extract<Question, { type: 'estimation' }>,
+  file: string,
+  issues: Issue[],
+): void {
+  const err = (code: string, message: string) =>
+    issues.push(issue('error', code, file, message, q.id));
+  const numbers = [
+    q.value,
+    ...(q.bins ?? []).flatMap((b) => [b.min, b.max]),
+    ...(q.range ? [q.range.min, q.range.max] : []),
+  ];
+  if (q.scale === 'log' && numbers.some((n) => n <= 0)) {
+    err('estimation.log', 'A log scale needs positive numbers only.');
+  }
+  if (q.bins) {
+    q.bins.forEach((b, i) => {
+      if (b.min >= b.max) err('estimation.bin', `Bin ${i + 1} has min >= max.`);
+      const prev = q.bins?.[i - 1];
+      if (prev && b.min < prev.max) {
+        err('estimation.bins', `Bin ${i + 1} overlaps or comes before bin ${i}.`);
+      }
+    });
+    if (binOf(q.bins, q.value) < 0) {
+      err('estimation.value', 'No bin contains the value (max is exclusive).');
+    }
+  } else if (q.range) {
+    if (q.range.min >= q.range.max) err('estimation.range', 'Range min must be below max.');
+    if (q.value < q.range.min || q.value > q.range.max) {
+      err('estimation.value', 'The value lies outside the slider range.');
+    }
+    if (q.scale === 'log' && (q.tolerance ?? 0) < 1) {
+      err('estimation.tolerance', 'On a log scale the tolerance is a factor of at least 1.');
+    }
+  }
+}
+
+function checkTimeline(
+  q: Extract<Question, { type: 'timeline' }>,
+  file: string,
+  issues: Issue[],
+): void {
+  const precision = q.precision ?? 'year';
+  const keys = new Set<number>();
+  for (const e of q.events) {
+    const d = parseTimelineDate(e.date);
+    if (!d) {
+      issues.push(issue('error', 'timeline.date', file, `"${e.date}" is not a valid date.`, q.id));
+      continue;
+    }
+    if (precisionOf(d) !== precision) {
+      issues.push(
+        issue(
+          'error',
+          'timeline.precision',
+          file,
+          `"${e.date}" does not match the precision "${precision}".`,
+          q.id,
+        ),
+      );
+    }
+    const key = dateKey(d);
+    if (keys.has(key)) {
+      issues.push(
+        issue('error', 'timeline.tie', file, `Two events share the date ${e.date}.`, q.id),
+      );
+    }
+    keys.add(key);
+  }
+  checkDistinct(
+    q.events.map((e) => e.label),
+    'timeline.duplicate',
+    'events',
+    q,
+    file,
+    issues,
+  );
 }
 
 function checkDistinct(

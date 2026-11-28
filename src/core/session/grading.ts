@@ -1,5 +1,7 @@
 import type { Question } from '../content/types.ts';
 import { clozeAnswers } from '../content/cloze.ts';
+import { binOf, withinTolerance } from '../content/estimation.ts';
+import { chronological } from '../content/timeline.ts';
 import { normalizeText } from '../content/normalize.ts';
 import { answersMatch, parseNumber } from './normalizeAnswer.ts';
 import { clozeChips, type Response } from './response.ts';
@@ -47,6 +49,19 @@ export function grade(q: Question, layout: readonly number[], r: Response): Grad
     case 'order': {
       const sequence = (r as Extract<Response, { type: 'order' }>).sequence;
       const parts = q.items.map((_, i) => at(sequence[i] ?? null) === i);
+      return { correct: parts.every(Boolean), parts };
+    }
+    case 'estimation': {
+      const { bin, value } = r as Extract<Response, { type: 'estimation' }>;
+      const correct = q.bins
+        ? bin !== null && binOf(q.bins, q.value) === bin
+        : value !== null && withinTolerance(q, value);
+      return { correct, parts: [correct] };
+    }
+    case 'timeline': {
+      const sequence = (r as Extract<Response, { type: 'timeline' }>).sequence;
+      const right = chronological(q);
+      const parts = right.map((event, i) => at(sequence[i] ?? null) === event);
       return { correct: parts.every(Boolean), parts };
     }
     case 'recall':

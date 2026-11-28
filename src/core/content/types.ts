@@ -18,6 +18,8 @@ export const QUESTION_TYPES: readonly QuestionType[] = [
   'cloze',
   'match',
   'order',
+  'estimation',
+  'timeline',
 ];
 
 export interface PackMeta {
@@ -130,8 +132,47 @@ export interface OrderQuestion extends QuestionBase {
   readonly items: readonly string[];
 }
 
+/** A range to tap in an estimation question; `max` is exclusive. */
+export interface EstimationBin {
+  readonly min: number;
+  readonly max: number;
+  readonly label?: string;
+}
+
+/**
+ * "Important numbers" (SPEC 6): tap a bin, or move a slider graded by
+ * tolerance (a factor on a log scale, an amount on a linear one).
+ */
+export interface EstimationQuestion extends QuestionBase {
+  readonly type: 'estimation';
+  readonly value: number;
+  /** Shown with numbers ("86 billion neurons"); left out for years. */
+  readonly unit?: string;
+  readonly scale: 'linear' | 'log';
+  readonly bins?: readonly EstimationBin[];
+  readonly range?: { readonly min: number; readonly max: number };
+  readonly tolerance?: number;
+}
+
+export type DatePrecision = 'year' | 'month' | 'day';
+
+/** Put events in date order (SPEC 6, "order by date"). */
+export interface TimelineQuestion extends QuestionBase {
+  readonly type: 'timeline';
+  /** `date`: YYYY, YYYY-MM or YYYY-MM-DD; a leading - for BCE years. */
+  readonly events: readonly { readonly label: string; readonly date: string }[];
+  readonly precision?: DatePrecision;
+}
+
 export type Question =
-  McqQuestion | RecallQuestion | ShortQuestion | ClozeQuestion | MatchQuestion | OrderQuestion;
+  | McqQuestion
+  | RecallQuestion
+  | ShortQuestion
+  | ClozeQuestion
+  | MatchQuestion
+  | OrderQuestion
+  | EstimationQuestion
+  | TimelineQuestion;
 
 export interface ConceptNode {
   readonly id: string;

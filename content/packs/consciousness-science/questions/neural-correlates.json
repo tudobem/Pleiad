@@ -188,6 +188,75 @@
       ],
       "status": "retired",
       "created": "2026-11-26"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-ncc-0007",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "estimation",
+      "tier": "foundational",
+      "tags": ["numbers", "neurons"],
+      "prompt": "About how many neurons does an adult human brain contain?",
+      "value": 86000000000,
+      "unit": "neurons",
+      "scale": "log",
+      "range": {
+        "min": 1000000,
+        "max": 10000000000000
+      },
+      "tolerance": 2,
+      "explanation": "Counting cell nuclei in dissolved brain tissue, Azevedo and colleagues estimated about 86 billion neurons, lower than the often quoted 100 billion.",
+      "sources": [
+        {
+          "citation": "Azevedo, F. A. C., et al. (2009). Equal numbers of neuronal and nonneuronal cells make the human brain an isometrically scaled-up primate brain. Journal of Comparative Neurology, 513(5), 532-541.",
+          "url": "https://doi.org/10.1002/cne.21974"
+        }
+      ]
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-ncc-0008",
+      "pack": "consciousness-science",
+      "topic": "neural-correlates",
+      "type": "estimation",
+      "tier": "advanced",
+      "tags": ["numbers", "cerebellum"],
+      "prompt": "What share of the human brain's neurons sits in the cerebellum?",
+      "value": 80,
+      "unit": "percent",
+      "scale": "linear",
+      "bins": [
+        {
+          "min": 0,
+          "max": 25,
+          "label": "Under a quarter"
+        },
+        {
+          "min": 25,
+          "max": 50,
+          "label": "A quarter to a half"
+        },
+        {
+          "min": 50,
+          "max": 75,
+          "label": "Half to three quarters"
+        },
+        {
+          "min": 75,
+          "max": 101,
+          "label": "Over three quarters"
+        }
+      ],
+      "explanation": "About 69 of the brain's roughly 86 billion neurons are in the cerebellum, around 80 percent, although damage to it rarely abolishes consciousness. That contrast is often used against simple neuron-count views of consciousness.",
+      "sources": [
+        {
+          "citation": "Azevedo, F. A. C., et al. (2009). Equal numbers of neuronal and nonneuronal cells make the human brain an isometrically scaled-up primate brain. Journal of Comparative Neurology, 513(5), 532-541.",
+          "url": "https://doi.org/10.1002/cne.21974"
+        }
+      ]
     }
   ]
 }

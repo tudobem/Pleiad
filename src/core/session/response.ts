@@ -14,6 +14,10 @@ export type Response =
   | { readonly type: 'match'; readonly pairs: readonly (number | null)[] }
   /** Display indices in the order the user tapped them. */
   | { readonly type: 'order'; readonly sequence: readonly number[] }
+  /** Bins: the tapped bin index; slider: the chosen value. Null until chosen. */
+  | { readonly type: 'estimation'; readonly bin: number | null; readonly value: number | null }
+  /** Display indices in the order the user tapped them, like order. */
+  | { readonly type: 'timeline'; readonly sequence: readonly number[] }
   | { readonly type: 'recall' };
 
 /** The empty response a question starts with. */
@@ -29,6 +33,10 @@ export function emptyResponse(q: Question): Response {
       return { type: 'match', pairs: q.pairs.map(() => null) };
     case 'order':
       return { type: 'order', sequence: [] };
+    case 'estimation':
+      return { type: 'estimation', bin: null, value: null };
+    case 'timeline':
+      return { type: 'timeline', sequence: [] };
     case 'recall':
       return { type: 'recall' };
   }
@@ -48,6 +56,10 @@ export function isComplete(q: Question, r: Response | null): boolean {
       return r.pairs.every((p) => p !== null);
     case 'order':
       return q.type === 'order' && r.sequence.length === q.items.length;
+    case 'estimation':
+      return r.bin !== null || r.value !== null;
+    case 'timeline':
+      return q.type === 'timeline' && r.sequence.length === q.events.length;
     case 'recall':
       return true;
   }

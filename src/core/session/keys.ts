@@ -12,7 +12,7 @@ export type KeyCommand =
 export interface KeyContext {
   readonly phase: 'question' | 'feedback';
   readonly type: QuestionType;
-  /** Options shown for an MCQ item. */
+  /** Options shown for an MCQ item, or bins for an estimation item. */
   readonly optionCount: number;
   readonly canCheck: boolean;
   /** A commit is in progress: ignore keys until it finishes. */
@@ -29,6 +29,7 @@ const CONFIDENCE_KEYS: Readonly<Record<string, Confidence>> = {
 
 const RATINGS: readonly Rating[] = ['again', 'hard', 'good', 'easy'];
 const MAX_OPTIONS = 5;
+const MAX_BINS = 6;
 
 /**
  * Map a key (KeyboardEvent.key) to a session command: 1 to 5 choose an MCQ
@@ -44,7 +45,8 @@ export function keyCommand(key: string, ctx: KeyContext): KeyCommand | null {
   if (ctx.phase === 'question') {
     const confidence = CONFIDENCE_KEYS[key.toLowerCase()];
     if (confidence && ctx.asksConfidence) return { kind: 'confidence', confidence };
-    if (digit && ctx.type === 'mcq' && digit <= Math.min(ctx.optionCount, MAX_OPTIONS)) {
+    const max = ctx.type === 'mcq' ? MAX_OPTIONS : ctx.type === 'estimation' ? MAX_BINS : 0;
+    if (digit && digit <= Math.min(ctx.optionCount, max)) {
       return { kind: 'select', index: digit - 1 };
     }
     if (confirm && ctx.canCheck) return { kind: 'check' };

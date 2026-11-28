@@ -61,3 +61,18 @@ describe('confidence keys', () => {
     expect(keyCommand('e', ctx({ asksConfidence: true, phase: 'feedback' }))).toBeNull();
   });
 });
+
+describe('estimation keys', () => {
+  it('digits tap a bin', () => {
+    const ctx = {
+      phase: 'question' as const,
+      type: 'estimation' as const,
+      optionCount: 6,
+      canCheck: false,
+      busy: false,
+    };
+    expect(keyCommand('6', ctx)).toEqual({ kind: 'select', index: 5 });
+    expect(keyCommand('7', ctx)).toBeNull();
+    expect(keyCommand('1', { ...ctx, optionCount: 0 })).toBeNull();
+  });
+});
