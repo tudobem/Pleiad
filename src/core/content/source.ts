@@ -17,6 +17,8 @@ export interface ContentSource {
   loadIndex(): Promise<ContentIndex>;
   /** Fetch a pack's verified questions (lazy, SPEC 5.3). */
   loadPack(pack: IndexPack): Promise<PackContent>;
+  /** Fetch a pack's drafts for in-app review (M14); never cached. Empty when it has none. */
+  loadDrafts?(pack: IndexPack): Promise<PackContent>;
   /**
    * Keep exactly these pack files available offline: add missing ones and drop
    * the rest (older versions, inactive packs). Best effort; never throws.

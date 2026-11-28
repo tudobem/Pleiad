@@ -19,6 +19,10 @@ export function fetchContentSource(baseUrl: string): ContentSource {
   return {
     loadIndex: () => get<ContentIndex>('content-index.json'),
     loadPack: (pack) => get<PackContent>(pack.file),
+    loadDrafts: (pack) =>
+      pack.draftsFile
+        ? get<PackContent>(pack.draftsFile)
+        : Promise.resolve({ meta: { id: pack.id } as PackContent['meta'], questions: [] }),
     keepOffline: async (files) => {
       if (typeof caches === 'undefined') return;
       try {

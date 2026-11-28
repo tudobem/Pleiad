@@ -9,6 +9,7 @@ import { CalibrationScreen } from './screens/CalibrationScreen.tsx';
 import { LibraryScreen } from './screens/LibraryScreen.tsx';
 import { RewardsScreen, StatsScreen } from './screens/StatsScreen.tsx';
 import { SettingsScreen } from './screens/SettingsScreen.tsx';
+import { ReviewScreen } from './screens/ReviewScreen.tsx';
 import { PracticeScreen } from './screens/PracticeScreen.tsx';
 import { SubjectScreen } from './screens/SubjectScreen.tsx';
 import { TodayScreen } from './screens/TodayScreen.tsx';
@@ -60,7 +61,13 @@ export function App() {
 
   return (
     <div class="layout">
-      {wide ? <Sidebar key={`${route}/${location.id ?? ''}`} location={location} /> : null}
+      {wide ? (
+        <Sidebar
+          key={`${route}/${location.id ?? ''}`}
+          // Draft review lives under Settings.
+          location={route === 'review' ? { ...location, name: 'settings' } : location}
+        />
+      ) : null}
       <div class="layout__content">
         {!persistent ? (
           <p class="banner" role="alert">
@@ -98,8 +105,9 @@ export function App() {
         ) : null}
         {route === 'library' && !wide ? library : null}
         {route === 'settings' ? <SettingsScreen /> : null}
+        {route === 'review' ? <ReviewScreen /> : null}
       </div>
-      <TabBar current={route} />
+      <TabBar current={route === 'review' ? 'settings' : route} />
     </div>
   );
 }

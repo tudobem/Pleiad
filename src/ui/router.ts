@@ -12,6 +12,7 @@ export const ROUTES = [
   'settings',
   'session',
   'welcome',
+  'review',
 ] as const;
 export type Route = (typeof ROUTES)[number];
 export const TAB_ROUTES: readonly Route[] = ['today', 'practice', 'stats', 'library', 'settings'];

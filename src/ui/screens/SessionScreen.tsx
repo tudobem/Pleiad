@@ -13,6 +13,7 @@ import { MathText } from '../components/MathText.tsx';
 import { AnswerArea } from '../components/answers/AnswerArea.tsx';
 import { ConfidenceChips } from '../components/answers/ConfidenceChips.tsx';
 import { ProgressBar } from '../components/ProgressBar.tsx';
+import { FeedbackTools } from '../components/FeedbackTools.tsx';
 import { savePlacement, type LearningData } from '../learning.ts';
 import { PLACEMENT_LENGTH } from '../../core/session/placement.ts';
 import type { Tier } from '../../core/content/types.ts';
@@ -240,6 +241,7 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
             {pending.confidence === 'certain' && !pending.correct ? (
               <ConfidentErrorCard question={question} questions={data.questions} />
             ) : null}
+            <FeedbackTools questionId={question.id} />
           </>
         ) : (
           <p class="session__why-empty">{t('session.whyEmpty')}</p>

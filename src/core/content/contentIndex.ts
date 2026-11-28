@@ -42,6 +42,9 @@ export interface IndexPack {
   readonly bytes: number;
   /** Path of the pack's verified-questions file, relative to `content/`. */
   readonly file: string;
+  /** Drafts for in-app review (M14): fetched only by the review screen, never kept offline. */
+  readonly draftsFile?: string;
+  readonly draftCount?: number;
   readonly topics: readonly string[];
   readonly counts: Counts;
 }
@@ -61,6 +64,7 @@ export function buildContentIndex(
   packs: readonly LoadedPack[],
   taxonomy: MergedTaxonomy,
   files: Readonly<Record<string, string>> = {},
+  drafts: Readonly<Record<string, { readonly file: string; readonly count: number }>> = {},
 ): ContentIndex {
   const countsByNode = new Map<string, Counts>();
   const idsByTopic = new Map<string, string[]>();
@@ -102,6 +106,7 @@ export function buildContentIndex(
       domainPath: meta.domainPath,
       bytes: pack.bytes,
       file: files[meta.id] ?? `packs/${meta.id}.json`,
+      ...draftEntry(drafts[meta.id]),
       topics: [...topics].sort(),
       counts,
     });
@@ -152,3 +157,8 @@ function bySiblingOrder(taxonomy: MergedTaxonomy) {
     return na && nb ? compareNodes(na, nb) : compareStrings(a, b);
   };
 }
+
+const draftEntry = (
+  d: { readonly file: string; readonly count: number } | undefined,
+): { draftsFile?: string; draftCount?: number } =>
+  d ? { draftsFile: d.file, draftCount: d.count } : {};

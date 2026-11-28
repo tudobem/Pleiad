@@ -1055,3 +1055,83 @@
   margin: 0;
   text-align: left;
 }
+
+/* Draft review (SPEC 16.4 path B). */
+.review__bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.review__count {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.review__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.review-card--approve {
+  border-color: var(--gold);
+}
+
+.review-card--reject,
+.review-card--edit {
+  border-color: var(--coral);
+}
+
+.review-card__meta {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: var(--text-caption);
+}
+
+.review-card__prompt {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
+}
+
+.review-card__label {
+  margin: var(--space-2) 0 0;
+  color: var(--gold-text);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+
+.review-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--text-muted);
+}
+
+.review-card__list--key {
+  color: var(--text);
+}
+
+.review-card__text {
+  margin: 0;
+}
+
+.review-card__source {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: var(--text-small);
+}

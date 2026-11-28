@@ -24,6 +24,8 @@
     "prebuild": "node scripts/build-content-index.ts",
     "content:index": "node scripts/build-content-index.ts",
     "content:register": "node scripts/register-ids.ts",
+    "apply-decisions": "node scripts/apply-decisions.ts",
+    "import": "node scripts/import.ts",
     "predev": "node scripts/build-content-index.ts"
   },
   "dependencies": {

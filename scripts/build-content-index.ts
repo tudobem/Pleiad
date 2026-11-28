@@ -35,6 +35,7 @@ if (!result || errors.length > 0) {
 }
 
 const packFiles: Record<string, string> = {};
+const draftFiles: Record<string, { file: string; count: number }> = {};
 const packJson = new Map<string, string>();
 let verified = 0;
 const thinkers = new Map(loaded.packs.flatMap((p) => p.thinkers ?? []).map((t) => [t.id, t]));
@@ -44,6 +45,20 @@ for (const pack of loaded.packs) {
     readFileSync(join(ROOT, 'content', 'packs', pack.folder, src)).toString('base64'),
   );
   verified += content.questions.length;
+  // Drafts for in-app review: fetched only by the review screen, never cached (M14).
+  const drafts = servedPack(
+    pack,
+    thinkers,
+    (src) => readFileSync(join(ROOT, 'content', 'packs', pack.folder, src)).toString('base64'),
+    'draft',
+  );
+  if (drafts.questions.length > 0) {
+    const draftJson = `${JSON.stringify(drafts)}\n`;
+    const draftHash = createHash('sha256').update(draftJson).digest('hex').slice(0, 10);
+    const draftFile = `packs/${pack.meta.id}.drafts.${draftHash}.json`;
+    draftFiles[pack.meta.id] = { file: draftFile, count: drafts.questions.length };
+    packJson.set(draftFile, draftJson);
+  }
   const json = `${JSON.stringify(content)}\n`;
   const hash = createHash('sha256').update(json).digest('hex').slice(0, 10);
   const file = `packs/${pack.meta.id}.${hash}.json`;
@@ -51,7 +66,7 @@ for (const pack of loaded.packs) {
   packJson.set(file, json);
 }
 
-const index = buildContentIndex(loaded.packs, result.taxonomy, packFiles);
+const index = buildContentIndex(loaded.packs, result.taxonomy, packFiles, draftFiles);
 rmSync(outDir, { recursive: true, force: true });
 mkdirSync(join(outDir, 'packs'), { recursive: true });
 writeFileSync(outFile, `${JSON.stringify(index, null, 2)}\n`);

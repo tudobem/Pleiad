@@ -4,7 +4,9 @@ import { DAILY_GOAL_MAX, DAILY_GOAL_MIN, type Settings } from '../../core/settin
 import { loadSettings, saveSettings, setOnboarded } from '../learning.ts';
 import { PACE_NAMES, PACES, paceOf } from '../../core/onboarding/pace.ts';
 import { Chip } from '../components/library/Chip.tsx';
-import { navigate } from '../router.ts';
+import { href, navigate } from '../router.ts';
+import { exportFlags } from '../review.ts';
+import { loadIndex } from '../useContent.ts';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { UpdateNotice } from '../components/UpdateNotice.tsx';
@@ -30,10 +32,66 @@ export function SettingsScreen() {
       <GoalSection />
       <AnsweringSection />
       <BackupSection />
+      <ContentSection />
       <WelcomeAgain />
       <p class="screen__muted">{t('settings.later')}</p>
       <p class="screen__muted">{t('settings.version', { version: appVersion })}</p>
     </main>
+  );
+}
+
+/** Content tooling (SPEC 16): draft review and flags export. */
+function ContentSection() {
+  const services = useServices();
+  const [drafts, setDrafts] = useState<number | null>(null);
+  const [flags, setFlags] = useState(0);
+  const [message, setMessage] = useState<string | null>(null);
+  useEffect(() => {
+    void loadIndex(services.content)
+      .then((index) => setDrafts(index.packs.reduce((n, p) => n + (p.draftCount ?? 0), 0)))
+      .catch(() => setDrafts(null));
+    void services.storage.getAll('flags').then((all) => setFlags(all.length));
+  }, [services]);
+
+  const doExport = async () => {
+    const result = await exportFlags(services);
+    setMessage(result === 'cancelled' ? null : t('content.flagsExported'));
+  };
+  const clear = async () => {
+    if (!window.confirm(t('content.clearConfirm'))) return;
+    for (const f of await services.storage.getAll<{ questionId: string }>('flags')) {
+      await services.storage.delete('flags', f.questionId);
+    }
+    setFlags(0);
+    setMessage(null);
+  };
+
+  return (
+    <section class="settings__section" aria-labelledby="content-title">
+      <h2 class="shelf__title" id="content-title">
+        {t('content.title')}
+      </h2>
+      <a class="quiet-row" href={href('review')}>
+        <span class="quiet-row__text">{t('content.review')}</span>
+        <span class="quiet-row__hint">
+          {drafts === null ? '' : t('content.reviewCount', { n: drafts })}
+        </span>
+      </a>
+      <p class="settings__text">{t('content.flags', { n: flags })}</p>
+      <div class="settings__row">
+        <Button variant="secondary" onClick={() => void doExport()} disabled={flags === 0}>
+          {t('content.exportFlags')}
+        </Button>
+        <Button variant="text" onClick={() => void clear()} disabled={flags === 0}>
+          {t('content.clearFlags')}
+        </Button>
+      </div>
+      {message ? (
+        <p class="settings__message" role="status">
+          {message}
+        </p>
+      ) : null}
+    </section>
   );
 }
 

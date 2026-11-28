@@ -60,7 +60,8 @@ export default defineConfig({
           {
             // Pack files carry a content hash in their name, so a cached copy
             // never goes stale; a new version is a new file.
-            urlPattern: /\/content\/packs\/[^/]+\.json$/,
+            // Drafts files (in-app review) are never cached.
+            urlPattern: /\/content\/packs\/(?![^/]*\.drafts\.)[^/]+\.json$/,
             handler: 'CacheFirst',
             options: { cacheName: 'pleiad-packs' },
           },
