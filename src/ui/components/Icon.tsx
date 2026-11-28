@@ -10,7 +10,8 @@ export type IconName =
   | 'cross'
   | 'back'
   | 'chevron'
-  | 'search';
+  | 'search'
+  | 'flag';
 
 const PATHS: Record<IconName, string> = {
   today: 'M12 3l2.2 5.6L20 9.3l-4.4 3.9 1.3 5.8L12 16l-4.9 3 1.3-5.8L4 9.3l5.8-.7z',
@@ -25,6 +26,7 @@ const PATHS: Record<IconName, string> = {
   back: 'M15 5l-7 7 7 7',
   chevron: 'M9 5l7 7-7 7',
   search: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4',
+  flag: 'M5 21V4M5 4h11l-2 4 2 4H5',
 };
 
 export function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

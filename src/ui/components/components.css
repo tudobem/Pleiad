@@ -379,3 +379,81 @@ a {
   filter: brightness(1.25);
   transition: filter var(--duration-fast) var(--ease-out);
 }
+
+/* Note and Flag on the feedback screen (DESIGN 4.3). */
+.tools {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.tools__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.tools__flag {
+  display: grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.tools__flag--on {
+  border-color: var(--coral);
+  color: var(--coral-text);
+}
+
+.tools__flag:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.tools__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-option);
+  background: var(--surface);
+}
+
+.tools__label {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.tools__text {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-option);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  /* 16 px keeps iOS from zooming into the field. */
+  font-size: max(16px, var(--text-body));
+  resize: vertical;
+}
+
+.tools__text:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.tools__note,
+.tools__saved {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}

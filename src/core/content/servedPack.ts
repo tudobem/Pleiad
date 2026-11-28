@@ -19,10 +19,12 @@ export function servedPack(
   thinkers: ReadonlyMap<string, Thinker>,
   /** Base64 of a media file, by its pack-relative path. */
   readBase64: (src: string) => string,
+  /** `draft` builds the review file (SPEC 16.4 path B); default `verified`. */
+  status: 'verified' | 'draft' = 'verified',
 ): PackContent {
   const questions: Question[] = pack.questionFiles
     .flatMap((f) => f.questions)
-    .filter((q) => q.status === 'verified')
+    .filter((q) => q.status === status)
     .map((q) =>
       q.media
         ? {
