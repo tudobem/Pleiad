@@ -3,6 +3,7 @@ import { validateContent, type ValidateInput } from './validate.ts';
 import {
   NODES,
   cloze,
+  estimation,
   ledgerFor,
   match,
   mcq,
@@ -11,8 +12,9 @@ import {
   pack,
   recall,
   short,
+  timeline,
 } from './fixtures.test-util.ts';
-import type { LoadedPack } from './types.ts';
+import type { EstimationQuestion, LoadedPack } from './types.ts';
 
 const TOKENS = new Set(['gold', 'link']);
 
@@ -173,6 +175,75 @@ describe('validateContent', () => {
       expect(codes({ packs: [pack([order({ items: ['A', 'B', 'a'] })])] })).toContain(
         'error:order.duplicate',
       );
+    });
+  });
+
+  describe('estimation and timeline', () => {
+    /** An estimation item with bins instead of a slider. */
+    const withBins = (
+      bins: { min: number; max: number }[],
+      o: Partial<EstimationQuestion> = {},
+    ): EstimationQuestion =>
+      ({
+        ...Object.fromEntries(
+          Object.entries(estimation(o)).filter(([k]) => k !== 'range' && k !== 'tolerance'),
+        ),
+        bins,
+      }) as unknown as EstimationQuestion;
+
+    it('accepts valid items', () => {
+      const bins = withBins(
+        [
+          { min: 1e6, max: 1e9 },
+          { min: 1e9, max: 1e11 },
+          { min: 1e11, max: 1e13 },
+        ],
+        { id: 'q-est-0002', prompt: 'Roughly how many synapses does a cortical neuron have?' },
+      );
+      expect(codes({ packs: [pack([estimation(), bins, timeline()])] })).toEqual([]);
+    });
+
+    it('checks estimation numbers', () => {
+      const has = (o: Parameters<typeof estimation>[0], code: string) =>
+        expect(codes({ packs: [pack([estimation(o)])] })).toContain(code);
+      has({ value: 1e14 }, 'error:estimation.value');
+      has({ range: { min: 0, max: 10 }, value: 5 }, 'error:estimation.log');
+      has({ tolerance: 0.5 }, 'error:estimation.tolerance');
+      has({ range: { min: 10, max: 1 }, value: 5 }, 'error:estimation.range');
+      const bins = (b: { min: number; max: number }[]) => codes({ packs: [pack([withBins(b)])] });
+      expect(
+        bins([
+          { min: 1, max: 10 },
+          { min: 5, max: 1e12 },
+          { min: 1e12, max: 1e13 },
+        ]),
+      ).toContain('error:estimation.bins');
+      expect(
+        bins([
+          { min: 1, max: 10 },
+          { min: 10, max: 100 },
+          { min: 100, max: 1000 },
+        ]),
+      ).toContain('error:estimation.value');
+    });
+
+    it('checks timeline dates', () => {
+      const with_ = (dates: string[], precision?: 'year' | 'month') =>
+        codes({
+          packs: [
+            pack([
+              timeline({
+                events: dates.map((date, i) => ({ label: `e${i}`, date })),
+                ...(precision ? { precision } : {}),
+              }),
+            ]),
+          ],
+        });
+      expect(with_(['1974', '1974', '1995'])).toContain('error:timeline.tie');
+      expect(with_(['1974', '1995-03', '1996'])).toContain('error:timeline.precision');
+      expect(with_(['1974', 'later', '1996'])).toContain('error:timeline.date');
+      expect(with_(['1974-01', '1974-02', '1995-03'], 'month')).toEqual([]);
+      expect(with_(['-0350', '1641', '1995'])).toEqual([]);
     });
   });
 

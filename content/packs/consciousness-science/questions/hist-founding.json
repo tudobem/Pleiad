@@ -126,6 +126,51 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-hist-founding-0005",
+      "pack": "consciousness-science",
+      "topic": "hist-founding",
+      "type": "timeline",
+      "tier": "advanced",
+      "tags": ["history"],
+      "prompt": "Put these milestones of the modern science of consciousness in date order.",
+      "events": [
+        {
+          "label": "Crick and Koch, \"Towards a neurobiological theory of consciousness\"",
+          "date": "1990"
+        },
+        {
+          "label": "Baars, \"A Cognitive Theory of Consciousness\" (global workspace)",
+          "date": "1988"
+        },
+        {
+          "label": "Crick, \"The Astonishing Hypothesis\"",
+          "date": "1994"
+        },
+        {
+          "label": "Logothetis and Schall record monkey neurons during binocular rivalry",
+          "date": "1989"
+        }
+      ],
+      "explanation": "Baars set out global workspace theory in 1988; Logothetis and Schall tracked neurons whose firing followed the perceived image in rivalry in 1989; Crick and Koch called for a search for neural correlates in 1990; Crick popularised the program in 1994.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        },
+        {
+          "citation": "Logothetis, N. K., & Schall, J. D. (1989). Neuronal correlates of subjective visual perception. Science, 245(4919), 761-763.",
+          "url": "https://doi.org/10.1126/science.2772635"
+        },
+        {
+          "citation": "Crick, F., & Koch, C. (1990). Towards a neurobiological theory of consciousness. Seminars in the Neurosciences, 2, 263-275."
+        },
+        {
+          "citation": "Crick, F. (1994). The Astonishing Hypothesis: The Scientific Search for the Soul. Scribner."
+        }
+      ]
     }
   ]
 }

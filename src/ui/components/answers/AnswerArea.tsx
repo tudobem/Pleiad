@@ -1,5 +1,7 @@
 import type { Question } from '../../../core/content/types.ts';
 import { ClozeAnswer } from './ClozeAnswer.tsx';
+import { EstimationAnswer } from './EstimationAnswer.tsx';
+import { TimelineAnswer } from './TimelineAnswer.tsx';
 import { MatchAnswer } from './MatchAnswer.tsx';
 import { McqAnswer } from './McqAnswer.tsx';
 import { OrderAnswer } from './OrderAnswer.tsx';
@@ -22,6 +24,10 @@ export function AnswerArea(props: AnswerProps<Question>) {
       return <MatchAnswer {...props} question={q} />;
     case 'order':
       return <OrderAnswer {...props} question={q} />;
+    case 'estimation':
+      return <EstimationAnswer {...props} question={q} />;
+    case 'timeline':
+      return <TimelineAnswer {...props} question={q} />;
     case 'recall':
       return <RecallAnswer {...props} question={q} />;
   }

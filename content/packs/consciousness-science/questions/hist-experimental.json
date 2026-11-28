@@ -268,6 +268,48 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-hist-experimental-0009",
+      "pack": "consciousness-science",
+      "topic": "hist-experimental",
+      "type": "timeline",
+      "tier": "foundational",
+      "tags": ["history"],
+      "prompt": "Put these events in the rise of experimental psychology in date order.",
+      "events": [
+        {
+          "label": "Wundt opens his psychology laboratory in Leipzig",
+          "date": "1879"
+        },
+        {
+          "label": "Watson's behaviourist manifesto, \"Psychology as the behaviorist views it\"",
+          "date": "1913"
+        },
+        {
+          "label": "Fechner, \"Elemente der Psychophysik\"",
+          "date": "1860"
+        },
+        {
+          "label": "James, \"The Principles of Psychology\"",
+          "date": "1890"
+        }
+      ],
+      "explanation": "Fechner founded psychophysics in 1860, Wundt opened the first lasting psychology laboratory in 1879, James published his Principles in 1890, and Watson rejected introspection in favour of behaviour in 1913.",
+      "sources": [
+        {
+          "citation": "Fechner, G. T. (1860). Elemente der Psychophysik. Breitkopf und Härtel."
+        },
+        {
+          "citation": "James, W. (1890). The Principles of Psychology. Henry Holt."
+        },
+        {
+          "citation": "Watson, J. B. (1913). Psychology as the behaviorist views it. Psychological Review, 20(2), 158-177.",
+          "url": "https://doi.org/10.1037/h0074428"
+        }
+      ]
     }
   ]
 }

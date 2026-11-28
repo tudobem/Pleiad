@@ -26,7 +26,7 @@
       "$ref": "defs.schema.json#/$defs/id"
     },
     "type": {
-      "enum": ["mcq", "recall", "short", "cloze", "match", "order"]
+      "enum": ["mcq", "recall", "short", "cloze", "match", "order", "estimation", "timeline"]
     },
     "tier": {
       "enum": ["foundational", "advanced", "expert"]
@@ -159,7 +159,15 @@
     "numeric": true,
     "options": true,
     "pairs": true,
-    "text": true
+    "text": true,
+    "value": true,
+    "unit": true,
+    "scale": true,
+    "bins": true,
+    "range": true,
+    "tolerance": true,
+    "events": true,
+    "precision": true
   },
   "additionalProperties": false,
   "oneOf": [
@@ -198,7 +206,15 @@
         "items": false,
         "numeric": false,
         "pairs": false,
-        "text": false
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false
       },
       "required": ["options", "answer"]
     },
@@ -218,7 +234,15 @@
         "numeric": false,
         "options": false,
         "pairs": false,
-        "text": false
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false
       },
       "required": ["answer_text"]
     },
@@ -258,7 +282,15 @@
         "items": false,
         "options": false,
         "pairs": false,
-        "text": false
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false
       },
       "required": ["answers"]
     },
@@ -287,7 +319,15 @@
         "items": false,
         "numeric": false,
         "options": false,
-        "pairs": false
+        "pairs": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false
       },
       "required": ["text"]
     },
@@ -322,7 +362,15 @@
         "items": false,
         "numeric": false,
         "options": false,
-        "text": false
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false
       },
       "required": ["pairs"]
     },
@@ -348,9 +396,158 @@
         "numeric": false,
         "options": false,
         "pairs": false,
-        "text": false
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false
       },
       "required": ["items"]
+    },
+    {
+      "title": "estimation",
+      "properties": {
+        "type": {
+          "const": "estimation"
+        },
+        "value": {
+          "type": "number",
+          "description": "The true value."
+        },
+        "unit": {
+          "$ref": "defs.schema.json#/$defs/nonEmptyText",
+          "description": "Unit shown with numbers, e.g. \"neurons\". Leave out for years."
+        },
+        "scale": {
+          "enum": ["linear", "log"]
+        },
+        "bins": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["min", "max"],
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "label": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              }
+            }
+          },
+          "description": "Ranges to tap, sorted; max is exclusive; exactly one contains value."
+        },
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min", "max"],
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          },
+          "description": "Slider ends (when there are no bins)."
+        },
+        "tolerance": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Slider grading: a factor >= 1 on a log scale, an absolute amount on a linear one."
+        },
+        "events": false,
+        "precision": false,
+        "answer": false,
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
+        "options": false,
+        "pairs": false,
+        "text": false
+      },
+      "required": ["value", "scale"],
+      "oneOf": [
+        {
+          "required": ["bins"],
+          "not": {
+            "anyOf": [
+              {
+                "required": ["range"]
+              },
+              {
+                "required": ["tolerance"]
+              }
+            ]
+          }
+        },
+        {
+          "required": ["range", "tolerance"],
+          "not": {
+            "required": ["bins"]
+          }
+        }
+      ]
+    },
+    {
+      "title": "timeline",
+      "properties": {
+        "type": {
+          "const": "timeline"
+        },
+        "events": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "date"],
+            "properties": {
+              "label": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "date": {
+                "type": "string",
+                "pattern": "^-?\\d{1,4}(-\\d{2}(-\\d{2})?)?$",
+                "description": "YYYY, YYYY-MM or YYYY-MM-DD; a leading - for BCE years."
+              }
+            }
+          },
+          "description": "Events to put in date order; shown shuffled."
+        },
+        "precision": {
+          "enum": ["year", "month", "day"]
+        },
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "answer": false,
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
+        "options": false,
+        "pairs": false,
+        "text": false
+      },
+      "required": ["events"]
     }
   ]
 }

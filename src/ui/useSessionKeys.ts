@@ -30,7 +30,12 @@ export function useSessionKeys(
       const command = keyCommand(event.key, {
         phase: state.phase,
         type: question.type,
-        optionCount: question.type === 'mcq' ? question.options.length : 0,
+        optionCount:
+          question.type === 'mcq'
+            ? question.options.length
+            : question.type === 'estimation'
+              ? (question.bins?.length ?? 0)
+              : 0,
         canCheck: s.canCheck,
         busy: s.busy,
         asksConfidence: s.asksConfidence,
@@ -39,7 +44,11 @@ export function useSessionKeys(
       event.preventDefault();
       switch (command.kind) {
         case 'select':
-          s.respond({ type: 'mcq', choice: command.index });
+          s.respond(
+            question.type === 'estimation'
+              ? { type: 'estimation', bin: command.index, value: null }
+              : { type: 'mcq', choice: command.index },
+          );
           break;
         case 'check':
           s.check();

@@ -72,6 +72,48 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-dualism-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "dualism",
+      "type": "estimation",
+      "tier": "foundational",
+      "tags": ["history", "descartes"],
+      "prompt": "When did Descartes publish the Meditations on First Philosophy?",
+      "value": 1641,
+      "scale": "linear",
+      "bins": [
+        {
+          "min": 1500,
+          "max": 1600,
+          "label": "The 1500s"
+        },
+        {
+          "min": 1600,
+          "max": 1700,
+          "label": "The 1600s"
+        },
+        {
+          "min": 1700,
+          "max": 1800,
+          "label": "The 1700s"
+        },
+        {
+          "min": 1800,
+          "max": 1900,
+          "label": "The 1800s"
+        }
+      ],
+      "explanation": "The Meditations appeared in Latin in 1641; their argument for a real distinction between mind and body is the classic source of substance dualism.",
+      "sources": [
+        {
+          "citation": "Hatfield, G. (2024). René Descartes. Stanford Encyclopedia of Philosophy.",
+          "url": "https://plato.stanford.edu/entries/descartes/"
+        }
+      ]
     }
   ]
 }

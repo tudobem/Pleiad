@@ -398,6 +398,45 @@
       ],
       "status": "draft",
       "created": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-hard-problem-0006",
+      "pack": "philosophy-of-mind",
+      "topic": "hard-problem",
+      "type": "timeline",
+      "tier": "foundational",
+      "tags": ["history"],
+      "prompt": "Put these works on the mind and consciousness in date order.",
+      "events": [
+        {
+          "label": "Chalmers, \"Facing up to the problem of consciousness\"",
+          "date": "1995"
+        },
+        {
+          "label": "Nagel, \"What is it like to be a bat?\"",
+          "date": "1974"
+        },
+        {
+          "label": "Descartes, Meditations on First Philosophy",
+          "date": "1641"
+        },
+        {
+          "label": "Jackson, \"Epiphenomenal Qualia\"",
+          "date": "1982"
+        }
+      ],
+      "explanation": "Descartes argued for dualism in 1641; Nagel stressed the subjective character of experience in 1974; Jackson gave the knowledge argument in 1982; Chalmers named the hard problem in 1995.",
+      "sources": [
+        {
+          "citation": "Nagel, T. (1974). What is it like to be a bat? Philosophical Review, 83(4), 435-450.",
+          "url": "https://doi.org/10.2307/2183914"
+        },
+        {
+          "citation": "Chalmers, D. J. (1995). Facing up to the problem of consciousness. Journal of Consciousness Studies, 2(3), 200-219."
+        }
+      ]
     }
   ]
 }

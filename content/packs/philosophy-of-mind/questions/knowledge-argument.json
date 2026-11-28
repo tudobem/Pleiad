@@ -254,6 +254,31 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-knowledge-argument-0005",
+      "pack": "philosophy-of-mind",
+      "topic": "knowledge-argument",
+      "type": "estimation",
+      "tier": "advanced",
+      "tags": ["history", "jackson"],
+      "prompt": "In what year did Frank Jackson publish \"Epiphenomenal Qualia\", which introduced Mary the colour scientist?",
+      "value": 1982,
+      "scale": "linear",
+      "range": {
+        "min": 1900,
+        "max": 2020
+      },
+      "tolerance": 3,
+      "explanation": "Jackson presented the knowledge argument in \"Epiphenomenal Qualia\" in 1982, eight years after Nagel's bat paper.",
+      "sources": [
+        {
+          "citation": "Jackson, F. (1982). Epiphenomenal qualia. Philosophical Quarterly, 32(127), 127-136.",
+          "url": "https://doi.org/10.2307/2960077"
+        }
+      ]
     }
   ]
 }

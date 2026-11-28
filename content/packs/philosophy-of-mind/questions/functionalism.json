@@ -201,6 +201,53 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-functionalism-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "functionalism",
+      "type": "timeline",
+      "tier": "advanced",
+      "tags": ["history"],
+      "prompt": "Put these papers on minds and machines in date order.",
+      "events": [
+        {
+          "label": "Searle, \"Minds, Brains, and Programs\" (the Chinese room)",
+          "date": "1980"
+        },
+        {
+          "label": "Place, \"Is consciousness a brain process?\"",
+          "date": "1956"
+        },
+        {
+          "label": "Turing, \"Computing Machinery and Intelligence\"",
+          "date": "1950"
+        },
+        {
+          "label": "Putnam, \"Psychological Predicates\" (multiple realizability)",
+          "date": "1967"
+        }
+      ],
+      "explanation": "Turing proposed the imitation game in 1950; Place defended mind-brain identity in 1956; Putnam argued from multiple realizability toward functionalism in 1967; Searle attacked strong AI with the Chinese room in 1980.",
+      "sources": [
+        {
+          "citation": "Turing, A. M. (1950). Computing machinery and intelligence. Mind, 59(236), 433-460.",
+          "url": "https://doi.org/10.1093/mind/LIX.236.433"
+        },
+        {
+          "citation": "Place, U. T. (1956). Is consciousness a brain process? British Journal of Psychology, 47(1), 44-50.",
+          "url": "https://doi.org/10.1111/j.2044-8295.1956.tb00560.x"
+        },
+        {
+          "citation": "Putnam, H. (1967). Psychological predicates. In W. H. Capitan & D. D. Merrill (Eds.), Art, Mind, and Religion (pp. 37-48). University of Pittsburgh Press."
+        },
+        {
+          "citation": "Searle, J. R. (1980). Minds, brains, and programs. Behavioral and Brain Sciences, 3(3), 417-424.",
+          "url": "https://doi.org/10.1017/S0140525X00005756"
+        }
+      ]
     }
   ]
 }

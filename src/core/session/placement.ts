@@ -10,7 +10,15 @@ export const PLACEMENT_LENGTH = 10;
 const STEP_UP_STREAK = 2;
 
 /** Auto-graded types only: recall is self-rated, so it says little about level. */
-const PLACEMENT_TYPES: readonly Question['type'][] = ['mcq', 'short', 'cloze', 'match', 'order'];
+const PLACEMENT_TYPES: readonly Question['type'][] = [
+  'mcq',
+  'short',
+  'cloze',
+  'match',
+  'order',
+  'estimation',
+  'timeline',
+];
 
 export interface PlacementAnswer {
   readonly questionId: string;

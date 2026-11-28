@@ -5,6 +5,8 @@ import type {
   MatchQuestion,
   McqQuestion,
   OrderQuestion,
+  EstimationQuestion,
+  TimelineQuestion,
   PackMeta,
   Question,
   RecallQuestion,
@@ -135,6 +137,36 @@ export function order(overrides: Partial<OrderQuestion> = {}): OrderQuestion {
     type: 'order',
     prompt: 'Order these by year.',
     items: ['Nagel 1974', 'Jackson 1982', 'Chalmers 1995'],
+    ...overrides,
+  };
+}
+
+export function estimation(overrides: Partial<EstimationQuestion> = {}): EstimationQuestion {
+  return {
+    ...base,
+    id: 'q-est-0001',
+    type: 'estimation',
+    prompt: 'About how many neurons are in the human brain?',
+    value: 86e9,
+    unit: 'neurons',
+    scale: 'log',
+    range: { min: 1e6, max: 1e13 },
+    tolerance: 2,
+    ...overrides,
+  };
+}
+
+export function timeline(overrides: Partial<TimelineQuestion> = {}): TimelineQuestion {
+  return {
+    ...base,
+    id: 'q-time-0001',
+    type: 'timeline',
+    prompt: 'Put these in date order.',
+    events: [
+      { label: 'Chalmers: the hard problem', date: '1995' },
+      { label: 'Nagel: what is it like to be a bat?', date: '1974' },
+      { label: 'Jackson: what Mary did not know', date: '1982' },
+    ],
     ...overrides,
   };
 }
