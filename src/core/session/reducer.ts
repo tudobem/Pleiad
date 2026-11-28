@@ -62,7 +62,17 @@ export interface SessionState {
 }
 
 /** Question types that ask for confidence (SPEC 9). */
-export const CONFIDENCE_TYPES: readonly Response['type'][] = ['mcq', 'short'];
+export const CONFIDENCE_TYPES: readonly Response['type'][] = [
+  'mcq',
+  'short',
+  'attribution',
+  'image',
+];
+
+/** Whether a response carries confidence: hotspot taps never do (SPEC 9 covers MCQ-like items). */
+export function takesConfidence(r: Response): boolean {
+  return CONFIDENCE_TYPES.includes(r.type) && !(r.type === 'image' && r.point !== null);
+}
 
 export interface LeaveOptions {
   /** Rate a correct auto-graded answer Easy. */
@@ -150,7 +160,7 @@ export function sessionReducer(state: SessionState, action: SessionAction): Sess
     case 'answer': {
       const item = state.items[state.index];
       if (state.phase !== 'question' || state.response === null || !item) return state;
-      const asksConfidence = CONFIDENCE_TYPES.includes(state.response.type);
+      const asksConfidence = takesConfidence(state.response);
       const record: AnswerRecord = {
         questionId: item.questionId,
         response: state.response,

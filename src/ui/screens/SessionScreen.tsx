@@ -66,7 +66,8 @@ function Session({ initial, data }: { initial: SessionState; data: LearningData 
     !!question &&
     data.settings.confidencePrompts &&
     state.phase === 'question' &&
-    CONFIDENCE_TYPES.includes(question.type as Response['type']);
+    CONFIDENCE_TYPES.includes(question.type as Response['type']) &&
+    !(question.type === 'image' && question.mode === 'hotspot');
   useSessionKeys({ ...session, asksConfidence });
   const total = state.placement
     ? Math.max(PLACEMENT_LENGTH, state.items.length)

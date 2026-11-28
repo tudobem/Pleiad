@@ -77,6 +77,25 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-25"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-biological-naturalism-0003",
+      "pack": "philosophy-of-mind",
+      "topic": "biological-naturalism",
+      "type": "attribution",
+      "tier": "foundational",
+      "tags": ["searle"],
+      "prompt": "Who called his view \"biological naturalism\": consciousness is caused by brain processes and is a biological feature of the brain, as digestion is of the stomach?",
+      "thinker": "john-searle",
+      "options": ["daniel-dennett", "ned-block", "frank-jackson"],
+      "explanation": "John Searle defended biological naturalism, holding that consciousness is real, subjective and caused by neurobiological processes, against both dualism and computational functionalism.",
+      "sources": [
+        {
+          "citation": "Searle, J. R. (1992). The Rediscovery of the Mind. MIT Press."
+        }
+      ]
     }
   ]
 }

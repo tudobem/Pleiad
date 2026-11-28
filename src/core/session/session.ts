@@ -38,6 +38,10 @@ function layoutSize(q: Question): number {
   switch (q.type) {
     case 'mcq':
       return q.options.length;
+    case 'image':
+      return q.mode === 'mcq' ? q.options.length : 0;
+    case 'attribution':
+      return q.options.length + 1;
     case 'cloze':
       return clozeAnswers(q.text).length + (q.bank?.length ?? 0);
     case 'match':

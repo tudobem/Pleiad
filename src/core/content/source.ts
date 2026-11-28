@@ -1,5 +1,5 @@
 import type { ContentIndex, IndexPack } from './contentIndex.ts';
-import type { PackMeta, Question } from './types.ts';
+import type { PackMeta, Question, Thinker } from './types.ts';
 
 /**
  * A pack as served to the app: metadata plus verified questions only
@@ -8,6 +8,8 @@ import type { PackMeta, Question } from './types.ts';
 export interface PackContent {
   readonly meta: PackMeta;
   readonly questions: readonly Question[];
+  /** Thinkers named by the pack's attribution questions. */
+  readonly thinkers?: readonly Thinker[];
 }
 
 /** Where the app gets content from. Platform implements it (fetch on web). */

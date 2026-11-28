@@ -458,3 +458,80 @@
   flex-direction: column;
   gap: var(--space-1);
 }
+
+/* Image questions (SPEC 6): a picture with options, or a picture to tap. */
+.image-figure {
+  display: block;
+  /* Scales down with its own proportions; images need intrinsic width and height. */
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 40vh;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-option);
+  background: var(--surface);
+}
+
+.image-hotspot {
+  position: relative;
+  /* The box takes the image's own size, so percent positions match the picture. */
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+.image-hotspot--live {
+  cursor: crosshair;
+}
+
+.image-spot {
+  position: absolute;
+  aspect-ratio: 1;
+  min-width: 14px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.image-spot--tap {
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+
+.image-spot--wrong {
+  border: 3px dashed var(--coral);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+
+.image-spot--right {
+  border: 3px solid var(--gold);
+  background: var(--gold-tint);
+}
+
+.image-spot__label {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-option);
+  background: var(--bg);
+  color: var(--gold-text);
+  font-size: var(--text-caption);
+  line-height: var(--leading-body);
+  white-space: nowrap;
+  transform: translate(-50%, var(--space-1));
+}
+
+.image-choices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.image-caption,
+.attribution-note {
+  margin: 0;
+  color: var(--text-muted);
+}

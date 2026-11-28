@@ -18,6 +18,17 @@ export type Response =
   | { readonly type: 'estimation'; readonly bin: number | null; readonly value: number | null }
   /** Display indices in the order the user tapped them, like order. */
   | { readonly type: 'timeline'; readonly sequence: readonly number[] }
+  /**
+   * Image: `choice` (display index) in MCQ mode; `point` in hotspot mode, in
+   * percent of the image, with the image's width/height ratio when tapped.
+   */
+  | {
+      readonly type: 'image';
+      readonly choice: number;
+      readonly point: { readonly x: number; readonly y: number; readonly aspect: number } | null;
+    }
+  /** Display index of the chosen thinker. */
+  | { readonly type: 'attribution'; readonly choice: number }
   | { readonly type: 'recall' };
 
 /** The empty response a question starts with. */
@@ -37,6 +48,10 @@ export function emptyResponse(q: Question): Response {
       return { type: 'estimation', bin: null, value: null };
     case 'timeline':
       return { type: 'timeline', sequence: [] };
+    case 'image':
+      return { type: 'image', choice: -1, point: null };
+    case 'attribution':
+      return { type: 'attribution', choice: -1 };
     case 'recall':
       return { type: 'recall' };
   }
@@ -60,6 +75,10 @@ export function isComplete(q: Question, r: Response | null): boolean {
       return r.bin !== null || r.value !== null;
     case 'timeline':
       return q.type === 'timeline' && r.sequence.length === q.events.length;
+    case 'image':
+      return r.choice >= 0 || r.point !== null;
+    case 'attribution':
+      return r.choice >= 0;
     case 'recall':
       return true;
   }

@@ -6,6 +6,9 @@ import type {
   McqQuestion,
   OrderQuestion,
   EstimationQuestion,
+  ImageQuestion,
+  AttributionQuestion,
+  Thinker,
   TimelineQuestion,
   PackMeta,
   Question,
@@ -170,6 +173,60 @@ export function timeline(overrides: Partial<TimelineQuestion> = {}): TimelineQue
     ...overrides,
   };
 }
+
+export function imageMcq(overrides: Partial<McqQuestion> = {}): ImageQuestion {
+  const { options, answer } = mcq();
+  return {
+    ...base,
+    id: 'q-img-0001',
+    type: 'image',
+    mode: 'mcq',
+    prompt: 'What does this figure show?',
+    media: [{ src: 'media/cube.svg', alt: 'A wire-frame cube', license: 'CC-BY-4.0' }],
+    options,
+    answer,
+    ...overrides,
+  } as ImageQuestion;
+}
+
+export function hotspot(overrides: Record<string, unknown> = {}): ImageQuestion {
+  return {
+    ...base,
+    id: 'q-img-0002',
+    type: 'image',
+    mode: 'hotspot',
+    prompt: 'Tap the global workspace.',
+    media: [
+      { src: 'media/gw.svg', alt: 'Modules around a central workspace', license: 'CC-BY-4.0' },
+    ],
+    hotspots: [
+      { x: 50, y: 50, r: 12, label: 'Workspace' },
+      { x: 15, y: 15, r: 10, label: 'Perception' },
+      { x: 85, y: 85, r: 10, label: 'Memory' },
+    ],
+    answer: 0,
+    ...overrides,
+  } as ImageQuestion;
+}
+
+export function attribution(overrides: Partial<AttributionQuestion> = {}): AttributionQuestion {
+  return {
+    ...base,
+    id: 'q-attr-0001',
+    type: 'attribution',
+    prompt: 'Who proposed global workspace theory?',
+    thinker: 'baars',
+    options: ['tononi', 'koch', 'chalmers'],
+    ...overrides,
+  };
+}
+
+export const THINKERS: Thinker[] = [
+  { id: 'baars', name: 'Bernard Baars' },
+  { id: 'tononi', name: 'Giulio Tononi' },
+  { id: 'koch', name: 'Christof Koch' },
+  { id: 'chalmers', name: 'David Chalmers' },
+];
 
 /** Build a pack; questions are grouped into files by their topic. */
 export function pack(

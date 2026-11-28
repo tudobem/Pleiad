@@ -203,6 +203,84 @@
       ],
       "status": "retired",
       "created": "2026-11-26"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-gwt-0007",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "image",
+      "mode": "hotspot",
+      "tier": "foundational",
+      "tags": ["gwt", "baars"],
+      "prompt": "In this schematic of global workspace theory, tap the part where, according to the theory, content becomes conscious.",
+      "media": [
+        {
+          "src": "media/workspace-schematic.svg",
+          "alt": "Four labelled specialist modules (perception, long-term memory, evaluation, motor) at the corners, each linked to one unlabelled central hub",
+          "credit": "Pleiad",
+          "license": "CC-BY-4.0"
+        }
+      ],
+      "hotspots": [
+        {
+          "x": 50,
+          "y": 50,
+          "r": 11,
+          "label": "The central workspace"
+        },
+        {
+          "x": 17.5,
+          "y": 20,
+          "r": 9,
+          "label": "Perception"
+        },
+        {
+          "x": 82.5,
+          "y": 20,
+          "r": 9,
+          "label": "Long-term memory"
+        },
+        {
+          "x": 15,
+          "y": 80,
+          "r": 9,
+          "label": "Evaluation"
+        },
+        {
+          "x": 85,
+          "y": 80,
+          "r": 9,
+          "label": "Motor"
+        }
+      ],
+      "answer": 0,
+      "explanation": "According to global workspace theory, specialist processors work unconsciously; content becomes conscious when it wins access to a limited central workspace that broadcasts it to all of them at once.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        }
+      ]
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-gwt-0008",
+      "pack": "consciousness-science",
+      "topic": "global-workspace",
+      "type": "attribution",
+      "tier": "foundational",
+      "tags": ["gwt", "history"],
+      "prompt": "Who first proposed global workspace theory, in which consciousness is information broadcast widely across the brain?",
+      "thinker": "bernard-baars",
+      "options": ["giulio-tononi", "victor-lamme", "david-rosenthal"],
+      "explanation": "Bernard Baars set out the theory in 1988; Dehaene and colleagues later developed its neural version, the global neuronal workspace.",
+      "sources": [
+        {
+          "citation": "Baars, B. J. (1988). A Cognitive Theory of Consciousness. Cambridge University Press."
+        }
+      ]
     }
   ]
 }

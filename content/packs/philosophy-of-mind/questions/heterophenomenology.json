@@ -116,6 +116,25 @@
       "status": "verified",
       "created": "2026-11-25",
       "verified_on": "2026-11-26"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "pom-heterophenomenology-0004",
+      "pack": "philosophy-of-mind",
+      "topic": "heterophenomenology",
+      "type": "attribution",
+      "tier": "foundational",
+      "tags": ["dennett", "method"],
+      "prompt": "Who coined \"heterophenomenology\", the method of treating a subject's reports about experience as data to be explained rather than as infallible?",
+      "thinker": "daniel-dennett",
+      "options": ["david-chalmers", "thomas-nagel", "john-searle"],
+      "explanation": "Daniel Dennett introduced the term and defended the method, most fully in Consciousness Explained (1991).",
+      "sources": [
+        {
+          "citation": "Dennett, D. C. (1991). Consciousness Explained. Little, Brown."
+        }
+      ]
     }
   ]
 }

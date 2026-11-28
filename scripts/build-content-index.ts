@@ -6,12 +6,13 @@
  * Refuses to write if the content has errors.
  */
 import { createHash } from 'node:crypto';
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { formatIssues, loadContent, ROOT } from './lib/content.ts';
 import { validateContent } from '../src/core/content/validate.ts';
 import { buildContentIndex } from '../src/core/content/contentIndex.ts';
 import type { PackContent } from '../src/core/content/source.ts';
+import { servedPack } from '../src/core/content/servedPack.ts';
 
 const outDir = join(ROOT, 'public', 'content');
 const outFile = join(outDir, 'content-index.json');
@@ -36,12 +37,13 @@ if (!result || errors.length > 0) {
 const packFiles: Record<string, string> = {};
 const packJson = new Map<string, string>();
 let verified = 0;
+const thinkers = new Map(loaded.packs.flatMap((p) => p.thinkers ?? []).map((t) => [t.id, t]));
 for (const pack of loaded.packs) {
-  const questions = pack.questionFiles
-    .flatMap((f) => f.questions)
-    .filter((q) => q.status === 'verified');
-  verified += questions.length;
-  const content: PackContent = { meta: pack.meta, questions };
+  // Images are inlined so they are cached and offline with the pack (M13b).
+  const content: PackContent = servedPack(pack, thinkers, (src) =>
+    readFileSync(join(ROOT, 'content', 'packs', pack.folder, src)).toString('base64'),
+  );
+  verified += content.questions.length;
   const json = `${JSON.stringify(content)}\n`;
   const hash = createHash('sha256').update(json).digest('hex').slice(0, 10);
   const file = `packs/${pack.meta.id}.${hash}.json`;

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 400 300" role="img" aria-label="Four labelled specialist modules at the corners, each linked to one unlabelled central hub">
+  <rect width="400" height="300" fill="#151a2e"/>
+  <g stroke="#8f8bb0" stroke-width="3">
+    <line x1="200" y1="150" x2="70" y2="60"/>
+    <line x1="200" y1="150" x2="330" y2="60"/>
+    <line x1="200" y1="150" x2="60" y2="240"/>
+    <line x1="200" y1="150" x2="340" y2="240"/>
+  </g>
+  <circle cx="200" cy="150" r="40" fill="#2a2f4a" stroke="#f2c879" stroke-width="3"/>
+  <g fill="#232842" stroke="#e9e6f5" stroke-width="2">
+    <circle cx="70" cy="60" r="34"/>
+    <circle cx="330" cy="60" r="34"/>
+    <circle cx="60" cy="240" r="34"/>
+    <circle cx="340" cy="240" r="34"/>
+  </g>
+  <g fill="#e9e6f5" font-family="sans-serif" font-size="12" text-anchor="middle">
+    <text x="70" y="64">Perception</text>
+    <text x="330" y="58">Long-term</text>
+    <text x="330" y="72">memory</text>
+    <text x="60" y="244">Evaluation</text>
+    <text x="340" y="244">Motor</text>
+  </g>
+</svg>

@@ -26,7 +26,18 @@
       "$ref": "defs.schema.json#/$defs/id"
     },
     "type": {
-      "enum": ["mcq", "recall", "short", "cloze", "match", "order", "estimation", "timeline"]
+      "enum": [
+        "mcq",
+        "recall",
+        "short",
+        "cloze",
+        "match",
+        "order",
+        "estimation",
+        "timeline",
+        "image",
+        "attribution"
+      ]
     },
     "tier": {
       "enum": ["foundational", "advanced", "expert"]
@@ -167,7 +178,10 @@
     "range": true,
     "tolerance": true,
     "events": true,
-    "precision": true
+    "precision": true,
+    "mode": true,
+    "hotspots": true,
+    "thinker": true
   },
   "additionalProperties": false,
   "oneOf": [
@@ -214,7 +228,10 @@
         "range": false,
         "tolerance": false,
         "events": false,
-        "precision": false
+        "precision": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["options", "answer"]
     },
@@ -242,7 +259,10 @@
         "range": false,
         "tolerance": false,
         "events": false,
-        "precision": false
+        "precision": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["answer_text"]
     },
@@ -290,7 +310,10 @@
         "range": false,
         "tolerance": false,
         "events": false,
-        "precision": false
+        "precision": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["answers"]
     },
@@ -327,7 +350,10 @@
         "range": false,
         "tolerance": false,
         "events": false,
-        "precision": false
+        "precision": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["text"]
     },
@@ -370,7 +396,10 @@
         "range": false,
         "tolerance": false,
         "events": false,
-        "precision": false
+        "precision": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["pairs"]
     },
@@ -404,7 +433,10 @@
         "range": false,
         "tolerance": false,
         "events": false,
-        "precision": false
+        "precision": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["items"]
     },
@@ -476,7 +508,10 @@
         "numeric": false,
         "options": false,
         "pairs": false,
-        "text": false
+        "text": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["value", "scale"],
       "oneOf": [
@@ -545,9 +580,180 @@
         "numeric": false,
         "options": false,
         "pairs": false,
-        "text": false
+        "text": false,
+        "mode": false,
+        "hotspots": false,
+        "thinker": false
       },
       "required": ["events"]
+    },
+    {
+      "title": "image",
+      "properties": {
+        "type": {
+          "const": "image"
+        },
+        "media": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["src", "alt", "license"],
+            "properties": {
+              "src": {
+                "type": "string",
+                "pattern": "^media/[A-Za-z0-9._/-]+$",
+                "description": "Path relative to the pack folder."
+              },
+              "alt": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "credit": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "license": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText",
+                "description": "Use the pack license for self-authored images."
+              }
+            }
+          }
+        },
+        "mode": {
+          "enum": ["mcq", "hotspot"]
+        },
+        "options": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text"],
+            "properties": {
+              "text": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              },
+              "why_wrong": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              }
+            }
+          }
+        },
+        "answer": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "hotspots": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["x", "y", "r", "label"],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "r": {
+                "type": "number"
+              },
+              "label": {
+                "$ref": "defs.schema.json#/$defs/nonEmptyText"
+              }
+            }
+          },
+          "description": "Circles in percent: x, y of the image; r of its width."
+        },
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
+        "pairs": false,
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false,
+        "thinker": false
+      },
+      "required": ["media", "mode", "answer"],
+      "oneOf": [
+        {
+          "properties": {
+            "mode": {
+              "const": "mcq"
+            }
+          },
+          "required": ["options"],
+          "not": {
+            "required": ["hotspots"]
+          }
+        },
+        {
+          "properties": {
+            "mode": {
+              "const": "hotspot"
+            }
+          },
+          "required": ["hotspots"],
+          "not": {
+            "required": ["options"]
+          }
+        }
+      ]
+    },
+    {
+      "title": "attribution",
+      "properties": {
+        "type": {
+          "const": "attribution"
+        },
+        "thinker": {
+          "$ref": "defs.schema.json#/$defs/id",
+          "description": "Thinker ID of the right answer (thinkers.json)."
+        },
+        "options": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "defs.schema.json#/$defs/id"
+          },
+          "description": "Thinker IDs of the other options."
+        },
+        "answer": false,
+        "answer_text": false,
+        "answers": false,
+        "bank": false,
+        "items": false,
+        "numeric": false,
+        "pairs": false,
+        "text": false,
+        "value": false,
+        "unit": false,
+        "scale": false,
+        "bins": false,
+        "range": false,
+        "tolerance": false,
+        "events": false,
+        "precision": false,
+        "mode": false,
+        "hotspots": false
+      },
+      "required": ["thinker", "options"]
     }
   ]
 }

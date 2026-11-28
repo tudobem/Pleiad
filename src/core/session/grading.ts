@@ -1,4 +1,4 @@
-import type { Question } from '../content/types.ts';
+import type { Hotspot, Question } from '../content/types.ts';
 import { clozeAnswers } from '../content/cloze.ts';
 import { binOf, withinTolerance } from '../content/estimation.ts';
 import { chronological } from '../content/timeline.ts';
@@ -64,6 +64,20 @@ export function grade(q: Question, layout: readonly number[], r: Response): Grad
       const parts = right.map((event, i) => at(sequence[i] ?? null) === event);
       return { correct: parts.every(Boolean), parts };
     }
+    case 'image': {
+      const { choice, point } = r as Extract<Response, { type: 'image' }>;
+      const correct =
+        q.mode === 'mcq'
+          ? at(choice) === q.answer
+          : point !== null && inHotspot(q.hotspots[q.answer], point);
+      return { correct, parts: [correct] };
+    }
+    case 'attribution': {
+      // Display index into [answer, ...options] shuffled; original 0 is the answer.
+      const choice = (r as Extract<Response, { type: 'attribution' }>).choice;
+      const correct = at(choice) === 0;
+      return { correct, parts: [correct] };
+    }
     case 'recall':
       return { correct: false, parts: [] };
   }
@@ -75,4 +89,18 @@ export function gradeShort(q: Extract<Question, { type: 'short' }>, text: string
     if (n !== null && Math.abs(n - q.numeric.value) <= q.numeric.tolerance) return true;
   }
   return q.answers.some((a) => answersMatch(text, a));
+}
+
+/**
+ * Whether a tap lies inside a hotspot. Coordinates are percent of the image;
+ * y is scaled by the image's height/width so the circle stays round.
+ */
+export function inHotspot(
+  h: Hotspot | undefined,
+  p: { readonly x: number; readonly y: number; readonly aspect: number },
+): boolean {
+  if (!h) return false;
+  const dx = p.x - h.x;
+  const dy = (p.y - h.y) / (p.aspect > 0 ? p.aspect : 1);
+  return Math.hypot(dx, dy) <= h.r;
 }

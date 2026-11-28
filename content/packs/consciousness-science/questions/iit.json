@@ -123,6 +123,26 @@
       ],
       "status": "retired",
       "created": "2026-11-26"
+    },
+    {
+      "status": "draft",
+      "created": "2026-11-28",
+      "id": "cons-iit-0005",
+      "pack": "consciousness-science",
+      "topic": "iit",
+      "type": "attribution",
+      "tier": "foundational",
+      "tags": ["iit", "history"],
+      "prompt": "Who proposed integrated information theory, which identifies consciousness with a system's integrated information (phi)?",
+      "thinker": "giulio-tononi",
+      "options": ["bernard-baars", "stanislas-dehaene", "victor-lamme"],
+      "explanation": "Giulio Tononi introduced the theory in 2004 and has developed it since, later with Christof Koch among others.",
+      "sources": [
+        {
+          "citation": "Tononi, G. (2004). An information integration theory of consciousness. BMC Neuroscience, 5, 42.",
+          "url": "https://doi.org/10.1186/1471-2202-5-42"
+        }
+      ]
     }
   ]
 }
