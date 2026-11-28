@@ -925,3 +925,133 @@
 .practice__inactive {
   margin: 0;
 }
+
+/* First run (SPEC 13, DESIGN 4.8). */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 100dvh;
+  padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
+}
+
+.welcome .screen__title,
+.welcome .screen__muted {
+  margin: 0;
+}
+
+.welcome__lead {
+  margin: 0;
+  color: var(--gold-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
+}
+
+.welcome__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.welcome__group-title {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+
+.welcome__paces {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.welcome-pace {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  min-height: var(--tap-min);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-option);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.welcome-pace[aria-pressed='true'] {
+  border-color: var(--gold);
+  background: var(--gold-tint);
+}
+
+.welcome-pace:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.welcome-pace__name {
+  font-weight: var(--weight-semibold);
+}
+
+.welcome-pace[aria-pressed='true'] .welcome-pace__name {
+  color: var(--gold-text);
+}
+
+.welcome-pace__detail {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.welcome__steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.welcome__place {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.welcome__place .screen__subtitle {
+  margin: 0;
+}
+
+.welcome__left {
+  margin: 0;
+  text-align: left;
+}
+
+.welcome__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.welcome__secondary {
+  display: flex;
+  justify-content: center;
+}
+
+.subject__placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settings__pace {
+  margin: 0;
+  text-align: left;
+}

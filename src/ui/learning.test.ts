@@ -20,8 +20,13 @@ import {
   loadResumableSession,
   loadSettings,
   setPacksActive,
+  loadOnboarded,
+  nextPlacementItem,
+  savePlacement,
+  setOnboarded,
   startDrill,
   startDrillSession,
+  startPlacement,
   startSubjectSession,
 } from './learning.ts';
 import type { Services } from './services.ts';
@@ -342,5 +347,53 @@ describe('startDrill', () => {
     );
     expect(all.items.map((i) => i.questionId).sort()).toEqual(['t-1', 't-2']);
     expect(all.mode).toBe('extra');
+  });
+});
+
+describe('placement', () => {
+  const tiers = ['foundational', 'advanced', 'expert'] as const;
+  const pool = tiers.flatMap((tier) =>
+    Array.from({ length: 4 }, (_, i) =>
+      mcq({ id: `${tier}-${i}`, tier, pack: 'p', status: 'verified', verified_on: '2026-02-01' }),
+    ),
+  );
+
+  it('grows one question at a time, logs extra practice and saves the level', async () => {
+    const { storage, services } = setup();
+    const data = await loadLearningData(services, new Map(pool.map((x) => [x.id, x])));
+    let session = await startPlacement(services, data, ['p'], '#/welcome');
+    expect(session.placement).toEqual({ packs: ['p'], returnTo: '#/welcome' });
+    expect(data.questions.get(session.items[0]?.questionId ?? '')?.tier).toBe('foundational');
+    while (session.phase !== 'done') {
+      const q = data.questions.get(session.items[session.index]?.questionId ?? '');
+      session = sessionReducer(session, { type: 'respond', response: { type: 'mcq', choice: 0 } });
+      // Right on foundational and advanced, wrong on expert.
+      session = sessionReducer(session, {
+        type: 'answer',
+        correct: q?.tier !== 'expert',
+        now: NOW,
+      });
+      await commitPending(services, data, session);
+      const append = nextPlacementItem(services, data, session);
+      session = sessionReducer(session, {
+        type: 'continue',
+        now: NOW,
+        ...(append ? { append } : {}),
+      });
+    }
+    const events = await storage.listReviews();
+    expect(events.length).toBeGreaterThan(4);
+    expect(events.every((e) => e.mode === 'extra')).toBe(true);
+    expect(await savePlacement(services, data, session)).toBe('advanced');
+    expect((await loadSettings(services)).placements).toEqual({ p: 'advanced' });
+  });
+
+  it('remembers whether the welcome was done', async () => {
+    const { services } = setup();
+    expect(await loadOnboarded(services)).toBe(false);
+    await setOnboarded(services, true);
+    expect(await loadOnboarded(services)).toBe(true);
+    await setOnboarded(services, false);
+    expect(await loadOnboarded(services)).toBe(false);
   });
 });

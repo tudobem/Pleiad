@@ -4,7 +4,15 @@ import { useEffect, useState } from 'preact/hooks';
  * Hash routing (#/today, #/library/<subjectId>?open=<branchId>, ...): works on
  * GitHub Pages and offline without server rewrites.
  */
-export const ROUTES = ['today', 'practice', 'stats', 'library', 'settings', 'session'] as const;
+export const ROUTES = [
+  'today',
+  'practice',
+  'stats',
+  'library',
+  'settings',
+  'session',
+  'welcome',
+] as const;
 export type Route = (typeof ROUTES)[number];
 export const TAB_ROUTES: readonly Route[] = ['today', 'practice', 'stats', 'library', 'settings'];
 
@@ -45,6 +53,11 @@ export function href(name: Route, id?: string, open?: string): string {
 
 export function navigate(name: Route, id?: string, open?: string): void {
   window.location.hash = href(name, id, open);
+}
+
+/** Go to a stored hash route (e.g. where a placement quiz should return). */
+export function navigateHash(hash: string): void {
+  window.location.hash = hash.startsWith('#') ? hash : `#${hash}`;
 }
 
 export function useRoute(): Location {

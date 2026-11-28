@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { RestoreMode } from '../../core/backup/restore.ts';
 import { DAILY_GOAL_MAX, DAILY_GOAL_MIN, type Settings } from '../../core/settings.ts';
-import { loadSettings, saveSettings } from '../learning.ts';
+import { loadSettings, saveSettings, setOnboarded } from '../learning.ts';
+import { PACE_NAMES, PACES, paceOf } from '../../core/onboarding/pace.ts';
+import { Chip } from '../components/library/Chip.tsx';
+import { navigate } from '../router.ts';
 import { Button } from '../components/Button.tsx';
 import { Card } from '../components/Card.tsx';
 import { UpdateNotice } from '../components/UpdateNotice.tsx';
@@ -27,9 +30,26 @@ export function SettingsScreen() {
       <GoalSection />
       <AnsweringSection />
       <BackupSection />
+      <WelcomeAgain />
       <p class="screen__muted">{t('settings.later')}</p>
       <p class="screen__muted">{t('settings.version', { version: appVersion })}</p>
     </main>
+  );
+}
+
+/** Show the first-run welcome again (SPEC 13); nothing else is reset. */
+function WelcomeAgain() {
+  const services = useServices();
+  const open = async () => {
+    await setOnboarded(services, false);
+    navigate('welcome');
+  };
+  return (
+    <section class="settings__section">
+      <Button variant="text" onClick={() => void open()}>
+        {t('settings.welcomeAgain')}
+      </Button>
+    </section>
   );
 }
 
@@ -67,6 +87,8 @@ function AnsweringSection() {
 }
 
 const GOAL_STEP = 5;
+const NEW_MIN = 1;
+const NEW_MAX = 50;
 
 function GoalSection() {
   const services = useServices();
@@ -79,11 +101,48 @@ function GoalSection() {
   const update = async (patch: Partial<Settings>) =>
     setSettings(await saveSettings(services, patch));
   const goal = settings.dailyGoal;
+  const fresh = settings.newPerDay;
+  const pace = paceOf(settings);
   return (
     <section class="settings__section" aria-labelledby="goal-title">
       <h2 class="shelf__title" id="goal-title">
         {t('goal.title')}
       </h2>
+      <div class="chips" role="group" aria-label={t('settings.pace')}>
+        {PACE_NAMES.map((p) => (
+          <Chip key={p} pressed={pace === p} onClick={() => void update(PACES[p])}>
+            {t(`pace.${p}`)}
+          </Chip>
+        ))}
+      </div>
+      <p class="today__caption settings__pace">
+        {pace === 'custom'
+          ? t('settings.paceCustom')
+          : t('pace.detail', { fresh: PACES[pace].newPerDay, goal: PACES[pace].dailyGoal })}
+      </p>
+      <div class="stepper">
+        <button
+          type="button"
+          class="stepper__button"
+          aria-label={t('settings.newLess')}
+          disabled={fresh <= NEW_MIN}
+          onClick={() => void update({ newPerDay: fresh - 1 })}
+        >
+          −
+        </button>
+        <span class="stepper__value" aria-live="polite">
+          {t('settings.newPerDay', { n: fresh })}
+        </span>
+        <button
+          type="button"
+          class="stepper__button"
+          aria-label={t('settings.newMore')}
+          disabled={fresh >= NEW_MAX}
+          onClick={() => void update({ newPerDay: fresh + 1 })}
+        >
+          +
+        </button>
+      </div>
       <div class="stepper">
         <button
           type="button"

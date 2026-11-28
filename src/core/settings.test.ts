@@ -73,3 +73,16 @@ describe('goal and rewards settings', () => {
     });
   });
 });
+
+describe('placements setting', () => {
+  it('keeps valid tiers only', () => {
+    const s = normalizeSettings({
+      placements: { a: 'advanced', b: 'nonsense', c: 'expert' } as unknown as Record<
+        string,
+        'advanced'
+      >,
+    });
+    expect(s.placements).toEqual({ a: 'advanced', c: 'expert' });
+    expect(normalizeSettings(undefined).placements).toEqual({});
+  });
+});

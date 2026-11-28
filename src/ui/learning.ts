@@ -1,5 +1,5 @@
 import type { ContentIndex } from '../core/content/contentIndex.ts';
-import type { Question } from '../core/content/types.ts';
+import type { Question, Tier } from '../core/content/types.ts';
 import { fsrsScheduler } from '../core/scheduler/fsrsScheduler.ts';
 import { learningDay } from '../core/scheduler/day.ts';
 import type { Scheduler } from '../core/scheduler/scheduler.ts';
@@ -24,7 +24,18 @@ import {
   type DrillSize,
   type TopicFilter,
 } from '../core/session/drill.ts';
-import { buildSession, toSessionItems, type SessionItem } from '../core/session/session.ts';
+import {
+  placementNext,
+  placementPool,
+  placementResult,
+  type PlacementAnswer,
+} from '../core/session/placement.ts';
+import {
+  buildSession,
+  layoutFor,
+  toSessionItems,
+  type SessionItem,
+} from '../core/session/session.ts';
 import { slowThresholds, type SlowThresholds } from '../core/session/slow.ts';
 import {
   normalizeSettings,
@@ -402,4 +413,75 @@ export function startDrillSession(
   ids: readonly string[],
 ): Promise<SessionState> {
   return startDrillItems(services, data, () => drillItems(ids, drillInput(services, data)));
+}
+
+const ONBOARDED_KEY = 'onboarded';
+
+/** Whether the first-run welcome was finished or skipped (SPEC 13). */
+export async function loadOnboarded(services: Services): Promise<boolean> {
+  return (await services.storage.get<boolean>('meta', ONBOARDED_KEY)) === true;
+}
+
+export function setOnboarded(services: Services, done: boolean): Promise<void> {
+  return done
+    ? services.storage.put('meta', ONBOARDED_KEY, true)
+    : services.storage.delete('meta', ONBOARDED_KEY);
+}
+
+/** Placement answers so far, from the session's answer records. */
+export function placementAnswers(session: SessionState, data: LearningData): PlacementAnswer[] {
+  return session.answers.flatMap((a) => {
+    const q = data.questions.get(a.questionId);
+    return q ? [{ questionId: q.id, tier: q.tier, correct: a.correct }] : [];
+  });
+}
+
+/** The next placement question after the answers so far, or undefined when it is over. */
+export function nextPlacementItem(
+  services: Services,
+  data: LearningData,
+  session: SessionState,
+): SessionItem | undefined {
+  if (!session.placement) return undefined;
+  const pool = placementPool(data.questions.values(), session.placement.packs);
+  const next = placementNext(placementAnswers(session, data), pool, services.random);
+  return next ? { questionId: next.id, layout: layoutFor(next, services.random) } : undefined;
+}
+
+/**
+ * Start a placement quiz for a subject's packs (SPEC 13). Its answers are
+ * extra practice: logged, but never changing FSRS (Martin's choice).
+ */
+export async function startPlacement(
+  services: Services,
+  data: LearningData,
+  packs: readonly string[],
+  returnTo?: string,
+): Promise<SessionState> {
+  await closeSavedSession(services, data);
+  const first = placementNext([], placementPool(data.questions.values(), packs), services.random);
+  const items = first ? [{ questionId: first.id, layout: layoutFor(first, services.random) }] : [];
+  return begin(
+    services,
+    startSession(services.ids.newId(), items, services.clock.now(), {
+      mode: 'extra',
+      day: today(services),
+      placement: { packs, ...(returnTo ? { returnTo } : {}) },
+    }),
+  );
+}
+
+/** Save a finished placement's level for each of its packs; returns the level. */
+export async function savePlacement(
+  services: Services,
+  data: LearningData,
+  session: SessionState,
+): Promise<Tier | undefined> {
+  if (!session.placement || session.answers.length === 0) return undefined;
+  const level = placementResult(placementAnswers(session, data));
+  const settings = await loadSettings(services);
+  const placements = { ...settings.placements };
+  for (const pack of session.placement.packs) placements[pack] = level;
+  await saveSettings(services, { placements });
+  return level;
 }

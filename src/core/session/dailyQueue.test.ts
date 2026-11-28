@@ -238,3 +238,21 @@ describe('pickByTierMix', () => {
     expect(pickByTierMix(pools(5, 5, 5), mix, 0)).toEqual([]);
   });
 });
+
+describe('placement unlock', () => {
+  const pool = [
+    q('f1', { pack: 'p', tier: 'foundational' }),
+    q('f2', { pack: 'p', tier: 'foundational' }),
+    q('a1', { pack: 'p', tier: 'advanced' }),
+    q('x1', { pack: 'p', tier: 'expert' }),
+    q('o1', { pack: 'other', tier: 'advanced' }),
+  ];
+
+  it('opens tiers up to the placed one in that pack only', () => {
+    expect([...queue(pool).fresh].sort()).toEqual(['f1', 'f2']);
+    const placed = [...queue(pool, [], { placements: { p: 'advanced' } }).fresh].sort();
+    expect(placed).toEqual(['a1', 'f1', 'f2']);
+    const expert = [...queue(pool, [], { placements: { p: 'expert' } }).fresh].sort();
+    expect(expert).toEqual(['a1', 'f1', 'f2', 'x1']);
+  });
+});

@@ -15,7 +15,7 @@ import {
 import { emptyResponse, isComplete, type Response } from '../core/session/response.ts';
 import type { SessionItem } from '../core/session/session.ts';
 import type { Confidence } from '../core/sync/reviewEvent.ts';
-import { commitPending, saveSession, type LearningData } from './learning.ts';
+import { commitPending, nextPlacementItem, saveSession, type LearningData } from './learning.ts';
 import { useServices } from './services.ts';
 
 export interface SessionController {
@@ -89,7 +89,14 @@ export function useSession(initial: SessionState, data: LearningData): SessionCo
       commitPending(services, data, stateRef.current, options)
         .catch(() => setSaveFailed(true))
         .finally(() => {
-          dispatch({ type: 'continue', now: services.clock.now(), ...options });
+          // A placement quiz picks its next question from the answers so far.
+          const append = nextPlacementItem(services, data, stateRef.current);
+          dispatch({
+            type: 'continue',
+            now: services.clock.now(),
+            ...options,
+            ...(append ? { append } : {}),
+          });
           busyRef.current = false;
           setBusy(false);
         });
